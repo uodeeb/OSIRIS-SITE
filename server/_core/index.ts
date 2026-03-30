@@ -42,9 +42,11 @@ async function startServer() {
 
   app.use("/music", express.static(generatedMusicPath));
   app.use("/music", express.static(generatedVoicesPath));
-  app.use("/music", express.static(legacyMusicPath));
   app.use("/video-bg", express.static(generatedVideoBgPath));
-  app.use("/video-bg", express.static(legacyVideoBgPath));
+  if (process.env.NODE_ENV === "development") {
+    app.use("/music", express.static(legacyMusicPath));
+    app.use("/video-bg", express.static(legacyVideoBgPath));
+  }
   app.use(
     "/generated-assets",
     express.static(path.resolve(import.meta.dirname, "..", "..", "generated-assets"))

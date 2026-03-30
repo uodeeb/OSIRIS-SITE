@@ -285,16 +285,29 @@ export const CinematicRenderer: React.FC<CinematicRendererProps> = ({
   /**
    * Render Islamic geometric pattern layer
    */
+  const getSafeSvgUrl = (value: string) => {
+    const v = (value || '').trim();
+    if (!v) return '';
+    if (v.startsWith('<')) {
+      const encoded = encodeURIComponent(v);
+      return `data:image/svg+xml;charset=utf-8,${encoded}`;
+    }
+    return v;
+  };
+
   const renderPatternLayer = (layer: CinematicLayer) => (
-    <div
+    <img
       className="cinematic-pattern-layer"
-      dangerouslySetInnerHTML={{ __html: layer.asset.url }}
+      src={getSafeSvgUrl(layer.asset.url)}
+      alt={layer.asset.alt || ''}
       style={{
         width: '100%',
         height: '100%',
+        objectFit: 'cover',
         opacity: layer.opacity,
         mixBlendMode: layer.blending as any,
       }}
+      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
     />
   );
 
@@ -313,12 +326,17 @@ export const CinematicRenderer: React.FC<CinematicRendererProps> = ({
         direction: 'rtl',
       }}
     >
-      <div
-        dangerouslySetInnerHTML={{ __html: layer.asset.url }}
+      <img
+        src={getSafeSvgUrl(layer.asset.url)}
+        alt={layer.asset.alt || ''}
         style={{
           ...culturalEffects.calligraphyEffects,
           fontFamily: 'var(--font-arabic-title)',
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
         }}
+        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import { memo, type RefObject } from "react";
 import { motion } from "framer-motion";
 import type { Scene } from "@/lib/sceneSystem";
-import osirisLogo from "@/LOGO/LOGO02_upscayl_2x_digital-art-4x.svg";
+import osirisLogo from "@/LOGO/OSIRIS-FAVICON.png";
 
 type Props = {
   scene: Scene;
