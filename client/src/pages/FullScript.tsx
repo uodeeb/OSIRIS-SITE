@@ -1,24 +1,31 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
-import scriptRaw from "../../script/OSIRIS_Final_Interactive_Script.md?raw";
 import osirisLogo from "@/LOGO/new-logo/new-logo-trans-osiris@10x.png";
 
 export default function FullScript() {
   const [, setLocation] = useLocation();
   const [q, setQ] = useState("");
+  const [content, setContent] = useState("");
 
   const filtered = useMemo(() => {
     const t = q.trim();
-    if (!t) return scriptRaw;
-    const parts = scriptRaw.split(/\r?\n/);
+    if (!t) return content;
+    const parts = content.split(/\r?\n/);
     const out: string[] = [];
     const needle = t.toLowerCase();
     for (const line of parts) {
       if (line.toLowerCase().includes(needle)) out.push(line);
     }
     return out.join("\n");
-  }, [q]);
+  }, [q, content]);
+
+  useEffect(() => {
+    fetch("/script/OSIRIS_Final_Interactive_Script.md")
+      .then((r) => r.text())
+      .then((t) => setContent(t))
+      .catch(() => setContent(""));
+  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -69,11 +76,10 @@ export default function FullScript() {
             className="font-arabic-ui text-[15px] leading-8 text-white/90"
             style={{ whiteSpace: "pre-wrap" }}
           >
-            {filtered}
+            {filtered || "Loading..."}
           </div>
         </div>
       </motion.div>
     </div>
   );
 }
-
