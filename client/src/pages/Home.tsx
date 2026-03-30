@@ -44,7 +44,7 @@ export default function Home() {
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
-        src={ASSET_URLS.videoBg.intro}
+        src={ASSET_URLS.projectMedia.video.generated_yehya_office}
         autoPlay
         loop
         muted

@@ -625,27 +625,29 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     const next = Math.min(1, Math.max(0, v));
     setMusicVol(next);
     if (isMuted) return;
-    const bedTarget = isSceneUsingBedOnly ? next : next * 0.35;
-    const sceneTarget = isSceneUsingBedOnly ? 0 : Math.min(1, next * 0.95);
+    const voiceMixFactor = voiceSyncLock ? 0.46 : 1;
+    const bedTarget = (isSceneUsingBedOnly ? next : next * 0.35) * voiceMixFactor;
+    const sceneTarget = (isSceneUsingBedOnly ? 0 : Math.min(1, next * 0.95)) * voiceMixFactor;
     if (bedMusicRef.current) bedMusicRef.current.volume = bedTarget;
     if (sceneMusicRef.current) sceneMusicRef.current.volume = sceneTarget;
-  }, [isMuted, isSceneUsingBedOnly]);
+  }, [isMuted, isSceneUsingBedOnly, voiceSyncLock]);
 
   const handleSfxVol = useCallback((v: number) => {
     const next = Math.min(1, Math.max(0, v));
     setSfxVol(next);
     if (ambientRef.current && !isMuted) {
-      ambientRef.current.volume = next;
+      ambientRef.current.volume = next * (voiceSyncLock ? 0.55 : 1);
     }
-  }, [isMuted]);
+  }, [isMuted, voiceSyncLock]);
 
   const handleToggleMute = useCallback(() => {
     const newMuted = !isMuted;
     setIsMuted(newMuted);
-    if (bedMusicRef.current) bedMusicRef.current.volume = newMuted ? 0 : (isSceneUsingBedOnly ? musicVol : musicVol * 0.35);
-    if (sceneMusicRef.current) sceneMusicRef.current.volume = newMuted ? 0 : (isSceneUsingBedOnly ? 0 : Math.min(1, musicVol * 0.95));
-    if (ambientRef.current) ambientRef.current.volume = newMuted ? 0 : sfxVol;
-  }, [isMuted, musicVol, sfxVol, isSceneUsingBedOnly]);
+    const voiceMixFactor = voiceSyncLock ? 0.46 : 1;
+    if (bedMusicRef.current) bedMusicRef.current.volume = newMuted ? 0 : (isSceneUsingBedOnly ? musicVol : musicVol * 0.35) * voiceMixFactor;
+    if (sceneMusicRef.current) sceneMusicRef.current.volume = newMuted ? 0 : (isSceneUsingBedOnly ? 0 : Math.min(1, musicVol * 0.95)) * voiceMixFactor;
+    if (ambientRef.current) ambientRef.current.volume = newMuted ? 0 : sfxVol * (voiceSyncLock ? 0.55 : 1);
+  }, [isMuted, musicVol, sfxVol, isSceneUsingBedOnly, voiceSyncLock]);
 
   const typeText = useCallback((
     text: string,
@@ -1087,19 +1089,20 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     }
 
     const baseMusic = isMuted ? 0 : musicVol;
-    const bedTarget = isSceneUsingBedOnly ? baseMusic : baseMusic * 0.35;
-    const sceneTarget = isSceneUsingBedOnly ? 0 : Math.min(1, baseMusic * 0.95);
+    const voiceMixFactor = voiceSyncLock ? 0.46 : 1;
+    const bedTarget = (isSceneUsingBedOnly ? baseMusic : baseMusic * 0.35) * voiceMixFactor;
+    const sceneTarget = (isSceneUsingBedOnly ? 0 : Math.min(1, baseMusic * 0.95)) * voiceMixFactor;
 
     if (bedMusicRef.current) fade(bedMusicRef.current, bedTarget, bedMusicFadeRef);
     if (sceneMusicRef.current) fade(sceneMusicRef.current, sceneTarget, sceneMusicFadeRef);
-    if (ambientRef.current) fade(ambientRef.current, isMuted ? 0 : sfxVol, ambientFadeRef);
+    if (ambientRef.current) fade(ambientRef.current, (isMuted ? 0 : sfxVol) * (voiceSyncLock ? 0.55 : 1), ambientFadeRef);
 
     return () => {
       if (bedMusicFadeRef.current) cancelAnimationFrame(bedMusicFadeRef.current);
       if (sceneMusicFadeRef.current) cancelAnimationFrame(sceneMusicFadeRef.current);
       if (ambientFadeRef.current) cancelAnimationFrame(ambientFadeRef.current);
     };
-  }, [audioEnabled, currentSceneId, currentScene?.musicKey, currentScene?.ambientKeys, isMuted, musicVol, sfxVol, resolveAsset, isSceneUsingBedOnly, sceneTrackKey]);
+  }, [audioEnabled, currentSceneId, currentScene?.musicKey, currentScene?.ambientKeys, isMuted, musicVol, sfxVol, resolveAsset, isSceneUsingBedOnly, sceneTrackKey, voiceSyncLock]);
 
   useEffect(() => {
     if (!audioEnabled) return;
@@ -1180,7 +1183,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       started = true;
       setIsTyping(true);
       setIsDialogueComplete(false);
-      typeText(fullText, fullArabic, lang, { startWithFirstWord: true });
+      syncDisplayedTextToVoice();
       voice.play().then(() => {
         if (voiceSyncRafRef.current) cancelAnimationFrame(voiceSyncRafRef.current);
         voiceSyncRafRef.current = requestAnimationFrame(syncDisplayedTextToVoice);
@@ -1237,7 +1240,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       voice.pause();
     };
 
-  }, [audioEnabled, showChoices, currentSceneId, dialogueIndex, currentDialogue, currentVoiceCue, isMuted, sfxVol, lang, typeText]);
+  }, [audioEnabled, showChoices, currentSceneId, dialogueIndex, currentDialogue, currentVoiceCue, isMuted, sfxVol, lang]);
 
   // ── Background video ─────────────────────────────────────────────────────────
   useEffect(() => {
