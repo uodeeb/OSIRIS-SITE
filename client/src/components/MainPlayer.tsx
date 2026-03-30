@@ -18,7 +18,9 @@ import { PART_LABELS, SCENES as ALL_SCENES, type Scene, type SceneChoice } from 
 import { ASSET_URLS } from '@/lib/assetUrls';
 import { getAssetOverride } from '@/lib/assetOverrides';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
+import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "@/lib/osirisEffects";
 import { CinematicStage } from '@/components/CinematicStage';
+import { OsirisEffectLayer } from "@/components/OsirisEffectLayer";
 import osirisLogo from '@/LOGO/LOGO02_upscayl_2x_digital-art-4x.svg';
 
 interface MainPlayerProps {
@@ -303,7 +305,7 @@ const VOICE_DEFINITIONS: VoiceDefinition[] = [
   { voice: 14, sceneId: 'seven-11-1-temptation', anchor: 'البشر غير مؤهلين للحرية يا يحيى', fallbackAt: 4 },
   { voice: 15, sceneId: 'five-6c-1-laila-pain', anchor: 'امي كانت ضحية للمؤسسة ايضا', fallbackAt: 3 },
   { voice: 16, sceneId: 'five-6c-2-tarek-second', anchor: 'اذا رايت نيقية فستفهم كيف تسرق الاديان', fallbackAt: 2 },
-  { voice: 17, sceneId: 'four-4-2-crowd-engineering', anchor: 'السامري هو اول مهندس واجهات مستخدم في التاريخ', fallbackAt: 3 },
+  { voice: 17, sceneId: 'seven-13-2-closing', anchor: 'الملف رقم واحد يغلق مؤقتا', fallbackAt: 7 },
   { voice: 18, sceneId: 'seven-13-2-closing', anchor: 'القضية مستمرة والخيار الان لك', fallbackAt: 9 },
 ];
 
@@ -328,6 +330,8 @@ const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFINITIONS.
   const targetTokens = target.split(' ').filter(Boolean);
   let bestIndex = def.fallbackAt ?? 0;
   let bestScore = -1;
+  let bestOverlap = 0;
+  let bestStrongMatch = false;
 
   scene.dialogue.forEach((dialogue, idx) => {
     const candidate = normalizeArabicForMatch(dialogue.arabicText || '');
@@ -336,12 +340,20 @@ const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFINITIONS.
     const candidateTokens = new Set(candidate.split(' ').filter(Boolean));
     const overlap = targetTokens.reduce((n, token) => n + (candidateTokens.has(token) ? 1 : 0), 0);
     let score = overlap / Math.max(1, targetTokens.length);
-    if (target && (candidate.includes(target) || target.includes(candidate))) score += 0.8;
+    const strongMatch = Boolean(target && candidate.includes(target));
+    if (strongMatch) score += 0.8;
     if (score > bestScore) {
       bestScore = score;
       bestIndex = idx;
+      bestOverlap = overlap;
+      bestStrongMatch = strongMatch;
     }
   });
+
+  if (targetTokens.length > 0) {
+    const minOverlap = Math.min(2, targetTokens.length);
+    if (!bestStrongMatch && bestOverlap < minOverlap) return acc;
+  }
 
   if (!acc[def.sceneId]) acc[def.sceneId] = [];
   acc[def.sceneId]!.push({ at: bestIndex, voice: def.voice });
@@ -350,7 +362,7 @@ const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFINITIONS.
 
 function getVoiceCandidates(voiceNumber: number) {
   const padded = String(Math.max(1, Math.min(18, voiceNumber))).padStart(2, '0');
-  return [`/music/VOICE-${padded}.wav`];
+  return [`/music/VOICE-${padded}.wav`, `/generated-assets/voices/VOICE-${padded}.wav`];
 }
 
 // ─── Particles ───────────────────────────────────────────────────────────────
@@ -432,11 +444,11 @@ function VolumeControl({
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -8, scale: 0.95 }}
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+            exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full right-0 mt-2 p-4 rounded-xl z-50 min-w-[200px]"
+            className="absolute bottom-full right-0 mb-2 p-4 rounded-xl z-50 min-w-[200px]"
             style={{
               background: 'rgba(0,0,0,0.92)',
               border: '1px solid rgba(201,169,110,0.2)',
@@ -524,6 +536,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const [techBoost, setTechBoost] = useState(0);
   const [voiceSyncLock, setVoiceSyncLock] = useState(false);
   const [activeVoiceNumber, setActiveVoiceNumber] = useState<number | null>(null);
+  const [osirisEffectId, setOsirisEffectId] = useState<OsirisEffectId | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const bedMusicRef = useRef<HTMLAudioElement | null>(null);
   const bedMusicFadeRef = useRef<number | null>(null);
@@ -532,6 +545,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const voiceRef = useRef<HTMLAudioElement | null>(null);
   const voiceSyncRafRef = useRef<number | null>(null);
   const lastVoiceCueRef = useRef<string>('');
+  const disabledVoiceTokensRef = useRef<Set<string>>(new Set());
   const ambientRef = useRef<HTMLAudioElement | null>(null);
   const ambientFadeRef = useRef<number | null>(null);
   const bgVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -545,7 +559,9 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const currentDialogue = currentScene?.dialogue?.[dialogueIndex];
   const sceneTrackKey = scriptTrackOverride ?? (SCENE_TRACK_SEQUENCE[currentSceneId] ?? 'track01');
   const isSceneUsingBedOnly = sceneTrackKey === 'track01';
-  const currentVoiceCue = SCENE_VOICE_CUES[currentSceneId]?.find((item) => item.at === dialogueIndex);
+  const rawVoiceCue = SCENE_VOICE_CUES[currentSceneId]?.find((item) => item.at === dialogueIndex);
+  const rawVoiceToken = rawVoiceCue ? `${currentSceneId}:${dialogueIndex}:${rawVoiceCue.voice}` : null;
+  const currentVoiceCue = rawVoiceCue && rawVoiceToken && !disabledVoiceTokensRef.current.has(rawVoiceToken) ? rawVoiceCue : undefined;
   const isVoicedDialogue = !!currentVoiceCue;
   const isVoiceModeActive = voiceSyncLock && activeVoiceNumber !== null;
   const isArabic = lang === 'ar';
@@ -558,6 +574,10 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const accentColor = TONE_ACCENT[tone] || '#c9a96e';
   const overlay = EMOTIONAL_OVERLAY[tone] || EMOTIONAL_OVERLAY.dark;
   const { allowVideo } = useBandwidthStrategy();
+
+  useEffect(() => {
+    preloadOsirisEffects(allowVideo);
+  }, [allowVideo]);
   const autoSceneDelayMs: Record<'very-slow' | 'slow' | 'normal', number> = {
     'very-slow': 12000,
     slow: 7000,
@@ -868,6 +888,19 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   }, [currentScene?.id, dialogueIndex, showChoices, lang, currentDialogue, isVoicedDialogue, triggerBeatsForDialogue, typeText]);
 
   useEffect(() => {
+    if (!currentScene) return;
+    const next = detectOsirisEffectId({
+      sceneId: currentSceneId,
+      sceneTitle: currentScene.title,
+      sceneArabicTitle: currentScene.arabicTitle,
+      visualEffect: currentScene.visualEffect,
+      text: currentDialogue?.text,
+      arabicText: currentDialogue?.arabicText,
+    });
+    setOsirisEffectId(next);
+  }, [currentSceneId, currentScene?.title, currentScene?.arabicTitle, currentScene?.visualEffect, dialogueIndex, currentDialogue?.text, currentDialogue?.arabicText]);
+
+  useEffect(() => {
     if (!showChoices || !currentScene?.choices?.length) return;
     if (choiceIntervalRef.current) clearInterval(choiceIntervalRef.current);
 
@@ -935,7 +968,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       const elapsed = Date.now() - startTime;
       const remaining = Math.max(0, 100 - (elapsed / delay) * 100);
       setAutoProgress(remaining);
-    }, 100);
+    }, 50);
 
     autoSceneTimerRef.current = setTimeout(() => {
       if (autoProgressIntervalRef.current) {
@@ -1166,6 +1199,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
     let cancelled = false;
     let started = false;
+    let lastVisible = 0;
 
     const syncDisplayedTextToVoice = () => {
       if (cancelled) return;
@@ -1181,10 +1215,15 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
       const firstWord = activeText.trimStart().split(/\s+/)[0] || '';
       const startLen = Math.min(firstWord.length, len);
-      const duration = Number.isFinite(voice.duration) && voice.duration > 0 ? voice.duration : 0;
-      const progress = duration > 0 ? Math.min(1, Math.max(0, voice.currentTime / duration)) : 0;
+      const estimatedDuration =
+        Number.isFinite(voice.duration) && voice.duration > 0
+          ? voice.duration
+          : (currentDialogue.duration ? currentDialogue.duration / 1000 : 0);
+      const progress =
+        estimatedDuration > 0 ? Math.min(1, Math.max(0, voice.currentTime / estimatedDuration)) : 0;
       const visibleChars = startLen + Math.floor((len - startLen) * progress);
-      const safeVisible = Math.max(startLen, Math.min(len, visibleChars));
+      const safeVisible = Math.max(lastVisible, Math.max(startLen, Math.min(len, visibleChars)));
+      lastVisible = safeVisible;
 
       if (lang === 'ar') {
         setDisplayedArabic(fullArabic.slice(0, safeVisible));
@@ -1202,6 +1241,10 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     const startSync = () => {
       if (cancelled || started) return;
       started = true;
+      if (typewriterRef.current) {
+        clearTimeout(typewriterRef.current);
+        typewriterRef.current = null;
+      }
       setIsTyping(true);
       setIsDialogueComplete(false);
       syncDisplayedTextToVoice();
@@ -1209,6 +1252,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         if (voiceSyncRafRef.current) cancelAnimationFrame(voiceSyncRafRef.current);
         voiceSyncRafRef.current = requestAnimationFrame(syncDisplayedTextToVoice);
       }).catch(() => {
+        disabledVoiceTokensRef.current.add(token);
         setVoiceSyncLock(false);
         setActiveVoiceNumber(null);
       });
@@ -1216,6 +1260,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
     const tryCandidate = (index: number) => {
       if (cancelled || index >= candidates.length) {
+        disabledVoiceTokensRef.current.add(token);
         setVoiceSyncLock(false);
         setActiveVoiceNumber(null);
         return;
@@ -1371,6 +1416,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         videoRef={bgVideoRef}
         fx={{ flash: fxFlash, shake: fxShake, uiPulse }}
       />
+      <OsirisEffectLayer effectId={osirisEffectId} allowVideo={allowVideo} />
       {activeVoiceNumber && (
         <motion.div
           className="absolute top-6 right-6 z-30 px-3 py-2 rounded-lg border"
@@ -1582,31 +1628,10 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                 style={{ background: lang === 'en' ? 'rgba(201,169,110,0.25)' : 'transparent', color: lang === 'en' ? '#c9a96e' : 'rgba(255,255,255,0.35)' }}
               >EN</button>
             </div>
-
-            <VolumeControl
-              musicVol={musicVol}
-              sfxVol={sfxVol}
-              onMusicChange={handleMusicVol}
-              onSfxChange={handleSfxVol}
-              isMuted={isMuted}
-              onToggleMute={handleToggleMute}
-            />
           </motion.div>
         </div>
       )}
 
-
-      {/* ── PROGRESS BAR ── */}
-      <div className="absolute top-12 left-0 right-0 h-px z-20 bg-white/5">
-        <motion.div
-          className="h-full"
-          style={{
-            width: `${((currentIdx + 1) / sceneKeys.length) * 100}%`,
-            background: `linear-gradient(to right, ${accentColor}40, ${accentColor}90)`,
-          }}
-          transition={{ duration: 1.2 }}
-        />
-      </div>
 
       {/* ── PART LABEL (bottom of top bar) ── */}
       <motion.div
@@ -1640,7 +1665,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         {showCharacter && currentCharConfig.imageUrl && currentDialogue?.character !== 'Narrator' && (
           <motion.div
             key={(currentDialogue?.character || '') + '-portrait-' + dialogueIndex}
-            className={`absolute bottom-32 ${currentCharConfig.position === 'left' ? 'left-6 md:left-14' : 'right-6 md:right-14'} z-10 pointer-events-none`}
+            className={`absolute bottom-44 sm:bottom-32 ${currentCharConfig.position === 'left' ? 'left-4 sm:left-6 md:left-14' : 'right-4 sm:right-6 md:right-14'} z-30 pointer-events-none`}
             initial={{ opacity: 0, y: 40, scale: 0.88 }}
             animate={{ opacity: 0.92, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 25, scale: 0.92 }}
@@ -1654,7 +1679,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               <img
                 src={currentCharConfig.imageUrl}
                 alt={currentCharConfig.name}
-                className="relative w-28 h-40 md:w-36 md:h-52 object-cover rounded-2xl"
+                className="relative w-20 h-28 sm:w-28 sm:h-40 md:w-36 md:h-52 object-cover rounded-2xl"
                 style={{
                   boxShadow: `0 0 50px ${currentCharConfig.glowColor}, 0 20px 60px rgba(0,0,0,0.7)`,
                   border: `1px solid ${currentCharConfig.color}25`,
@@ -1682,7 +1707,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       </AnimatePresence>
 
       {/* ── MAIN DIALOGUE AREA ── */}
-      <div className="absolute bottom-12 left-0 right-0 z-20 px-4 md:px-10 pb-4">
+      <div className="absolute bottom-8 sm:bottom-12 left-0 right-0 z-20 px-3 sm:px-4 md:px-10 pb-4">
         <AnimatePresence mode="wait">
           {!showChoices && currentDialogue && (
             <motion.div
@@ -1728,7 +1753,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                 className={`relative rounded-2xl px-4 py-4 sm:px-7 sm:py-6 md:px-9 md:py-7 ${isArabic ? 'text-right' : ''}`}
                 dir={isArabic ? 'rtl' : 'ltr'}
                 style={{
-                  background: currentScene.backgroundVideo ? 'rgba(0,0,0,0.62)' : 'rgba(0,0,0,0.72)',
+                  background: currentScene.backgroundVideo ? 'rgba(0,0,0,0.56)' : 'rgba(0,0,0,0.66)',
                   border: isAutoRunning && !showChoices ? '1px solid rgba(0,0,0,0)' : `1px solid ${currentCharConfig.color}18`,
                   boxShadow: `0 10px 70px rgba(0,0,0,0.78), 0 0 0 1px rgba(255,255,255,0.02), inset 0 1px 0 ${currentCharConfig.color}10`,
                   backdropFilter: 'blur(18px)',
@@ -1749,31 +1774,37 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     mixBlendMode: "screen",
                   }}
                 />
+                <motion.div
+                  className="absolute top-0 left-0 h-[2px] rounded-t-2xl"
+                  style={{ background: `linear-gradient(to right, ${accentColor}30, ${accentColor}95)` }}
+                  animate={{ width: `${((currentIdx + 1) / sceneKeys.length) * 100}%` }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                />
                 {isAutoRunning && !showChoices && (
                   <>
                     <motion.div
                       className="absolute top-0 left-0 h-px rounded-t-2xl"
                       style={{ background: currentCharConfig.color }}
                       animate={{ width: `${autoTop * 100}%` }}
-                      transition={{ duration: 0.08, ease: 'linear' }}
+                      transition={{ duration: 0.05, ease: 'linear' }}
                     />
                     <motion.div
                       className="absolute top-0 right-0 w-px rounded-r-2xl"
                       style={{ background: currentCharConfig.color }}
                       animate={{ height: `${autoRight * 100}%` }}
-                      transition={{ duration: 0.08, ease: 'linear' }}
+                      transition={{ duration: 0.05, ease: 'linear' }}
                     />
                     <motion.div
                       className="absolute bottom-0 right-0 h-px rounded-b-2xl"
                       style={{ background: currentCharConfig.color }}
                       animate={{ width: `${autoBottom * 100}%` }}
-                      transition={{ duration: 0.08, ease: 'linear' }}
+                      transition={{ duration: 0.05, ease: 'linear' }}
                     />
                     <motion.div
                       className="absolute bottom-0 left-0 w-px rounded-l-2xl"
                       style={{ background: currentCharConfig.color }}
                       animate={{ height: `${autoLeft * 100}%` }}
-                      transition={{ duration: 0.08, ease: 'linear' }}
+                      transition={{ duration: 0.05, ease: 'linear' }}
                     />
                   </>
                 )}
@@ -1869,43 +1900,24 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       </button>
                     </div>
 
-                    <div className={`flex items-center rounded-lg overflow-hidden ${isArabic ? 'flex-row-reverse' : ''}`} style={{ border: '1px solid rgba(201,169,110,0.22)', background: 'rgba(0,0,0,0.35)' }}>
-                      <button onClick={() => setAutoMode('off')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'off' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'off' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'تلقائي إيقاف' : 'AUTO OFF'}</button>
-                      <button onClick={() => setAutoMode('very-slow')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'very-slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'very-slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'بطيء جدًا' : 'VSLOW'}</button>
-                      <button onClick={() => setAutoMode('slow')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'بطيء' : 'SLOW'}</button>
-                      <button onClick={() => setAutoMode('normal')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'normal' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'normal' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'عادي' : 'NORMAL'}</button>
+                    <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                      <div className={`flex items-center rounded-lg overflow-hidden ${isArabic ? 'flex-row-reverse' : ''}`} style={{ border: '1px solid rgba(201,169,110,0.22)', background: 'rgba(0,0,0,0.35)' }}>
+                        <button onClick={() => setAutoMode('off')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'off' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'off' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'تلقائي إيقاف' : 'AUTO OFF'}</button>
+                        <button onClick={() => setAutoMode('very-slow')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'very-slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'very-slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'بطيء جدًا' : 'VSLOW'}</button>
+                        <button onClick={() => setAutoMode('slow')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'بطيء' : 'SLOW'}</button>
+                        <button onClick={() => setAutoMode('normal')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'normal' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'normal' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'عادي' : 'NORMAL'}</button>
+                      </div>
+                      <VolumeControl
+                        musicVol={musicVol}
+                        sfxVol={sfxVol}
+                        onMusicChange={handleMusicVol}
+                        onSfxChange={handleSfxVol}
+                        isMuted={isMuted}
+                        onToggleMute={handleToggleMute}
+                      />
                     </div>
                   </div>
                 )}
-
-
-                <AnimatePresence>
-                  {isDialogueComplete && !showChoices && !isVoiceModeActive && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className={`flex items-center gap-2 mt-4 ${isArabic ? 'justify-start flex-row-reverse' : 'justify-end'}`}
-                    >
-                      <motion.span
-                        className={lang === 'ar' ? 'text-[13px] font-arabic-ui' : 'text-[11px] font-mono tracking-[0.2em] uppercase'}
-                        style={{ color: `${accentColor}90` }}
-                        animate={{ opacity: [0.55, 1, 0.55] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        {lang === 'ar' ? 'انقر للمتابعة' : 'Click to continue'}
-                      </motion.span>
-                      <motion.span
-                        style={{ color: `${accentColor}90`, fontSize: '14px' }}
-                        animate={{ x: isArabic ? [0, -5, 0] : [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        {isArabic ? '‹' : '›'}
-                      </motion.span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             </motion.div>
           )}
@@ -2049,15 +2061,9 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   transition={{ duration: 2.5, repeat: Infinity }}
                   className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}
                 >
-                  {lang === 'ar' ? (
-                    <span className="text-sm tracking-wider font-arabic-ui" dir="rtl" style={{ color: `${accentColor}90` }}>
-                      انقر للمتابعة
-                    </span>
-                  ) : (
-                    <span className="text-sm font-mono tracking-[0.25em] uppercase" style={{ color: `${accentColor}90` }}>
-                      Continue
-                    </span>
-                  )}
+                  <span className={lang === 'ar' ? 'text-sm tracking-wider font-arabic-ui' : 'text-sm font-mono tracking-[0.25em] uppercase'} style={{ color: `${accentColor}90` }}>
+                    {isArabic ? 'التالي' : 'NEXT'}
+                  </span>
                   <motion.span
                     style={{ color: `${accentColor}90`, fontSize: '18px' }}
                     animate={{ x: isArabic ? [0, -6, 0] : [0, 6, 0] }}
