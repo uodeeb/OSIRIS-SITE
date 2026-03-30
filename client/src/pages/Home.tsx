@@ -4,7 +4,7 @@ import { useLocation } from 'wouter';
 import { ASSET_URLS } from '@/lib/assetUrls';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { OSIRIS_EFFECTS, getOsirisMediaUrl } from '@/lib/osirisEffects';
-import osirisLogo from '@/LOGO/LOGO02_upscayl_2x_digital-art-4x.svg';
+import osirisLogo from '@/LOGO/OSIRIS-FAVICON.png';
 
 const PARTS = [
   { number: '0', en: 'The Cosmic Courtroom', ar: 'غرفة المحاكمة الكونية', description: 'The trial begins outside time and space', bg: ASSET_URLS.backgrounds.osiris_cosmic, color: '#c9a96e', sceneId: 'zero-1-1-summons' },
@@ -28,7 +28,7 @@ export default function Home() {
   const [trailerClip, setTrailerClip] = useState(0);
   const trailerAudioRef = useRef<HTMLAudioElement | null>(null);
   const [musicVol, setMusicVol] = useState(0.22);
-  const [musicOn, setMusicOn] = useState(true);
+  const [musicOn, setMusicOn] = useState(false);
   const [musicMuted, setMusicMuted] = useState(false);
 
   useEffect(() => {
@@ -345,7 +345,7 @@ export default function Home() {
                     className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
                     style={{ border: `1px solid ${activeTrailer.color}33`, color: activeTrailer.color, background: 'rgba(0,0,0,0.35)' }}
                   >
-                    {musicOn ? (isArabic ? 'إيقاف' : 'PAUSE') : (isArabic ? 'تشغيل' : 'PLAY')}
+                    {musicOn ? (isArabic ? 'إيقاف' : 'PAUSE') : (isArabic ? 'تشغيل الصوت' : 'PLAY AUDIO')}
                   </button>
                   <button
                     onClick={toggleFullscreen}

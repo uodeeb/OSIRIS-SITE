@@ -1,5 +1,6 @@
 import { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
 import type { Express, Request, Response } from "express";
+import { parse as parseCookieHeader } from "cookie";
 import * as db from "../db";
 import { getSessionCookieOptions } from "./cookies";
 import { sdk } from "./sdk";
@@ -20,7 +21,16 @@ export function registerOAuthRoutes(app: Express) {
     }
 
     try {
-      const tokenResponse = await sdk.exchangeCodeForToken(code, state);
+      const cookies = parseCookieHeader(req.headers.cookie || "");
+      const expectedState = cookies.osiris_oauth_state;
+      if (expectedState && expectedState !== state) {
+        res.status(400).json({ error: "invalid state" });
+        return;
+      }
+      res.clearCookie("osiris_oauth_state", { path: "/" });
+
+      const redirectUri = `${req.protocol}://${req.get("host")}/api/oauth/callback`;
+      const tokenResponse = await sdk.exchangeCodeForToken(code, redirectUri);
       const userInfo = await sdk.getUserInfo(tokenResponse.accessToken);
 
       if (!userInfo.openId) {
