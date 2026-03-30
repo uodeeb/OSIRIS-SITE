@@ -289,8 +289,6 @@ type VoiceCue = { at: number; voice: number };
 type VoiceDefinition = { voice: number; sceneId: string; anchor: string; fallbackAt?: number };
 
 const VOICE_DEFINITIONS: VoiceDefinition[] = [
-  { voice: 1, sceneId: 'zero-1-2-prosecution', anchor: 'الملف رقم واحد', fallbackAt: 1 },
-  { voice: 2, sceneId: 'three-3-2-virus-design', anchor: 'المحور الاول الكبر', fallbackAt: 2 },
   { voice: 3, sceneId: 'four-5-1-tarek-message', anchor: 'اذا كنت تستمع لهذا', fallbackAt: 0 },
   { voice: 4, sceneId: 'one-1-5-4-sacrifice', anchor: 'اخي اذا وصلت اليك هذه الرسالة', fallbackAt: 2 },
   { voice: 5, sceneId: 'three-3-2-virus-design', anchor: 'طارق كان محقا', fallbackAt: 9 },
@@ -837,6 +835,27 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       setLocation('/');
     }
   }, [currentScene, goToScene, setLocation]);
+
+  const handleCopyShareLink = useCallback(() => {
+    const url = typeof window !== 'undefined' ? window.location.origin : '';
+    if (!url) return;
+    navigator.clipboard?.writeText(url).catch(() => {});
+  }, []);
+
+  const handleShare = useCallback(() => {
+    const url = typeof window !== 'undefined' ? window.location.origin : '';
+    if (!url) return;
+    const title = lang === 'ar' ? 'OSIRIS — المفسدون في الأرض' : 'OSIRIS — Multimedia Interactive Novel';
+    const text = lang === 'ar' ? 'تجربة رواية تفاعلية سينمائية' : 'A cinematic interactive novel experience';
+    const nav: any = navigator as any;
+    if (nav?.share) {
+      nav.share({ title, text, url }).catch(() => {});
+      return;
+    }
+    const shareUrl = encodeURIComponent(url);
+    const shareText = encodeURIComponent(`${text} — ${title}`);
+    window.open(`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`, '_blank', 'noopener,noreferrer');
+  }, [lang]);
 
   const handleForwardScript = useCallback(() => {
     if (showChoices) {
@@ -2046,7 +2065,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               className={`max-w-4xl mx-auto ${isArabic ? 'text-right' : 'text-center'}`}
-              onClick={(e) => { e.stopPropagation(); handleNoChoiceAdvance(); }}
+              onClick={(e) => { e.stopPropagation(); }}
             >
               <div
                 className="inline-flex flex-col items-center gap-3 px-6 sm:px-10 py-5 sm:py-6 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-[1.02]"
@@ -2056,23 +2075,61 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   backdropFilter: 'blur(16px)',
                 }}
               >
-                <motion.div
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 2.5, repeat: Infinity }}
-                  className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}
-                >
-                  <span className={lang === 'ar' ? 'text-sm tracking-wider font-arabic-ui' : 'text-sm font-mono tracking-[0.25em] uppercase'} style={{ color: `${accentColor}90` }}>
-                    {isArabic ? 'التالي' : 'NEXT'}
-                  </span>
-                  <motion.span
-                    style={{ color: `${accentColor}90`, fontSize: '18px' }}
-                    animate={{ x: isArabic ? [0, -6, 0] : [0, 6, 0] }}
-                    transition={{ duration: 1.8, repeat: Infinity }}
+                {currentScene?.defaultNextScene ? (
+                  <motion.button
+                    onClick={(e) => { e.stopPropagation(); handleNoChoiceAdvance(); }}
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 2.5, repeat: Infinity }}
+                    className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}
                   >
-                    {isArabic ? '‹' : '›'}
-                  </motion.span>
-
-                </motion.div>
+                    <span className={lang === 'ar' ? 'text-sm tracking-wider font-arabic-ui' : 'text-sm font-mono tracking-[0.25em] uppercase'} style={{ color: `${accentColor}90` }}>
+                      {isArabic ? 'التالي' : 'NEXT'}
+                    </span>
+                    <motion.span
+                      style={{ color: `${accentColor}90`, fontSize: '18px' }}
+                      animate={{ x: isArabic ? [0, -6, 0] : [0, 6, 0] }}
+                      transition={{ duration: 1.8, repeat: Infinity }}
+                    >
+                      {isArabic ? '‹' : '›'}
+                    </motion.span>
+                  </motion.button>
+                ) : (
+                  <>
+                    <div className={`text-[11px] tracking-[0.22em] text-white/55 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}>
+                      {isArabic ? 'نهاية التجربة' : 'END OF EXPERIENCE'}
+                    </div>
+                    <div className={`flex flex-wrap items-center justify-center gap-2 sm:gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setLocation('/'); }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} `}
+                        style={{ background: `linear-gradient(135deg, ${accentColor}, #f0d080)`, color: '#0b0b0d' }}
+                      >
+                        {isArabic ? 'الصفحة الرئيسية' : 'HOME'}
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); handleShare(); }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                        style={{ border: `1px solid ${accentColor}33`, background: 'rgba(0,0,0,0.35)', color: `${accentColor}CC` }}
+                      >
+                        {isArabic ? 'مشاركة' : 'SHARE'}
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); handleCopyShareLink(); }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                        style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.7)' }}
+                      >
+                        {isArabic ? 'نسخ الرابط' : 'COPY LINK'}
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); goToScene('zero-1-1-summons'); }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                        style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.7)' }}
+                      >
+                        {isArabic ? 'إعادة البدء' : 'RESTART'}
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </motion.div>
           )}

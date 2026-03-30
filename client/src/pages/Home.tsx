@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
 import { ASSET_URLS } from '@/lib/assetUrls';
+import { useBandwidthStrategy } from '@/lib/mediaStrategy';
+import { OSIRIS_EFFECTS, getOsirisMediaUrl } from '@/lib/osirisEffects';
 import osirisLogo from '@/LOGO/LOGO02_upscayl_2x_digital-art-4x.svg';
 
 const PARTS = [
@@ -21,6 +23,13 @@ export default function Home() {
   const [uiLang, setUiLang] = useState<'en' | 'ar'>('ar');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { allowVideo } = useBandwidthStrategy();
+  const [showTrailer, setShowTrailer] = useState(true);
+  const [trailerClip, setTrailerClip] = useState(0);
+  const trailerAudioRef = useRef<HTMLAudioElement | null>(null);
+  const [musicVol, setMusicVol] = useState(0.22);
+  const [musicOn, setMusicOn] = useState(true);
+  const [musicMuted, setMusicMuted] = useState(false);
 
   useEffect(() => {
     const t1 = setTimeout(() => setIntroPhase(1), 250);
@@ -39,6 +48,60 @@ export default function Home() {
     }
   }, []);
 
+  const TRAILER_CLIPS = [
+    {
+      id: 'summons',
+      src: getOsirisMediaUrl(OSIRIS_EFFECTS['FX-01-SUMMONS-EYE'].base),
+      fallback: getOsirisMediaUrl(OSIRIS_EFFECTS['FX-01-SUMMONS-EYE'].fallback),
+      ar: 'الشر ليس عشوائياً… إنه كود',
+      en: 'Evil is not random. It is code.',
+      color: '#00e5ff',
+    },
+    {
+      id: 'analysis',
+      src: getOsirisMediaUrl(OSIRIS_EFFECTS['FX-04-NEURAL-ANALYSIS'].base),
+      fallback: getOsirisMediaUrl(OSIRIS_EFFECTS['FX-08-SOLEMN-DUST'].fallback),
+      ar: 'أوزيريس يقرأ الموجات… ويكشف النمط',
+      en: 'OSIRIS reads the waves, then reveals the pattern.',
+      color: '#9b5cff',
+    },
+    {
+      id: 'truth',
+      src: getOsirisMediaUrl(OSIRIS_EFFECTS['FX-07-TRUTH-LEAK'].base),
+      fallback: getOsirisMediaUrl(OSIRIS_EFFECTS['FX-03-HOLOGRAM-DATA'].fallback),
+      ar: 'الحقيقة لا تُسكت… بل تُبَثّ',
+      en: 'Truth does not whisper. It broadcasts.',
+      color: '#ff2d2d',
+    },
+  ];
+
+  useEffect(() => {
+    if (!showTrailer) return;
+    const t = setInterval(() => setTrailerClip((v) => (v + 1) % TRAILER_CLIPS.length), 5200);
+    return () => clearInterval(t);
+  }, [showTrailer]);
+
+  useEffect(() => {
+    if (!showTrailer) return;
+    if (!trailerAudioRef.current) {
+      trailerAudioRef.current = new Audio('/music/TRACK-01.mp3');
+      trailerAudioRef.current.loop = true;
+      trailerAudioRef.current.preload = 'metadata';
+    }
+    const a = trailerAudioRef.current;
+    a.volume = musicMuted ? 0 : Math.max(0, Math.min(1, musicVol));
+    if (musicOn && !musicMuted) {
+      a.play().catch(() => {});
+    } else {
+      a.pause();
+    }
+  }, [showTrailer, musicOn, musicMuted, musicVol]);
+
+  useEffect(() => {
+    if (showTrailer) return;
+    if (trailerAudioRef.current) trailerAudioRef.current.pause();
+  }, [showTrailer]);
+
   useEffect(() => {
     const onFullscreenChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
     document.addEventListener('fullscreenchange', onFullscreenChange);
@@ -56,6 +119,7 @@ export default function Home() {
 
   const activePart = hoveredPart !== null ? PARTS[hoveredPart] : PARTS[0];
   const isArabic = uiLang === 'ar';
+  const activeTrailer = TRAILER_CLIPS[trailerClip];
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-black text-white font-novel" dir={isArabic ? 'rtl' : 'ltr'}>
@@ -216,6 +280,138 @@ export default function Home() {
           </motion.div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {showTrailer && (
+          <motion.div
+            key="trailer"
+            className="absolute inset-0 z-40"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className="absolute inset-0 bg-black" />
+            <AnimatePresence mode="wait">
+              {allowVideo ? (
+                <motion.video
+                  key={activeTrailer.id + '-v'}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  src={activeTrailer.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 0.78, scale: 1.01 }}
+                  exit={{ opacity: 0, scale: 1.03 }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                  style={{ filter: 'brightness(0.45) contrast(1.12) saturate(0.9)' }}
+                />
+              ) : (
+                <motion.img
+                  key={activeTrailer.id + '-g'}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  src={activeTrailer.fallback}
+                  alt=""
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 0.72, scale: 1.01 }}
+                  exit={{ opacity: 0, scale: 1.03 }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                  style={{ filter: 'brightness(0.45) contrast(1.12) saturate(0.9)' }}
+                />
+              )}
+            </AnimatePresence>
+
+            <div className="absolute inset-0" style={{ background: `radial-gradient(circle at 40% 35%, ${activeTrailer.color}22, rgba(0,0,0,0.86) 58%, rgba(0,0,0,0.98) 100%)` }} />
+            <div className="absolute inset-0" style={{ background: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0) 2px, rgba(0,0,0,0) 6px)', mixBlendMode: 'screen', opacity: 0.16 }} />
+
+            <div className={`relative h-full flex flex-col justify-between px-4 sm:px-8 py-6 ${isArabic ? 'text-right' : 'text-left'}`}>
+              <div className={`flex items-center justify-between ${isArabic ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                  <img src={osirisLogo} alt="OSIRIS" className="w-9 h-9 opacity-90" />
+                  <div className="text-[10px] font-mono tracking-[0.26em] text-white/65">CINEMATIC TRAILER</div>
+                </div>
+                <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                  <button
+                    onClick={() => setMusicMuted((v) => !v)}
+                    className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
+                    style={{ border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.75)', background: 'rgba(0,0,0,0.35)' }}
+                  >
+                    {musicMuted ? (isArabic ? 'صامت' : 'MUTED') : (isArabic ? 'صوت' : 'AUDIO')}
+                  </button>
+                  <button
+                    onClick={() => setMusicOn((v) => !v)}
+                    className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
+                    style={{ border: `1px solid ${activeTrailer.color}33`, color: activeTrailer.color, background: 'rgba(0,0,0,0.35)' }}
+                  >
+                    {musicOn ? (isArabic ? 'إيقاف' : 'PAUSE') : (isArabic ? 'تشغيل' : 'PLAY')}
+                  </button>
+                  <button
+                    onClick={toggleFullscreen}
+                    className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
+                    style={{ border: '1px solid rgba(201,169,110,0.2)', color: 'rgba(201,169,110,0.9)', background: 'rgba(0,0,0,0.35)' }}
+                  >
+                    {isFullscreen ? (isArabic ? 'إغلاق' : 'EXIT FULL') : (isArabic ? 'ملء الشاشة' : 'FULL')}
+                  </button>
+                </div>
+              </div>
+
+              <div className="max-w-3xl">
+                <motion.div
+                  key={activeTrailer.id + '-line'}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <div className={`text-[11px] tracking-[0.22em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} text-white/55`}>
+                    {isArabic ? 'مقتطفات من المحاكمة' : 'EXCERPTS FROM THE TRIAL'}
+                  </div>
+                  <div className={`mt-3 text-2xl sm:text-3xl md:text-4xl leading-snug ${isArabic ? 'font-arabic-title' : 'font-light'} `} style={{ color: 'rgba(255,255,255,0.92)' }} dir={isArabic ? 'rtl' : 'ltr'}>
+                    {isArabic ? activeTrailer.ar : activeTrailer.en}
+                  </div>
+                </motion.div>
+
+                <div className={`mt-6 flex flex-wrap items-center gap-3 ${isArabic ? 'flex-row-reverse justify-end' : ''}`}>
+                  <motion.button
+                    onClick={() => setLocation('/play')}
+                    className={`px-6 sm:px-8 py-3 rounded-xl text-black font-semibold tracking-[0.12em] text-xs sm:text-sm ${isArabic ? 'font-arabic-ui' : ''}`}
+                    style={{ background: `linear-gradient(135deg, ${activeTrailer.color}, #f0d080)` }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {isArabic ? '▶ ابدأ التجربة' : '▶ START EXPERIENCE'}
+                  </motion.button>
+                  <button
+                    onClick={() => setShowTrailer(false)}
+                    className={`px-5 py-3 rounded-xl text-[10px] tracking-[0.22em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                    style={{ border: '1px solid rgba(255,255,255,0.14)', background: 'rgba(0,0,0,0.35)', color: 'rgba(255,255,255,0.7)' }}
+                  >
+                    {isArabic ? 'تخطي المقطع' : 'SKIP'}
+                  </button>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="range"
+                      min={0}
+                      max={1}
+                      step={0.01}
+                      value={musicVol}
+                      onChange={(e) => setMusicVol(Number(e.target.value))}
+                      className="w-28"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-[10px] text-white/35 font-mono tracking-wider">
+                <span>{allowVideo ? 'VIDEO' : 'LOW-BANDWIDTH'}</span>
+                <span>{isArabic ? 'اضغط ابدأ لفتح المحاكمة' : 'Press start to enter the trial'}</span>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
