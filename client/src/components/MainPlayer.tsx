@@ -21,7 +21,7 @@ import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "@/lib/osirisEffects";
 import { CinematicStage } from '@/components/CinematicStage';
 import { OsirisEffectLayer } from "@/components/OsirisEffectLayer";
-import osirisLogo from '@/LOGO/new-logo/favicon@0.5x.png';
+import osirisLogo from '@/LOGO/new-logo/favicon-black-0.25.png';
 
 interface MainPlayerProps {
   initialSceneId?: string;

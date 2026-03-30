@@ -118,8 +118,8 @@ const RAW_ASSET_URLS = {
       logo_02: "client/src/LOGO/new-logo/new-logo-trans-osiris@10x.png",
       logo_03: "client/src/LOGO/new-logo/new-logo-trans-osiris@10x.png",
       logo_04: "client/src/LOGO/new-logo/new-logo-trans-osiris@10x.png",
-      logo_05: "client/src/LOGO/new-logo/favicon@0.5x.png",
-      logo_06: "client/src/LOGO/new-logo/favicon@0.5x.png",
+      logo_05: "client/src/LOGO/new-logo/favicon-black-0.25.png",
+      logo_06: "client/src/LOGO/new-logo/favicon-bloack.png",
     },
     project: {
       devil_voice_aup3: "MUSIC-BG/devil-voice-to-clone.aup3",
