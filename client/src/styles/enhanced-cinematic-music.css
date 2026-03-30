@@ -1,0 +1,557 @@
+/**
+ * OSIRIS Enhanced Cinematic Music Integration Styles
+ * Advanced styling for music visualization and audio integration
+ */
+
+/* =============================================================================
+   MUSIC VISUALIZATION
+   ========================================================================== */
+
+.music-visualization {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  width: 200px;
+  height: 60px;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 2px;
+  z-index: 85;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: var(--space-sm);
+  backdrop-filter: blur(10px);
+}
+
+.audio-bars {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 2px;
+  height: 100%;
+}
+
+.audio-bar {
+  width: 4px;
+  background: linear-gradient(to top, var(--color-divine-gold), var(--color-protection-blue));
+  border-radius: 2px;
+  animation: audio-bar-dance 0.5s ease-in-out infinite alternate;
+  transition: height 0.1s ease;
+}
+
+.audio-bar:nth-child(2n) {
+  animation-delay: 0.1s;
+}
+
+.audio-bar:nth-child(3n) {
+  animation-delay: 0.2s;
+}
+
+.audio-bar:nth-child(4n) {
+  animation-delay: 0.15s;
+}
+
+.audio-bar:nth-child(5n) {
+  animation-delay: 0.05s;
+}
+
+@keyframes audio-bar-dance {
+  0% { height: 10px; }
+  100% { height: 40px; }
+}
+
+/* =============================================================================
+   MUSIC CONTROL PANEL
+   ========================================================================== */
+
+.music-control-panel {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  z-index: 90;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  padding: var(--space-sm);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(201, 169, 110, 0.3);
+}
+
+.music-toggle-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: linear-gradient(135deg, var(--color-divine-gold), var(--color-protection-blue));
+  border: none;
+  border-radius: 8px;
+  padding: var(--space-xs) var(--space-sm);
+  color: white;
+  font-family: var(--font-arabic-body);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--duration-dramatic) ease;
+  backdrop-filter: blur(10px);
+}
+
+.music-toggle-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 169, 110, 0.4);
+}
+
+.music-toggle-button.playing {
+  background: linear-gradient(135deg, var(--color-sacred-green), var(--color-divine-gold));
+  animation: music-pulse 2s ease-in-out infinite;
+}
+
+.music-toggle-button.paused {
+  background: linear-gradient(135deg, var(--color-earth-brown), var(--color-mystical-purple));
+}
+
+@keyframes music-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); }
+}
+
+.music-icon {
+  font-size: 1.2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.music-text {
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.current-music-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}
+
+.music-track {
+  font-family: var(--font-arabic-body);
+  direction: rtl;
+  text-align: right;
+}
+
+.emotional-context {
+  font-family: var(--font-english-body);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+/* =============================================================================
+   ENHANCED CONTEXT PANEL
+   ========================================================================== */
+
+.enhanced-context-panel {
+  position: absolute;
+  top: var(--space-lg);
+  left: var(--space-lg);
+  max-width: 300px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--color-divine-gold);
+  border-radius: 12px;
+  padding: var(--space-md);
+  backdrop-filter: blur(20px);
+  z-index: 85;
+}
+
+.music-active-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(201, 169, 110, 0.2));
+  border-radius: 6px;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  animation: music-active-glow var(--duration-spiritual) ease-in-out infinite alternate;
+}
+
+@keyframes music-active-glow {
+  0% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.2); }
+  100% { box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+}
+
+/* =============================================================================
+   ENHANCED LOADING STATES
+   ========================================================================== */
+
+.enhanced-cinematic-loading {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--night-black) 0%, #1e293b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.enhanced-cinematic-loading .loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  max-width: 600px;
+  text-align: center;
+}
+
+.enhanced-cinematic-loading .islamic-loading-animation {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.enhanced-cinematic-loading .geometric-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 4px solid transparent;
+  border-top: 4px solid var(--color-divine-gold);
+  border-radius: 50%;
+  animation: islamic-spin 2s linear infinite;
+}
+
+.enhanced-cinematic-loading .cultural-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(201, 169, 110, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(30, 58, 138, 0.1) 0%, transparent 50%);
+  animation: particle-float var(--duration-meditative) ease-in-out infinite;
+}
+
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(180deg); }
+}
+
+.enhanced-cinematic-loading .loading-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.enhanced-cinematic-loading .loading-title {
+  font-family: var(--font-arabic-title);
+  font-size: 2rem;
+  color: var(--color-divine-gold);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  direction: rtl;
+  margin: 0;
+}
+
+.enhanced-cinematic-loading .loading-subtitle {
+  font-family: var(--font-english-body);
+  font-size: 1.2rem;
+  color: var(--color-protection-blue);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.enhanced-cinematic-loading .loading-progress {
+  width: 100%;
+  max-width: 400px;
+}
+
+.enhanced-cinematic-loading .progress-bar-container {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+}
+
+.enhanced-cinematic-loading .progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--color-divine-gold), var(--color-protection-blue));
+  border-radius: 2px;
+  animation: loading-progress var(--duration-dramatic) ease-in-out infinite;
+}
+
+@keyframes loading-progress {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}
+
+.enhanced-cinematic-loading .loading-status {
+  font-family: var(--font-arabic-body);
+  font-size: 1rem;
+  color: #cbd5e1;
+  direction: rtl;
+  margin: 0;
+}
+
+/* =============================================================================
+   ENHANCED ERROR STATES
+   ========================================================================== */
+
+.enhanced-cinematic-error {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #7c2d12 0%, #dc2626 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.enhanced-cinematic-error .error-content {
+  max-width: 600px;
+  text-align: center;
+  padding: var(--space-xl);
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 16px;
+  border: 2px solid rgba(220, 38, 38, 0.5);
+  backdrop-filter: blur(20px);
+}
+
+.enhanced-cinematic-error .islamic-error-pattern {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(124, 45, 18, 0.1) 0%, transparent 50%);
+  animation: error-pattern-shift var(--duration-dramatic) ease-in-out infinite;
+}
+
+@keyframes error-pattern-shift {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.enhanced-cinematic-error .error-title {
+  font-family: var(--font-arabic-title);
+  font-size: 2.5rem;
+  color: #f87171;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  direction: rtl;
+  margin-bottom: var(--space-md);
+}
+
+.enhanced-cinematic-error .error-subtitle {
+  font-family: var(--font-english-body);
+  font-size: 1.3rem;
+  color: #fca5a5;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: var(--space-md);
+}
+
+.enhanced-cinematic-error .error-message {
+  color: #fecaca;
+  margin-bottom: var(--space-lg);
+}
+
+.enhanced-cinematic-error .error-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.enhanced-cinematic-error .error-retry-button,
+.enhanced-cinematic-error .error-fallback-button {
+  background: rgba(220, 38, 38, 0.3);
+  border: 2px solid #f87171;
+  border-radius: 8px;
+  padding: var(--space-sm) var(--space-md);
+  color: #fecaca;
+  font-family: var(--font-arabic-body);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--duration-dramatic) ease;
+  backdrop-filter: blur(10px);
+}
+
+.enhanced-cinematic-error .error-retry-button:hover,
+.enhanced-cinematic-error .error-fallback-button:hover {
+  background: rgba(220, 38, 38, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+.enhanced-cinematic-error .error-retry-button span,
+.enhanced-cinematic-error .error-fallback-button span {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.enhanced-cinematic-error .error-retry-button span:last-child,
+.enhanced-cinematic-error .error-fallback-button span:last-child {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-bottom: 0;
+}
+
+/* =============================================================================
+   RESPONSIVE DESIGN FOR MUSIC INTEGRATION
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .music-visualization {
+    width: 150px;
+    height: 40px;
+    right: var(--space-sm);
+    bottom: var(--space-sm);
+  }
+  
+  .music-control-panel {
+    top: var(--space-sm);
+    right: var(--space-sm);
+    padding: var(--space-xs);
+  }
+  
+  .enhanced-context-panel {
+    top: var(--space-md);
+    left: var(--space-md);
+    max-width: 250px;
+    padding: var(--space-sm);
+  }
+  
+  .enhanced-cinematic-loading .loading-title {
+    font-size: 1.5rem;
+  }
+  
+  .enhanced-cinematic-error .error-title {
+    font-size: 2rem;
+  }
+  
+  .enhanced-cinematic-error .error-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .music-visualization {
+    width: 120px;
+    height: 30px;
+  }
+  
+  .audio-bar {
+    width: 3px;
+  }
+  
+  .music-control-panel {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  
+  .music-toggle-button {
+    padding: var(--space-xs);
+    font-size: 0.8rem;
+  }
+  
+  .enhanced-context-panel {
+    max-width: 200px;
+    padding: var(--space-xs);
+  }
+  
+  .enhanced-cinematic-loading .loading-title {
+    font-size: 1.2rem;
+  }
+  
+  .enhanced-cinematic-error .error-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* =============================================================================
+   ACCESSIBILITY ENHANCEMENTS FOR MUSIC
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .audio-bar {
+    animation: none;
+    height: 20px;
+  }
+  
+  .music-toggle-button {
+    animation: none;
+  }
+  
+  .music-active-indicator {
+    animation: none;
+  }
+  
+  .loading-progress .progress-bar-fill {
+    animation: none;
+    width: 70%;
+  }
+  
+  .error-pattern-shift {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .music-visualization {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ffffff;
+  }
+  
+  .music-control-panel {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ffffff;
+  }
+  
+  .music-toggle-button {
+    border: 2px solid #ffffff;
+  }
+  
+  .enhanced-context-panel {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ffffff;
+  }
+}
+
+/* Focus indicators */
+.music-toggle-button:focus {
+  outline: 3px solid var(--color-sacred-green);
+  outline-offset: 2px;
+}
+
+.music-control-panel:focus-within {
+  outline: 2px solid var(--color-divine-gold);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   PRINT STYLES FOR MUSIC INTEGRATION
+   ========================================================================== */
+
+@media print {
+  .music-visualization,
+  .music-control-panel,
+  .music-active-indicator {
+    display: none !important;
+  }
+  
+  .enhanced-context-panel {
+    background: white !important;
+    color: black !important;
+    border: 1px solid black !important;
+  }
+}
