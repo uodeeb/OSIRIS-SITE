@@ -5,7 +5,8 @@ import { ASSET_URLS } from '@/lib/assetUrls';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { OSIRIS_EFFECTS, getOsirisMediaUrl } from '@/lib/osirisEffects';
 import osirisLogo from '@/LOGO/new-logo/new-logo-trans-osiris@10x.png';
-import osirisFavicon from '@/LOGO/new-logo/favicon@0.5x.png';
+import osirisFavicon from '@/LOGO/new-logo/favicon-black-0.25.png';
+import osirisFalcon from '@/LOGO/new-logo/logo-falcon.png';
 
 const PARTS = [
   { number: '0', en: 'The Cosmic Courtroom', ar: 'غرفة المحاكمة الكونية', description: 'The trial begins outside time and space', bg: ASSET_URLS.backgrounds.osiris_cosmic, color: '#c9a96e', sceneId: 'zero-1-1-summons' },
@@ -82,16 +83,21 @@ export default function Home() {
     return () => clearInterval(t);
   }, [showTrailer]);
 
-  useEffect(() => {
-    if (!showTrailer) return;
+  const ensureTrailerAudio = () => {
     if (!trailerAudioRef.current) {
       trailerAudioRef.current = new Audio('/music/TRACK-01.mp3');
       trailerAudioRef.current.loop = true;
       trailerAudioRef.current.preload = 'metadata';
     }
-    const a = trailerAudioRef.current;
-    a.volume = musicMuted ? 0 : Math.max(0, Math.min(1, musicVol));
-    if (musicOn && !musicMuted) {
+    return trailerAudioRef.current;
+  };
+
+  useEffect(() => {
+    if (!showTrailer) return;
+    const a = ensureTrailerAudio();
+    a.muted = musicMuted;
+    a.volume = Math.max(0, Math.min(1, musicVol));
+    if (musicOn) {
       a.play().catch(() => {});
     } else {
       a.pause();
@@ -326,6 +332,15 @@ export default function Home() {
 
             <div className="absolute inset-0" style={{ background: `radial-gradient(circle at 40% 35%, ${activeTrailer.color}22, rgba(0,0,0,0.86) 58%, rgba(0,0,0,0.98) 100%)` }} />
             <div className="absolute inset-0" style={{ background: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0) 2px, rgba(0,0,0,0) 6px)', mixBlendMode: 'screen', opacity: 0.16 }} />
+            <motion.img
+              src={osirisFalcon}
+              alt=""
+              className="absolute -right-10 sm:right-4 bottom-10 sm:bottom-14 w-[320px] sm:w-[420px] md:w-[520px] opacity-20 pointer-events-none"
+              initial={{ opacity: 0, y: 12, scale: 0.98 }}
+              animate={{ opacity: 0.2, y: 0, scale: 1 }}
+              transition={{ duration: 1.1, ease: 'easeOut' }}
+              style={{ filter: 'drop-shadow(0 0 24px rgba(0,229,255,0.18))' }}
+            />
 
             <div className={`relative h-full flex flex-col justify-between px-4 sm:px-8 py-6 ${isArabic ? 'text-right' : 'text-left'}`}>
               <div className={`flex items-center justify-between ${isArabic ? 'flex-row-reverse' : ''}`}>
@@ -335,14 +350,29 @@ export default function Home() {
                 </div>
                 <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
                   <button
-                    onClick={() => setMusicMuted((v) => !v)}
+                    onClick={() => setMusicMuted((v) => {
+                      const next = !v;
+                      if (showTrailer) {
+                        const a = ensureTrailerAudio();
+                        a.muted = next;
+                      }
+                      return next;
+                    })}
                     className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
                     style={{ border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.75)', background: 'rgba(0,0,0,0.35)' }}
                   >
                     {musicMuted ? (isArabic ? 'صامت' : 'MUTED') : (isArabic ? 'صوت' : 'AUDIO')}
                   </button>
                   <button
-                    onClick={() => setMusicOn((v) => !v)}
+                    onClick={() => setMusicOn((v) => {
+                      const next = !v;
+                      if (showTrailer) {
+                        const a = ensureTrailerAudio();
+                        if (next) a.play().catch(() => {});
+                        else a.pause();
+                      }
+                      return next;
+                    })}
                     className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
                     style={{ border: `1px solid ${activeTrailer.color}33`, color: activeTrailer.color, background: 'rgba(0,0,0,0.35)' }}
                   >
