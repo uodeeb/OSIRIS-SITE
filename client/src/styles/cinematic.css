@@ -1,0 +1,1301 @@
+/**
+ * OSIRIS Cinematic Experience CSS
+ * Comprehensive styling system for Arabic multimedia interactive novel
+ * Islamic geometric patterns, Arabic calligraphy, and cultural aesthetics
+ */
+
+/* =============================================================================
+   ROOT VARIABLES & DESIGN TOKENS
+   ========================================================================== */
+
+:root {
+  /* Arabic Color Psychology - Sacred Colors */
+  --color-divine-gold: #c9a96e;
+  --color-sacred-green: #22c55e;
+  --color-protection-blue: #1e3a8a;
+  --color-mystical-purple: #6b21a8;
+  --color-passion-red: #dc2626;
+  --color-earth-brown: #78350f;
+  --color-night-black: #0f172a;
+  --color-sand-beige: #d97706;
+  
+  /* Islamic Geometric Pattern Colors */
+  --pattern-arabesque-primary: #c9a96e;
+  --pattern-arabesque-secondary: #f59e0b;
+  --pattern-girih-primary: #1e3a8a;
+  --pattern-girih-secondary: #3b82f6;
+  --pattern-muqarnas-primary: #6b21a8;
+  --pattern-muqarnas-secondary: #8b5cf6;
+  --pattern-zellij-primary: #dc2626;
+  --pattern-zellij-secondary: #ef4444;
+  
+  /* Arabic Typography */
+  --font-arabic-title: 'Noto Kufi Arabic', 'Scheherazade New', 'Amiri', serif;
+  --font-arabic-body: 'Scheherazade New', 'Amiri', 'Noto Naskh Arabic', serif;
+  --font-arabic-calligraphy: 'Noto Nastaliq Urdu', 'Scheherazade New', serif;
+  --font-english-body: 'Georgia', 'Times New Roman', serif;
+  
+  /* Spacing - Based on Islamic Proportions */
+  --space-unit: 8px;
+  --space-xs: calc(var(--space-unit) * 1.618); /* Golden ratio */
+  --space-sm: calc(var(--space-unit) * 2.618);
+  --space-md: calc(var(--space-unit) * 4.236);
+  --space-lg: calc(var(--space-unit) * 6.854);
+  --space-xl: calc(var(--space-unit) * 11.09);
+  
+  /* Animation Timing - Cultural Rhythms */
+  --duration-contemplative: 2.618s;
+  --duration-dramatic: 1.618s;
+  --duration-spiritual: 3.236s;
+  --duration-urgent: 0.618s;
+  --duration-meditative: 4.236s;
+  
+  /* Islamic Border Patterns */
+  --border-islamic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0,20 Q10,10 20,20 T40,20' stroke='%23c9a96e' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+  --border-arabesque: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpolygon points='30,5 55,30 30,55 5,30' stroke='%23c9a96e' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* =============================================================================
+   CINEMATIC RENDERER STYLES
+   ========================================================================== */
+
+.cinematic-renderer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--night-black) 0%, #1e293b 100%);
+  font-family: var(--font-arabic-body);
+  direction: rtl;
+}
+
+/* Islamic Geometric Particles */
+.islamic-particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.islamic-particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: float-particle var(--duration-spiritual) ease-in-out infinite;
+}
+
+.islamic-particle.particle-star {
+  background: var(--color-divine-gold);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.islamic-particle.particle-hexagon {
+  background: var(--color-protection-blue);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.islamic-particle.particle-octagon {
+  background: var(--color-mystical-purple);
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+.islamic-particle.particle-triangle {
+  background: var(--color-passion-red);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.islamic-particle.particle-circle {
+  background: var(--color-sacred-green);
+  border-radius: 50%;
+}
+
+.islamic-particle.particle-diamond {
+  background: var(--color-earth-brown);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* Cultural Lighting Effects */
+.cultural-lighting-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ambient-lighting {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: screen;
+  animation: ambient-pulse var(--duration-contemplative) ease-in-out infinite alternate;
+}
+
+.directional-lighting {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: overlay;
+}
+
+@keyframes ambient-pulse {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}
+
+/* Cinematic Layers */
+.cinematic-layer {
+  position: absolute;
+  will-change: transform, opacity;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cinematic-layer--background {
+  z-index: 0;
+}
+
+.cinematic-layer--video {
+  z-index: 10;
+  mix-blend-mode: overlay;
+}
+
+.cinematic-layer--character {
+  z-index: 20;
+}
+
+.cinematic-layer--pattern {
+  z-index: 30;
+  mix-blend-mode: multiply;
+}
+
+.cinematic-layer--calligraphy {
+  z-index: 40;
+}
+
+.cinematic-layer--effect {
+  z-index: 50;
+  mix-blend-mode: screen;
+}
+
+.cinematic-layer--overlay {
+  z-index: 60;
+  mix-blend-mode: overlay;
+}
+
+.cinematic-layer--ui {
+  z-index: 70;
+}
+
+/* Background Layer Styling */
+.cinematic-background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7) contrast(1.1) saturate(0.9) blur(0.5px);
+  transition: filter var(--duration-dramatic) ease;
+}
+
+.cinematic-background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8) contrast(1.2) saturate(1.1) blur(0.3px);
+  transition: filter var(--duration-dramatic) ease;
+}
+
+/* Character Layer Styling */
+.cinematic-character-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cinematic-character-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(201, 169, 110, 0.5));
+  transition: filter var(--duration-dramatic) ease;
+}
+
+.cinematic-character-context {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: 1;
+}
+
+.cultural-indicator {
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid var(--color-divine-gold);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  animation: cultural-pulse var(--duration-spiritual) ease-in-out infinite;
+}
+
+@keyframes cultural-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Pattern Layer Styling */
+.cinematic-pattern-layer {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: pattern-float var(--duration-meditative) ease-in-out infinite;
+}
+
+@keyframes pattern-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+/* Calligraphy Layer Styling */
+.cinematic-calligraphy-layer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  direction: rtl;
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+.cinematic-calligraphy-layer > div {
+  font-family: var(--font-arabic-calligraphy);
+  font-size: 2rem;
+  line-height: 1.8;
+  color: var(--color-divine-gold);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  animation: calligraphy-glow var(--duration-contemplative) ease-in-out infinite alternate;
+}
+
+@keyframes calligraphy-glow {
+  0% { text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7); }
+  100% { text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px var(--color-divine-gold); }
+}
+
+/* Effect Layer Styling */
+.cinematic-effect-layer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.effect-cultural-meaning {
+  position: absolute;
+  bottom: var(--space-md);
+  left: var(--space-md);
+  right: var(--space-md);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(30, 58, 138, 0.6));
+  color: var(--color-divine-gold);
+  padding: var(--space-sm);
+  border-radius: 8px;
+  font-family: var(--font-arabic-body);
+  font-size: 0.875rem;
+  text-align: center;
+  direction: rtl;
+  border: 1px solid var(--color-divine-gold);
+  backdrop-filter: blur(10px);
+}
+
+/* Overlay Layer Styling */
+.cinematic-overlay-layer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  mix-blend-mode: overlay;
+}
+
+/* UI Layer Styling */
+.cinematic-ui-layer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.ui-cultural-frame {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  right: var(--space-md);
+  bottom: var(--space-md);
+  border: 2px solid var(--color-divine-gold);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.islamic-border {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 1px solid var(--color-protection-blue);
+  border-radius: 18px;
+  animation: border-glow var(--duration-spiritual) ease-in-out infinite alternate;
+}
+
+@keyframes border-glow {
+  0% { box-shadow: 0 0 10px rgba(30, 58, 138, 0.3); }
+  100% { box-shadow: 0 0 20px rgba(30, 58, 138, 0.6); }
+}
+
+.arabic-ornament {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 30px;
+  background: linear-gradient(90deg, transparent, var(--color-divine-gold), transparent);
+  border-radius: 30px 30px 0 0;
+}
+
+/* Cultural Overlay */
+.cultural-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.manuscript-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(201, 169, 110, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(30, 58, 138, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(107, 33, 168, 0.05) 0%, transparent 70%);
+  mix-blend-mode: overlay;
+  animation: texture-shift var(--duration-meditative) ease-in-out infinite;
+}
+
+@keyframes texture-shift {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+.islamic-border-frame {
+  position: absolute;
+  top: var(--space-lg);
+  left: var(--space-lg);
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  border: 3px double var(--color-divine-gold);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.arabic-ornamentation {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, var(--color-divine-gold) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: ornament-rotate var(--duration-spiritual) linear infinite;
+}
+
+@keyframes ornament-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Cultural Indicators */
+.cultural-indicators {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  z-index: 4;
+}
+
+.cultural-setting-indicator,
+.cultural-time-indicator {
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--color-divine-gold);
+  border-radius: 8px;
+  padding: var(--space-xs);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 48px;
+  backdrop-filter: blur(10px);
+  animation: indicator-pulse var(--duration-dramatic) ease-in-out infinite alternate;
+}
+
+@keyframes indicator-pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+/* =============================================================================
+   ENHANCED CINEMATIC PLAYER STYLES
+   ========================================================================== */
+
+.enhanced-cinematic-player {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--night-black) 0%, #1e293b 100%);
+  font-family: var(--font-arabic-body);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Cultural Audio Prompt */
+.cultural-audio-prompt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(30, 58, 138, 0.8));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.prompt-content {
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.1), rgba(30, 58, 138, 0.1));
+  border: 2px solid var(--color-divine-gold);
+  border-radius: 20px;
+  padding: var(--space-xl);
+  text-align: center;
+  max-width: 500px;
+  position: relative;
+  backdrop-filter: blur(20px);
+}
+
+.islamic-pattern-border {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 1px solid var(--color-protection-blue);
+  border-radius: 24px;
+  animation: border-glow var(--duration-spiritual) ease-in-out infinite alternate;
+}
+
+.prompt-title {
+  font-family: var(--font-arabic-title);
+  font-size: 2rem;
+  color: var(--color-divine-gold);
+  margin-bottom: var(--space-xs);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.prompt-subtitle {
+  font-family: var(--font-english-body);
+  font-size: 1.2rem;
+  color: var(--color-protection-blue);
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.prompt-description {
+  font-family: var(--font-arabic-body);
+  font-size: 1.1rem;
+  color: #f8fafc;
+  line-height: 1.8;
+  margin-bottom: var(--space-lg);
+  direction: rtl;
+}
+
+.cultural-audio-button {
+  background: linear-gradient(135deg, var(--color-divine-gold), var(--color-protection-blue));
+  border: none;
+  border-radius: 12px;
+  padding: var(--space-md) var(--space-lg);
+  font-family: var(--font-arabic-title);
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  transition: all var(--duration-dramatic) ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
+}
+
+.cultural-audio-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 169, 110, 0.5);
+}
+
+.cultural-audio-button:active {
+  transform: translateY(0);
+}
+
+/* Cinematic Dialogue Overlay */
+.cinematic-dialogue-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+  padding: var(--space-xl);
+  z-index: 80;
+  backdrop-filter: blur(10px);
+}
+
+.dialogue-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Character Name Cultural Styling */
+.character-name-cultural {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.character-cultural-indicator {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 200px;
+}
+
+.character-arabic-name {
+  font-family: var(--font-arabic-title);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-divine-gold);
+  margin-bottom: 2px;
+  direction: rtl;
+}
+
+.character-english-name {
+  font-family: var(--font-english-body);
+  font-size: 1rem;
+  color: var(--color-protection-blue);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.character-cultural-icon {
+  font-size: 2rem;
+  animation: character-icon-pulse var(--duration-dramatic) ease-in-out infinite alternate;
+}
+
+@keyframes character-icon-pulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 5px currentColor); }
+  100% { transform: scale(1.1); filter: drop-shadow(0 0 15px currentColor); }
+}
+
+/* Dialogue Text Cultural Styling */
+.dialogue-text-cultural {
+  margin-bottom: var(--space-lg);
+}
+
+.arabic-dialogue-text {
+  font-family: var(--font-arabic-calligraphy);
+  font-size: 1.375rem;
+  line-height: 1.8;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: #f8fafc;
+  margin-bottom: var(--space-md);
+  direction: rtl;
+  text-align: right;
+  letter-spacing: 0.02em;
+  animation: text-appear var(--duration-contemplative) ease-out;
+}
+
+.english-dialogue-text {
+  font-family: var(--font-english-body);
+  font-size: 1.25rem;
+  line-height: 1.7;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: #f8fafc;
+  margin-bottom: var(--space-md);
+  text-align: left;
+  letter-spacing: 0.01em;
+  animation: text-appear var(--duration-contemplative) ease-out;
+}
+
+@keyframes text-appear {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.arabic-cursor,
+.english-cursor {
+  animation: cursor-blink 0.8s infinite;
+  font-weight: bold;
+}
+
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Cultural Context Indicator */
+.cultural-context-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: 0.875rem;
+  color: #cbd5e1;
+}
+
+.cultural-setting,
+.emotional-tone {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cultural-setting span,
+.emotional-tone span {
+  font-family: var(--font-arabic-body);
+  direction: rtl;
+}
+
+/* Cinematic Controls */
+.cinematic-controls {
+  position: absolute;
+  bottom: var(--space-md);
+  left: var(--space-md);
+  right: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  z-index: 90;
+}
+
+.progress-indicator {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--color-divine-gold), var(--color-protection-blue));
+  border-radius: 2px;
+  transition: width var(--duration-dramatic) ease;
+  box-shadow: 0 0 10px rgba(201, 169, 110, 0.5);
+}
+
+.control-hints {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #cbd5e1;
+  font-size: 0.875rem;
+}
+
+.hint-arabic {
+  font-family: var(--font-arabic-body);
+  direction: rtl;
+}
+
+.hint-english {
+  font-family: var(--font-english-body);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* =============================================================================
+   ISLAMIC GEOMETRIC PATTERN GENERATORS
+   ========================================================================== */
+
+.islamic-pattern-arabesque {
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--pattern-arabesque-primary) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, var(--pattern-arabesque-secondary) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+  animation: pattern-shift var(--duration-meditative) linear infinite;
+}
+
+.islamic-pattern-girih {
+  background-image:
+    linear-gradient(45deg, var(--pattern-girih-primary) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--pattern-girih-primary) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--pattern-girih-secondary) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--pattern-girih-secondary) 75%);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+  animation: girih-rotate var(--duration-spiritual) linear infinite;
+}
+
+.islamic-pattern-muqarnas {
+  background-image:
+    radial-gradient(ellipse at top, var(--pattern-muqarnas-primary) 30%, transparent 70%),
+    radial-gradient(ellipse at bottom, var(--pattern-muqarnas-secondary) 30%, transparent 70%);
+  background-size: 80px 40px;
+  background-position: 0 0, 40px 20px;
+  animation: muqarnas-pulse var(--duration-contemplative) ease-in-out infinite alternate;
+}
+
+.islamic-pattern-zellij {
+  background-image:
+    repeating-conic-gradient(var(--pattern-zellij-primary) 0% 25%, var(--pattern-zellij-secondary) 0% 50%);
+  background-size: 50px 50px;
+  animation: zellij-shift var(--duration-dramatic) ease-in-out infinite;
+}
+
+@keyframes pattern-shift {
+  0% { background-position: 0 0, 20px 20px; }
+  100% { background-position: 40px 40px, 60px 60px; }
+}
+
+@keyframes girih-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes muqarnas-pulse {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+@keyframes zellij-shift {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* =============================================================================
+   ARABIC TYPOGRAPHY ENHANCEMENTS
+   ========================================================================== */
+
+.arabic-text-shadow {
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 8px rgba(201, 169, 110, 0.3);
+}
+
+.arabic-text-glow {
+  filter: drop-shadow(0 0 10px rgba(201, 169, 110, 0.5));
+}
+
+.arabic-calligraphy-enhanced {
+  font-family: var(--font-arabic-calligraphy);
+  font-feature-settings: "liga", "kern";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =============================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .cinematic-dialogue-overlay {
+    padding: var(--space-lg);
+  }
+  
+  .arabic-dialogue-text {
+    font-size: 1.125rem;
+  }
+  
+  .english-dialogue-text {
+    font-size: 1rem;
+  }
+  
+  .character-arabic-name {
+    font-size: 1.25rem;
+  }
+  
+  .character-english-name {
+    font-size: 0.875rem;
+  }
+  
+  .cultural-audio-prompt .prompt-content {
+    margin: var(--space-md);
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .cinematic-dialogue-overlay {
+    padding: var(--space-md);
+  }
+  
+  .arabic-dialogue-text {
+    font-size: 1rem;
+  }
+  
+  .english-dialogue-text {
+    font-size: 0.875rem;
+  }
+  
+  .character-cultural-indicator {
+    min-width: 150px;
+  }
+  
+  .cultural-context-indicator {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+}
+
+/* =============================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .cinematic-dialogue-overlay {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%);
+  }
+  
+  .arabic-dialogue-text,
+  .english-dialogue-text {
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  
+  .cultural-setting,
+  .emotional-tone {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ffffff;
+  }
+}
+
+/* Focus indicators for keyboard navigation */
+.cultural-audio-button:focus {
+  outline: 3px solid var(--color-sacred-green);
+  outline-offset: 2px;
+}
+
+/* Screen reader support */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =============================================================================
+   PRINT STYLES
+   ========================================================================== */
+
+@media print {
+  .enhanced-cinematic-player,
+  .cinematic-renderer {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .islamic-particles-container,
+  .cultural-lighting-container,
+  .cultural-overlay {
+    display: none !important;
+  }
+  
+  .arabic-dialogue-text,
+  .english-dialogue-text {
+    color: black !important;
+    text-shadow: none !important;
+  }
+}
+
+/* =============================================================================
+   UTILITY CLASSES
+   ========================================================================== */
+
+/* Text alignment utilities */
+.text-rtl { direction: rtl; text-align: right; }
+.text-ltr { direction: ltr; text-align: left; }
+
+/* Cultural color utilities */
+.text-divine { color: var(--color-divine-gold); }
+.text-sacred { color: var(--color-sacred-green); }
+.text-protection { color: var(--color-protection-blue); }
+.text-mystical { color: var(--color-mystical-purple); }
+.text-passion { color: var(--color-passion-red); }
+
+/* Animation utilities */
+.animate-contemplative { animation-duration: var(--duration-contemplative); }
+.animate-dramatic { animation-duration: var(--duration-dramatic); }
+.animate-spiritual { animation-duration: var(--duration-spiritual); }
+.animate-urgent { animation-duration: var(--duration-urgent); }
+.animate-meditative { animation-duration: var(--duration-meditative); }
+
+/* Islamic pattern utilities */
+.pattern-arabesque { background: var(--border-arabesque); }
+.pattern-islamic { background: var(--border-islamic); }
+
+/* Cultural spacing utilities */
+.space-cultural-xs { padding: var(--space-xs); }
+.space-cultural-sm { padding: var(--space-sm); }
+.space-cultural-md { padding: var(--space-md); }
+.space-cultural-lg { padding: var(--space-lg); }
+.space-cultural-xl { padding: var(--space-xl); }
+
+/* =============================================================================
+   ADVANCED CINEMATIC EFFECTS
+   ========================================================================== */
+
+/* Cosmic particle system */
+.cosmic-particle-field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(2px 2px at 20px 30px, var(--color-divine-gold), transparent),
+    radial-gradient(2px 2px at 40px 70px, var(--color-protection-blue), transparent),
+    radial-gradient(1px 1px at 90px 40px, var(--color-sacred-green), transparent),
+    radial-gradient(1px 1px at 130px 80px, var(--color-mystical-purple), transparent),
+    radial-gradient(2px 2px at 160px 30px, var(--color-divine-gold), transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: cosmic-drift var(--duration-meditative) linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes cosmic-drift {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-100px); }
+}
+
+/* Sacred geometry overlay */
+.sacred-geometry-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    conic-gradient(from 0deg at 50% 50%, transparent 0deg, var(--color-divine-gold) 45deg, transparent 90deg, var(--color-protection-blue) 135deg, transparent 180deg, var(--color-sacred-green) 225deg, transparent 270deg, var(--color-mystical-purple) 315deg, transparent 360deg);
+  mix-blend-mode: overlay;
+  opacity: 0.1;
+  animation: geometry-rotate var(--duration-spiritual) linear infinite;
+}
+
+@keyframes geometry-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Divine illumination effect */
+.divine-illumination {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(201, 169, 110, 0.2) 0%, transparent 70%);
+  mix-blend-mode: screen;
+  animation: divine-pulse var(--duration-contemplative) ease-in-out infinite alternate;
+}
+
+@keyframes divine-pulse {
+  0% { opacity: 0.2; }
+  100% { opacity: 0.5; }
+}
+
+/* Mystical aura */
+.mystical-aura {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(107, 33, 168, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+  mix-blend-mode: overlay;
+  animation: aura-shimmer var(--duration-spiritual) ease-in-out infinite;
+}
+
+@keyframes aura-shimmer {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* Historical vignette */
+.historical-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at center, transparent 30%, rgba(120, 53, 15, 0.3) 100%);
+  mix-blend-mode: multiply;
+  animation: vignette-pulse var(--duration-dramatic) ease-in-out infinite alternate;
+}
+
+@keyframes vignette-pulse {
+  0% { opacity: 0.5; }
+  100% { opacity: 0.8; }
+}
+
+/* =============================================================================
+   CULTURAL AUDIO VISUALIZATION
+   ========================================================================== */
+
+.cultural-audio-visualizer {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  width: 200px;
+  height: 60px;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 2px;
+  z-index: 85;
+}
+
+.audio-bar {
+  width: 4px;
+  background: linear-gradient(to top, var(--color-divine-gold), var(--color-protection-blue));
+  border-radius: 2px;
+  animation: audio-bar-dance 0.5s ease-in-out infinite alternate;
+}
+
+.audio-bar:nth-child(2n) {
+  animation-delay: 0.1s;
+}
+
+.audio-bar:nth-child(3n) {
+  animation-delay: 0.2s;
+}
+
+@keyframes audio-bar-dance {
+  0% { height: 10px; }
+  100% { height: 40px; }
+}
+
+/* =============================================================================
+   LOADING STATES
+   ========================================================================== */
+
+.cinematic-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--night-black) 0%, #1e293b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.islamic-loading-spinner {
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
+
+.islamic-loading-spinner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 4px solid transparent;
+  border-top: 4px solid var(--color-divine-gold);
+  border-radius: 50%;
+  animation: islamic-spin 1s linear infinite;
+}
+
+.islamic-loading-spinner::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  border: 2px solid transparent;
+  border-bottom: 2px solid var(--color-protection-blue);
+  border-radius: 50%;
+  animation: islamic-spin 1.5s linear infinite reverse;
+}
+
+@keyframes islamic-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-arabic-title);
+  font-size: 1rem;
+  color: var(--color-divine-gold);
+  text-align: center;
+  direction: rtl;
+}
+
+/* =============================================================================
+   ERROR STATES
+   ========================================================================== */
+
+.cinematic-error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #7c2d12 0%, #dc2626 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  color: white;
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+.cinematic-error h2 {
+  font-family: var(--font-arabic-title);
+  font-size: 2rem;
+  margin-bottom: var(--space-md);
+  direction: rtl;
+}
+
+.cinematic-error button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: var(--space-sm) var(--space-md);
+  color: white;
+  font-family: var(--font-arabic-body);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--duration-dramatic) ease;
+}
+
+.cinematic-error button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* =============================================================================
+   THEME VARIATIONS
+   ========================================================================== */
+
+/* Dark theme (default) */
+.cinematic-theme-dark {
+  --bg-primary: var(--night-black);
+  --bg-secondary: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --accent-primary: var(--color-divine-gold);
+  --accent-secondary: var(--color-protection-blue);
+}
+
+/* Light theme */
+.cinematic-theme-light {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #e2e8f0;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --accent-primary: var(--color-protection-blue);
+  --accent-secondary: var(--color-divine-gold);
+}
+
+/* Sepia theme (manuscript aesthetic) */
+.cinematic-theme-sepia {
+  --bg-primary: #f4f1e8;
+  --bg-secondary: #e8dcc6;
+  --text-primary: #5c4033;
+  --text-secondary: #8b4513;
+  --accent-primary: #d2691e;
+  --accent-secondary: #cd853f;
+}
+
+/* Apply theme variables */
+.cinematic-theme-dark .cinematic-renderer,
+.cinematic-theme-dark .enhanced-cinematic-player {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  color: var(--text-primary);
+}
+
+.cinematic-theme-light .cinematic-renderer,
+.cinematic-theme-light .enhanced-cinematic-player {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  color: var(--text-primary);
+}
+
+.cinematic-theme-sepia .cinematic-renderer,
+.cinematic-theme-sepia .enhanced-cinematic-player {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  color: var(--text-primary);
+  filter: sepia(0.3) contrast(1.1);
+}
