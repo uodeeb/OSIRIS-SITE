@@ -7,6 +7,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import { MainPlayer } from "@/components/MainPlayer";
+import FullScript from "./pages/FullScript";
 import { initAssetOverrides } from "@/lib/assetOverrides";
 function PlayRoute() {
   // Support ?scene=xxx query param for direct scene access
@@ -19,6 +20,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/script" component={FullScript} />
       <Route path="/play" component={PlayRoute} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

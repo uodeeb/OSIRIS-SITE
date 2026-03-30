@@ -415,6 +415,13 @@ export default function Home() {
                     {isArabic ? '▶ ابدأ التجربة' : '▶ START EXPERIENCE'}
                   </motion.button>
                   <button
+                    onClick={() => setLocation('/script')}
+                    className={`px-5 py-3 rounded-xl text-[10px] tracking-[0.22em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                    style={{ border: `1px solid ${activeTrailer.color}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.8)' }}
+                  >
+                    {isArabic ? 'النص الكامل' : 'FULL SCRIPT'}
+                  </button>
+                  <button
                     onClick={() => setShowTrailer(false)}
                     className={`px-5 py-3 rounded-xl text-[10px] tracking-[0.22em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
                     style={{ border: '1px solid rgba(255,255,255,0.14)', background: 'rgba(0,0,0,0.35)', color: 'rgba(255,255,255,0.7)' }}
