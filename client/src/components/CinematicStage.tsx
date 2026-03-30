@@ -89,6 +89,7 @@ export const CinematicStage = memo(function CinematicStage({
             loop
             muted
             playsInline
+            preload="metadata"
             onCanPlay={() => {
               if (videoRef.current) videoRef.current.playbackRate = 0.85;
               setVideoReady(true);
