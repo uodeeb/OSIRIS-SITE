@@ -536,6 +536,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const [activeVoiceNumber, setActiveVoiceNumber] = useState<number | null>(null);
   const [osirisEffectId, setOsirisEffectId] = useState<OsirisEffectId | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [shareMenuOpen, setShareMenuOpen] = useState(false);
   const bedMusicRef = useRef<HTMLAudioElement | null>(null);
   const bedMusicFadeRef = useRef<number | null>(null);
   const sceneMusicRef = useRef<HTMLAudioElement | null>(null);
@@ -544,6 +545,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const voiceSyncRafRef = useRef<number | null>(null);
   const lastVoiceCueRef = useRef<string>('');
   const disabledVoiceTokensRef = useRef<Set<string>>(new Set());
+  const playedVoiceNumbersRef = useRef<Set<number>>(new Set());
   const ambientRef = useRef<HTMLAudioElement | null>(null);
   const ambientFadeRef = useRef<number | null>(null);
   const bgVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -836,26 +838,44 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     }
   }, [currentScene, goToScene, setLocation]);
 
-  const handleCopyShareLink = useCallback(() => {
-    const url = typeof window !== 'undefined' ? window.location.origin : '';
-    if (!url) return;
-    navigator.clipboard?.writeText(url).catch(() => {});
+  const getShareUrl = useCallback(() => {
+    if (typeof window === 'undefined') return '';
+    return window.location.origin;
   }, []);
 
-  const handleShare = useCallback(() => {
-    const url = typeof window !== 'undefined' ? window.location.origin : '';
+  const handleCopyShareLink = useCallback(() => {
+    const url = getShareUrl();
+    if (!url) return;
+    navigator.clipboard?.writeText(url).catch(() => {});
+  }, [getShareUrl]);
+
+  const handleShareNative = useCallback(() => {
+    const url = getShareUrl();
     if (!url) return;
     const title = lang === 'ar' ? 'OSIRIS — المفسدون في الأرض' : 'OSIRIS — Multimedia Interactive Novel';
     const text = lang === 'ar' ? 'تجربة رواية تفاعلية سينمائية' : 'A cinematic interactive novel experience';
     const nav: any = navigator as any;
     if (nav?.share) {
       nav.share({ title, text, url }).catch(() => {});
-      return;
     }
+  }, [getShareUrl, lang]);
+
+  const handleShareTo = useCallback((target: 'whatsapp' | 'telegram' | 'facebook' | 'x' | 'email') => {
+    const url = getShareUrl();
+    if (!url) return;
+    const title = lang === 'ar' ? 'OSIRIS — المفسدون في الأرض' : 'OSIRIS — Multimedia Interactive Novel';
+    const text = lang === 'ar' ? 'تجربة رواية تفاعلية سينمائية' : 'A cinematic interactive novel experience';
     const shareUrl = encodeURIComponent(url);
     const shareText = encodeURIComponent(`${text} — ${title}`);
-    window.open(`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`, '_blank', 'noopener,noreferrer');
-  }, [lang]);
+    const open = (href: string) => window.open(href, '_blank', 'noopener,noreferrer');
+
+    if (target === 'whatsapp') return open(`https://wa.me/?text=${shareText}%20${shareUrl}`);
+    if (target === 'telegram') return open(`https://t.me/share/url?url=${shareUrl}&text=${shareText}`);
+    if (target === 'facebook') return open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`);
+    if (target === 'x') return open(`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`);
+    open(`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${text}\n\n${url}`)}`);
+  }, [getShareUrl, lang]);
+
 
   const handleForwardScript = useCallback(() => {
     if (showChoices) {
@@ -1014,6 +1034,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     setScriptTrackOverride(null);
     setVoiceSyncLock(false);
     setActiveVoiceNumber(null);
+    setShareMenuOpen(false);
     lastVoiceCueRef.current = '';
   }, [currentSceneId]);
 
@@ -1197,6 +1218,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       return;
     }
 
+    if (currentVoiceCue.voice === 17 && playedVoiceNumbersRef.current.has(17)) return;
+
     const token = `${currentSceneId}:${dialogueIndex}:${currentVoiceCue.voice}`;
     if (lastVoiceCueRef.current === token) return;
     lastVoiceCueRef.current = token;
@@ -1219,6 +1242,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     let cancelled = false;
     let started = false;
     let lastVisible = 0;
+    let lastRendered = 0;
+    let lastUpdateMs = 0;
 
     const syncDisplayedTextToVoice = () => {
       if (cancelled) return;
@@ -1243,6 +1268,16 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       const visibleChars = startLen + Math.floor((len - startLen) * progress);
       const safeVisible = Math.max(lastVisible, Math.max(startLen, Math.min(len, visibleChars)));
       lastVisible = safeVisible;
+
+      const now = performance.now();
+      if (safeVisible === lastRendered || now - lastUpdateMs < 33) {
+        if (!voice.paused && !voice.ended) {
+          voiceSyncRafRef.current = requestAnimationFrame(syncDisplayedTextToVoice);
+        }
+        return;
+      }
+      lastRendered = safeVisible;
+      lastUpdateMs = now;
 
       if (lang === 'ar') {
         setDisplayedArabic(fullArabic.slice(0, safeVisible));
@@ -1304,6 +1339,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         setIsDialogueComplete(true);
         setVoiceSyncLock(false);
         setActiveVoiceNumber(null);
+        if (currentVoiceCue.voice === 17) playedVoiceNumbersRef.current.add(17);
       };
       voice.src = candidates[index];
       voice.currentTime = 0;
@@ -2107,7 +2143,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                         {isArabic ? 'الصفحة الرئيسية' : 'HOME'}
                       </button>
                       <button
-                        onClick={(e) => { e.stopPropagation(); handleShare(); }}
+                        onClick={(e) => { e.stopPropagation(); setShareMenuOpen((v) => !v); }}
                         className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
                         style={{ border: `1px solid ${accentColor}33`, background: 'rgba(0,0,0,0.35)', color: `${accentColor}CC` }}
                       >
@@ -2128,6 +2164,52 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                         {isArabic ? 'إعادة البدء' : 'RESTART'}
                       </button>
                     </div>
+                    {shareMenuOpen && (
+                      <div className={`mt-3 flex flex-wrap items-center justify-center gap-2 sm:gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handleShareNative(); }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                        >
+                          {isArabic ? 'مشاركة النظام' : 'NATIVE'}
+                        </button>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handleShareTo('whatsapp'); }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                        >
+                          WhatsApp
+                        </button>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handleShareTo('telegram'); }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                        >
+                          Telegram
+                        </button>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handleShareTo('facebook'); }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                        >
+                          Facebook
+                        </button>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handleShareTo('x'); }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                        >
+                          X
+                        </button>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handleShareTo('email'); }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
+                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                        >
+                          Email
+                        </button>
+                      </div>
+                    )}
                   </>
                 )}
               </div>
