@@ -524,7 +524,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const [techBoost, setTechBoost] = useState(0);
   const [voiceSyncLock, setVoiceSyncLock] = useState(false);
   const [activeVoiceNumber, setActiveVoiceNumber] = useState<number | null>(null);
-
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const bedMusicRef = useRef<HTMLAudioElement | null>(null);
   const bedMusicFadeRef = useRef<number | null>(null);
   const sceneMusicRef = useRef<HTMLAudioElement | null>(null);
@@ -548,6 +548,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const currentVoiceCue = SCENE_VOICE_CUES[currentSceneId]?.find((item) => item.at === dialogueIndex);
   const isVoicedDialogue = !!currentVoiceCue;
   const isVoiceModeActive = voiceSyncLock && activeVoiceNumber !== null;
+  const isArabic = lang === 'ar';
   const currentCharConfig = currentDialogue?.character
     ? (CHARACTER_MAP[currentDialogue.character] || CHARACTER_MAP['Narrator'])
     : CHARACTER_MAP['Narrator'];
@@ -648,6 +649,21 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     if (sceneMusicRef.current) sceneMusicRef.current.volume = newMuted ? 0 : (isSceneUsingBedOnly ? 0 : Math.min(1, musicVol * 0.95)) * voiceMixFactor;
     if (ambientRef.current) ambientRef.current.volume = newMuted ? 0 : sfxVol * (voiceSyncLock ? 0.55 : 1);
   }, [isMuted, musicVol, sfxVol, isSceneUsingBedOnly, voiceSyncLock]);
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen?.().catch(() => {});
+    } else {
+      document.exitFullscreen?.().catch(() => {});
+    }
+  }, []);
+
+  useEffect(() => {
+    const onFullscreenChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    onFullscreenChange();
+    return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
+  }, []);
 
   const typeText = useCallback((
     text: string,
@@ -1509,19 +1525,19 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       </AnimatePresence>
 
       {!isVoiceModeActive && (
-        <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 h-12">
+        <div className={`absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-3 sm:px-6 h-11 sm:h-12 ${isArabic ? 'flex-row-reverse' : ''}`}>
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
             onClick={(e) => { e.stopPropagation(); setLocation('/'); }}
             className="flex items-center gap-1.5 px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/10"
-            style={{ color: 'rgba(201,169,110,0.55)' }}
+            style={{ color: 'rgba(201,169,110,0.65)' }}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <polyline points="15 18 9 12 15 6" />
+              <polyline points={isArabic ? '9 18 15 12 9 6' : '15 18 9 12 15 6'} />
             </svg>
-            <span className="text-[9px] font-mono tracking-wider">HOME</span>
+            <span className="text-[9px] font-mono tracking-wider">{isArabic ? 'الرئيسية' : 'HOME'}</span>
           </motion.button>
 
           <motion.div
@@ -1542,9 +1558,17 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="flex items-center gap-3"
+            className={`flex items-center gap-2 sm:gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}
             onClick={(e) => e.stopPropagation()}
           >
+            <button
+              onClick={toggleFullscreen}
+              className="px-2 py-1 text-[9px] font-mono rounded-lg tracking-wider transition-all duration-200 hover:bg-white/10"
+              style={{ border: '1px solid rgba(201,169,110,0.2)', background: 'rgba(0,0,0,0.5)', color: 'rgba(201,169,110,0.85)' }}
+            >
+              {isFullscreen ? (isArabic ? 'إغلاق ملء الشاشة' : 'EXIT FULL') : (isArabic ? 'ملء الشاشة' : 'FULL')}
+            </button>
+
             <div className="flex items-center rounded-lg overflow-hidden" style={{ border: '1px solid rgba(201,169,110,0.2)', background: 'rgba(0,0,0,0.5)' }}>
               <button
                 onClick={() => setLang('ar')}
@@ -1672,14 +1696,14 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               {/* Character Name Badge */}
               {currentDialogue.character && (
                 <motion.div
-                  initial={{ opacity: 0, x: -10 }}
+                  initial={{ opacity: 0, x: isArabic ? 10 : -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="mb-3 flex items-center gap-3"
+                  className={`mb-3 flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}
                 >
                   <div
                     className="h-px flex-1 max-w-[50px]"
-                    style={{ background: `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` }}
+                    style={{ background: isArabic ? `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` : `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` }}
                   />
                   <span
                     className={lang === 'ar'
@@ -1695,25 +1719,22 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   >
                     {lang === 'ar' ? currentCharConfig.arabicName : currentCharConfig.name}
                   </span>
-                  <div
-                    className="h-px flex-1 max-w-[50px]"
-                    style={{ background: `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` }}
-                  />
+                  <div className="h-px flex-1 max-w-[50px]" style={{ background: isArabic ? `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` : `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` }} />
                 </motion.div>
               )}
 
               {/* Dialogue Box */}
               <div
-                className="relative rounded-2xl px-7 py-6 md:px-9 md:py-7"
+                className={`relative rounded-2xl px-4 py-4 sm:px-7 sm:py-6 md:px-9 md:py-7 ${isArabic ? 'text-right' : ''}`}
+                dir={isArabic ? 'rtl' : 'ltr'}
                 style={{
                   background: currentScene.backgroundVideo ? 'rgba(0,0,0,0.62)' : 'rgba(0,0,0,0.72)',
-                  border: isAutoRunning && !showChoices
-                    ? '1px solid rgba(0,0,0,0)'
-                    : `1px solid ${currentCharConfig.color}18`,
+                  border: isAutoRunning && !showChoices ? '1px solid rgba(0,0,0,0)' : `1px solid ${currentCharConfig.color}18`,
                   boxShadow: `0 10px 70px rgba(0,0,0,0.78), 0 0 0 1px rgba(255,255,255,0.02), inset 0 1px 0 ${currentCharConfig.color}10`,
                   backdropFilter: 'blur(18px)',
                 }}
               >
+
                 <div
                   className="absolute inset-0 rounded-2xl pointer-events-none"
                   style={{
@@ -1821,9 +1842,10 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     ))}
                   </div>
                 )}
+
                 {!isVoiceModeActive && (
-                  <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
+                  <div className={`mt-4 flex flex-wrap items-center justify-between gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
                       <button
                         onClick={(e) => { e.stopPropagation(); handleBackScene(); }}
                         disabled={!showChoices && dialogueIndex === 0}
@@ -1831,32 +1853,30 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                         style={{ color: 'rgba(201,169,110,0.75)', border: '1px solid rgba(201,169,110,0.22)', background: 'rgba(0,0,0,0.35)' }}
                       >
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                          <polyline points="15 18 9 12 15 6" />
+                          <polyline points={isArabic ? '9 18 15 12 9 6' : '15 18 9 12 15 6'} />
                         </svg>
-                        <span className="text-[9px] font-mono tracking-wider">BACK</span>
+                        <span className="text-[9px] font-mono tracking-wider">{isArabic ? 'السابق' : 'BACK'}</span>
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); handleForwardScript(); }}
                         className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10"
                         style={{ color: 'rgba(201,169,110,0.78)', border: '1px solid rgba(201,169,110,0.26)', background: 'rgba(0,0,0,0.35)' }}
                       >
-                        <span className="text-[9px] font-mono tracking-wider">NEXT</span>
+                        <span className="text-[9px] font-mono tracking-wider">{isArabic ? 'التالي' : 'NEXT'}</span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                          <polyline points="9 18 15 12 9 6" />
+                          <polyline points={isArabic ? '15 18 9 12 15 6' : '9 18 15 12 9 6'} />
                         </svg>
                       </button>
                     </div>
 
-                    <div className="flex items-center rounded-lg overflow-hidden" style={{ border: '1px solid rgba(201,169,110,0.22)', background: 'rgba(0,0,0,0.35)' }}>
-                      <button onClick={() => setAutoMode('off')} className="px-2 py-1 text-[8px] font-mono tracking-wider transition-all duration-200" style={{ background: autoMode === 'off' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'off' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>AUTO OFF</button>
-                      <button onClick={() => setAutoMode('very-slow')} className="px-2 py-1 text-[8px] font-mono tracking-wider transition-all duration-200" style={{ background: autoMode === 'very-slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'very-slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>VSLOW</button>
-                      <button onClick={() => setAutoMode('slow')} className="px-2 py-1 text-[8px] font-mono tracking-wider transition-all duration-200" style={{ background: autoMode === 'slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>SLOW</button>
-                      <button onClick={() => setAutoMode('normal')} className="px-2 py-1 text-[8px] font-mono tracking-wider transition-all duration-200" style={{ background: autoMode === 'normal' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'normal' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>NORMAL</button>
+                    <div className={`flex items-center rounded-lg overflow-hidden ${isArabic ? 'flex-row-reverse' : ''}`} style={{ border: '1px solid rgba(201,169,110,0.22)', background: 'rgba(0,0,0,0.35)' }}>
+                      <button onClick={() => setAutoMode('off')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'off' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'off' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'تلقائي إيقاف' : 'AUTO OFF'}</button>
+                      <button onClick={() => setAutoMode('very-slow')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'very-slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'very-slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'بطيء جدًا' : 'VSLOW'}</button>
+                      <button onClick={() => setAutoMode('slow')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'بطيء' : 'SLOW'}</button>
+                      <button onClick={() => setAutoMode('normal')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'normal' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'normal' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'عادي' : 'NORMAL'}</button>
                     </div>
                   </div>
                 )}
-
-                {/* CLICK TO CONTINUE — prominent when dialogue is complete */}
 
 
                 <AnimatePresence>
@@ -1866,16 +1886,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.4 }}
-                      className="flex items-center justify-end gap-2 mt-4"
+                      className={`flex items-center gap-2 mt-4 ${isArabic ? 'justify-start flex-row-reverse' : 'justify-end'}`}
                     >
                       <motion.span
-                        className={lang === 'ar'
-                          ? "text-[12px] font-arabic-ui"
-                          : "text-[11px] font-mono tracking-[0.2em] uppercase"
-                        }
-                        style={{
-                          color: `${accentColor}90`,
-                        }}
+                        className={lang === 'ar' ? 'text-[13px] font-arabic-ui' : 'text-[11px] font-mono tracking-[0.2em] uppercase'}
+                        style={{ color: `${accentColor}90` }}
                         animate={{ opacity: [0.55, 1, 0.55] }}
                         transition={{ duration: 2, repeat: Infinity }}
                       >
@@ -1883,10 +1898,10 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       </motion.span>
                       <motion.span
                         style={{ color: `${accentColor}90`, fontSize: '14px' }}
-                        animate={{ x: [0, 5, 0] }}
+                        animate={{ x: isArabic ? [0, -5, 0] : [0, 5, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                       >
-                        ›
+                        {isArabic ? '‹' : '›'}
                       </motion.span>
                     </motion.div>
                   )}
@@ -1905,11 +1920,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 28 }}
               transition={{ duration: 0.9 }}
-              className="max-w-4xl mx-auto"
+              className={`max-w-4xl mx-auto ${isArabic ? 'text-right' : ''}`}
+              dir={isArabic ? 'rtl' : 'ltr'}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Timer Bar + Countdown */}
-              <div className="mb-4 flex items-center gap-3">
+              <div className={`mb-4 flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                 <div className="flex-1 h-0.5 bg-white/8 rounded-full overflow-hidden">
                   <motion.div
                     className="h-full rounded-full"
@@ -1926,7 +1941,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                 </div>
                 {/* Countdown number */}
                 <motion.span
-                  className="text-[11px] font-mono tabular-nums flex-shrink-0 w-6 text-right"
+                  className={`text-[11px] font-mono tabular-nums flex-shrink-0 w-6 ${isArabic ? 'text-left' : 'text-right'}`}
                   style={{
                     color: choiceProgress > 55 ? `${accentColor}90`
                       : choiceProgress > 22 ? '#fbbf2490'
@@ -1947,7 +1962,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.55, delay: idx * 0.1 }}
                     onClick={() => handleChoice(choice)}
-                    className="group relative rounded-xl p-4 text-left transition-all duration-300 hover:scale-[1.01]"
+                    className={`group relative rounded-xl p-4 transition-all duration-300 hover:scale-[1.01] ${isArabic ? 'text-right' : 'text-left'}`}
                     style={{
                       background: 'rgba(0,0,0,0.72)',
                       border: `1px solid ${accentColor}20`,
@@ -1967,7 +1982,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       el.style.boxShadow = '0 4px 30px rgba(0,0,0,0.5)';
                     }}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                       <span
                         className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono flex-shrink-0"
                         style={{
@@ -1985,11 +2000,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                           <p className="text-white/93 text-base md:text-lg leading-relaxed text-right font-arabic" dir="rtl">{choice.arabicText || choice.text}</p>
                         )}
                       </div>
+
                       <span
-                        className="text-base ml-1 flex-shrink-0 opacity-0 group-hover:opacity-70 transition-all duration-300"
+                        className={`text-base mx-1 flex-shrink-0 opacity-0 group-hover:opacity-70 transition-all duration-300 ${isArabic ? 'order-first' : ''}`}
                         style={{ color: accentColor }}
                       >
-                        →
+                        {isArabic ? '←' : '→'}
                       </span>
                     </div>
                   </motion.button>
@@ -2017,12 +2033,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-4xl mx-auto text-center"
+              className={`max-w-4xl mx-auto ${isArabic ? 'text-right' : 'text-center'}`}
               onClick={(e) => { e.stopPropagation(); handleNoChoiceAdvance(); }}
             >
               <div
-                className="inline-flex flex-col items-center gap-3 px-10 py-6 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+                className="inline-flex flex-col items-center gap-3 px-6 sm:px-10 py-5 sm:py-6 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-[1.02]"
                 style={{
                   background: 'rgba(0,0,0,0.75)',
                   border: `1px solid ${accentColor}22`,
@@ -2032,7 +2047,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                 <motion.div
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 2.5, repeat: Infinity }}
-                  className="flex items-center gap-3"
+                  className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}
                 >
                   {lang === 'ar' ? (
                     <span className="text-sm tracking-wider font-arabic-ui" dir="rtl" style={{ color: `${accentColor}90` }}>
@@ -2045,11 +2060,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   )}
                   <motion.span
                     style={{ color: `${accentColor}90`, fontSize: '18px' }}
-                    animate={{ x: [0, 6, 0] }}
+                    animate={{ x: isArabic ? [0, -6, 0] : [0, 6, 0] }}
                     transition={{ duration: 1.8, repeat: Infinity }}
                   >
-                    ›
+                    {isArabic ? '‹' : '›'}
                   </motion.span>
+
                 </motion.div>
               </div>
             </motion.div>
