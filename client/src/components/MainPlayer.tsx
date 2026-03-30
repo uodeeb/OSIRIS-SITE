@@ -1039,6 +1039,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
     if (!bedMusicRef.current) {
       bedMusicRef.current = new Audio();
+      bedMusicRef.current.preload = 'auto';
       bedMusicRef.current.loop = true;
       bedMusicRef.current.volume = 0;
       setSourceWithFallback(bedMusicRef.current, desiredBedCandidates);
@@ -1053,6 +1054,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
     if (!sceneMusicRef.current) {
       sceneMusicRef.current = new Audio();
+      sceneMusicRef.current.preload = 'auto';
       sceneMusicRef.current.loop = true;
       sceneMusicRef.current.volume = 0;
     }
@@ -1069,6 +1071,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     if (desiredAmbientUrl) {
       if (!ambientRef.current) {
         ambientRef.current = new Audio(normalize(desiredAmbientUrl));
+        ambientRef.current.preload = 'metadata';
         ambientRef.current.loop = true;
         ambientRef.current.volume = isMuted ? 0 : 0;
         ambientRef.current.play().catch(() => {});
@@ -1112,6 +1115,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       const url = resolveAsset(key);
       if (!url) continue;
       const a = new Audio(url);
+      a.preload = 'metadata';
       a.loop = false;
       a.volume = isMuted ? 0 : Math.min(1, Math.max(0, sfxVol));
       a.play().catch(() => {});
@@ -1135,6 +1139,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     const candidates = getVoiceCandidates(currentVoiceCue.voice);
     if (!voiceRef.current) {
       voiceRef.current = new Audio();
+      voiceRef.current.preload = 'metadata';
       voiceRef.current.loop = false;
     }
 
