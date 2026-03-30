@@ -4,7 +4,8 @@ import { useLocation } from 'wouter';
 import { ASSET_URLS } from '@/lib/assetUrls';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { OSIRIS_EFFECTS, getOsirisMediaUrl } from '@/lib/osirisEffects';
-import osirisLogo from '@/LOGO/OSIRIS-FAVICON.png';
+import osirisLogo from '@/LOGO/new-logo/new-logo-trans-osiris@10x.png';
+import osirisFavicon from '@/LOGO/new-logo/favicon@0.5x.png';
 
 const PARTS = [
   { number: '0', en: 'The Cosmic Courtroom', ar: 'غرفة المحاكمة الكونية', description: 'The trial begins outside time and space', bg: ASSET_URLS.backgrounds.osiris_cosmic, color: '#c9a96e', sceneId: 'zero-1-1-summons' },
@@ -329,7 +330,7 @@ export default function Home() {
             <div className={`relative h-full flex flex-col justify-between px-4 sm:px-8 py-6 ${isArabic ? 'text-right' : 'text-left'}`}>
               <div className={`flex items-center justify-between ${isArabic ? 'flex-row-reverse' : ''}`}>
                 <div className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
-                  <img src={osirisLogo} alt="OSIRIS" className="w-9 h-9 opacity-90" />
+                  <img src={osirisFavicon} alt="OSIRIS" className="w-9 h-9 opacity-90" />
                   <div className="text-[10px] font-mono tracking-[0.26em] text-white/65">CINEMATIC TRAILER</div>
                 </div>
                 <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
