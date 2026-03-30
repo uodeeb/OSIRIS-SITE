@@ -7,6 +7,7 @@ export default function FullScript() {
   const [, setLocation] = useLocation();
   const [q, setQ] = useState("");
   const [content, setContent] = useState("");
+  const [sourceLabel, setSourceLabel] = useState<"kateb" | "final" | "missing">("missing");
 
   const filtered = useMemo(() => {
     const t = q.trim();
@@ -21,10 +22,24 @@ export default function FullScript() {
   }, [q, content]);
 
   useEffect(() => {
-    fetch("/script/OSIRIS_Final_Interactive_Script.md")
-      .then((r) => r.text())
-      .then((t) => setContent(t))
-      .catch(() => setContent(""));
+    fetch("/script/OSIRIS_Final_Interactive_Script.kateb.md")
+      .then((r) => (r.ok ? r.text() : Promise.reject()))
+      .then((t) => {
+        setContent(t);
+        setSourceLabel("kateb");
+      })
+      .catch(() => {
+        fetch("/script/OSIRIS_Final_Interactive_Script.md")
+          .then((r) => (r.ok ? r.text() : Promise.reject()))
+          .then((t) => {
+            setContent(t);
+            setSourceLabel("final");
+          })
+          .catch(() => {
+            setContent("");
+            setSourceLabel("missing");
+          });
+      });
   }, []);
 
   return (
@@ -36,6 +51,9 @@ export default function FullScript() {
             <div>
               <div className="text-[10px] font-mono tracking-[0.28em] text-white/55">FULL SCRIPT</div>
               <div className="text-sm font-arabic-ui text-white/85" dir="rtl">النص الكامل</div>
+              <div className="text-[10px] font-mono tracking-[0.24em] text-white/35">
+                {sourceLabel === "kateb" ? "SOURCE: KATEB" : sourceLabel === "final" ? "SOURCE: FINAL" : "SOURCE: MISSING"}
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -56,6 +74,12 @@ export default function FullScript() {
               className="px-3 py-2 rounded-xl border border-white/10 bg-black/30 text-white/80 text-[10px] font-mono tracking-wider"
             >
               PLAY
+            </button>
+            <button
+              onClick={() => setLocation("/play?canonical=1")}
+              className="px-3 py-2 rounded-xl border border-white/10 bg-black/30 text-white/80 text-[10px] font-mono tracking-wider"
+            >
+              CANON
             </button>
           </div>
         </div>

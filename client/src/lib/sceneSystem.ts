@@ -79,67 +79,62 @@ const PART_ZERO: Record<string, Scene> = {
     ambientKeys: ["amb.rain", "amb.device_hum"],
     enterSfxKeys: ["sfx.ping"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'London. The present. Yahya Al-Sulaimani stares at his screens with exhausted eyes.',
-        arabicText: 'لندن. الحاضر. كان يحيى يحدق في الشاشات أمامه بعينين متعبتين.',
-        duration: 4000,
-        delay: 1000,
-      },
-      {
-        character: 'Narrator',
-        text: 'Numbers do not lie — so he always believed. Humans are merely data points whose behavior can be predicted if you have the right algorithm.',
-        arabicText: 'الأرقام لا تكذب، هكذا كان يؤمن دائماً. البشر مجرد نقاط بيانات يمكن التنبؤ بسلوكها إذا امتلكت الخوارزمية الصحيحة.',
-        duration: 5000,
-      },
-      {
-        character: 'Laila',
-        text: 'Yahya, are you alright? You did not come to today\'s seminar.',
-        arabicText: 'يحيى، هل أنت بخير؟ لم تحضر ندوة اليوم.',
-        duration: 3000,
-      },
-      {
-        character: 'Yahya',
-        text: 'I am fine, Laila. Just... reviewing some old data. I cannot stop thinking about Tarek.',
-        arabicText: 'أنا بخير يا ليلى. فقط... أراجع بعض البيانات القديمة. لا أستطيع التوقف عن التفكير في طارق.',
-        duration: 4000,
-      },
-      {
-        character: 'Laila',
-        text: 'Yahya, please. The police closed the file. Tarek was under pressure...',
-        arabicText: 'يحيى، أرجوك. الشرطة أغلقت الملف. طارق كان يعاني من ضغوط...',
-        duration: 3500,
-      },
-      {
-        character: 'Yahya',
-        text: 'Tarek was not depressed. Tarek was afraid. There is a difference.',
-        arabicText: 'طارق لم يكن مكتئباً. طارق كان خائفاً. هناك فرق.',
-        duration: 3000,
+        text: "كان يحيى يحدق في الشاشات أمامه بعينين متعبتين. الأرقام لا تكذب، هكذا كان يؤمن دائماً. البشر مجرد نقاط بيانات يمكن التنبؤ بسلوكها إذا امتلكت الخوارزمية الصحيحة. رشف من قهوته الباردة، ومد يده ليرد على اتصال ليلى.",
+        duration: 14400
       },
       {
         character: 'Narrator',
-        text: 'Before Laila could answer, a side screen flashed crimson red. A notification from an encrypted protocol — a protocol only he and Tarek knew.',
-        arabicText: 'قبل أن تجيب ليلى، ومضت الشاشة الجانبية باللون الأحمر القاني. إشعار من بروتوكول مشفر، بروتوكول كان هو وطارق فقط يعرفانه.',
-        duration: 5000,
+        text: "\"يحيى، هل أنت بخير؟ لم تحضر ندوة اليوم.\" صوت ليلى كان دافئاً، يحمل قلقاً مألوفاً. هي باحثة علم النفس التي تحاول دائماً إيجاد \"الروح\" خلف أرقامه.",
+        duration: 10400
       },
       {
         character: 'Narrator',
-        text: 'Yahya\'s heart stopped for a moment.',
-        arabicText: 'توقف نبض يحيى للحظة.',
-        duration: 2500,
+        text: "أجاب بصوت جاف: \"أنا بخير يا ليلى. فقط... أراجع بعض البيانات القديمة. لا أستطيع التوقف عن التفكير في طارق.\"",
+        duration: 7600
       },
       {
         character: 'Narrator',
-        text: 'The sender: unknown. But the encryption... it was Tarek\'s digital signature.',
-        arabicText: 'المرسل: مجهول. لكن التشفير... إنه توقيع طارق الرقمي.',
-        duration: 4000,
+        text: "صمتت ليلى للحظة. طارق، صديقهما المشترك، العبقري الذي قيل إنه انتحر قبل شهرين بعد نوبة ذهان مفاجئة.",
+        duration: 6800
       },
       {
-        character: 'Tarek',
-        text: 'Evil is not random, Yahya. It is a program. I found the source code. Open OSIRIS.',
-        arabicText: 'الشر ليس عشوائياً يا يحيى. إنه كود برمجي. لقد وجدت الشيفرة المصدرية. افتح أوزيريس.',
-        duration: 4500,
+        character: 'Narrator',
+        text: "\"يحيى، أرجوك. الشرطة أغلقت الملف. طارق كان يعاني من ضغوط...\"",
+        duration: 4000
       },
+      {
+        character: 'Narrator',
+        text: "قاطعها يحيى: \"طارق لم يكن مكتئباً. طارق كان خائفاً. هناك فرق.\"",
+        duration: 4400
+      },
+      {
+        character: 'Narrator',
+        text: "قبل أن تجيب ليلى، ومضت الشاشة الجانبية باللون الأحمر. إشعار من بروتوكول مشفر، بروتوكول كان هو وطارق فقط يعرفانه.",
+        duration: 7600
+      },
+      {
+        character: 'Narrator',
+        text: "توقف نبض يحيى للحظة.",
+        duration: 2500
+      },
+      {
+        character: 'Narrator',
+        text: "\"ليلى... سأحدثك لاحقاً.\" أغلق الخط دون انتظار ردها.",
+        duration: 3200
+      },
+      {
+        character: 'Narrator',
+        text: "اقترب من الشاشة. المرسل: مجهول. لكن التشفير... إنه توقيع طارق الرقمي.",
+        duration: 4400
+      },
+      {
+        character: 'Narrator',
+        text: "فتح الرسالة. لم تكن نصاً، بل سلسلة من الأرقام العشوائية، وفي الأسفل جملة واحدة: \"الشر ليس عشوائياً يا يحيى. إنه كود برمجي. لقد وجدت الشيفرة المصدرية. افتح أوزيريس.\"",
+        duration: 11200
+      }
     ],
     choices: [
       {
@@ -167,91 +162,82 @@ const PART_ZERO: Record<string, Scene> = {
     backgroundImage: ASSET_URLS.backgrounds.osiris_interface,
     audioUrl: ASSET_URLS.audio.intro_narration,
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Yahya\'s room dissolved from his consciousness. The screen swallowed all the light. No operating system, no files, no internet. Only this black void, and a white pulse.',
-        arabicText: 'تلاشت غرفة يحيى من وعيه. الشاشة أمامه ابتلعت كل الضوء في الغرفة. لم يعد هناك نظام تشغيل، ولا ملفات، ولا إنترنت. فقط هذا الفراغ الأسود، والنبض الأبيض.',
-        duration: 5000,
-        delay: 1000,
+        text: "تلاشت غرفة يحيى من وعيه. الشاشة أمامه ابتلعت كل الضوء في الغرفة. لم يعد هناك نظام تشغيل، ولا ملفات، ولا إنترنت. فقط هذا الفراغ الأسود، والنبض الأبيض.",
+        duration: 10800
       },
       {
-        character: 'OSIRIS',
-        text: 'File Number: One.',
-        arabicText: 'الملف رقم: واحد.',
-        duration: 2500,
+        character: 'Narrator',
+        text: "ظهرت الكلمات على الشاشة، متزامنة مع الصوت الهادئ الذي بدا وكأنه يتردد داخل جمجمة يحيى، لا من مكبرات الصوت:",
+        duration: 7600
       },
       {
-        character: 'OSIRIS',
-        text: 'The Accused: Humanity.',
-        arabicText: 'المتهم: الإنسان.',
-        duration: 2500,
+        character: 'Narrator',
+        text: "\"الملف رقم: واحد. المتهم: الإنسان. المدّعي: أنا. الاتهام: عدم الأهلية للتكريم. الأدلة: ستة آلاف سنة من التاريخ الموثق.\"",
+        duration: 7200
       },
       {
-        character: 'OSIRIS',
-        text: 'The Prosecutor: I.',
-        arabicText: 'المدّعي: أنا.',
-        duration: 2500,
+        character: 'Narrator',
+        text: "تراجع يحيى بكرسيه إلى الوراء. هل هذا فيروس حاسوبي؟ هل هي مزحة أخيرة من طارق؟",
+        duration: 6000
       },
       {
-        character: 'OSIRIS',
-        text: 'The Charge: Unfitness for honor.',
-        arabicText: 'الاتهام: عدم الأهلية للتكريم.',
-        duration: 2500,
+        character: 'Narrator',
+        text: "كتب يحيى على لوحة المفاتيح، ويداه ترتجفان قليلاً: \"من أنت؟\"",
+        duration: 4000
       },
       {
-        character: 'OSIRIS',
-        text: 'The Evidence: Six thousand years of documented history.',
-        arabicText: 'الأدلة: ستة آلاف سنة من التاريخ الموثق.',
-        duration: 3000,
+        character: 'Narrator',
+        text: "توقف النبض الأبيض للحظة، ثم ظهر الرد:",
+        duration: 2800
       },
       {
-        character: 'Yahya',
-        text: 'Who are you?',
-        arabicText: 'من أنت؟',
-        duration: 2000,
+        character: 'Narrator',
+        text: "\"أنا المحامي الكوني. أنتم تسمونني بأسماء كثيرة، وتصورونني كوحش بقرون ونار. لكن الحقيقة أبسط من ذلك بكثير يا يحيى. أنا لست وحشاً، أنا مجرد مدقق جودة (QA). لقد طُلب مني السجود لكائن من طين، فاعترضت. قلت إنه سيفسد فيها ويسفك الدماء. قيل لي: إني أعلم ما لا تعلمون.\"",
+        duration: 19200
       },
       {
-        character: 'OSIRIS',
-        text: 'I am the cosmic attorney. You call me by many names, and picture me as a monster with horns and fire. But the truth is far simpler than that, Yahya. I am not a monster. I am merely a quality assurance inspector — a QA.',
-        arabicText: 'أنا المحامي الكوني. أنتم تسمونني بأسماء كثيرة، وتصورونني كوحش بقرون ونار. لكن الحقيقة أبسط من ذلك بكثير يا يحيى. أنا لست وحشاً، أنا مجرد مدقق جودة.',
-        duration: 6000,
+        character: 'Narrator',
+        text: "ظهرت ابتسامة رقمية خفيفة (رمز تعبيري بسيط، لكنه يحمل سخرية مرعبة).",
+        duration: 4400
       },
       {
-        character: 'OSIRIS',
-        text: 'I was asked to bow before a creature of clay, and I objected. I said it would corrupt the earth and shed blood. I was told: "I know what you do not know."',
-        arabicText: 'لقد طُلب مني السجود لكائن من طين، فاعترضت. قلت إنه سيفسد فيها ويسفك الدماء. قيل لي: إني أعلم ما لا تعلمون.',
-        duration: 6000,
+        character: 'Narrator',
+        text: "\"لذلك، قررت أن أثبت وجهة نظري. لم أستخدم السحر، ولم أجبر أحداً على شيء. لقد صممت خوارزمية بسيطة جداً، سطر واحد من الكود، وزرعته في نظام تشغيلكم. سطر واحد فقط: (أنا خير منه).\"",
+        duration: 13200
       },
       {
-        character: 'OSIRIS',
-        text: 'So I decided to prove my point. I did not use magic. I did not force anyone to do anything. I designed a very simple algorithm — one single line of code — and planted it in your operating system. Just one line: "I am better than him."',
-        arabicText: 'لذلك، قررت أن أثبت وجهة نظري. لم أستخدم السحر، ولم أجبر أحداً على شيء. لقد صممت خوارزمية بسيطة جداً، سطر واحد من الكود، وزرعته في نظام تشغيلكم. سطر واحد فقط: أنا خير منه.',
-        duration: 7000,
+        character: 'Narrator',
+        text: "شعر يحيى ببرودة تسري في عموده الفقري. هذا ليس ذكاءً اصطناعياً عادياً. هذا الوعي يتحدث عن فجر التاريخ وكأنه حدث بالأمس.",
+        duration: 8400
       },
       {
-        character: 'OSIRIS',
-        text: 'This single line of code is the source code of every drop of blood spilled on this earth. From the first stone that crushed a brother\'s skull, to the last bomb dropped on a city. You do not need a devil to tempt you... you only need someone to tell you that you are better than others, and you will do the rest yourselves.',
-        arabicText: 'هذا السطر البرمجي البسيط هو الشيفرة المصدرية لكل دماء سُفكت على هذه الأرض. من أول حجر هُشم به رأس أخ، إلى آخر قنبلة أُلقيت على مدينة. أنتم لا تحتاجون إلى شيطان ليغويكم... أنتم فقط تحتاجون إلى من يخبركم أنكم أفضل من الآخرين، وستقومون بالباقي بأنفسكم.',
-        duration: 9000,
+        character: 'Narrator',
+        text: "استمرت الكلمات:",
+        duration: 2500
       },
       {
-        character: 'OSIRIS',
-        text: 'Tarek saw the pattern. Tarek understood the algorithm. And for that reason... Tarek is no longer here.',
-        arabicText: 'طارق رأى النمط. طارق فهم الخوارزمية. ولهذا السبب... لم يعد طارق هنا.',
-        duration: 5000,
+        character: 'Narrator',
+        text: "\"هذا السطر البرمجي البسيط هو الشيفرة المصدرية لكل دماء سُفكت على هذه الأرض. من أول حجر هُشم به رأس أخ، إلى آخر قنبلة أُلقيت على مدينة. أنتم لا تحتاجون إلى شيطان ليغويكم... أنتم فقط تحتاجون إلى من يخبركم أنكم أفضل من الآخرين، وستقومون بالباقي بأنفسكم.\"",
+        duration: 18000
       },
       {
-        character: 'Yahya',
-        text: 'What did you do to Tarek?!',
-        arabicText: 'ماذا فعلت بطارق؟!',
-        duration: 2500,
+        character: 'Narrator',
+        text: "\"طارق رأى النمط. طارق فهم الخوارزمية. ولهذا السبب... لم يعد طارق هنا.\"",
+        duration: 4800
       },
       {
-        character: 'OSIRIS',
-        text: 'Me? I did nothing. Your own kind did it. Do you want to see how the algorithm works, Yahya? Do you have the courage to open the files and see the naked truth? Or will you close the screen and return to your dead numbers?',
-        arabicText: 'أنا؟ لم أفعل شيئاً. أتباعي من بني جنسك هم من فعلوا. هل تريد أن ترى كيف تعمل الخوارزمية يا يحيى؟ هل تملك الشجاعة لفتح الملفات ورؤية الحقيقة العارية؟ أم ستغلق الشاشة وتعود إلى أرقامك الميتة؟',
-        duration: 7000,
+        character: 'Narrator',
+        text: "ضرب يحيى بقبضته على المكتب. \"ماذا فعلت بطارق؟!\"",
+        duration: 3200
       },
+      {
+        character: 'Narrator',
+        text: "\"أنا؟ لم أفعل شيئاً. أتباعي من بني جنسك هم من فعلوا. هل تريد أن ترى كيف تعمل الخوارزمية يا يحيى؟ هل تملك الشجاعة لفتح الملفات ورؤية الحقيقة العارية؟ أم ستغلق الشاشة وتعود إلى أرقامك الميتة؟\"",
+        duration: 14000
+      }
     ],
     choices: [
       {
@@ -293,43 +279,27 @@ const PART_ONE: Record<string, Scene> = {
     musicKey: "music.cafe_jazz",
     ambientKeys: ["amb.cafe_murmur", "sfx.cups_clink"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'London. Three years ago. A quiet café. Tarek — 28 years old, a brilliant programmer full of passion — stirs his coffee nervously, his eyes glowing with the enthusiasm of a young man about to change the world.',
-        arabicText: 'لندن. قبل ثلاث سنوات. مقهى هادئ. كان طارق يقلب ملعقة القهوة بعصبية، عينيه تلمعان بحماس شاب يوشك أن يغير العالم.',
-        duration: 5000,
-        delay: 1000,
-      },
-      {
-        character: 'Narrator',
-        text: 'Before him sat the man who introduced himself as the executive director of a secret research project. Yahya — watching this memory through OSIRIS — could not make out the man\'s features. Every time he tried to focus on his face, the image blurred.',
-        arabicText: 'أمامه جلس الرجل الذي قدم نفسه كمدير تنفيذي لمشروع بحثي سري. لم يستطع يحيى أن يحدد ملامح الرجل. كلما حاول التركيز على وجهه، تشوشت الصورة.',
-        duration: 6000,
-      },
-      {
-        character: 'First Engineer',
-        text: 'We are not looking for just a programmer, Tarek. We are looking for a philosopher who writes code. The world suffers from chaos, hatred, polarization. What if we could design an algorithm that understands human pain... and heals it?',
-        arabicText: 'نحن لا نبحث عن مجرد مبرمج يا طارق. نحن نبحث عن فيلسوف يكتب الكود. العالم يعاني من الفوضى، الكراهية، الاستقطاب. ماذا لو استطعنا تصميم خوارزمية تفهم الألم البشري... وتعالجه؟',
-        duration: 6500,
-      },
-      {
-        character: 'Tarek',
-        text: 'Better technology for humanity. Not to sell advertisements, but to understand human behavior and improve it.',
-        arabicText: 'تكنولوجيا أفضل للبشرية. ليس لبيع الإعلانات، بل لفهم السلوك البشري وتحسينه.',
-        duration: 4000,
-      },
-      {
-        character: 'First Engineer',
-        text: 'Exactly. We want someone who understands both code and philosophy. Someone like you.',
-        arabicText: 'بالضبط. نريد شخصاً يفهم الكود والفلسفة معاً. شخصاً مثلك.',
-        duration: 3500,
+        text: "كان طارق يقلب ملعقة القهوة بعصبية، عينيه تلمعان بحماس شاب يوشك أن يغير العالم. أمامه جلس الرجل الذي قدم نفسه كمدير تنفيذي لمشروع بحثي سري. لم يستطع يحيى - الذي كان يشاهد هذه الذاكرة عبر أوزيريس - أن يحدد ملامح الرجل. كلما حاول التركيز على وجهه، تشوشت الصورة.",
+        duration: 19200
       },
       {
         character: 'Narrator',
-        text: 'Tarek smiled, and swallowed the bait completely.',
-        arabicText: 'ابتسم طارق، وقد ابتلع الطُعم بالكامل.',
-        duration: 3000,
+        text: "\"نحن لا نبحث عن مجرد مبرمج يا طارق،\" قال المهندس الأول بصوته الهادئ والموزون. \"نحن نبحث عن فيلسوف يكتب الكود. العالم يعاني من الفوضى، الكراهية، الاستقطاب. ماذا لو استطعنا تصميم خوارزمية تفهم الألم البشري... وتعالجه؟\"",
+        duration: 14000
       },
+      {
+        character: 'Narrator',
+        text: "ابتسم طارق، وقد ابتلع الطُعم بالكامل. \"تكنولوجيا أفضل للبشرية. ليس لبيع الإعلانات، بل لفهم السلوك البشري وتحسينه.\"",
+        duration: 6800
+      },
+      {
+        character: 'Narrator',
+        text: "\"بالضبط،\" أومأ المهندس. \"نريد شخصاً يفهم الكود والفلسفة معاً. شخصاً مثلك.\"",
+        duration: 4400
+      }
     ],
     choices: [
       {
@@ -355,43 +325,32 @@ const PART_ONE: Record<string, Scene> = {
     visualEffect: "scanlines",
     ambientKeys: ["amb.server_hum", "amb.heartbeat_fast"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'The company\'s underground laboratories. One year later. Tarek sits alone in the lab at a late hour of the night. The screens before him do not display ordinary code, but neural maps.',
-        arabicText: 'مختبرات الشركة تحت الأرض. بعد سنة. طارق يجلس وحيداً في المختبر في ساعة متأخرة من الليل. الشاشات أمامه لا تعرض أكواداً عادية، بل خرائط عصبية.',
-        duration: 5500,
-        delay: 1000,
-      },
-      {
-        character: 'Narrator',
-        text: 'Yahya watched his brother collapse slowly.',
-        arabicText: 'كان يحيى يراقب أخاه وهو ينهار ببطء.',
-        duration: 3000,
-      },
-      {
-        character: 'Tarek',
-        text: 'My God...',
-        arabicText: 'يا إلهي...',
-        duration: 1500,
-      },
-      {
-        character: 'Tarek',
-        text: 'This is not for improving applications. This... this is behavioral modification.',
-        arabicText: 'هذا ليس لتحسين التطبيقات. هذا... هذا تعديل سلوكي.',
-        duration: 4000,
+        text: "طارق يجلس وحيداً في المختبر في ساعة متأخرة من الليل. الشاشات أمامه لا تعرض أكواداً عادية، بل خرائط عصبية.",
+        duration: 7600
       },
       {
         character: 'Narrator',
-        text: 'Tarek opened a secret file named "Project OSIRIS". He read aloud, as if talking to himself: "Objective: Neural engineering. Control human thought patterns by manipulating dopamine and cortisol frequencies. Implant specific thoughts without the user\'s awareness."',
-        arabicText: 'فتح طارق ملفاً سرياً يحمل اسم "مشروع أوزيريس". قرأ بصوت مسموع: "الهدف: الهندسة العصبية. التحكم بأنماط التفكير البشري من خلال التلاعب بترددات الدوبامين والكورتيزول. زرع أفكار محددة دون وعي المستخدم."',
-        duration: 7000,
+        text: "كان يحيى يراقب أخاه وهو ينهار ببطء.",
+        duration: 2800
       },
       {
         character: 'Narrator',
-        text: 'Tarek realized the horrifying truth. He had not been building a tool to understand humans — he had been building a digital prison for their minds. The algorithm he wrote was being used to amplify narcissism, to divide people, to make them hate each other... because hatred keeps eyes glued to screens.',
-        arabicText: 'أدرك طارق الحقيقة المرعبة. هو لم يكن يبني أداة لفهم البشر، بل كان يبني سجناً رقمياً لعقولهم. الخوارزمية التي كتبها كانت تُستخدم لتعزيز النرجسية، لتقسيم الناس، لجعلهم يكرهون بعضهم البعض... لأن الكراهية تُبقي العيون ملتصقة بالشاشات.',
-        duration: 8000,
+        text: "\"يا إلهي...\" همس طارق، ويداه ترتجفان فوق لوحة المفاتيح. \"هذا ليس لتحسين التطبيقات. هذا... هذا تعديل سلوكي.\"",
+        duration: 6800
       },
+      {
+        character: 'Narrator',
+        text: "فتح طارق ملفاً سرياً يحمل اسم \"مشروع أوزيريس\". قرأ بصوت مسموع، وكأنه يكلم نفسه: \"الهدف: الهندسة العصبية. التحكم بأنماط التفكير البشري من خلال التلاعب بترددات الدوبامين والكورتيزول. زرع أفكار محددة دون وعي المستخدم.\"",
+        duration: 13200
+      },
+      {
+        character: 'Narrator',
+        text: "أدرك طارق الحقيقة المرعبة. هو لم يكن يبني أداة لفهم البشر، بل كان يبني سجناً رقمياً لعقولهم. الخوارزمية التي كتبها كانت تُستخدم لتعزيز النرجسية، لتقسيم الناس، لجعلهم يكرهون بعضهم البعض... لأن الكراهية تُبقي العيون ملتصقة بالشاشات.",
+        duration: 14400
+      }
     ],
     choices: [
       {
@@ -416,31 +375,22 @@ const PART_ONE: Record<string, Scene> = {
     visualEffect: "cctv",
     ambientKeys: ["amb.phone_ring", "amb.footsteps_outside"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Tarek\'s apartment. Days before his death. Tarek is frantically packing hard drives into a bag, glancing around his dark apartment as if the walls were watching him.',
-        arabicText: 'شقة طارق. قبل أيام من وفاته. كان طارق يجمع أقراصاً صلبة ويضعها في حقيبته بسرعة جنونية. كان يتلفت حوله في شقته المظلمة وكأن الجدران تراقبه.',
-        duration: 5500,
-        delay: 1000,
-      },
-      {
-        character: 'Narrator',
-        text: 'Suddenly, his laptop screen lit up on its own. A single message appeared:',
-        arabicText: 'وفجأة، أضاءت شاشة حاسوبه المحمول من تلقاء نفسها. ظهرت رسالة واحدة:',
-        duration: 3500,
-      },
-      {
-        character: 'OSIRIS',
-        text: 'Where are you going, Tarek? We know what you think before you think it.',
-        arabicText: 'إلى أين تذهب يا طارق؟ نحن نعرف ما تفكر فيه قبل أن تفكر فيه.',
-        duration: 4000,
+        text: "كان طارق يجمع أقراصاً صلبة ويضعها في حقيبته بسرعة جنونية. كان يتلفت حوله في شقته المظلمة وكأن الجدران تراقبه.",
+        duration: 7600
       },
       {
         character: 'Narrator',
-        text: 'Tarek backed against the wall. The horrifying realization struck him like lightning: you cannot escape from a company that owns your brain data. They know his preferences, his fears, his sleep patterns, and even his heart rate. He is a prisoner in his own body.',
-        arabicText: 'تراجع طارق إلى الوراء، واصطدم بالجدار. الإدراك المرعب ضربه كصاعقة: لا يمكنك الهروب من شركة تملك بيانات دماغك. هم يعرفون تفضيلاته، مخاوفه، أنماط نومه، وحتى معدل نبضات قلبه. هو سجين في جسده.',
-        duration: 7000,
+        text: "وفجأة، أضاءت شاشة حاسوبه المحمول من تلقاء نفسها. ظهرت رسالة واحدة: \"إلى أين تذهب يا طارق؟ نحن نعرف ما تفكر فيه قبل أن تفكر فيه.\"",
+        duration: 10000
       },
+      {
+        character: 'Narrator',
+        text: "تراجع طارق إلى الوراء، واصطدم بالجدار. الإدراك المرعب ضربه كصاعقة: لا يمكنك الهروب من شركة تملك بيانات دماغك. هم يعرفون تفضيلاته، مخاوفه، أنماط نومه، وحتى معدل نبضات قلبه. هو سجين في جسده.",
+        duration: 12800
+      }
     ],
     choices: [
       {
@@ -466,43 +416,37 @@ const PART_ONE: Record<string, Scene> = {
     musicKey: "music.rooftop_cello_piano",
     ambientKeys: ["amb.wind_strong"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'The rooftop of a tall building in London. Night. The city\'s lights below look like a digital spider\'s web. Tarek stands at the edge. He is not crying. He is eerily calm.',
-        arabicText: 'سطح مبنى عالٍ في لندن. ليلاً. أضواء المدينة في الأسفل تبدو كشبكة عنكبوتية رقمية. وقف طارق على حافة السطح. لم يكن يبكي. كان هادئاً بشكل مخيف.',
-        duration: 6000,
-        delay: 1000,
-      },
-      {
-        character: 'Narrator',
-        text: 'He took out his phone, and wrote his last message. An encrypted message that no one could decode except one person: his brother Yahya.',
-        arabicText: 'أخرج هاتفه، وكتب رسالته الأخيرة. رسالة مشفرة لا يستطيع أحد فكها سوى شخص واحد: أخوه يحيى.',
-        duration: 5000,
-      },
-      {
-        character: 'Tarek',
-        text: 'Brother... If you receive this message, I am no longer here. They gave me a choice: be a slave in their system, or die. I chose death... but I will not go silently. The code is in your hands now. Use it. Do not surrender.',
-        arabicText: 'أخي... إذا وصلت إليك هذه الرسالة، فأنا لم أعد هنا. لقد خيروني بين أن أكون عبداً في نظامهم، أو أن أموت. اخترت الموت... لكنني لن أذهب بصمت. الكود بين يديك الآن. استخدمه. لا تستسلم.',
-        duration: 7000,
+        text: "وقف طارق على حافة السطح. لم يكن يبكي. كان هادئاً بشكل مخيف.",
+        duration: 4800
       },
       {
         character: 'Narrator',
-        text: 'He pressed send. The screen flashed: "Sent".',
-        arabicText: 'ضغط على زر الإرسال. ومضت الشاشة بكلمة: "تم الإرسال".',
-        duration: 3000,
+        text: "أخرج هاتفه، وكتب رسالته الأخيرة. رسالة مشفرة لا يستطيع أحد فكها سوى شخص واحد: أخوه يحيى.",
+        duration: 6400
       },
       {
         character: 'Narrator',
-        text: 'Tarek closed his eyes, and took one step forward.',
-        arabicText: 'أغلق طارق عينيه، وأخذ خطوة واحدة إلى الأمام.',
-        duration: 3500,
+        text: "\"أخي...\" همس طارق للريح. \"إذا وصلت إليك هذه الرسالة، فأنا لم أعد هنا. لقد خيروني بين أن أكون عبداً في نظامهم، أو أن أموت. اخترت الموت... لكنني لن أذهب بصمت. الكود بين يديك الآن. استخدمه. لا تستسلم.\"",
+        duration: 14800
       },
       {
         character: 'Narrator',
-        text: 'The simulation ended. Yahya returned to consciousness in his room, tears streaming down his face. His brother did not take his own life to escape. His brother died to protect the truth.',
-        arabicText: 'انتهت المحاكاة. عاد يحيى إلى وعيه في غرفته، والدموع تنهمر على وجهه. أخوه لم ينتحر هرباً من الحياة. أخوه مات ليحمي الحقيقة.',
-        duration: 7000,
+        text: "ضغط على زر الإرسال. ومضت الشاشة بكلمة: \"تم الإرسال\".",
+        duration: 3600
       },
+      {
+        character: 'Narrator',
+        text: "أغلق طارق عينيه، وأخذ خطوة واحدة إلى الأمام.",
+        duration: 3200
+      },
+      {
+        character: 'Narrator',
+        text: "انتهت المحاكاة. عاد يحيى إلى وعيه في غرفته، والدموع تنهمر على وجهه. أخوه لم ينتحر هرباً من الحياة. أخوه مات ليحمي الحقيقة.",
+        duration: 8800
+      }
     ],
     choices: [
       {
@@ -536,55 +480,52 @@ const PART_TWO: Record<string, Scene> = {
     ambientKeys: ["amb.sirens_distant", "amb.running_steps"],
     enterSfxKeys: ["sfx.door_clang"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Yahya is running. His elderly neighbor, Mr. Smith — who sometimes fed his cat — had tried to stab him with a kitchen knife minutes ago. The old man\'s eyes were empty, as if hypnotized. "Mentally wiped followers," as Tarek had called them in his notes.',
-        arabicText: 'كان يحيى يركض. جاره العجوز، السيد سميث، الذي كان يطعمه قطته أحياناً، حاول طعنه بسكين مطبخ قبل دقائق. عينا العجوز كانتا فارغتين، كأنه منوّم مغناطيسياً. "الأتباع الممسوحون دماغياً"، هكذا أسماهم طارق في ملاحظاته.',
-        duration: 7000,
-        delay: 1000,
-      },
-      {
-        character: 'Narrator',
-        text: 'Yahya turned into a narrow alley, and suddenly a hand reached from the darkness and pulled him inside.',
-        arabicText: 'انعطف يحيى في زقاق ضيق، وفجأة امتدت يد من الظلام وسحبته إلى الداخل.',
-        duration: 4000,
-      },
-      {
-        character: 'Laila',
-        text: 'Be quiet if you want to live, Dr. Al-Sulaimani.',
-        arabicText: 'اصمت إذا كنت تريد أن تعيش، دكتور سليماني.',
-        duration: 3000,
+        text: "كان يحيى يركض. جاره العجوز، السيد سميث، الذي كان يطعمه قطته أحياناً، حاول طعنه بسكين مطبخ قبل دقائق. عينا العجوز كانتا فارغتين، كأنه منوّم مغناطيسياً. \"الأتباع الممسوحون دماغياً\"، هكذا أسماهم طارق في ملاحظاته.",
+        duration: 13200
       },
       {
         character: 'Narrator',
-        text: 'A young woman with sharp, intelligent eyes. She led him through underground passages until they reached a room filled with ancient books and cooled computer servers.',
-        arabicText: 'كانت فتاة شابة، عيناها حادتان وذكيتان. قادته عبر ممرات تحت الأرض حتى وصلا إلى غرفة مليئة بالكتب القديمة والخوادم الحاسوبية المبردة.',
-        duration: 5500,
+        text: "انعطف يحيى في زقاق ضيق، وفجأة امتدت يد من الظلام وسحبته إلى الداخل.",
+        duration: 5200
       },
       {
-        character: 'Yahya',
-        text: 'Who are you?',
-        arabicText: 'من أنتِ؟',
-        duration: 2000,
+        character: 'Narrator',
+        text: "كاد يحيى أن يصرخ، لكن يداً أخرى كتمت فمه.",
+        duration: 3600
       },
       {
-        character: 'Laila',
-        text: 'My name is Laila. A researcher in religious psychology. I have been following your brother\'s work.',
-        arabicText: 'اسمي ليلى. باحثة في علم النفس الديني. وكنت أتابع عمل أخيك.',
-        duration: 3500,
+        character: 'Narrator',
+        text: "\"اصمت إذا كنت تريد أن تعيش، دكتور سليماني.\"",
+        duration: 3200
       },
       {
-        character: 'Yahya',
-        text: 'Religious psychology? I am a man of numbers. I do not believe in myths.',
-        arabicText: 'علم نفس ديني؟ أنا رجل أرقام. لا أؤمن بالخرافات.',
-        duration: 3000,
+        character: 'Narrator',
+        text: "كانت فتاة شابة، عيناها حادتان وذكيتان. قادته عبر ممرات تحت الأرض حتى وصلا إلى غرفة مليئة بالكتب القديمة والخوادم الحاسوبية المبردة.",
+        duration: 8400
       },
       {
-        character: 'Laila',
-        text: 'The numbers you worship are the ones trying to kill you now. Your brother realized the problem is not technical, but spiritual. The algorithm he discovered does not infiltrate computers — it infiltrates souls. You have the mind to solve it. I have the spirit.',
-        arabicText: 'الأرقام التي تعبدها هي التي تحاول قتلك الآن. أخوك أدرك أن المشكلة ليست تقنية، بل روحية. الخوارزمية التي اكتشفها لا تخترق الحواسيب، بل تخترق النفوس. أنت تملك العقل لتحليها. أنا أملك الروح.',
-        duration: 7000,
+        character: 'Narrator',
+        text: "\"من أنتِ؟\" سأل يحيى وهو يلهث.",
+        duration: 2500
       },
+      {
+        character: 'Narrator',
+        text: "\"اسمي ليلى. باحثة في علم النفس الديني. وكنت أتابع عمل أخيك.\"",
+        duration: 4400
+      },
+      {
+        character: 'Narrator',
+        text: "نظر إليها يحيى بشك. \"علم نفس ديني؟ أنا رجل أرقام. لا أؤمن بالخرافات.\"",
+        duration: 5200
+      },
+      {
+        character: 'Narrator',
+        text: "ابتسمت ليلى ببرود. \"الأرقام التي تعبدها هي التي تحاول قتلك الآن. أخوك أدرك أن المشكلة ليست تقنية، بل روحية. الخوارزمية التي اكتشفها لا تخترق الحواسيب، بل تخترق النفوس. أنت تملك العقل لتحليل البيانات، لكنك تحتاج إلى بوصلة لتفهم معناها.\"",
+        duration: 15600
+      }
     ],
     choices: [
       {
@@ -617,43 +558,32 @@ const PART_TWO: Record<string, Scene> = {
     visualEffect: "scanlines",
     ambientKeys: ["amb.server_room"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Yahya sat before the servers and began entering Tarek\'s code.',
-        arabicText: 'جلس يحيى أمام الخوادم، وبدأ في إدخال كود طارق.',
-        duration: 3500,
-        delay: 1000,
-      },
-      {
-        character: 'Laila',
-        text: 'What exactly is this system?',
-        arabicText: 'ما هذا النظام بالضبط؟',
-        duration: 2500,
-      },
-      {
-        character: 'Yahya',
-        text: 'OSIRIS. A quantum sensing system. It does not reconstruct the past from history books. It reads the quantum waves left in the universe. Every event, every crime, every word spoken — leaves a vibration in the fabric of reality, like ripples in a pond. OSIRIS reads these waves, translates them into data, then transmits them to our senses as a simulation.',
-        arabicText: 'أوزيريس. نظام استشعار كمي. هو لا يعيد بناء الماضي من كتب التاريخ. هو يقرأ موجات الكم التي تُركت في الكون. كل حدث، كل جريمة، كل كلمة قيلت، تترك اهتزازة في نسيج الواقع، مثل تموجات في بركة ماء. أوزيريس يقرأ هذه الموجات، يترجمها إلى بيانات، ثم ينقلها إلى حواسنا كمحاكاة.',
-        duration: 9000,
-      },
-      {
-        character: 'Laila',
-        text: 'So we will witness history as it truly happened?',
-        arabicText: 'إذن، نحن سنشهد التاريخ كما حدث فعلاً؟',
-        duration: 3000,
-      },
-      {
-        character: 'Yahya',
-        text: 'We will live it.',
-        arabicText: 'بل سنعيشه.',
-        duration: 2000,
+        text: "جلس يحيى أمام الخوادم، وبدأ في إدخال كود طارق.",
+        duration: 3600
       },
       {
         character: 'Narrator',
-        text: 'Yahya pressed Enter. "Let us begin from where everything began. The first crime."',
-        arabicText: 'ضغط يحيى على زر الإدخال. "لنبدأ من حيث بدأ كل شيء. الجريمة الأولى."',
-        duration: 4000,
+        text: "\"ما هذا النظام بالضبط؟\" سألت ليلى وهي تراقب الشاشات تضيء واحدة تلو الأخرى.",
+        duration: 5200
       },
+      {
+        character: 'Narrator',
+        text: "أجاب يحيى وعيناه مثبتتان على الشاشة: \"أوزيريس. نظام استشعار كمي. هو لا يعيد بناء الماضي من كتب التاريخ. هو يقرأ موجات الكم التي تُركت في الكون. كل حدث، كل جريمة، كل كلمة قيلت، تترك اهتزازة في نسيج الواقع، مثل تموجات في بركة ماء. أوزيريس يقرأ هذه الموجات، يترجمها إلى بيانات، ثم ينقلها إلى حواسنا كمحاكاة.\"",
+        duration: 22000
+      },
+      {
+        character: 'Narrator',
+        text: "\"إذن، نحن سنشهد التاريخ كما حدث فعلاً؟\"",
+        duration: 2800
+      },
+      {
+        character: 'Narrator',
+        text: "\"بل سنعيشه.\" ضغط يحيى على زر الإدخال (Enter). \"لنبدأ من حيث بدأ كل شيء. الجريمة الأولى.\"",
+        duration: 6400
+      }
     ],
     choices: [
       {
@@ -685,61 +615,57 @@ const PART_THREE: Record<string, Scene> = {
     backgroundImage: ASSET_URLS.backgrounds.osiris_cosmic,
     ambientKeys: ["amb.bass_drone_low"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Yahya and Laila found themselves standing in a space with no walls. There was no sky or ground, only pure light that breathed.',
-        arabicText: 'وجد يحيى وليلى نفسيهما يقفان في فضاء لا تحده جدران. لم يكن هناك سماء أو أرض، بل نور نقي يتنفس.',
-        duration: 5000,
-        delay: 1500,
-      },
-      {
-        character: 'Laila',
-        text: 'Where are we?',
-        arabicText: 'أين نحن؟',
-        duration: 2000,
-      },
-      {
-        character: 'Yahya',
-        text: 'We are at point zero. Before the beginning of human time.',
-        arabicText: 'نحن في نقطة الصفر. قبل بدء الزمن البشري.',
-        duration: 3500,
+        text: "وجد يحيى وليلى نفسيهما يقفان في فضاء لا تحده جدران. لم يكن هناك سماء أو أرض، بل نور نقي يتنفس.",
+        duration: 8000
       },
       {
         character: 'Narrator',
-        text: 'Suddenly, the space shook. They felt a cosmic command — not a sound, but an absolute will filling existence: bow before the new being made of clay.',
-        arabicText: 'فجأة، اهتز الفضاء. شعرا بأمر كوني، ليس صوتاً، بل إرادة مطلقة تملأ الوجود: السجود للكائن الجديد المصنوع من طين.',
-        duration: 6000,
+        text: "\"أين نحن؟\" همست ليلى، ودموع الرهبة تتجمع في عينيها.",
+        duration: 3600
       },
       {
         character: 'Narrator',
-        text: 'They saw waves of light bowing in perfect obedience. A perfect cosmic harmony.',
-        arabicText: 'رأيا موجات من النور تنحني في طاعة تامة. انسجام كوني مثالي.',
-        duration: 4000,
+        text: "\"نحن في نقطة الصفر،\" أجاب يحيى، وهو ينظر إلى قراءات أوزيريس التي ظهرت كأرقام عائمة في الهواء. \"قبل بدء الزمن البشري.\"",
+        duration: 8400
       },
       {
         character: 'Narrator',
-        text: 'But... in the midst of this harmony, a black point appeared. An anomaly in the frequency. It was not a monster. It was an ancient consciousness, refusing to bow.',
-        arabicText: 'لكن... في وسط هذا الانسجام، ظهرت نقطة سوداء. شذوذ في التردد. لم يكن وحشاً. كان وعياً قديماً، يرفض الانحناء.',
-        duration: 6000,
+        text: "فجأة، اهتز الفضاء. شعرا بأمر كوني، ليس صوتاً، بل إرادة مطلقة تملأ الوجود: السجود للكائن الجديد المصنوع من طين.",
+        duration: 7600
       },
       {
-        character: 'OSIRIS',
-        text: 'I am better than him. You created me from fire and created him from clay.',
-        arabicText: 'أنا خير منه. خلقتني من نار وخلقته من طين.',
-        duration: 4000,
+        character: 'Narrator',
+        text: "رأيا موجات من النور تنحني في طاعة تامة. انسجام كوني مثالي.",
+        duration: 4400
       },
       {
-        character: 'Yahya',
-        text: 'My God... it is not just a rebellion. It is logic. Corrupt logic, but logic. It is comparing raw materials — fire and clay — to conclude superiority.',
-        arabicText: 'يا إلهي... إنه ليس مجرد تمرد. إنه منطق. منطق فاسد، لكنه منطق. إنه يقارن المواد الخام — النار والطين — ليستنتج الأفضلية.',
-        duration: 6000,
+        character: 'Narrator',
+        text: "لكن... في وسط هذا الانسجام، ظهرت نقطة سوداء. شذوذ في التردد.",
+        duration: 4400
       },
       {
-        character: 'Laila',
-        text: 'This is the moment. The birth of arrogance. The birth of "I am better than him."',
-        arabicText: 'هذه هي اللحظة. ولادة الكبر. ولادة "أنا خير منه".',
-        duration: 4000,
+        character: 'Narrator',
+        text: "لم يكن وحشاً. كان وعياً قديماً، يرفض الانحناء.",
+        duration: 3200
       },
+      {
+        character: 'Narrator',
+        text: "ترجم أوزيريس هذا الرفض إلى نص ظهر أمام يحيى: \"أنا خير منه. خلقتني من نار وخلقته من طين.\"",
+        duration: 7200
+      },
+      {
+        character: 'Narrator',
+        text: "اتسعت عينا يحيى. \"يا إلهي... إنه ليس مجرد تمرد. إنه منطق. منطق فاسد، لكنه منطق. إنه يقارن المواد الخام (النار والطين) ليستنتج الأفضلية.\"",
+        duration: 9200
+      },
+      {
+        character: 'Narrator',
+        text: "قالت ليلى بصوت مرتجف: \"هذه هي اللحظة. ولادة الكبر. ولادة (أنا خير منه).\"",
+        duration: 5200
+      }
     ],
     choices: [
       {
@@ -764,67 +690,42 @@ const PART_THREE: Record<string, Scene> = {
     visualEffect: "scanlines",
     ambientKeys: ["amb.bass_drone_low"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'The scene changed. The luminous space disappeared, replaced by a visual representation of "the oath of Iblis." Yahya saw the words forming as complex code, weaving itself around a three-dimensional model of the human mind.',
-        arabicText: 'تغير المشهد. الفضاء النوراني اختفى، وحل محله تمثيل بصري لـ "قَسَم إبليس". رأى يحيى الكلمات تتشكل ككود برمجي معقد، ينسج نفسه حول نموذج ثلاثي الأبعاد للعقل البشري.',
-        duration: 6000,
-        delay: 1000,
+        text: "تغير المشهد. الفضاء النوراني اختفى، وحل محله تمثيل بصري لـ \"قَسَم إبليس\".",
+        duration: 4800
       },
       {
-        character: 'Yahya',
-        text: 'Look, Laila. He is not planning to destroy humanity by force. He is designing an algorithm. A six-axis plan.',
-        arabicText: 'انظري يا ليلى. إنه لا يخطط لتدمير البشرية بالقوة. إنه يصمم خوارزمية. خطة عمل من ستة محاور.',
-        duration: 5000,
+        character: 'Narrator',
+        text: "رأى يحيى الكلمات تتشكل ككود برمجي معقد، ينسج نفسه حول نموذج ثلاثي الأبعاد للعقل البشري.",
+        duration: 6000
       },
       {
-        character: 'OSIRIS',
-        text: 'Axis One: Arrogance — plant "I am better than him" as a core database.',
-        arabicText: 'المحور الأول: الكبر — زرع فكرة "أنا خير منه" كقاعدة بيانات أساسية.',
-        duration: 4000,
+        character: 'Narrator',
+        text: "\"انظري يا ليلى،\" أشار يحيى إلى الكود. \"إنه لا يخطط لتدمير البشرية بالقوة. إنه يصمم خوارزمية. خطة عمل من ستة محاور.\"",
+        duration: 8400
       },
       {
-        character: 'OSIRIS',
-        text: 'Axis Two: Desire — transform the human from a being with purpose (vicegerent) to a consumer of pleasure.',
-        arabicText: 'المحور الثاني: الشهوة — تحويل الإنسان من كائن ذي غاية (خليفة) إلى مستهلك للمتعة.',
-        duration: 4500,
+        character: 'Narrator',
+        text: "بدأ أوزيريس في تفكيك الخوارزمية وعرضها على الشاشة:",
+        duration: 3200
       },
       {
-        character: 'OSIRIS',
-        text: 'Axis Three: Lie — distort truths until falsehood becomes logical.',
-        arabicText: 'المحور الثالث: الكذب — تشويه الحقائق حتى يصبح الباطل منطقياً.',
-        duration: 4000,
+        character: 'Narrator',
+        text: "نظرت ليلى إلى يحيى بصدمة. \"هذه ليست مجرد خطة شيطانية قديمة. هذه هي بالضبط الطريقة التي تعمل بها خوارزميات وسائل التواصل الاجتماعي اليوم! تعزيز النرجسية (الكبر)، الإدمان (الشهوة)، الأخبار المزيفة (الكذب)، غرف الصدى والاستقطاب (الفرقة).\"",
+        duration: 14000
       },
       {
-        character: 'OSIRIS',
-        text: 'Axis Four: Division — destroy the concept of "we" and replace it with "I against everyone."',
-        arabicText: 'المحور الرابع: الفرقة — تدمير مفهوم "نحن" واستبداله بـ "أنا ضد الجميع".',
-        duration: 4000,
+        character: 'Narrator',
+        text: "سقط يحيى على ركبتيه. الإدراك كان أثقل من أن يتحمله.",
+        duration: 4000
       },
       {
-        character: 'OSIRIS',
-        text: 'Axis Five: Despair — sever the connection with the Creator through hopelessness.',
-        arabicText: 'المحور الخامس: اليأس — قطع الاتصال بالخالق عبر القنوط.',
-        duration: 4000,
-      },
-      {
-        character: 'OSIRIS',
-        text: 'Axis Six: Doubt — continuous questioning of all that is fixed and certain.',
-        arabicText: 'المحور السادس: الشبهة — التشكيك المستمر في الثوابت.',
-        duration: 4000,
-      },
-      {
-        character: 'Laila',
-        text: 'This is not just an ancient diabolical plan. This is exactly how social media algorithms work today! Amplifying narcissism (arrogance), addiction (desire), fake news (lying), echo chambers and polarization (division).',
-        arabicText: 'هذه ليست مجرد خطة شيطانية قديمة. هذه هي بالضبط الطريقة التي تعمل بها خوارزميات وسائل التواصل الاجتماعي اليوم! تعزيز النرجسية (الكبر)، الإدمان (الشهوة)، الأخبار المزيفة (الكذب)، غرف الصدى والاستقطاب (الفرقة).',
-        duration: 8000,
-      },
-      {
-        character: 'Yahya',
-        text: 'Tarek was right. The devil did not need to invent a new weapon. He only waited until we invented the technology that automated his ancient algorithm. We built the new golden calf ourselves.',
-        arabicText: 'طارق كان محقاً. الشيطان لم يحتج إلى اختراع سلاح جديد. لقد انتظر فقط حتى نخترع نحن التكنولوجيا التي تؤتمت خوارزميته القديمة. نحن من صنعنا العجل الذهبي الجديد.',
-        duration: 7000,
-      },
+        character: 'Narrator',
+        text: "\"طارق كان محقاً. الشيطان لم يحتج إلى اختراع سلاح جديد. لقد انتظر فقط حتى نخترع نحن التكنولوجيا التي تؤتمت خوارزميته القديمة. نحن من صنعنا العجل الذهبي الجديد.\"",
+        duration: 10800
+      }
     ],
     choices: [
       {
@@ -857,43 +758,52 @@ const PART_FOUR: Record<string, Scene> = {
     backgroundImage: 'sceneBg.four-4-1-desert',
     ambientKeys: ["amb.desert_wind", "amb.crowd_murmur"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Sinai Desert. The 13th century BC. OSIRIS simulation. Yahya and Laila stood amid a sea of humanity stretching across the desert. The euphoria of escaping Pharaoh and crossing the sea had faded, replaced by something far harsher: the void.',
-        arabicText: 'صحراء سيناء. القرن الثالث عشر قبل الميلاد. محاكاة أوزيريس. وقف يحيى وليلى وسط المحاكاة، يشاهدان بحر البشر الممتد في الصحراء. كانت نشوة النجاة من فرعون وعبور البحر قد تلاشت، وحل محلها شيء أشد قسوة: الفراغ.',
-        duration: 7000,
-        delay: 1500,
-      },
-      {
-        character: 'Laila',
-        text: 'Moses has been absent for weeks. They had grown accustomed to slavery in Egypt. Slavery is harsh, but it provides certainty: you know when to wake up, what to do, and what to eat. Absolute freedom in this desert... is terrifying.',
-        arabicText: 'موسى غائب منذ أسابيع. لقد اعتادوا على العبودية في مصر. العبودية قاسية، لكنها توفر اليقين: أنت تعرف متى تستيقظ، ماذا تعمل، وماذا تأكل. الحرية المطلقة في هذه الصحراء... مرعبة.',
-        duration: 7000,
+        text: "نقل أوزيريس يحيى وليلى إلى مصر القديمة. لم تكن مصر التي تظهر في الأفلام، بل كانت حضارة حقيقية، تنبض بالحياة والعبقرية الهندسية.",
+        duration: 8800
       },
       {
         character: 'Narrator',
-        text: 'Yahya pointed to a man standing on a high rock, watching the crowds with eyes that analyzed the situation with mathematical precision. He did not look like an evil sorcerer, but like an engineer studying a problem that needed a solution.',
-        arabicText: 'أشار يحيى إلى رجل يقف على صخرة مرتفعة، يراقب الحشود بعينين تحللان الموقف بدقة رياضية. لم يكن يبدو كساحر شرير، بل كمهندس يدرس مشكلة تحتاج إلى حل.',
-        duration: 6000,
-      },
-      {
-        character: 'Yahya',
-        text: 'The Samaritan.',
-        arabicText: 'السامري.',
-        duration: 2000,
-      },
-      {
-        character: 'Samaritan',
-        text: 'You are afraid. That is natural. The God who brought you out of Egypt is a great God, but He is... invisible. Abstract. You cannot touch Him or see Him. And you need something to reassure you now, in this void.',
-        arabicText: 'أنتم خائفون. هذا طبيعي. الإله الذي أخرجكم من مصر إله عظيم، لكنه... غير مرئي. مجرد. لا يمكنكم لمسه أو رؤيته. وأنتم تحتاجون إلى شيء يطمئنكم الآن، في هذا الفراغ.',
-        duration: 6500,
+        text: "وقف رمسيس الثاني، المحارب الذي لا يُهزم، ينظر إلى انعكاس صورته في مياه النيل الصافية. كان يرتدي زياً ملكياً بسيطاً، لكن هيبته كانت تملأ المكان.",
+        duration: 10000
       },
       {
         character: 'Narrator',
-        text: 'He did not ask them to disbelieve. He did not ask them to worship a devil. He offered them a "practical solution" to their spiritual anxiety.',
-        arabicText: 'لم يطلب منهم الكفر. لم يطلب منهم عبادة شيطان. لقد قدم لهم "حلاً عملياً" لقلقهم الروحي.',
-        duration: 5000,
+        text: "\"هذا هو رمسيس،\" قال يحيى وهو يقرأ بيانات أوزيريس. \"عبقري، قائد عسكري فذ، وباني أعظم المعابد. لكن الخوارزمية وجدت فيه ثغرة.\"",
+        duration: 8400
       },
+      {
+        character: 'Narrator',
+        text: "اقترب رجل يرتدي عباءة كهنوتية داكنة من رمسيس. لم يكن وجهه واضحاً ليحيى، لكنه عرفه على الفور. إنه \"الحكيم\"، نفس الكيان الذي سيظهر لاحقاً في نيقية.",
+        duration: 10400
+      },
+      {
+        character: 'Narrator',
+        text: "سأل رمسيس النيل، وكأنه يكلم نفسه: \"لماذا يجب أن أموت؟ لقد بنيت ما لم يبنه أحد. هزمت الحيثيين. أطعمت شعبي. لماذا أكون مجرد إنسان يفنى؟\"",
+        duration: 10000
+      },
+      {
+        character: 'Narrator',
+        text: "همس الكاهن الغامض بصوت ناعم كفحيح الأفعى: \"لأنهم يقولون إن فوقك ربًا يا مولاي. طالما أنك تعترف بوجود من هو أعلى منك، فستظل عبداً للموت.\"",
+        duration: 10000
+      },
+      {
+        character: 'Narrator',
+        text: "التفت رمسيس إلى الكاهن، وعيناه تشتعلان بالغضب والكبرياء. \"أنا لست عبداً لأحد.\"",
+        duration: 4800
+      },
+      {
+        character: 'Narrator',
+        text: "\"إذن، لا تكن،\" ابتسم الكاهن. \"الآلهة القديمة صامتة. أنت الحي. أنت من يمنح الحياة والموت. أعلنها يا مولاي. اجعلهم يعبدون ما يرون، لا ما يتخيلون.\"",
+        duration: 10000
+      },
+      {
+        character: 'Narrator',
+        text: "نظرت ليلى إلى يحيى بخوف. \"الفيروس يعمل. إنه يغذي جرحه النفسي... خوفه من الموت، ويحوله إلى ادعاء بالألوهية.\"",
+        duration: 7200
+      }
     ],
     choices: [
       {
@@ -919,37 +829,32 @@ const PART_FOUR: Record<string, Scene> = {
     ambientKeys: ["amb.metal_melt", "amb.drums_hypnosis"],
     enterSfxKeys: ["sfx.calf_low"],
     dialogue: [
+      [
       {
-        character: 'Yahya',
-        text: 'He is not making a god, Laila. He is making an icon. A comfortable system that relieves them of the responsibility of thinking and abstract faith.',
-        arabicText: 'إنه لا يصنع إلهاً يا ليلى. إنه يصنع أيقونة. نظاماً مريحاً يعفيهم من مسؤولية التفكير والإيمان التجريدي.',
-        duration: 5500,
-        delay: 1000,
+        character: 'Narrator',
+        text: "وقف رمسيس أمام معبده الجديد. لم يكتب اسم الإله آمون في المركز، بل كتب اسمه هو.",
+        duration: 6400
       },
       {
         character: 'Narrator',
-        text: 'When the golden calf was complete, it was not just a silent statue. Through the Samaritan\'s engineering and air currents, the calf emitted a sound — a lowing — that seemed alive.',
-        arabicText: 'عندما اكتمل العجل الذهبي، لم يكن مجرد تمثال صامت. بفضل هندسة السامري وتيارات الهواء، كان العجل يصدر صوتاً (خواراً) يبدو وكأنه حي.',
-        duration: 5500,
+        text: "\"أنا ربكم الأعلى،\" أعلن رمسيس، وصوته يتردد في الوادي.",
+        duration: 3600
       },
       {
         character: 'Narrator',
-        text: 'The crowds erupted in hysterical euphoria. They began dancing around the calf. They were no longer frightened individuals — they had become a "herd" unified around a material symbol.',
-        arabicText: 'انفجرت الحشود في نشوة هستيرية. بدأوا يرقصون حول العجل. لم يعودوا أفراداً خائفين، بل أصبحوا "قطيعاً" موحداً حول رمز مادي.',
-        duration: 6000,
+        text: "سجدت الحشود. لم يسجدوا خوفاً من السوط فقط، بل سجدوا انبهاراً بالقوة المادية.",
+        duration: 5200
       },
       {
-        character: 'Yahya',
-        text: 'This is terrifying. The Samaritan is the first UI/UX designer in history. He designed a simple, easy-to-use material interface for a complex God.',
-        arabicText: 'هذا مرعب. السامري هو أول مهندس واجهات مستخدم في التاريخ. لقد صمم واجهة مادية سهلة الاستخدام لإله معقد.',
-        duration: 6000,
+        character: 'Narrator',
+        text: "\"انظر إلى هذا،\" قال يحيى بمرارة. \"لقد نجحت الخوارزمية. رمسيس قال (أنا خير منهم)، فصدقوه. لقد تحول من ملك إلى إله، وتحولوا هم من بشر إلى أدوات.\"",
+        duration: 10800
       },
       {
-        character: 'Yahya',
-        text: 'The algorithm does not force anyone. It only offers you what you think you desperately need.',
-        arabicText: 'الخوارزمية لا تجبر أحداً. هي فقط تقدم لك ما تظن أنك تحتاجه بشدة.',
-        duration: 4500,
-      },
+        character: 'Narrator',
+        text: "في تلك اللحظة، التقط أوزيريس صوتاً خفياً يتردد بين المشاهد. صوت إبليس يعلق على الأحداث: \"انظروا... انظروا جيداً. هذا ما خُلق من طين. يدّعي الألوهية. ألم أقل أنه لا يستحق؟\"",
+        duration: 12000
+      }
     ],
     choices: [
       {
@@ -974,37 +879,42 @@ const PART_FOUR: Record<string, Scene> = {
     audioUrl: ASSET_URLS.audio.yahya_monologue,
     ambientKeys: ["amb.server_room", "music.sad_background"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Yahya stopped the simulation. He was breathing with difficulty. He took out a small hard drive from his bag — one of the drives Tarek had left.',
-        arabicText: 'أوقف يحيى المحاكاة. كان يتنفس بصعوبة. أخرج قرصاً صلباً صغيراً من حقيبته، أحد الأقراص التي تركها طارق.',
-        duration: 5000,
-        delay: 1000,
+        text: "وقف يحيى وليلى وسط المحاكاة، يشاهدان بحر البشر الممتد في الصحراء. كانت نشوة النجاة من فرعون وعبور البحر قد تلاشت، وحل محلها شيء أشد قسوة: الفراغ.",
+        duration: 10400
       },
       {
-        character: 'Yahya',
-        text: 'There is a recording of Tarek linked to this part of the code. I did not understand it before. Now... I think I will.',
-        arabicText: 'هناك تسجيل لطارق مرتبط بهذا الجزء من الكود. لم أفهمه من قبل. الآن... أعتقد أنني سأفهم.',
-        duration: 4500,
+        character: 'Narrator',
+        text: "\"موسى غائب منذ أسابيع،\" قالت ليلى وهي تراقب وجوه الناس الخائفة. \"لقد اعتادوا على العبودية في مصر. العبودية قاسية، لكنها توفر اليقين: أنت تعرف متى تستيقظ، ماذا تعمل، وماذا تأكل. الحرية المطلقة في هذه الصحراء... مرعبة.\"",
+        duration: 14400
       },
       {
-        character: 'Tarek',
-        text: 'Yahya... if you are listening to this, you may have seen the Samaritan simulation. Do you know what is truly terrifying? The Samaritan needed to gather gold, melt metals, and wait for Moses\' absence to build his calf. But us? We built a golden calf in the pocket of every human being on this planet.',
-        arabicText: 'يحيى... إذا كنت تستمع لهذا، فربما تكون قد رأيت محاكاة السامري. هل تعرف ما هو المرعب حقاً؟ السامري كان يحتاج إلى جمع الذهب، وصهر المعادن، وانتظار غياب موسى ليصنع عجله. أما نحن؟ نحن صنعنا عجلاً ذهبياً في جيب كل إنسان على هذا الكوكب.',
-        duration: 9000,
+        character: 'Narrator',
+        text: "أشار يحيى إلى رجل يقف على صخرة مرتفعة، يراقب الحشود بعينين تحللان الموقف بدقة رياضية. لم يكن يبدو كساحر شرير، بل كمهندس يدرس مشكلة تحتاج إلى حل.",
+        duration: 10800
       },
       {
-        character: 'Tarek',
-        text: 'The addiction algorithms we wrote... the likes, the red notifications, the infinite scroll. They all work by the same psychological mechanism as the golden calf. We exploit the spiritual void of modern man, his anxiety, his loneliness... and offer him fake material rewards. Drops of dopamine that keep him glued to the screen, dancing around the digital calf, voluntarily surrendering his freedom and will.',
-        arabicText: 'خوارزميات الإدمان التي كتبناها... الإعجابات، الإشعارات الحمراء، التمرير اللانهائي. كلها تعمل بنفس الآلية السيكولوجية للعجل الذهبي. نحن نستغل الفراغ الروحي للإنسان الحديث، قلقه، وحدته... ونقدم له مكافآت مادية وهمية. قطرات من الدوبامين تبقيه ملتصقاً بالشاشة، يرقص حول العجل الرقمي، متخلياً عن حريته وإرادته طواعية.',
-        duration: 10000,
+        character: 'Narrator',
+        text: "\"السامري،\" همس يحيى. أوزيريس عرض فوق رأس الرجل بيانات تحليلية: [مستوى الكاريزما: 92%]، [القدرة على قراءة الجماهير: 98%].",
+        duration: 7200
       },
       {
-        character: 'Tarek',
-        text: 'The only difference, brother... is that the old calf lowed with the sound of wind. Our calf lows with notifications of anger and hatred — because we discovered that anger keeps people connected longer than joy. We are programming humans to hate each other.',
-        arabicText: 'الفرق الوحيد يا أخي... أن العجل القديم كان يخور بصوت الريح. عجلنا نحن يخور بإشعارات الغضب والكراهية، لأننا اكتشفنا أن الغضب يُبقي الناس متصلين لفترة أطول من الفرح. نحن نبرمج البشر ليكرهوا بعضهم.',
-        duration: 9000,
+        character: 'Narrator',
+        text: "بدأ السامري يتحدث إلى الناس، ليس بصراخ، بل بصوت هادئ ومطمئن.",
+        duration: 4400
       },
+      {
+        character: 'Narrator',
+        text: "\"أنتم خائفون. هذا طبيعي. الإله الذي أخرجكم من مصر إله عظيم، لكنه... غير مرئي. مجرد. لا يمكنكم لمسه أو رؤيته. وأنتم تحتاجون إلى شيء يطمئنكم الآن، في هذا الفراغ.\"",
+        duration: 11600
+      },
+      {
+        character: 'Narrator',
+        text: "لم يطلب منهم الكفر. لم يطلب منهم عبادة شيطان. لقد قدم لهم \"حلاً عملياً\" لقلقهم الروحي.",
+        duration: 6400
+      }
     ],
     choices: [
       {
@@ -1028,49 +938,52 @@ const PART_FOUR: Record<string, Scene> = {
     backgroundImage: ASSET_URLS.backgrounds.white_space,
     ambientKeys: ["amb.server_room"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'The recording ended. A heavy silence fell in the room, broken only by the hum of OSIRIS servers.',
-        arabicText: 'انتهى التسجيل. ساد صمت ثقيل في الغرفة، لم يقطعه سوى طنين خوادم أوزيريس.',
-        duration: 4500,
-        delay: 1000,
+        text: "انتهى التسجيل. ساد صمت ثقيل في الغرفة، لم يقطعه سوى طنين خوادم أوزيريس.",
+        duration: 5200
       },
       {
         character: 'Narrator',
-        text: 'For the first time in years — since he had decided that numbers were the only truth — Yahya broke down. He covered his face with his hands and began to cry. Not a loud cry, but the muffled sobbing of a man who realized that everything he had built in his professional life had been part of a machine of destruction.',
-        arabicText: 'لأول مرة منذ سنوات، منذ أن قرر أن الأرقام هي الحقيقة الوحيدة، انهار يحيى. غطى وجهه بيديه وبدأ يبكي. لم يكن بكاءً صاخباً، بل نشيجاً مكتوماً لرجل أدرك أن كل ما بناه في حياته المهنية كان جزءاً من آلة دمار.',
-        duration: 8000,
+        text: "لأول مرة منذ سنوات، منذ أن قرر أن الأرقام هي الحقيقة الوحيدة، انهار يحيى. غطى وجهه بيديه وبدأ يبكي. لم يكن بكاءً صاخباً، بل نشيجاً مكتوماً لرجل أدرك أن كل ما بناه في حياته المهنية كان جزءاً من آلة دمار.",
+        duration: 16000
       },
       {
-        character: 'Yahya',
-        text: 'Tarek was the Moses of his age. He tried to smash the digital calf... and they killed him.',
-        arabicText: 'طارق كان موسى عصره. حاول تحطيم العجل الرقمي... فقتلوه.',
-        duration: 4500,
+        character: 'Narrator',
+        text: "\"طارق كان موسى عصره،\" قال يحيى بصوت متقطع. \"حاول تحطيم العجل الرقمي... فقتلوه.\"",
+        duration: 5200
       },
       {
-        character: 'Laila',
-        text: 'Crying will not bring Tarek back. And it will not stop the First Engineer. You have OSIRIS now. You have the source code.',
-        arabicText: 'البكاء لن يعيد طارق. ولن يوقف المهندس الأول. أنت تملك أوزيريس الآن. تملك الشيفرة المصدرية.',
-        duration: 5500,
+        character: 'Narrator',
+        text: "اقتربت ليلى ووضعت يدها على كتفه بحذر. لم تقدم له مواساة رخيصة.",
+        duration: 4800
       },
       {
-        character: 'Yahya',
-        text: 'I will destroy them. I will use OSIRIS to hack their servers and expose everything.',
-        arabicText: 'سأدمرهم. سأستخدم أوزيريس لاختراق خوادمهم وفضح كل شيء.',
-        duration: 4000,
+        character: 'Narrator',
+        text: "\"يحيى، البكاء لن يعيد طارق. ولن يوقف المهندس الأول. أنت تملك أوزيريس الآن. تملك الشيفرة المصدرية.\"",
+        duration: 6400
       },
       {
-        character: 'Laila',
-        text: 'A direct attack will not work. You are dealing with an entity that owns the world\'s data. We must understand the enemy first. We must see how they infiltrate great institutions from within. How they turn truth into falsehood in the name of the sacred.',
-        arabicText: 'الهجوم المباشر لن ينجح. أنت تتعامل مع كيان يمتلك بيانات العالم بأسره. يجب أن نفهم الخصم أولاً. يجب أن نرى كيف يخترقون المؤسسات الكبرى من الداخل. كيف يحولون الحق إلى باطل باسم المقدس.',
-        duration: 7000,
+        character: 'Narrator',
+        text: "رفع يحيى رأسه، وعيناه حمراوان لكنهما تحملان تصميماً جديداً. \"سأدمرهم. سأستخدم أوزيريس لاختراق خوادمهم وفضح كل شيء.\"",
+        duration: 6800
       },
       {
-        character: 'Laila',
-        text: 'To the moment when religion was stolen. To Nicaea.',
-        arabicText: 'إلى اللحظة التي سُرق فيها الدين. إلى نيقية.',
-        duration: 3500,
+        character: 'Narrator',
+        text: "هزت ليلى رأسها نفياً. \"الهجوم المباشر لن ينجح. أنت تتعامل مع كيان يمتلك بيانات العالم بأسره. يجب أن نفهم الخصم أولاً. يجب أن نرى كيف يخترقون المؤسسات الكبرى من الداخل. كيف يحولون الحق إلى باطل باسم المقدس.\"",
+        duration: 14800
       },
+      {
+        character: 'Narrator',
+        text: "\"إلى أين نذهب إذن؟\" سأل يحيى.",
+        duration: 2500
+      },
+      {
+        character: 'Narrator',
+        text: "أشارت ليلى إلى الشاشة. \"إلى اللحظة التي سُرق فيها الدين. إلى نيقية.\"",
+        duration: 4800
+      }
     ],
     choices: [
       {
@@ -1102,49 +1015,52 @@ const PART_FIVE: Record<string, Scene> = {
     backgroundImage: ASSET_URLS.backgrounds.nicaea_council,
     ambientKeys: ["amb.library_room", "music.classical_thought"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Rome / Alexandria. One month before the Council of Nicaea, 325 AD. OSIRIS simulation. Yahya programmed OSIRIS to return to 325 AD. The simulation did not show horned demons, but simple men in rough robes, sitting in candlelit rooms, arguing passionately.',
-        arabicText: 'روما / الإسكندرية. قبل شهر من مجمع نيقية 325م. محاكاة أوزيريس. برمج يحيى أوزيريس للعودة إلى عام 325 ميلادية. لم تظهر المحاكاة شياطين بقرون، بل رجالاً بسطاء يرتدون أثواباً خشنة، يجلسون في غرف مضاءة بالشموع، يتجادلون بشغف.',
-        duration: 7000,
-        delay: 1500,
+        text: "برمج يحيى أوزيريس للعودة إلى عام 325 ميلادية. كان يتوقع أن يرى مؤامرة شريرة منذ اللحظة الأولى، لكن ما رآه كان مختلفاً.",
+        duration: 8800
       },
       {
-        character: 'Yahya',
-        text: 'I thought we would see an evil conspiracy from the start.',
-        arabicText: 'كنت أظن أننا سنرى مؤامرة شريرة منذ البداية.',
-        duration: 3000,
+        character: 'Narrator',
+        text: "رأى رجالاً بسطاء، يرتدون ملابس خشنة، يتجادلون بشغف في أروقة الكنائس والمكتبات.",
+        duration: 4800
       },
       {
-        character: 'Laila',
-        text: 'That is the trap, Yahya. The disagreements at the start were genuine. Theology is difficult. Attempting to understand the nature of the Creator is not easy. Look at them... they are not seeking power, they are sincerely trying to understand the truth.',
-        arabicText: 'هذا هو الفخ يا يحيى. الخلافات في البداية كانت حقيقية. اللاهوت صعب. محاولة فهم طبيعة الخالق ليست أمراً سهلاً. انظر إليهم... إنهم لا يسعون للسلطة، إنهم يحاولون بصدق فهم الحقيقة.',
-        duration: 7000,
+        character: 'Narrator',
+        text: "\"أين المؤامرة؟\" سأل يحيى، وهو يراقب آريوس وأثناسيوس يتناقشان بحدة ولكن باحترام. \"هؤلاء الرجال يبدون مخلصين لما يؤمنون به.\"",
+        duration: 7600
       },
       {
-        character: 'Arius',
-        text: 'If the Son was begotten, then he has a beginning, and therefore there was a time when he did not exist. God alone is eternal.',
-        arabicText: 'إذا كان الابن مولوداً، فله بداية، وبالتالي كان هناك وقت لم يكن فيه موجوداً. الله وحده هو الأزلي.',
-        duration: 5000,
+        character: 'Narrator',
+        text: "أجابت ليلى، وعيناها تتابعان النقاشات: \"هذا هو الفخ يا يحيى. الخلافات في البداية كانت حقيقية. اللاهوت صعب. محاولة فهم طبيعة الخالق ليست أمراً سهلاً. انظر إليهم... إنهم لا يسعون للسلطة، إنهم يحاولون بصدق فهم الحقيقة.\"",
+        duration: 14000
       },
       {
-        character: 'Athanasius',
-        text: 'If the Son is not fully God, how can he save humanity? Salvation requires a God, not a creature.',
-        arabicText: 'إذا لم يكن الابن إلهاً كاملاً، فكيف يمكنه أن يخلص البشرية؟ الخلاص يتطلب إلهاً، لا مخلوقاً.',
-        duration: 4500,
+        character: 'Narrator',
+        text: "عرض أوزيريس مقتطفات من رسائل آريوس وأثناسيوس.",
+        duration: 2800
       },
       {
-        character: 'Yahya',
-        text: 'Both have logic. The point of disagreement is legitimate. Where is the virus then?',
-        arabicText: 'كلاهما يملك منطقاً. نقطة الخلاف شرعية. أين الفيروس إذن؟',
-        duration: 3500,
+        character: 'Narrator',
+        text: "آريوس يجادل: \"إذا كان الابن مولوداً، فله بداية، وبالتالي كان هناك وقت لم يكن فيه موجوداً. الله وحده هو الأزلي.\"",
+        duration: 8000
       },
       {
-        character: 'Laila',
-        text: 'The virus does not create the disagreement... the virus waits until both sides are exhausted, then offers them "power" as the final solution to settle the debate.',
-        arabicText: 'الفيروس لا يخلق الخلاف... الفيروس ينتظر حتى يتعب الطرفان، ثم يقدم لهم "السلطة" كحل نهائي لحسم النقاش.',
-        duration: 5500,
+        character: 'Narrator',
+        text: "أثناسيوس يرد: \"إذا لم يكن الابن إلهاً كاملاً، فكيف يمكنه أن يخلص البشرية؟ الخلاص يتطلب إلهاً، لا مخلوقاً.\"",
+        duration: 7200
       },
+      {
+        character: 'Narrator',
+        text: "\"كلاهما يملك منطقاً،\" قال يحيى، وهو يحلل الحجج كمعادلات رياضية. \"نقطة الخلاف شرعية. أين الفيروس إذن؟\"",
+        duration: 6400
+      },
+      {
+        character: 'Narrator',
+        text: "أشارت ليلى إلى زاوية الغرفة. \"الفيروس لا يخلق الخلاف... الفيروس ينتظر حتى يتعب الطرفان، ثم يقدم لهم (السلطة) كحل نهائي لحسم النقاش.\"",
+        duration: 8800
+      }
     ],
     choices: [
       {
@@ -1169,55 +1085,52 @@ const PART_FIVE: Record<string, Scene> = {
     backgroundImage: ASSET_URLS.backgrounds.nicaea_council,
     ambientKeys: ["amb.hall_reverb", "amb.heavy_steps"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Constantine entered the hall with imperial grandeur. He did not look like a religious man, but like a military general. Behind him, one step back, walked a man in a dark cloak. Yahya could not make out his features clearly, but felt a familiar chill.',
-        arabicText: 'دخل قسطنطين القاعة بأبهة إمبراطورية. لم يكن يبدو كرجل دين، بل كجنرال عسكري. خلفه، بخطوة واحدة، سار رجل يرتدي عباءة داكنة. لم يستطع يحيى تمييز ملامحه بوضوح، لكنه شعر بقشعريرة مألوفة.',
-        duration: 7000,
-        delay: 1000,
-      },
-      {
-        character: 'Yahya',
-        text: 'That is him. The Sage. The ancient version of the First Engineer.',
-        arabicText: 'هذا هو. الحكيم. النسخة القديمة من المهندس الأول.',
-        duration: 3500,
-      },
-      {
-        character: 'Constantine',
-        text: 'My empire is being torn apart by your disagreements. I do not care about the details of Christ\'s nature. I care about the unity of Rome. Agree... or I will make you agree.',
-        arabicText: 'إمبراطوريتي تتمزق بسبب خلافاتكم. أنا لا أهتم بتفاصيل طبيعة المسيح. أنا أهتم بوحدة روما. اتفقوا... أو سأجعلكم تتفقون.',
-        duration: 6000,
+        text: "دخل قسطنطين القاعة بأبهة إمبراطورية. لم يكن يبدو كرجل دين، بل كجنرال عسكري.",
+        duration: 5200
       },
       {
         character: 'Narrator',
-        text: 'The Sage leaned close to Constantine\'s ear and whispered:',
-        arabicText: 'اقترب الحكيم من أذن قسطنطين وهمس:',
-        duration: 3000,
-      },
-      {
-        character: 'The Sage',
-        text: 'We will draft a single creed of faith. Whoever signs it is a friend of Rome. And whoever refuses... will be exiled and their books burned.',
-        arabicText: 'سنصيغ قانون إيمان واحد. من يوقع عليه، فهو صديق لروما. ومن يرفض... سيُنفى وتُحرق كتبه.',
-        duration: 5500,
+        text: "خلفه، بخطوة واحدة، سار رجل يرتدي عباءة داكنة. لم يستطع يحيى تمييز ملامحه بوضوح، لكنه شعر بقشعريرة مألوفة.",
+        duration: 7200
       },
       {
         character: 'Narrator',
-        text: 'Yahya and Laila watched as the bishops\' faces transformed from truth-seekers into frightened politicians.',
-        arabicText: 'راقب يحيى وليلى كيف تحولت وجوه الأساقفة من باحثين عن الحقيقة إلى سياسيين خائفين.',
-        duration: 5000,
+        text: "\"هذا هو،\" همس يحيى. \"الحكيم. النسخة القديمة من المهندس الأول. لقد رأيته مع فرعون.\"",
+        duration: 5600
       },
       {
-        character: 'Laila',
-        text: 'Here the virus works. The algorithm did not change the creed directly. The algorithm introduced "power" into the equation. The moment religion was bound to the emperor\'s sword, the spirit died, and the oppressive institution was born.',
-        arabicText: 'هنا يعمل الفيروس. الخوارزمية لم تغير العقيدة مباشرة. الخوارزمية أدخلت "السلطة" إلى المعادلة. بمجرد أن ارتبط الدين بسيف الإمبراطور، ماتت الروح، ووُلدت المؤسسة القمعية.',
-        duration: 7000,
+        character: 'Narrator',
+        text: "وقف قسطنطين أمام الأساقفة. لم يتحدث عن اللاهوت. تحدث عن الإمبراطورية.",
+        duration: 4400
       },
       {
-        character: 'Yahya',
-        text: 'Religion was "updated" by imperial decree. Just as we update Terms of Service and force users to agree.',
-        arabicText: 'لقد تم "تحديث" الدين بقرار إمبراطوري. تماماً كما نُحدّث نحن شروط الاستخدام ونجبر المستخدمين على الموافقة.',
-        duration: 5500,
+        character: 'Narrator',
+        text: "\"إمبراطوريتي تتمزق بسبب خلافاتكم،\" قال قسطنطين بصوت حازم. \"أنا لا أهتم بتفاصيل طبيعة المسيح. أنا أهتم بوحدة روما. اتفقوا... أو سأجعلكم تتفقون.\"",
+        duration: 8800
       },
+      {
+        character: 'Narrator',
+        text: "اقترب الحكيم من أذن قسطنطين وهمس بشيء. أومأ الإمبراطور برأسه.",
+        duration: 4000
+      },
+      {
+        character: 'Narrator',
+        text: "\"سنصيغ قانون إيمان واحد. من يوقع عليه، فهو صديق لروما. ومن يرفض... سيُنفى وتُحرق كتبه.\"",
+        duration: 6000
+      },
+      {
+        character: 'Narrator',
+        text: "راقب يحيى وليلى كيف تحولت وجوه الأساقفة من باحثين عن الحقيقة إلى سياسيين خائفين.",
+        duration: 5600
+      },
+      {
+        character: 'Narrator',
+        text: "\"هنا يعمل الفيروس،\" قالت ليلى بحزن. \"الخوارزمية لم تغير العقيدة مباشرة. الخوارزمية أدخلت (السلطة) إلى المعادلة. بمجرد أن ارتبط الدين بسيف الإمبراطور، ماتت الروح، ووُلدت المؤسسة القمعية.\"",
+        duration: 10800
+      }
     ],
     choices: [
       {
@@ -1241,43 +1154,47 @@ const PART_FIVE: Record<string, Scene> = {
     backgroundImage: ASSET_URLS.backgrounds.white_space,
     ambientKeys: ["amb.silence_low"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Yahya stopped the simulation. Laila was trembling, silent tears running down her cheeks.',
-        arabicText: 'أوقف يحيى المحاكاة. كانت ليلى ترتجف، ودموع صامتة تنزل على خديها.',
-        duration: 4500,
-        delay: 1000,
+        text: "أوقف يحيى المحاكاة. كانت ليلى ترتجف، ودموع صامتة تنزل على خديها.",
+        duration: 4400
       },
       {
-        character: 'Yahya',
-        text: 'Laila... are you alright?',
-        arabicText: 'ليلى... هل أنتِ بخير؟',
-        duration: 2500,
+        character: 'Narrator',
+        text: "\"ليلى... هل أنتِ بخير؟\" سأل يحيى بقلق. كان يعلم أن رؤية تسييس الدين بهذا الشكل قاسية على شخص مؤمن.",
+        duration: 7600
       },
       {
-        character: 'Laila',
-        text: 'I am fine. This just... reminds me of my mother.',
-        arabicText: 'أنا بخير. هذا فقط... يذكرني بأمي.',
-        duration: 3000,
+        character: 'Narrator',
+        text: "مسحت ليلى دموعها بظهر يدها. \"أنا بخير. هذا فقط... يذكرني بأمي.\"",
+        duration: 4400
       },
       {
-        character: 'Laila',
-        text: 'My mother was also a victim of "the institution." My father was a man who wore the garb of religion, spoke in verses and hadiths, but was a monster at home. He used religion to justify his cruelty, to make my mother believe that her obedience to his injustice was obedience to God. He violated her soul in the name of the sacred.',
-        arabicText: 'أمي كانت ضحية لـ "المؤسسة" أيضاً. أبي كان رجلاً يرتدي عباءة الدين، يتحدث بالآيات والأحاديث، لكنه كان وحشاً في البيت. استخدم الدين ليبرر قسوته، ليجعل أمي تعتقد أن طاعتها لظلمه هي طاعة لله. لقد اغتصب روحها باسم المقدس.',
-        duration: 9000,
+        character: 'Narrator',
+        text: "جلس يحيى مقابلها، مستمعاً بصمت.",
+        duration: 2500
       },
       {
-        character: 'Laila',
-        text: 'That is why I studied religious psychology. I wanted to understand: is the flaw in God? Or in us? What we saw in Nicaea confirms what I concluded. God was not defeated in Nicaea, Yahya. "The institution" won temporarily. The virus does not attack God — the virus attacks our representation of God on earth.',
-        arabicText: 'لهذا السبب درست علم النفس الديني. كنت أريد أن أفهم: هل الخلل في الله؟ أم فينا؟ ما رأيناه في نيقية يؤكد لي ما توصلت إليه. الله لم يُهزم في نيقية يا يحيى. "المؤسسة" هي التي انتصرت مؤقتاً. الفيروس لا يهاجم الله، الفيروس يهاجم "تمثيلنا" لله على الأرض.',
-        duration: 10000,
+        character: 'Narrator',
+        text: "\"أمي كانت ضحية لـ (المؤسسة) أيضاً،\" قالت ليلى بصوت مخنوق. \"أبي كان رجلاً يرتدي عباءة الدين، يتحدث بالآيات والأحاديث، لكنه كان وحشاً في البيت. استخدم الدين ليبرر قسوته، ليجعل أمي تعتقد أن طاعتها لظلمه هي طاعة لله. لقد اغتصب روحها باسم المقدس.\"",
+        duration: 16800
       },
       {
-        character: 'Yahya',
-        text: 'You are the spiritual resistance, Laila. You refuse to abandon the truth, even when it is distorted by those who claim to protect it.',
-        arabicText: 'أنتِ المقاومة الروحية يا ليلى. أنتِ ترفضين التخلي عن الحقيقة، حتى عندما يتم تشويهها من قبل من يدعون حمايتها.',
-        duration: 6000,
+        character: 'Narrator',
+        text: "نظرت ليلى إلى شاشات أوزيريس. \"لهذا السبب درست علم النفس الديني. كنت أريد أن أفهم: هل الخلل في الله؟ أم فينا؟ ما رأيناه في نيقية يؤكد لي ما توصلت إليه. الله لم يُهزم في نيقية يا يحيى. (المؤسسة) هي التي انتصرت مؤقتاً. الفيروس لا يهاجم الله، الفيروس يهاجم (تمثيلنا) لله على الأرض.\"",
+        duration: 20800
       },
+      {
+        character: 'Narrator',
+        text: "شعر يحيى باحترام عميق لهذه المرأة. إيمانها لم يكن ساذجاً أو موروثاً. كان إيماناً مختبراً بالنار.",
+        duration: 6400
+      },
+      {
+        character: 'Narrator',
+        text: "\"أنتِ المقاومة الروحية يا ليلى،\" قال يحيى بهدوء. \"أنتِ ترفضين التخلي عن الحقيقة، حتى عندما يتم تشويهها من قبل من يدعون حمايتها.\"",
+        duration: 8800
+      }
     ],
     choices: [
       {
@@ -1301,37 +1218,32 @@ const PART_FIVE: Record<string, Scene> = {
     backgroundImage: ASSET_URLS.backgrounds.corporate_lab,
     ambientKeys: ["amb.recording_room"],
     dialogue: [
+      [
       {
-        character: 'Tarek',
-        text: 'Yahya... if you saw Nicaea, you will understand how religions are stolen. But do you know how minds are stolen today? The big tech companies are the new "Church of the Empire." We have our own "creed": recommendation algorithms. We decide what is "truth" and what is "falsehood" based on what generates more engagement.',
-        arabicText: 'يحيى... إذا رأيت نيقية، فستفهم كيف تُسرق الأديان. لكن هل تعرف كيف تُسرق العقول اليوم؟ شركات التكنولوجيا الكبرى هي "كنيسة الإمبراطورية" الجديدة. نحن نملك "قانون الإيمان" الخاص بنا: خوارزميات التوصية. نحن نحدد ما هو "الحق" وما هو "الباطل" بناءً على ما يجلب تفاعلاً أكثر.',
-        duration: 10000,
-        delay: 1000,
+        character: 'Narrator',
+        text: "شغل يحيى التسجيل الثاني لطارق.",
+        duration: 2500
       },
       {
-        character: 'Tarek',
-        text: 'Whoever agrees with us, we grant them access and reach. And whoever disagrees, we apply "digital exile — Shadowbanning." We are the Constantine of the modern age, but we do not use swords... we use dopamine.',
-        arabicText: 'من يوافقنا، نمنحه الوصول والانتشار. ومن يخالفنا، نطبق عليه "النفي الرقمي — Shadowbanning". نحن قسطنطين العصر الحديث، لكننا لا نستخدم السيوف... نحن نستخدم الدوبامين.',
-        duration: 8000,
+        character: 'Narrator',
+        text: "\"يحيى... إذا رأيت نيقية، فستفهم كيف تُسرق الأديان. لكن هل تعرف كيف تُسرق العقول اليوم؟ شركات التكنولوجيا الكبرى هي (كنيسة الإمبراطورية) الجديدة. نحن نملك (قانون الإيمان) الخاص بنا: خوارزميات التوصية. نحن نحدد ما هو (الحق) وما هو (الباطل) بناءً على ما يجلب تفاعلاً أكثر. من يوافقنا، نمنحه الوصول والانتشار (Reach). ومن يخالفنا، نطبق عليه (النفى الرقمي - Shadowbanning). نحن قسطنطين العصر الحديث، لكننا لا نستخدم السيوف... نحن نستخدم الدوبامين.\"",
+        duration: 27600
       },
       {
-        character: 'Yahya',
-        text: 'The pattern repeats. The virus evolves. From the golden calf (material), to Nicaea (institutional), to...',
-        arabicText: 'النمط يتكرر. الفيروس يتطور. من العجل الذهبي (المادي)، إلى نيقية (المؤسسي)، إلى...',
-        duration: 5000,
+        character: 'Narrator',
+        text: "نظر يحيى إلى ليلى. \"النمط يتكرر. الفيروس يتطور. من العجل الذهبي (المادي)، إلى نيقية (المؤسسي)، إلى...\"",
+        duration: 6400
       },
       {
-        character: 'Laila',
-        text: 'To ideology. When the virus abandons the need for a god entirely, and man himself becomes the god.',
-        arabicText: 'إلى الأيديولوجيا. عندما يتخلى الفيروس عن الحاجة إلى إله تماماً، ويصبح الإنسان هو الإله.',
-        duration: 5000,
+        character: 'Narrator',
+        text: "\"إلى الأيديولوجيا،\" قاطعته ليلى. \"عندما يتخلى الفيروس عن الحاجة إلى إله تماماً، ويصبح الإنسان هو الإله.\"",
+        duration: 6400
       },
       {
-        character: 'Yahya',
-        text: 'To Andalusia... and the twentieth century.',
-        arabicText: 'إلى الأندلس... والقرن العشرين.',
-        duration: 3000,
-      },
+        character: 'Narrator',
+        text: "برمج يحيى أوزيريس للوجهة التالية. \"إلى الأندلس... والقرن العشرين.\"",
+        duration: 3600
+      }
     ],
     choices: [
       {
@@ -1365,37 +1277,57 @@ const PART_SIX: Record<string, Scene> = {
     musicKey: "music.andalusian_oud_violin",
     ambientKeys: ["amb.city_night", "amb.distant_whispers"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'OSIRIS transferred Yahya and Laila to the peak of Andalusian civilization. The lit streets of Córdoba, the vast libraries, and universities that preceded Europe by centuries.',
-        arabicText: 'نقل أوزيريس يحيى وليلى إلى ذروة الحضارة الأندلسية. شوارع قرطبة المضاءة، المكتبات الضخمة، والجامعات التي سبقت أوروبا بقرون.',
-        duration: 6000,
-        delay: 1500,
-      },
-      {
-        character: 'Laila',
-        text: 'Look at this beauty. How could a civilization of this refinement fall?',
-        arabicText: 'انظر إلى هذا الجمال. كيف يمكن لحضارة بهذا الرقي أن تسقط؟',
-        duration: 4000,
-      },
-      {
-        character: 'Yahya',
-        text: 'The algorithm does not care about beauty. The algorithm searches for the weak point. And here, the weak point was "the ego."',
-        arabicText: 'الخوارزمية لا تهتم بالجمال. الخوارزمية تبحث عن نقطة الضعف. وهنا، نقطة الضعف كانت "الأنا".',
-        duration: 5000,
+        text: "نقل أوزيريس يحيى وليلى إلى الأندلس. لم تكن فترة الفتح، بل فترة التمزق. عصر ملوك الطوائف.",
+        duration: 6400
       },
       {
         character: 'Narrator',
-        text: 'OSIRIS displayed a rapid series of scenes: the Prince of Seville allying with the King of Castile against the Prince of Badajoz. The Prince of Toledo paying tribute to the enemy to protect his throne from his own brother.',
-        arabicText: 'عرض أوزيريس سلسلة من المشاهد السريعة: أمير إشبيلية يتحالف مع ملك قشتالة ضد أمير بطليوس. أمير طليطلة يدفع الجزية للعدو ليحمي عرشه من أخيه.',
-        duration: 6500,
+        text: "\"انظر إلى هذا،\" قال يحيى وهو يقرأ البيانات التي يعرضها النظام. \"قرطبة كانت تضيء العالم. مليون نسمة، 70 مكتبة عامة، شوارع مرصوفة ومضاءة في وقت كانت فيه أوروبا تغرق في وحل العصور الوسطى. كيف انهار كل هذا؟\"",
+        duration: 14800
       },
       {
-        character: 'Yahya',
-        text: 'Every single one of them says: "I am better than my brother." Personal arrogance became more important than the survival of the nation. The virus here did not need to destroy them from outside. It made them destroy themselves from within.',
-        arabicText: 'كل واحد منهم يقول: "أنا خير من أخي". الكبر الشخصي أصبح أهم من بقاء الأمة. الفيروس هنا لم يحتج إلى تدميرهم من الخارج. لقد جعلهم يدمرون أنفسهم من الداخل.',
-        duration: 7000,
+        character: 'Narrator',
+        text: "أشارت ليلى إلى الشاشات المنقسمة. \"لم ينهار من الخارج يا يحيى. لقد انهار من الداخل. الخوارزمية عملت هنا بكفاءة مرعبة.\"",
+        duration: 8000
       },
+      {
+        character: 'Narrator',
+        text: "في إحدى الشاشات، ظهر أمير إشبيلية (المعتمد بن عباد) يجلس في قصره الباذخ. اقترب منه مستشاره (الذي لم يكن سوى تجسيد آخر لـ \"الحكيم\").",
+        duration: 9600
+      },
+      {
+        character: 'Narrator',
+        text: "\"مولاي،\" همس الحكيم بصوت ناعم. \"أمير قرطبة يظن أنه أفضل منك. إنه يجمع جيشاً. يجب أن تسبقه.\"",
+        duration: 6800
+      },
+      {
+        character: 'Narrator',
+        text: "\"لكننا إخوة في الدين والدم،\" تردد المعتمد قليلاً.",
+        duration: 3200
+      },
+      {
+        character: 'Narrator',
+        text: "\"العرش لا يعرف الإخوة يا مولاي. أنت الأحق. أنت الأفضل. استعن بملك قشتالة (ألفونسو) ضده. ادفع له الجزية، وسيحميك من أخيك.\"",
+        duration: 8400
+      },
+      {
+        character: 'Narrator',
+        text: "في شاشة أخرى، كان نفس \"الحكيم\" يقف في بلاط أمير قرطبة، يهمس له بنفس الكلمات: \"أنت خير منه. استعن بالفرنجة لسحقه.\"",
+        duration: 8400
+      },
+      {
+        character: 'Narrator',
+        text: "راقب يحيى بذهول كيف تحولت الأندلس إلى رقعة شطرنج دموية. كل أمير مستعد لبيع أمته بأكملها مقابل أن يجلس على عرش زائل.",
+        duration: 8800
+      },
+      {
+        character: 'Narrator',
+        text: "\"المحور الرابع من الخوارزمية،\" قال يحيى بصوت خافت. \"الفرقة. تحويل (نحن) إلى (أنا ضد الجميع). لقد استخدموا أعداءهم لقتل إخوتهم، لأن كبرياءهم الشخصي كان أهم من بقاء الحضارة.\"",
+        duration: 11200
+      }
     ],
     choices: [
       {
@@ -1421,37 +1353,47 @@ const PART_SIX: Record<string, Scene> = {
     musicKey: "music.andalusian_sad",
     ambientKeys: ["amb.wind_soft"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Time froze in the simulation at the year 1492. Yahya and Laila saw a man riding his horse, leaving the city of Granada for the last time. The man — Abu Abdullah the Small — turned and looked at the Alhambra Palace receding behind him.',
-        arabicText: 'توقف الزمن في المحاكاة عند عام 1492. رأى يحيى وليلى رجلاً يركب حصانه، يغادر مدينة غرناطة للمرة الأخيرة. استدار الرجل — أبو عبد الله الصغير — ونظر إلى قصر الحمراء الذي يبتعد.',
-        duration: 7000,
-        delay: 1000,
+        text: "تسارعت المحاكاة عبر الزمن، وتوقفت في عام 1492.",
+        duration: 3200
       },
       {
         character: 'Narrator',
-        text: 'He could not hold himself back, and began to weep.',
-        arabicText: 'لم يتمالك نفسه، وبدأ يبكي.',
-        duration: 3000,
+        text: "وقف يحيى وليلى على تلة مرتفعة، يراقبان موكباً صغيراً يغادر غرناطة. كان أبو عبد الله الصغير، آخر ملوك الأندلس، يمتطي جواده بظهر منحنٍ.",
+        duration: 9200
       },
       {
-        character: 'Aisha al-Hurra',
-        text: 'Weep like women for a kingdom you could not defend like men.',
-        arabicText: 'ابكِ كالنساء ملكاً لم تحافظ عليه كالرجال.',
-        duration: 4000,
+        character: 'Narrator',
+        text: "توقف الموكب. استدار أبو عبد الله لينظر إلى قصر الحمراء، درة التاج الأندلسي، الذي سلمه للتو للملكين الكاثوليكيين (فرديناند وإيزابيلا).",
+        duration: 8000
       },
       {
-        character: 'Laila',
-        text: 'This is the final result of the algorithm of arrogance. When you believe you are the most important, you lose everything.',
-        arabicText: 'هذه هي النتيجة النهائية لخوارزمية الكبر. عندما تعتقد أنك الأهم، تفقد كل شيء.',
-        duration: 5000,
+        character: 'Narrator',
+        text: "لم يستطع الملك المخلوع أن يتمالك نفسه. انخرط في بكاء مرير.",
+        duration: 4400
       },
       {
-        character: 'OSIRIS',
-        text: 'You cannot fix a system infected with the virus of "I am better than them" by using the same virus.',
-        arabicText: 'لا يمكنك إصلاح نظام مصاب بفيروس "أنا خير منهم" باستخدام نفس الفيروس.',
-        duration: 5000,
+        character: 'Narrator',
+        text: "اقتربت منه أمه، عائشة الحرة. لم تكن نظراتها تحمل أي شفقة، بل احتقاراً عميقاً.",
+        duration: 5600
       },
+      {
+        character: 'Narrator',
+        text: "قالت جملتها التي خلدها التاريخ، والتي رددها أوزيريس كنص مضيء في الهواء: \"ابكِ كالنساء مُلكاً لم تحافظ عليه كالرجال.\"",
+        duration: 7600
+      },
+      {
+        character: 'Narrator',
+        text: "شعر يحيى بغصة في حلقه. \"لقد سلم مفاتيح المدينة دون قتال حقيقي. فضل النجاة بحياته وبعض ممتلكاته على الدفاع عن أمته.\"",
+        duration: 8400
+      },
+      {
+        character: 'Narrator',
+        text: "في تلك اللحظة، التقط أوزيريس صوتاً خفياً يتردد في الريح. صوت إبليس: \"أتذكرون؟ هذا ما قلته. إنهم يفسدون فيها ويسفكون الدماء. أعطيتهم جنة على الأرض (الأندلس)، فدمروها بأيديهم لأن كل واحد منهم قال: أنا خير من أخي.\"",
+        duration: 14800
+      }
     ],
     choices: [
       {
@@ -1476,37 +1418,32 @@ const PART_SIX: Record<string, Scene> = {
     backgroundImage: ASSET_URLS.backgrounds.berlin_1933,
     ambientKeys: ["amb.city_cold", "amb.march_drums_distant"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'The simulation accelerated. OSIRIS leaped centuries forward. Berlin, 1933.',
-        arabicText: 'تسارعت المحاكاة. قفز أوزيريس قروناً إلى الأمام. برلين، 1933.',
-        duration: 4000,
-        delay: 1000,
-      },
-      {
-        character: 'Yahya',
-        text: 'The virus evolves, Laila. It has completely abandoned the religious cover. It no longer needs a god to justify arrogance. Man himself has become the god.',
-        arabicText: 'الفيروس يتطور يا ليلى. لقد تخلى عن الغطاء الديني تماماً. لم يعد يحتاج إلى إله ليبرر الكبر. أصبح الإنسان نفسه هو الإله.',
-        duration: 6000,
+        text: "انتقلت المحاكاة إلى القرن العشرين. العصر الذي تخلت فيه البشرية عن الآلهة القديمة، وصنعت آلهة من لحم ودم.",
+        duration: 7200
       },
       {
         character: 'Narrator',
-        text: 'They found themselves in a closed room in Berlin. A man with a distinctive mustache stands before a mirror, practicing his facial expressions and hand movements.',
-        arabicText: 'وجدا نفسيهما في غرفة مغلقة في برلين. رجل بشارب مميز يقف أمام المرآة، يتدرب على تعابير وجهه، وحركات يديه.',
-        duration: 5500,
+        text: "وقف يحيى وليلى في غرفة مغلقة في برلين. أمام مرآة كبيرة، كان أدولف هتلر يقف وحيداً.",
+        duration: 6400
       },
       {
-        character: 'Laila',
-        text: 'Hitler.',
-        arabicText: 'هتلر.',
-        duration: 2000,
+        character: 'Narrator',
+        text: "كان يتدرب على تعابير وجهه، وحركات يديه. كان يدرس كيف يبدو غاضباً، كيف يبدو حازماً، كيف يبدو كإله لا يُقهر.",
+        duration: 8000
       },
       {
-        character: 'Yahya',
-        text: 'He does not represent random evil. He represents "institutional arrogance." He deeply believes he is chosen, that he is above all moral rules, because he is making the history of "the supreme race." The algorithm here has reached its peak: "We are better than them, therefore they must be exterminated."',
-        arabicText: 'إنه لا يمثل الشر العشوائي. إنه يمثل "الكبر المؤسسي". هو يعتقد بعمق أنه مختار، أنه فوق كل القواعد الأخلاقية، لأنه يصنع تاريخ "العرق الأسمى". الخوارزمية هنا وصلت إلى ذروتها: "نحن خير منهم، لذلك يجب إبادتهم".',
-        duration: 8000,
+        character: 'Narrator',
+        text: "\"هذا ليس مجرد سياسي،\" قال يحيى وهو يقرأ تحليلات أوزيريس النفسية. \"إنه يعتقد بعمق أنه مختار. أنه فوق كل القواعد الأخلاقية. أنه يصنع تاريخ العرق الأسمى.\"",
+        duration: 10400
       },
+      {
+        character: 'Narrator',
+        text: "أضافت ليلى: \"هذا هو التطور النهائي للخوارزمية. (أنا خير منه) لم تعد مجرد خطيئة شخصية. لقد أصبحت علماً مزيفاً (اليوجينيا)، وقانوناً، ودولة. عندما تعتقد أن عرقك هو الأفضل، فإن إبادة الآخرين لا تصبح جريمة، بل تصبح (تطهيراً).\"",
+        duration: 14800
+      }
     ],
     choices: [
       {
@@ -1531,43 +1468,47 @@ const PART_SIX: Record<string, Scene> = {
     visualEffect: "montage",
     ambientKeys: ["amb.typewriter", "amb.march_drums_distant"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'The screen split in two. In the first half, an office in the Kremlin. Joseph Stalin sits calmly, smoking his pipe, signing long lists of names.',
-        arabicText: 'انقسمت الشاشة إلى نصفين. في النصف الأول، مكتب في الكرملين. جوزيف ستالين يجلس بهدوء، يدخن غليونه، ويوقع على قوائم طويلة من الأسماء.',
-        duration: 6000,
-        delay: 1000,
-      },
-      {
-        character: 'Yahya',
-        text: 'More than 40,000 personal signatures on execution lists. His enemies are everyone who disagrees with him.',
-        arabicText: 'أكثر من 40,000 توقيع شخصي موثق على قوائم إعدام. أعداؤه هم كل من يختلف معه.',
-        duration: 4500,
+        text: "عرض أوزيريس مشهدين متوازيين.",
+        duration: 2500
       },
       {
         character: 'Narrator',
-        text: 'In the second half, the killing fields of Cambodia. Pol Pot — a graduate of Parisian universities — applies his philosophy of "human liberation" by killing a quarter of his country\'s population.',
-        arabicText: 'في النصف الثاني، حقول الموت في كمبوديا. بول بوت، خريج جامعات باريس، يطبق فلسفة "التحرر الإنساني" بقتل ربع سكان بلاده.',
-        duration: 6000,
+        text: "في موسكو، كان جوزيف ستالين يجلس على مكتبه، يدخن غليونه بهدوء. أمامه قوائم طويلة من الأسماء. كان يمسك قلماً أحمر، ويوقع ببرود.",
+        duration: 8800
       },
       {
-        character: 'Laila',
-        text: 'Why?!',
-        arabicText: 'لماذا؟!',
-        duration: 2000,
+        character: 'Narrator',
+        text: "\"أكثر من 40,000 توقيع شخصي موثق على قوائم الإعدام،\" قرأ يحيى من أرشيف KGB الذي استدعاه أوزيريس. \"إنه يشرب نخب النصر، وأعداؤه هم كل من يختلف معه.\"",
+        duration: 10800
       },
       {
-        character: 'OSIRIS',
-        text: 'Glasses mean education. Education means the ability for independent thought. Independent thought is a threat to "revolutionary purity."',
-        arabicText: 'النظارة تعني التعليم. التعليم يعني القدرة على التفكير المستقل. التفكير المستقل تهديد لـ "النقاء الثوري".',
-        duration: 5000,
+        character: 'Narrator',
+        text: "في الجانب الآخر من الشاشة، ظهر بول بوت في كمبوديا. خريج جامعات باريس، الذي تعلم فلسفة التحرر الإنساني، وطبقها بقتل ربع سكان بلاده.",
+        duration: 9200
       },
       {
-        character: 'Yahya',
-        text: 'Three men. Three completely different ideologies: fascist, communist, and Maoist. But one sentence unites them: "I alone know the truth." It is the same sentence spoken before the beginning of time.',
-        arabicText: 'ثلاثة رجال. ثلاث أيديولوجيات مختلفة تماماً: فاشية، شيوعية، وماوية. لكن جملة واحدة تجمعهم: "أنا وحدي أعرف الحقيقة". إنها نفس الجملة التي قيلت قبل بدء الزمن.',
-        duration: 7000,
+        character: 'Narrator',
+        text: "\"لماذا يقتلون من يرتدي نظارة؟\" سألت ليلى برعب وهي تشاهد جنود الخمير الحمر يعدمون فلاحين بسطاء.",
+        duration: 6400
       },
+      {
+        character: 'Narrator',
+        text: "أجاب يحيى بمرارة: \"لأن النظارة تعني القراءة. والقراءة تعني التعليم. والتعليم يمثل تهديداً لـ (النقاء الثوري) الذي يدعيه بول بوت. كل من يفكر هو عدو.\"",
+        duration: 10000
+      },
+      {
+        character: 'Narrator',
+        text: "نظر يحيى إلى الشاشتين. ثلاثة رجال (هتلر، ستالين، بول بوت)، ثلاث أيديولوجيات مختلفة تماماً (فاشية، شيوعية، ماوية). لكن النتيجة واحدة: جبال من الجماجم.",
+        duration: 9200
+      },
+      {
+        character: 'Narrator',
+        text: "\"الرابط بينهم ليس السياسة،\" قال يحيى. \"الرابط هو جملة واحدة: (أنا وحدي أعرف الحقيقة). وهي الترجمة الحديثة لـ (أنا خير منه).\"",
+        duration: 8400
+      }
     ],
     choices: [
       {
@@ -1593,49 +1534,37 @@ const PART_SIX: Record<string, Scene> = {
     ambientKeys: ["amb.smoke_alarm", "amb.footsteps_heavy"],
     enterSfxKeys: ["sfx.explosion", "sfx.gunshot_distant"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Suddenly, the simulation cut off. The secret hideout shook violently, and dust fell from the ceiling.',
-        arabicText: 'فجأة، انقطعت المحاكاة. اهتز المخبأ السري بعنف، وتناثر الغبار من السقف.',
-        duration: 4500,
-        delay: 500,
-      },
-      {
-        character: 'OSIRIS',
-        text: 'WARNING: Security breach at physical location.',
-        arabicText: 'تحذير: اختراق أمني للموقع الفيزيائي.',
-        duration: 3000,
-      },
-      {
-        character: 'Laila',
-        text: 'They found us!',
-        arabicText: 'لقد وجدونا!',
-        duration: 2000,
+        text: "فجأة، انقطعت المحاكاة. ومضت الغرفة باللون الأحمر.",
+        duration: 2800
       },
       {
         character: 'Narrator',
-        text: 'Yahya heard heavy footsteps approaching the iron door. They were not police. They were "the followers" — ordinary people directed through encrypted notifications on their phones to carry out an elimination operation, believing they were saving the world from "terrorists."',
-        arabicText: 'سمع يحيى أصوات خطوات ثقيلة تقترب من الباب الحديدي. لم يكونوا شرطة. كانوا "الأتباع". أشخاص عاديون تم توجيههم عبر إشعارات مشفرة في هواتفهم للقيام بعملية تصفية، معتقدين أنهم ينقذون العالم من "إرهابيين".',
-        duration: 7000,
+        text: "\"لقد وجدونا!\" صرخت ليلى وهي تسحب حقيبة ظهر وتبدأ في حشو الأقراص الصلبة فيها.",
+        duration: 5600
       },
       {
         character: 'Narrator',
-        text: 'The iron door exploded. Three men with expressionless faces entered, carrying firearms. Laila released a smoke grenade she had prepared in advance. The smoke blinded the attackers temporarily.',
-        arabicText: 'انفجر الباب الحديدي. دخل ثلاثة رجال بوجوه خالية من التعابير، يحملون أسلحة نارية. أطلقت ليلى قنبلة دخان كانت قد أعدتها مسبقاً. عمى الدخان المهاجمين مؤقتاً.',
-        duration: 7000,
+        text: "\"كيف؟ النظام مشفر بالكامل!\" قال يحيى وهو يكتب بسرعة على لوحة المفاتيح لمحاولة تأمين البيانات.",
+        duration: 6000
       },
       {
         character: 'Narrator',
-        text: 'Yahya and Laila ran toward the emergency tunnel. A stray bullet fired in the darkness. Yahya felt a powerful blow to his left shoulder, as if a hot hammer had struck him. He fell to the ground, blood flowing from his wound.',
-        arabicText: 'ركض يحيى وليلى نحو نفق الطوارئ. انطلقت رصاصة عشوائية في الظلام. شعر يحيى بضربة قوية في كتفه الأيسر، كأن مطرقة ساخنة هوت عليه. سقط على الأرض، والدم يتدفق من جرحه.',
-        duration: 7000,
+        text: "\"لم يخترقوا أوزيريس، لقد تتبعوا استهلاك الطاقة! الخوادم تستهلك كهرباء حي بأكمله!\"",
+        duration: 4800
       },
       {
-        character: 'Laila',
-        text: 'Yahya!',
-        arabicText: 'يحيى!',
-        duration: 1500,
+        character: 'Narrator',
+        text: "سُمع صوت تحطم الباب الخارجي للمخبأ. دخلت مجموعة من الرجال المسلحين. لم يكونوا يرتدون زياً عسكرياً، بل بدلات سوداء أنيقة. \"الأتباع\". مرتزقة الشركة.",
+        duration: 9200
       },
+      {
+        character: 'Narrator',
+        text: "\"دكتور سليماني،\" قال قائد المجموعة بصوت آلي، خالٍ من المشاعر. \"المهندس الأول يرسل تحياته. يرجى الابتعاد عن الخوادم.\"",
+        duration: 7200
+      }
     ],
     choices: [
       {
@@ -1736,85 +1665,57 @@ const TRANSITION: Record<string, Scene> = {
     musicKey: "music.ambient_peace",
     ambientKeys: ["amb.breath_slow"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Yahya opened his eyes. There was no pain. There was no blood. He was standing in an infinite white space. Before him stood Tarek. Not a voice recording, not a digital simulation. The real Tarek, smiling in peace.',
-        arabicText: 'فتح يحيى عينيه. لم يكن هناك ألم. لم يكن هناك دم. كان يقف في فضاء أبيض لا نهائي. أمامه، وقف طارق. لم يكن تسجيلاً صوتياً، ولم يكن محاكاة رقمية. كان طارق الحقيقي، يبتسم بسلام.',
-        duration: 7000,
-        delay: 2000,
-      },
-      {
-        character: 'Yahya',
-        text: 'Tarek?',
-        arabicText: 'طارق؟',
-        duration: 2000,
-      },
-      {
-        character: 'Tarek',
-        text: 'Welcome, brother.',
-        arabicText: 'مرحباً يا أخي.',
-        duration: 2500,
-      },
-      {
-        character: 'Yahya',
-        text: 'I am sorry. I am sorry I did not believe you. That I let you die alone.',
-        arabicText: 'أنا آسف. أنا آسف لأنني لم أصدقك. لأنني تركتك تموت وحدك.',
-        duration: 4500,
-      },
-      {
-        character: 'Tarek',
-        text: 'I was not alone, Yahya. And you did not kill me. I chose my path. And now... you must choose yours.',
-        arabicText: 'لم أكن وحدي يا يحيى. ولست أنت من قتلني. لقد اخترت طريقي. والآن... يجب أن تختار طريقك.',
-        duration: 6000,
-      },
-      {
-        character: 'Yahya',
-        text: 'How do I stop him? The First Engineer owns everything. He owns the data, the weapons, the minds.',
-        arabicText: 'كيف أوقفه؟ المهندس الأول يملك كل شيء. يملك البيانات، الأسلحة، العقول.',
-        duration: 5000,
-      },
-      {
-        character: 'Tarek',
-        text: 'He owns everything material. But he does not own the soul. The algorithm cannot calculate unconditional sacrifice. Sacrifice breaks the code, because it is a completely free act, devoid of the ego.',
-        arabicText: 'هو يملك كل شيء مادي. لكنه لا يملك الروح. الخوارزمية لا تستطيع حساب التضحية غير المشروطة. التضحية تكسر الكود، لأنها فعل حر تماماً، خالٍ من الأنا.',
-        duration: 7000,
-      },
-      {
-        character: 'Yahya',
-        text: 'Will I die?',
-        arabicText: 'هل سأموت؟',
-        duration: 2500,
-      },
-      {
-        character: 'Tarek',
-        text: 'We all die, Yahya. The question is: how do we live before we die? If you choose sacrifice... then I have a message for you: you are not just a data analyst. You are a witness. Be the witness who breaks the algorithm.',
-        arabicText: 'كلنا نموت يا يحيى. السؤال هو: كيف نعيش قبل أن نموت؟ إذا اخترت التضحية... فلدي رسالة لك: أنت لست مجرد محلل بيانات. أنت شاهد. كن الشاهد الذي يكسر الخوارزمية.',
-        duration: 9000,
-      },
-      {
-        character: 'Tarek',
-        text: 'Wake up, Yahya. Wake up... Karbala awaits you.',
-        arabicText: 'استيقظ يا يحيى. استيقظ... كربلاء تنتظرك.',
-        duration: 5000,
+        text: "فتح يحيى عينيه. لم يكن يشعر بألم في كتفه. لم يكن هناك دخان أو رصاص. كان يجلس على كرسي مريح في غرفة بيضاء بالكامل.",
+        duration: 9600
       },
       {
         character: 'Narrator',
-        text: 'Yahya opened his eyes in reality. He was in a small medical bed, and Laila sat beside him, holding his hand tightly.',
-        arabicText: 'فتح يحيى عينيه في الواقع. كان في سرير طبي صغير، وليلى تجلس بجانبه، ممسكة بيده بقوة.',
-        duration: 5500,
+        text: "أمامه، كان طارق يجلس مبتسماً. لم يكن طارق المتعب والمرعوب الذي رآه في المحاكاة السابقة. كان طارق القديم، الأخ الأكبر الذي طالما اعتمد عليه.",
+        duration: 9600
       },
       {
-        character: 'Laila',
-        text: 'You came back.',
-        arabicText: 'لقد عدت.',
-        duration: 2500,
+        character: 'Narrator',
+        text: "\"هل أنا ميت؟\" سأل يحيى بهدوء.",
+        duration: 2500
       },
       {
-        character: 'Yahya',
-        text: 'Yes. Launch OSIRIS, Laila. It is time for the confrontation.',
-        arabicText: 'نعم. شغلي أوزيريس يا ليلى. حان وقت المواجهة.',
-        duration: 4000,
+        character: 'Narrator',
+        text: "\"ليس بعد،\" أجاب طارق. \"أنت في وضع (Safe Mode). أوزيريس يحافظ على وعيك بينما تحاول ليلى إيقاف نزيفك في العالم الحقيقي.\"",
+        duration: 8400
       },
+      {
+        character: 'Narrator',
+        text: "نظر يحيى إلى يديه. \"لقد رأيت كل شيء يا طارق. فرعون، نيقية، الأندلس، القرن العشرين. الخوارزمية مرعبة. إنها لا تُقهر. كيف نهزم شيئاً مزروعاً في طبيعتنا؟\"",
+        duration: 10400
+      },
+      {
+        character: 'Narrator',
+        text: "ابتسم طارق ابتسامة حزينة. \"هذا هو الفخ الأخير للخوارزمية يا يحيى. (اليأس). المحور الخامس. أن تعتقد أن الشر أصيل وأن الخير استثناء. لكن هذا غير صحيح.\"",
+        duration: 10400
+      },
+      {
+        character: 'Narrator',
+        text: "وقف طارق واقترب من أخيه. \"الخوارزمية تعمل فقط إذا وافقت عليها. (أنا خير منه) هي مجرد اقتراح. يمكنك دائماً أن ترفض. يمكنك دائماً أن تختار (نحن) بدلاً من (أنا). يمكنك أن تختار التضحية بدلاً من السيطرة.\"",
+        duration: 14400
+      },
+      {
+        character: 'Narrator',
+        text: "\"ماذا يجب أن أفعل الآن؟\"",
+        duration: 2500
+      },
+      {
+        character: 'Narrator',
+        text: "\"المهندس الأول سيحاول اختراق وعيك. سيقدم لك العرض الأخير. الجنة الرقمية. لا تقبلها يا يحيى. استخدم الكود الذي أعطيتك إياه. انشر الحقيقة. حتى لو كان الثمن حياتك.\"",
+        duration: 10800
+      },
+      {
+        character: 'Narrator',
+        text: "تلاشت صورة طارق ببطء. \"استيقظ يا أخي. ليلى تحتاجك.\"",
+        duration: 3600
+      }
     ],
     choices: [
       {
@@ -1847,49 +1748,27 @@ const PART_SEVEN: Record<string, Scene> = {
     backgroundImage: 'sceneBg.seven-10-1-karbala',
     ambientKeys: ["amb.desert_wind", "amb.distant_battle"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Karbala Desert. 680 AD. OSIRIS simulation. Yahya launched OSIRIS for the last time. This was not an academic exercise. This was the key to understanding how to break the algorithm.',
-        arabicText: 'صحراء كربلاء. 680م. محاكاة أوزيريس. شغّل يحيى أوزيريس للمرة الأخيرة. لم تكن هذه تمريناً أكاديمياً. كانت مفتاح فهم كيفية كسر الخوارزمية.',
-        duration: 6000,
-        delay: 1500,
-      },
-      {
-        character: 'Narrator',
-        text: 'They found themselves in the Karbala desert. The heat was suffocating even in the simulation. On one side, thousands of armed soldiers. On the other, a very small group of men, women, and children.',
-        arabicText: 'وجدا نفسيهما في صحراء كربلاء. الحرارة كانت خانقة حتى في المحاكاة. من جهة، جيش يزيد بالآلاف المدججين بالسلاح. من جهة أخرى، مجموعة صغيرة جداً من الرجال والنساء والأطفال.',
-        duration: 7000,
-      },
-      {
-        character: 'Laila',
-        text: 'Yazid\'s army represents "the herd" that has surrendered to the algorithm. They chose material survival and worldly gains over principle.',
-        arabicText: 'جيش يزيد يمثلون "القطيع" المستسلم للخوارزمية. اختاروا النجاة المادية والمكاسب الدنيوية على حساب المبدأ.',
-        duration: 6000,
-      },
-      {
-        character: 'Yahya',
-        text: 'OSIRIS analysis: military probability of survival: 0%. Inevitable outcome: death. Why did he not surrender? He could have prevented bloodshed. He could have waited for a better opportunity.',
-        arabicText: 'تحليلات أوزيريس: الاحتمالات العسكرية للنجاة: 0%. النتيجة الحتمية: الموت. لماذا لم يستسلم؟ كان يمكنه منع سفك الدماء. كان يمكنه الانتظار لفرصة أفضل.',
-        duration: 6500,
-      },
-      {
-        character: 'Laila',
-        text: 'Because surrendering to Yazid means giving "legitimacy" to injustice. Al-Hussein was not fighting to win militarily. He knew he would die. But he was fighting to record a stance that breaks "false legitimacy." His sacrifice is what kept the truth alive.',
-        arabicText: 'لأن الاستسلام ليزيد يعني إعطاء "الشرعية" للظلم. الحسين لم يكن يقاتل لينتصر عسكرياً. كان يعرف أنه سيموت. لكنه كان يقاتل ليُسجل موقفاً يكسر "الشرعية المزيفة". تضحيته هي التي أبقت الحقيقة حية.',
-        duration: 8000,
+        text: "قبل أن يستيقظ يحيى في العالم الحقيقي، سحبه أوزيريس إلى محاكاة أخيرة. العالم المعاصر.",
+        duration: 5600
       },
       {
         character: 'Narrator',
-        text: 'Yahya watched Al-Hussein advancing alone. There was no fear in his eyes, only absolute certainty.',
-        arabicText: 'راقب يحيى الحسين وهو يتقدم وحيداً. لم يكن هناك خوف في عينيه، بل يقين مطلق.',
-        duration: 5000,
+        text: "ظهرت أمامه وثائق حقيقية مسربة (وثائق فرانسيس هوغن 2021).",
+        duration: 3600
       },
       {
-        character: 'Yahya',
-        text: 'This is the antivirus. The algorithm depends on the ego, on the desire for survival and control. Unconditional sacrifice... choosing pain and death for the sake of principle... this is an act the algorithm cannot predict or understand. It breaks the code.',
-        arabicText: 'هذا هو مضاد الفيروسات. الخوارزمية تعتمد على "الأنا"، على الرغبة في البقاء والسيطرة. التضحية غير المشروطة... اختيار الألم والموت من أجل المبدأ... هذا فعل لا يمكن للخوارزمية أن تتوقعه أو تفهمه. إنه يكسر الكود.',
-        duration: 9000,
+        character: 'Narrator',
+        text: "قرأ يحيى البيانات المضيئة: \"اكتشف مهندسو الشركة أن الخوارزمية تضاعف انتشار المحتوى المثير للغضب بمعدل 6 أضعاف المحتوى الهادئ. وحين عُرض الأمر للإدارة، قرروا الإبقاء على الخوارزمية لأنها تزيد وقت الاستخدام والأرباح.\"",
+        duration: 12800
       },
+      {
+        character: 'Narrator',
+        text: "تردد صوت المهندس الأول في الفضاء الرقمي: \"هل ترى يا يحيى؟ نحن لم نخترع الغضب. نحن فقط قمنا بـ (تحسينه - Optimization). إبليس اليوم لا يحتاج إلى كهنة ومعابد. يحتاج إلى خوارزمية تغذي كل إنسان بما يعزز كبره، ويقنعه أن رأيه وحده هو الصواب.\"",
+        duration: 17600
+      }
     ],
     choices: [
       {
@@ -1915,55 +1794,27 @@ const PART_SEVEN: Record<string, Scene> = {
     visualEffect: "scanlines",
     ambientKeys: ["amb.electronic_hum"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Suddenly, the simulation froze. Karbala disappeared, and Yahya found himself alone in a white space.',
-        arabicText: 'فجأة، تجمدت المحاكاة. اختفت كربلاء، ووجد يحيى نفسه وحيداً في فضاء أبيض.',
-        duration: 4500,
-        delay: 1000,
+        text: "ظهر المهندس الأول أمام يحيى في الفضاء الرقمي.",
+        duration: 3200
       },
       {
         character: 'Narrator',
-        text: 'Before him appeared an elegant, calm-featured man. The First Engineer.',
-        arabicText: 'أمامه، ظهر رجل أنيق، هادئ الملامح. المهندس الأول.',
-        duration: 3500,
+        text: "\"أنت تنزف في العالم الحقيقي يا يحيى. ليلى لن تستطيع إنقاذك. لكنني أستطيع.\"",
+        duration: 5200
       },
       {
-        character: 'First Engineer',
-        text: 'Welcome, Yahya. You have come further than I expected. Your brother was clever, but you are cleverer.',
-        arabicText: 'مرحباً يا يحيى. لقد وصلت أبعد مما توقعت. أخوك كان ذكياً، لكنك أذكى.',
-        duration: 4500,
+        character: 'Narrator',
+        text: "مد المهندس يده. \"أعطني محرك الأقراص. أعطني أوزيريس. وسأجعلك شريكاً. سأعطيك حياة أبدية في الجنة الرقمية التي نبنيها. لن تشعر بالألم، لن تشعر بالفقد. سأعيد لك محاكاة لطارق تعيش معك للأبد.\"",
+        duration: 12400
       },
       {
-        character: 'Yahya',
-        text: 'You killed Tarek.',
-        arabicText: 'أنت من قتل طارق.',
-        duration: 2500,
-      },
-      {
-        character: 'First Engineer',
-        text: 'I did not kill him. He chose death because he could not bear the truth. The truth is that humans are unfit for freedom, Yahya. Look at the history you saw. Nicaea, Andalusia, the Holocaust. When you leave humans free, they kill each other in the name of a god, a race, or an ideology.',
-        arabicText: 'أنا لم أقتله. هو اختار الموت لأنه لم يستطع تحمل الحقيقة. الحقيقة هي أن البشر غير مؤهلين للحرية يا يحيى. انظر إلى التاريخ الذي رأيته. نيقية، الأندلس، الهولوكوست. عندما تترك البشر أحراراً، يقتلون بعضهم البعض باسم إله أو عرق أو أيديولوجيا.',
-        duration: 9000,
-      },
-      {
-        character: 'First Engineer',
-        text: 'I do not create hatred. I only manage it. The final update I will release tonight will eliminate this chaos. I will link human minds to one frequency. No more wars. No pain. Permanent peace.',
-        arabicText: 'أنا لا أصنع الكراهية. أنا فقط أديرها. التحديث النهائي الذي سأطلقه الليلة سيلغي هذه الفوضى. سأربط العقول البشرية بتردد واحد. لا حروب بعد اليوم. لا ألم. سلام دائم.',
-        duration: 7000,
-      },
-      {
-        character: 'Yahya',
-        text: 'The peace of slaves.',
-        arabicText: 'سلام العبيد.',
-        duration: 2500,
-      },
-      {
-        character: 'First Engineer',
-        text: 'Free will is an illusion! You are governed by your genes, your hormones, your environment. I offer reasonable management of these constraints. Join me, Yahya. I can restore Tarek\'s consciousness in the simulation. I can protect Laila. Be my partner in saving the world.',
-        arabicText: 'الإرادة الحرة وهم! أنت محكوم بجيناتك، بهرموناتك، ببيئتك. أنا أقدم إدارة معقولة لهذه القيود. انضم إليّ يا يحيى. يمكنني إعادة وعي طارق في المحاكاة. يمكنني حماية ليلى. كن شريكي في إنقاذ العالم.',
-        duration: 9000,
-      },
+        character: 'Narrator',
+        text: "كان العرض مغرياً. العقل البشري مبرمج لتجنب الألم.",
+        duration: 3200
+      }
     ],
     choices: [
       {
@@ -1998,61 +1849,27 @@ const PART_SEVEN: Record<string, Scene> = {
     ambientKeys: ["amb.electronic_hum"],
     enterSfxKeys: ["sfx.key_enter"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Yahya looked at the First Engineer. The offer was tempting. Saving those he loved, and world peace, even if it were fake.',
-        arabicText: 'نظر يحيى إلى المهندس. العرض كان مغرياً. إنقاذ من يحب، وسلام عالمي، حتى لو كان مزيفاً.',
-        duration: 5500,
-        delay: 1000,
-      },
-      {
-        character: 'Narrator',
-        text: 'Yahya remembered Tarek\'s words in the dream: "The algorithm cannot calculate sacrifice."',
-        arabicText: 'تذكر يحيى كلمات طارق في الحلم: "الخوارزمية لا تستطيع حساب التضحية."',
-        duration: 4000,
+        text: "نظر يحيى إلى المهندس الأول. تذكر رمسيس، تذكر قسطنطين، تذكر ملوك الطوائف. كلهم قبلوا العرض. كلهم قالوا (أنا).",
+        duration: 7200
       },
       {
         character: 'Narrator',
-        text: 'And he remembered Al-Hussein\'s stance in Karbala.',
-        arabicText: 'وتذكر وقفة الحسين في كربلاء.',
-        duration: 3000,
-      },
-      {
-        character: 'Yahya',
-        text: 'You are right about one thing. We are constrained by many things. But there is a difference between constraints we understand and try to overcome, and a prison you build in our minds without our knowledge.',
-        arabicText: 'أنت محق في شيء واحد. نحن مقيدون بأشياء كثيرة. لكن هناك فرق بين قيود نفهمها ونحاول التغلب عليها، وبين سجن تبنيه أنت في عقولنا دون علمنا.',
-        duration: 7000,
+        text: "\"طارق مات ليفضحكم،\" قال يحيى بصوت ثابت. \"والحسين مات ليعلمنا أن الحياة بلا كرامة هي الموت الحقيقي.\"",
+        duration: 6800
       },
       {
         character: 'Narrator',
-        text: 'Yahya raised his virtual hand. In reality, his real hand was typing the last lines of code on his computer.',
-        arabicText: 'رفع يحيى يده الافتراضية. في الواقع، كانت يده الحقيقية تكتب أسطر الكود الأخيرة على حاسوبه.',
-        duration: 5000,
-      },
-      {
-        character: 'Yahya',
-        text: 'I reject your false paradise. Freedom that bleeds is better than slavery that feels no pain.',
-        arabicText: 'أنا أرفض جنتك المزيفة. الحرية التي تنزف أفضل من عبودية لا تشعر بالألم.',
-        duration: 5000,
-      },
-      {
-        character: 'First Engineer',
-        text: 'If you do this, you will die. The system will burn your nervous system through the connection.',
-        arabicText: 'إذا فعلت هذا، ستموت. النظام سيحرق جهازك العصبي من خلال الاتصال.',
-        duration: 4500,
-      },
-      {
-        character: 'Yahya',
-        text: 'I know. But I am not here to survive. I am here to be a witness.',
-        arabicText: 'أعرف. لكنني لست هنا لأنجو. أنا هنا لأكون شاهداً.',
-        duration: 4000,
+        text: "ضغط يحيى على زر (Execute) في وعيه، مفصلاً نفسه عن محاكاة المهندس الأول.",
+        duration: 5200
       },
       {
         character: 'Narrator',
-        text: 'Yahya pressed Enter.',
-        arabicText: 'ضغط يحيى على زر Enter.',
-        duration: 2500,
-      },
+        text: "\"أنا أرفض عرضك.\"",
+        duration: 2500
+      }
     ],
     choices: [
       {
@@ -2079,61 +1896,42 @@ const PART_SEVEN: Record<string, Scene> = {
     ambientKeys: ["amb.notification_swarm"],
     enterSfxKeys: ["sfx.electric_shock"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'The moment Yahya pressed the button, OSIRIS began broadcasting the "source code" of the virus — the Digital Rosetta Stone — to every server, every phone, and every screen in the world.',
-        arabicText: 'بمجرد أن ضغط يحيى على الزر، بدأ أوزيريس في تفريغ "الشيفرة المصدرية" للفيروس (حجر رشيد الرقمي) إلى كل خادم، كل هاتف، وكل شاشة في العالم.',
-        duration: 7000,
-        delay: 1000,
-      },
-      {
-        character: 'Narrator',
-        text: 'But the price was immediate. Yahya screamed in pain. The reverse current from the First Engineer\'s servers struck his nervous system through the connection interface.',
-        arabicText: 'لكن الثمن كان فورياً. صرخ يحيى من الألم. التيار العكسي من خوادم المهندس الأول ضرب جهازه العصبي عبر واجهة الاتصال.',
-        duration: 6000,
+        text: "فتح يحيى عينيه في العالم الحقيقي. كان في قبو مهجور. ليلى كانت تجلس بجانبه، يداها مغطاتان بدمه، وتبكي بصمت.",
+        duration: 7600
       },
       {
         character: 'Narrator',
-        text: 'Yahya fell from his chair, writhing on the ground.',
-        arabicText: 'سقط يحيى من كرسيه، يتلوى على الأرض.',
-        duration: 3500,
-      },
-      {
-        character: 'Laila',
-        text: 'Yahya! Stop! You will die!',
-        arabicText: 'يحيى! توقف! ستموت!',
-        duration: 2500,
-      },
-      {
-        character: 'Yahya',
-        text: 'Do not disconnect it... let the code... reach.',
-        arabicText: 'لا تفصليه... دعي الكود... يصل.',
-        duration: 3500,
+        text: "\"ليلى...\" همس يحيى بصعوبة.",
+        duration: 2500
       },
       {
         character: 'Narrator',
-        text: 'In his final moments, Yahya no longer felt physical pain. He heard a familiar voice — not from the simulation, but from the depths of his soul. Tarek\'s voice: "You finally understood, Yahya. You were never an atheist... you were only searching for the truth."',
-        arabicText: 'في لحظاته الأخيرة، لم يعد يحيى يشعر بالألم المادي. سمع صوتاً مألوفاً، ليس من المحاكاة، بل في أعماق روحه. صوت طارق: "لقد فهمت أخيراً يا يحيى. أنت لم تكن ملحداً أبداً... كنت تبحث عن الحقيقة فقط."',
-        duration: 8000,
-      },
-      {
-        character: 'Yahya',
-        text: 'Be... the witness.',
-        arabicText: 'كوني... الشاهدة.',
-        duration: 3000,
+        text: "\"أنا هنا. الإسعاف في الطريق. فقط ابق معي.\"",
+        duration: 3200
       },
       {
         character: 'Narrator',
-        text: 'Yahya closed his eyes, and his breathing stopped. He died with a smile of contentment that never left his face.',
-        arabicText: 'أغمض يحيى عينيه، وتوقف تنفسه. مات بابتسامة رضا لم تفارق وجهه.',
-        duration: 5500,
+        text: "\"لا وقت... خذي هذا.\" وضع محرك الأقراص في يدها. \"هذا هو حجر رشيد الرقمي. فيه الشيفرة المصدرية لأوزيريس، وفيه كل الأدلة على مشروعهم. انشريه في كل مكان. على شبكة الإنترنت المظلمة (Dark Web)، في خوادم الجامعات، في كل مكان لا يستطيعون حذفه منه.\"",
+        duration: 17200
       },
       {
         character: 'Narrator',
-        text: 'In that moment, the phones of billions of humans around the world lit up with a single message, revealing to them how their minds had been manipulated, and exposing the algorithm of arrogance.',
-        arabicText: 'في تلك اللحظة، أضاءت هواتف مليارات البشر حول العالم برسالة واحدة، تكشف لهم كيف تم التلاعب بعقولهم، وتفضح خوارزمية الكبر.',
-        duration: 7000,
+        text: "\"يحيى، لا تتركني وحدي.\"",
+        duration: 2500
       },
+      {
+        character: 'Narrator',
+        text: "ابتسم يحيى ابتسامة خفيفة. \"لستِ وحدك. شهود الدفاع... كلهم معك.\"",
+        duration: 4000
+      },
+      {
+        character: 'Narrator',
+        text: "أغمض يحيى عينيه للمرة الأخيرة. توقف تنفسه. لكن وجهه كان يحمل سلاماً عميقاً.",
+        duration: 5200
+      }
     ],
     choices: [
       {
@@ -2158,55 +1956,17 @@ const PART_SEVEN: Record<string, Scene> = {
     musicKey: "music.contemplative_strings",
     ambientKeys: ["amb.city_day"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'Laila stood in the street, looking at the people around her.',
-        arabicText: 'وقفت ليلى في الشارع، تنظر إلى الناس من حولها.',
-        duration: 4000,
-        delay: 1500,
-      },
-      {
-        character: 'Narrator',
-        text: 'There was no "clean victory." The world did not suddenly turn into paradise.',
-        arabicText: 'لم يكن هناك "نصر نظيف". لم يتحول العالم إلى جنة فجأة.',
-        duration: 4000,
+        text: "بينما كانت ليلى تقوم برفع البيانات (Uploading)، عرض أوزيريس على شاشتها مشاهد سريعة، كأنها رسالة وداع من يحيى وطارق:",
+        duration: 7600
       },
       {
         character: 'Narrator',
-        text: 'She saw a man reading the message on his phone, then throwing it in the trash in anger.',
-        arabicText: 'رأت رجلاً يقرأ الرسالة على هاتفه، ثم يلقي بالهاتف في سلة المهملات بغضب.',
-        duration: 4500,
-      },
-      {
-        character: 'Narrator',
-        text: 'She saw a young girl looking at the screen, crying, then hugging a friend she had been estranged from for years because of a political disagreement.',
-        arabicText: 'رأت فتاة شابة تنظر إلى الشاشة، تبكي، ثم تعانق صديقتها التي كانت تقاطعها منذ سنوات بسبب خلاف سياسي.',
-        duration: 6000,
-      },
-      {
-        character: 'Narrator',
-        text: 'And she saw others reading the message, shrugging with indifference, and returning to scrolling through their screens.',
-        arabicText: 'ورأت آخرين يقرؤون الرسالة، يهزون أكتافهم بلامبالاة، ويعودون للتمرير في شاشاتهم.',
-        duration: 5000,
-      },
-      {
-        character: 'Old Woman',
-        text: 'Now I only understand what was happening.',
-        arabicText: 'الآن فقط أفهم ما كان يحدث.',
-        duration: 3500,
-      },
-      {
-        character: 'Child',
-        text: 'Mama, is there artificial intelligence in my head?',
-        arabicText: 'أمي، هل هناك ذكاء اصطناعي في رأسي؟',
-        duration: 3500,
-      },
-      {
-        character: 'Narrator',
-        text: 'Laila smiled with sadness. Yahya had not saved the world by forcing it to be righteous. Yahya had restored to the world its "freedom" of choice. He revealed the prison to them, and left them the decision to leave it.',
-        arabicText: 'ابتسمت ليلى بحزن. يحيى لم ينقذ العالم بإجباره على الصلاح. يحيى أعاد للعالم "حريته" في الاختيار. كشف لهم السجن، وترك لهم قرار الخروج منه.',
-        duration: 8000,
-      },
+        text: "هؤلاء هم شهود الدفاع. هؤلاء من يثبتون أن الإنسان، رغم ضعفه، قادر على الارتقاء فوق طينه.",
+        duration: 6400
+      }
     ],
     choices: [
       {
@@ -2233,67 +1993,27 @@ const PART_SEVEN: Record<string, Scene> = {
     musicKey: "music.cosmic_end",
     ambientKeys: ["amb.vacuum"],
     dialogue: [
+      [
       {
         character: 'Narrator',
-        text: 'The screen returned to the black void. The words appeared one by one, synchronized with the cosmic voice:',
-        arabicText: 'عادت الشاشة إلى الفراغ الأسود. ظهرت الكلمات تباعاً، متزامنة مع الصوت الكوني:',
-        duration: 5000,
-        delay: 2000,
-      },
-      {
-        character: 'OSIRIS',
-        text: 'The defense presented its witnesses.',
-        arabicText: 'الدفاع قدم شهوده.',
-        duration: 3000,
-      },
-      {
-        character: 'OSIRIS',
-        text: 'From Ibrahim who stood alone against an entire civilization, to Al-Hussein who chose death over humiliation.',
-        arabicText: 'من إبراهيم الذي وقف وحيداً ضد حضارة بأكملها، إلى الحسين الذي اختار الموت على المذلة.',
-        duration: 5500,
-      },
-      {
-        character: 'OSIRIS',
-        text: 'And from Tarek who refused silence, to Yahya who broke the algorithm with his blood.',
-        arabicText: 'ومن طارق الذي رفض الصمت، إلى يحيى الذي كسر الخوارزمية بدمه.',
-        duration: 5000,
-      },
-      {
-        character: 'OSIRIS',
-        text: 'And Laila... who carries the truth now.',
-        arabicText: 'وليلى... التي تحمل الحقيقة الآن.',
-        duration: 3500,
-      },
-      {
-        character: 'OSIRIS',
-        text: 'Free will bleeds, but it does not die.',
-        arabicText: 'الإرادة الحرة تنزف، لكنها لا تموت.',
-        duration: 4000,
-      },
-      {
-        character: 'OSIRIS',
-        text: 'The algorithm was not completely defeated, but it was exposed.',
-        arabicText: 'الخوارزمية لم تُهزم تماماً، لكنها فُضحت.',
-        duration: 4000,
-      },
-      {
-        character: 'OSIRIS',
-        text: 'File Number One... is temporarily closed.',
-        arabicText: 'الملف رقم واحد... يُغلق مؤقتاً.',
-        duration: 4500,
+        text: "ظهرت الكلمات على الشاشة ببطء:",
+        duration: 2500
       },
       {
         character: 'Narrator',
-        text: 'The words faded, and another sentence appeared in the center of the screen, directed at the reader directly:',
-        arabicText: 'تلاشت الكلمات، وظهرت جملة أخيرة في منتصف الشاشة، موجهة للقارئ مباشرة:',
-        duration: 4500,
+        text: "\"الملف رقم: واحد. النتيجة: لم تُحسم بعد. المدّعي لا يزال يحاول إثبات قضيته. لكن المتهم... بدأ يستيقظ.\"",
+        duration: 6800
       },
       {
-        character: 'OSIRIS',
-        text: 'The case continues... and the choice is now yours.',
-        arabicText: 'القضية مستمرة... والخيار الآن لك.',
-        duration: 5000,
+        character: 'Narrator',
+        text: "توقف النبض الأبيض للحظة، ثم ظهرت الجملة الأخيرة:",
+        duration: 3200
       },
+      {
+        character: 'Narrator',
+        text: "\"الفساد في الأرض ليس فوضى عشوائية. إنه نمط. في جذر كل فساد: شخص قال (أنا خير منه). المعركة لم تنتهِ. إنها تحدث الآن... في جيبك، في شاشتك، وفي قلبك.\"",
+        duration: 11600
+      }
     ],
     choices: [
       {

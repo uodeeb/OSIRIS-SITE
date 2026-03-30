@@ -11,14 +11,15 @@
  * - Keyboard: Space/Enter = next, Backspace = prev dialogue, Escape = home
  */
 
-import { useEffect, useRef, useState, useCallback, type CSSProperties } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback, type CSSProperties } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
-import { PART_LABELS, SCENES as ALL_SCENES, type Scene, type SceneChoice } from '@/lib/sceneSystem';
+import { PART_LABELS, SCENES as ALL_SCENES, type DialogueLine, type Scene, type SceneChoice } from '@/lib/sceneSystem';
 import { ASSET_URLS } from '@/lib/assetUrls';
 import { getAssetOverride } from '@/lib/assetOverrides';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "@/lib/osirisEffects";
+import { loadCanonicalDialogueMap } from '@/lib/canonicalScript';
 import { CinematicStage } from '@/components/CinematicStage';
 import { OsirisEffectLayer } from "@/components/OsirisEffectLayer";
 import osirisLogo from '@/LOGO/new-logo/favicon-black-0.25.png';
@@ -501,6 +502,11 @@ function VolumeControl({
 
 export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerProps) {
   const [, setLocation] = useLocation();
+  const canonicalMode = useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    const params = new URLSearchParams(window.location.search);
+    return params.get('canonical') === '1' || params.get('script') === 'canonical';
+  }, []);
 
   // Language state — 'en' or 'ar'
   const [lang, setLang] = useState<'en' | 'ar'>('ar');
@@ -537,6 +543,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const [osirisEffectId, setOsirisEffectId] = useState<OsirisEffectId | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [shareMenuOpen, setShareMenuOpen] = useState(false);
+  const [canonicalDialogueByScene, setCanonicalDialogueByScene] = useState<Record<string, DialogueLine[]>>({});
   const bedMusicRef = useRef<HTMLAudioElement | null>(null);
   const bedMusicFadeRef = useRef<number | null>(null);
   const sceneMusicRef = useRef<HTMLAudioElement | null>(null);
@@ -556,10 +563,16 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const lastPartRef = useRef<number>(-1);
   const fxTimersRef = useRef<Array<ReturnType<typeof setTimeout>>>([]);
   const currentScene: Scene | undefined = ALL_SCENES[currentSceneId];
-  const currentDialogue = currentScene?.dialogue?.[dialogueIndex];
+  const dialogueLines = useMemo(() => {
+    if (!currentScene) return [];
+    if (!canonicalMode) return currentScene.dialogue || [];
+    const canonical = canonicalDialogueByScene[currentSceneId];
+    return canonical && canonical.length ? canonical : (currentScene.dialogue || []);
+  }, [canonicalMode, canonicalDialogueByScene, currentSceneId, currentScene]);
+  const currentDialogue = dialogueLines[dialogueIndex];
   const sceneTrackKey = scriptTrackOverride ?? (SCENE_TRACK_SEQUENCE[currentSceneId] ?? 'track01');
   const isSceneUsingBedOnly = sceneTrackKey === 'track01';
-  const rawVoiceCue = SCENE_VOICE_CUES[currentSceneId]?.find((item) => item.at === dialogueIndex);
+  const rawVoiceCue = canonicalMode ? undefined : SCENE_VOICE_CUES[currentSceneId]?.find((item) => item.at === dialogueIndex);
   const rawVoiceToken = rawVoiceCue ? `${currentSceneId}:${dialogueIndex}:${rawVoiceCue.voice}` : null;
   const currentVoiceCue = rawVoiceCue && rawVoiceToken && !disabledVoiceTokensRef.current.has(rawVoiceToken) ? rawVoiceCue : undefined;
   const isVoicedDialogue = !!currentVoiceCue;
@@ -578,6 +591,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   useEffect(() => {
     preloadOsirisEffects(allowVideo);
   }, [allowVideo]);
+
+  useEffect(() => {
+    if (!canonicalMode) return;
+    loadCanonicalDialogueMap().then((map) => setCanonicalDialogueByScene(map));
+  }, [canonicalMode]);
   const autoSceneDelayMs: Record<'very-slow' | 'slow' | 'normal', number> = {
     'very-slow': 12000,
     slow: 7000,
@@ -747,7 +765,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const advanceDialogue = useCallback(() => {
     if (!currentScene) return;
     const nextIdx = dialogueIndex + 1;
-    if (nextIdx < currentScene.dialogue.length) {
+    if (nextIdx < dialogueLines.length) {
       setDialogueIndex(nextIdx);
       setIsDialogueComplete(false);
       setShowCharacter(false);
@@ -757,7 +775,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       if (!currentScene.choices || currentScene.choices.length === 0) {
       }
     }
-  }, [currentScene, dialogueIndex]);
+  }, [currentScene, dialogueIndex, dialogueLines.length]);
 
   const goToScene = useCallback((sceneId: string, options?: { recordHistory?: boolean }) => {
     if (!ALL_SCENES[sceneId]) return;
@@ -791,13 +809,13 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
     if (showChoices) {
       setShowChoices(false);
-      const lastDialogueIndex = Math.max(0, currentScene.dialogue.length - 1);
+      const lastDialogueIndex = Math.max(0, dialogueLines.length - 1);
       setDialogueIndex(lastDialogueIndex);
       return;
     }
 
     setDialogueIndex((prev) => Math.max(0, prev - 1));
-  }, [currentScene, showChoices, voiceSyncLock]);
+  }, [currentScene, showChoices, voiceSyncLock, dialogueLines.length]);
 
   const handleChoice = useCallback((choice: SceneChoice) => {
     if (voiceSyncLock) return;
@@ -990,7 +1008,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
     } else if (isDialogueComplete && !isTyping) {
       action = () => {
-        if (dialogueIndex < (currentScene?.dialogue.length || 1) - 1) {
+        if (dialogueIndex < (dialogueLines.length || 1) - 1) {
           advanceDialogue();
         } else {
           setShowChoices(true);
@@ -1905,9 +1923,9 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                 )}
 
                 {/* Dialogue Progress Dots */}
-                {currentScene.dialogue.length > 1 && (
+                {dialogueLines.length > 1 && (
                   <div className="flex items-center justify-center gap-2 mt-5">
-                    {currentScene.dialogue.map((_, idx) => (
+                    {dialogueLines.map((_, idx) => (
                       <motion.div
                         key={idx}
                         className="rounded-full"
