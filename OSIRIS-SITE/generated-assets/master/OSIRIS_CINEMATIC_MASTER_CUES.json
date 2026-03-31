@@ -1,0 +1,229 @@
+{
+  "master_file": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\master\\OSIRIS_CINEMATIC_MASTER.mp4",
+  "total_duration_seconds": 127.52,
+  "video_segments": [
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 01 — الشاشة الرئيسية (Intro).mp4",
+      "start": 0.0,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 01 — الثيم الرئيسي للرواية.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 02 — غرفة يحيى (المشهد الافتتاحي).mp4",
+      "start": 8.0,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 02 — الجزء الصفر-غرفة المحاكمة الكونية.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 03 — الفضاء الكوني (المرافعة الافتتاحية).mp4",
+      "start": 16.0,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK-04.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 04 — سطح المبنى (وداع طارق).mp4",
+      "start": 24.0,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 05.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\andalus.mp4",
+      "start": 32.0,
+      "duration": 5.88,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 06.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\desert.mp4",
+      "start": 37.88,
+      "duration": 5.88,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 07.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\karblaa.mp4",
+      "start": 43.76,
+      "duration": 5.88,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 08.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\yehya-office-vid.mp4",
+      "start": 49.64,
+      "duration": 5.88,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 09.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 05 — صحراء سيناء (العجل الذهبي).mp4",
+      "start": 55.52,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 10.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 06 — صهر الذهب (هندسة الحشود).mp4",
+      "start": 63.52,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 11.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 07 — مجمع نيقية (الإمبراطور والحكيم).mp4",
+      "start": 71.52,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 12.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 08 — الأندلس (جمال يتلاشى).mp4",
+      "start": 79.52,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 13.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 09 — دموع أبو عبد الله (زفرة العربي الأخيرة).mp4",
+      "start": 87.52,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 01 — الثيم الرئيسي للرواية.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 10 — برلين 1933 (الكبر يصبح نظاماً).mp4",
+      "start": 95.52,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 02 — الجزء الصفر-غرفة المحاكمة الكونية.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 11 — كربلاء (الحق الأعزل).mp4",
+      "start": 103.52,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK-04.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 12 — الفضاء الرقمي (المواجهة مع المهندس).mp4",
+      "start": 111.52,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 05.m4a"
+    },
+    {
+      "video": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\VIDEO 13 — ضغطة Enter (التضحية النهائية).mp4",
+      "start": 119.52,
+      "duration": 8.0,
+      "scene_track": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 06.m4a"
+    }
+  ],
+  "voice_cues": [
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 01 — المرافعة الافتتاحية (الأيقونية الكبرى).wav",
+      "timestamp": 17.778,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 02 — قسم إبليس (الشيفرة المصدرية).wav",
+      "timestamp": 17.8,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 03 — رسالة طارق الأولى (صوت الأخ الميت).wav",
+      "timestamp": 25.8,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 04 — وداع طارق على السطح.wav",
+      "timestamp": 25.778,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 05 — إدراك يحيى (الخوارزمية والشيطان).wav",
+      "timestamp": 81.32,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 06 — أم أبو عبد الله (الجملة التاريخية).wav",
+      "timestamp": 57.32,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 07 — صوت إبليس يعلق على الأندلس.wav",
+      "timestamp": 49.64,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 08 — الحسين في كربلاء.wav",
+      "timestamp": 73.32,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 09 — طارق في الحلم (الوداع الأخير).wav",
+      "timestamp": 89.32,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 10 — قرار يحيى (الجملة الأخيرة قبل الضغط).wav",
+      "timestamp": 89.298,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 11 — إغلاق الملف (الراوي الكوني).wav",
+      "timestamp": 73.32,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 12 — يحيى يموت (آخر كلماته لليلى).wav",
+      "timestamp": 89.32,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 13 — ليلى تفسر الحسين.wav",
+      "timestamp": 73.298,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 14 — المهندس الأول يعرض على يحيى.wav",
+      "timestamp": 81.32,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 15 — ليلى تكشف جرحها (ألم الطفولة).wav",
+      "timestamp": 89.32,
+      "duration": 6.0
+    },
+    {
+      "voice": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\voices\\VOICE 16 — طارق يربط نيقية بالحاضر.wav",
+      "timestamp": 43.76,
+      "duration": 6.0
+    }
+  ],
+  "image_overlays": [
+    {
+      "image": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\images\\01.jpg",
+      "start": 0.0,
+      "end": 18.217
+    },
+    {
+      "image": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\images\\02.jpg",
+      "start": 18.217,
+      "end": 36.434
+    },
+    {
+      "image": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\images\\03.jpg",
+      "start": 36.434,
+      "end": 54.651
+    },
+    {
+      "image": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\images\\04.jpg",
+      "start": 54.651,
+      "end": 72.869
+    },
+    {
+      "image": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\images\\05.jpg",
+      "start": 72.869,
+      "end": 91.086
+    },
+    {
+      "image": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\images\\06.jpg",
+      "start": 91.086,
+      "end": 109.303
+    },
+    {
+      "image": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\images\\07.jpg",
+      "start": 109.303,
+      "end": 127.52
+    }
+  ],
+  "music_bed": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\music-tracks\\TRACK 01 — الثيم الرئيسي للرواية.mp3",
+  "layering": "TRACK 01 continuous bed with scene-track crossfades of 1.5s"
+}
