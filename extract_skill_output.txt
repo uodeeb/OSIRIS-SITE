@@ -1,0 +1,4 @@
+Total entries: 3
+references/
+SKILL.md
+references/arabic_novel_styles.md
