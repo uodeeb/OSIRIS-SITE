@@ -78,16 +78,22 @@ export function ChapterLaunchModal(props: {
             <Dialog.Content asChild aria-modal="true">
               <motion.div
                 role="dialog"
-                aria-labelledby="chapter-title"
-                aria-describedby="chapter-description"
                 initial={{ opacity: 0, y: 26, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 26, scale: 0.98 }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
-                className="fixed left-1/2 top-1/2 z-50 w-[min(960px,calc(100vw-24px))] -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-black/90 shadow-2xl"
+                className="fixed left-1/2 top-1/2 z-50 w-[min(960px,calc(100vw-24px))] -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-black/90 shadow-2xl focus:outline-none"
                 style={{ borderColor: withAlpha(accent, 0.25) }}
                 dir={isArabic ? "rtl" : "ltr"}
               >
+                {/* 🛡️ Accessibility: Visually Hidden Title & Description for Radix UI */}
+                <Dialog.Title className="sr-only">
+                  {isArabic ? chapter?.arabicTitle : chapter?.title}
+                </Dialog.Title>
+                <Dialog.Description className="sr-only">
+                  {isArabic ? chapter?.arabicSubtitle : chapter?.subtitle}
+                </Dialog.Description>
+
                 <div className="grid grid-cols-1 md:grid-cols-5 overflow-hidden rounded-2xl">
                   <div className="md:col-span-2 relative min-h-[200px] md:min-h-[420px]">
                     {chapter?.imageSrc ? (
@@ -115,14 +121,14 @@ export function ChapterLaunchModal(props: {
                   <div className="md:col-span-3 p-5 md:p-7">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <Dialog.Title id="chapter-title" className="text-2xl md:text-3xl font-semibold text-white leading-normal">
+                        <h3 className="text-2xl md:text-3xl font-semibold text-white leading-normal">
                           {isArabic ? chapter?.arabicTitle : chapter?.title}
-                        </Dialog.Title>
-                        <Dialog.Description id="chapter-description" className="mt-2 text-white/70 text-sm md:text-base leading-relaxed">
+                        </h3>
+                        <p className="mt-2 text-white/70 text-sm md:text-base leading-relaxed">
                           {isArabic
                             ? "اختيارك يحدد نقطة البداية. المؤقت والتحكم الموحد يستمران عبر الانتقالات."
                             : "Your selection sets the entry point. The unified controller and timer persist across transitions."}
-                        </Dialog.Description>
+                        </p>
                       </div>
                       <Dialog.Close asChild>
                         <button

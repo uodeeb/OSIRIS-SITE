@@ -8,6 +8,8 @@ export type MediaControllerState = {
   durationMs: number;
   accentColor: string;
   uiLang: "en" | "ar";
+  isMuted: boolean;
+  primaryVolume: number;
 };
 
 type MediaControllerApi = {
@@ -35,6 +37,8 @@ const defaultState: MediaControllerState = {
   durationMs: 25 * 60 * 1000,
   accentColor: "#c9a96e",
   uiLang: "ar",
+  isMuted: false,
+  primaryVolume: 0.2,
 };
 
 const MediaControllerContext = createContext<MediaControllerApi | null>(null);
@@ -100,6 +104,8 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
         durationMs: nextState.durationMs,
         accentColor: nextState.accentColor,
         uiLang: nextState.uiLang,
+        isMuted: nextState.isMuted,
+        primaryVolume: nextState.primaryVolume,
       }),
     );
   }, []);
@@ -259,15 +265,24 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
 
   const setPrimaryAudioMuted = useCallback((muted: boolean) => {
     const a = primaryAudioRef.current;
-    if (!a) return;
-    a.muted = muted;
-  }, []);
+    if (a) a.muted = muted;
+    setState((prev) => {
+      const next = { ...prev, isMuted: muted };
+      persist(next);
+      return next;
+    });
+  }, [persist]);
 
   const setPrimaryAudioVolume = useCallback((volume: number) => {
+    const v = clamp(volume, 0, 1);
     const a = primaryAudioRef.current;
-    if (!a) return;
-    a.volume = clamp(volume, 0, 1);
-  }, []);
+    if (a) a.volume = v;
+    setState((prev) => {
+      const next = { ...prev, primaryVolume: v };
+      persist(next);
+      return next;
+    });
+  }, [persist]);
 
   const setPrimaryAudioSources = useCallback((candidates: string[], loop: boolean) => {
     const a = primaryAudioRef.current;
@@ -377,7 +392,11 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
     ],
   );
 
-  return <MediaControllerContext.Provider value={value}>{children}</MediaControllerContext.Provider>;
+  return (
+    <MediaControllerContext.Provider value={value}>
+      {children}
+    </MediaControllerContext.Provider>
+  );
 }
 
 export function useMediaController() {

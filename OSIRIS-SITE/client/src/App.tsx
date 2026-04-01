@@ -6,14 +6,16 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import EnhancedHome from "./pages/EnhancedHome";
+import Intro from "./pages/Intro";
 import { initAssetOverrides } from "@/lib/assetOverrides";
 import { MediaControllerProvider, useMediaController } from "./contexts/MediaControllerContext";
 import { GlobalMediaLayer } from "@/components/GlobalMediaLayer";
 import { MediaTransportBar } from "@/components/MediaTransportBar";
+
 const MainPlayer = lazy(() => import("@/components/MainPlayer").then((m) => ({ default: m.MainPlayer })));
 const OsirisAIModel = lazy(() => import("./pages/OsirisAIModel"));
+
 function PlayRoute() {
-  // Support ?scene=xxx query param for direct scene access
   const params = new URLSearchParams(window.location.search);
   const sceneId = params.get('scene') || 'zero-1-1-summons';
   return (
@@ -27,6 +29,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={EnhancedHome} />
+      <Route path="/intro" component={Intro} />
       <Route path="/model">
         <Suspense fallback={null}>
           <OsirisAIModel />
@@ -38,6 +41,7 @@ function Router() {
     </Switch>
   );
 }
+
 function AppContent() {
   const { state: mediaState } = useMediaController();
   const isArabic = mediaState.uiLang === "ar";
@@ -74,6 +78,5 @@ function App() {
     </MediaControllerProvider>
   );
 }
-
 
 export default App;
