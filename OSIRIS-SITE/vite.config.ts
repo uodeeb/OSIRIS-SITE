@@ -167,7 +167,24 @@ export default defineConfig({
   build: {
     outDir: path.resolve(PROJECT_ROOT, "dist/public"),
     emptyOutDir: true,
-    chunkSizeWarningLimit: 1200,
+    chunkSizeWarningLimit: 500,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Vendor chunks
+          'react-vendor': ['react', 'react-dom'],
+          'animation-vendor': ['framer-motion'],
+          'router-vendor': ['wouter'],
+          'audio-vendor': ['howler'],
+          'query-vendor': ['@tanstack/react-query'],
+          // Feature chunks
+          'ui-components': ['./client/src/components/ui'],
+          'scenes-core': ['./client/src/lib/sceneSystem.ts'],
+          'audio-engine': ['./client/src/lib/culturalAudioEngine.ts'],
+          'cinematic-engine': ['./client/src/lib/cinematicCompositionEngine.ts'],
+        },
+      },
+    },
   },
   server: {
     host: true,

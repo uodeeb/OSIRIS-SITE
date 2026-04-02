@@ -1728,6 +1728,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
   return (
     <motion.div
+      data-testid="scene-container"
       className="relative w-screen h-screen overflow-hidden bg-black select-none font-novel"
       onClick={handleAdvance}
       animate={fxShake ? { x: [0, -4, 3, -2, 2, 0], y: [0, 2, -2, 3, -1, 0] } : { x: 0, y: 0 }}
@@ -2101,6 +2102,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
               {/* Dialogue Box */}
               <div
+                data-testid="dialogue-box"
                 className={`relative rounded-2xl px-4 py-4 sm:px-7 sm:py-6 md:px-9 md:py-7 ${isArabic ? 'text-right' : ''} ${styles.dynamicDialogueBox}`}
                 dir={isArabic ? 'rtl' : 'ltr'}
                 style={{
@@ -2162,6 +2164,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                 {/* Active Language Text Only */}
                 {lang === 'en' ? (
                   <p
+                    data-testid="dialogue-text"
                     className={`text-white/93 text-[20px] md:text-[26px] font-light ${styles.dynamicDialogueText}`}
                     style={{
                       '--text-shadow': '0 1px 8px rgba(0,0,0,0.98)',
@@ -2181,6 +2184,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   </p>
                 ) : (
                   <p
+                    data-testid="dialogue-text"
                     className={`text-white/93 text-[22px] md:text-[30px] text-right font-arabic ${styles.dynamicArabicText}`}
                     dir="rtl"
                     style={{
@@ -2229,6 +2233,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   <div className={`mt-4 flex flex-wrap items-center justify-between gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                     <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
                       <button
+                        data-testid="back-button"
                         onClick={(e) => { e.stopPropagation(); handleBackScene(); }}
                         disabled={!showChoices && dialogueIndex === 0}
                         className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed ${styles.dynamicColor} ${styles.dynamicBorder} ${styles.dynamicBg}`}
@@ -2244,6 +2249,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                         <span className="text-[9px] font-mono tracking-wider">{isArabic ? 'السابق' : 'BACK'}</span>
                       </button>
                       <button
+                        data-testid="next-button"
                         onClick={(e) => { e.stopPropagation(); handleForwardScript(); }}
                         className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.dynamicColor} ${styles.dynamicBorder} ${styles.dynamicBg}`}
                         style={{
@@ -2320,6 +2326,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         <AnimatePresence>
           {showChoices && currentScene.choices && currentScene.choices.length > 0 && (
             <motion.div
+              data-testid="choice-panel"
               key="choices-panel"
               initial={{ opacity: 0, y: 36 }}
               animate={{ opacity: 1, y: 0 }}
@@ -2346,6 +2353,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                 </div>
                 {/* Countdown number */}
                 <motion.span
+                  data-testid="choice-timer"
                   className={`text-[11px] font-mono tabular-nums flex-shrink-0 w-6 ${styles.dynamicCountdown} ${isArabic ? 'text-left' : 'text-right'}`}
                   style={{
                     '--countdown-color': choiceProgress > 55 ? `${accentColor}90`
@@ -2362,6 +2370,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               <div className="grid gap-3">
                 {currentScene.choices.map((choice, idx) => (
                   <motion.button
+                    data-testid="choice-button"
                     key={choice.id}
                     initial={{ opacity: 0, x: idx % 2 === 0 ? -28 : 28 }}
                     animate={{ opacity: 1, x: 0 }}
