@@ -12,7 +12,11 @@ function withAlpha(hex: string, alpha: number) {
   return `rgba(${r},${g},${b},${alpha})`;
 }
 
-export function GlobalMediaLayer({ primaryAudioSources }: GlobalMediaLayerProps) {
+interface GlobalMediaLayerProps {
+  primaryAudioSources: string[];
+}
+
+export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerProps) {
   const { allowVideo } = useBandwidthStrategy();
   const { state, registerMedia, setPrimaryAudioElement, setPrimaryAudioSources, setPrimaryAudioVolume } = useMediaController();
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -21,10 +25,7 @@ export function GlobalMediaLayer({ primaryAudioSources }: GlobalMediaLayerProps)
   const effect = OSIRIS_EFFECTS["FX-03-HOLOGRAM-DATA"];
   const videoSrc = useMemo(() => getOsirisMediaUrl(effect.base), [effect.base]);
   const posterSrc = useMemo(() => getOsirisMediaUrl(effect.fallback), [effect.fallback]);
-interface GlobalMediaLayerProps {
-  primaryAudioSources: string[];
-}
-
+  const audioSrc = primaryAudioSources[0] || "";
   useEffect(() => {
     if (!videoRef.current) return;
     return registerMedia(videoRef.current);
@@ -43,7 +44,7 @@ interface GlobalMediaLayerProps {
     a.preload = "metadata";
     setPrimaryAudioSources(primaryAudioSources, true);
     setPrimaryAudioVolume(0.22);
-  }, [audioSrc, setPrimaryAudioSources, setPrimaryAudioVolume]);
+  }, [primaryAudioSources, setPrimaryAudioSources, setPrimaryAudioVolume]);
 
   const accent = state.accentColor || "#c9a96e";
 
@@ -70,7 +71,7 @@ interface GlobalMediaLayerProps {
         />
       )}
 
-      <audio ref={audioRef} src={audioSrc} preload="metadata" />
+      {audioSrc && <audio ref={audioRef} src={audioSrc} preload="metadata" />}
 
       <div
         className="absolute inset-0"

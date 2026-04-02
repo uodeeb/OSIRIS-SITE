@@ -28,6 +28,11 @@ const formatTime = (ms: number) => {
   return `${minutes}:${(seconds % 60).toString().padStart(2, '0')}`;
 };
 
+const openLaunch = (c: ChapterMeta) => {
+  setSelected(c);
+  setLaunchOpen(true);
+};
+
 export default function EnhancedHome() {
   const [, setLocation] = useLocation();
   const { state: mediaState, play, pause, setAccentColor, setDurationMs, setUiLang } = useMediaController();
@@ -37,11 +42,6 @@ export default function EnhancedHome() {
   const [showTrailer, setShowTrailer] = useState(false);
   const [trailerIdx, setTrailerIdx] = useState(0);
   const [showAudioPrompt, setShowAudioPrompt] = useState(true);
-
-  const openLaunch = (c: ChapterMeta) => {
-    setSelected(c);
-    setLaunchOpen(true);
-  };
 
   const chapters = useMemo(() => [
     {
@@ -107,7 +107,7 @@ export default function EnhancedHome() {
       icon: '🏰',
       arabicTitle: 'الأندلس',
       arabicSubtitle: 'ضوء الأندلس',
-      subtitle: 'Light in darkness',
+      subtitle: 'Light in the darkness',
       description: 'Golden age of knowledge and culture',
       accentColor: '#e74c3c',
       imageSrc: ASSET_URLS.backgrounds.cambodia_1975,
@@ -202,7 +202,7 @@ export default function EnhancedHome() {
       </AnimatePresence>
 
       <div className="h-full w-full px-4 sm:px-6 pt-5 pb-[calc(env(safe-area-inset-bottom)+76px)] flex flex-col min-h-0 relative">
-        <div className="absolute inset-0 z-0 opacity-[0.03]" style={{ backgroundImage: 'url(/patterns/geometric-pattern.svg)', backgroundSize: '20px 20px' }} />
+          <div className="absolute inset-0 z-0 opacity-[0.03]" style={{ backgroundImage: 'url(/patterns/geometric-pattern.svg)', backgroundSize: '20px 20px' }} />
         
         {/* Logo and Title */}
         <motion.div
@@ -225,14 +225,14 @@ export default function EnhancedHome() {
                 className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
                 style={{ border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.75)', background: 'rgba(0,0,0,0.35)' }}
               >
-                {mediaState.volume === 0 ? (isArabic ? 'صامت' : 'MUTED') : (isArabic ? 'صوت' : 'AUDIO')}
+                {mediaState.isMuted ? (isArabic ? 'صامت' : 'MUTED') : (isArabic ? 'صوت' : 'AUDIO')}
               </button>
               <button
-                onClick={() => (mediaState.volume === 0 ? play() : pause())}
+                onClick={() => (mediaState.isPlaying ? pause() : play())}
                 className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
                 style={{ border: `1px solid ${activeTrailer.color}`, color: activeTrailer.color, background: 'rgba(0,0,0,0.35)' }}
               >
-                {mediaState.volume === 0 ? (isArabic ? 'إيقاف' : 'PAUSE') : (isArabic ? 'تشغيل الصوت' : 'PLAY AUDIO')}
+                {mediaState.isPlaying ? (isArabic ? 'إيقاف' : 'PAUSE') : (isArabic ? 'تشغيل الصوت' : 'PLAY AUDIO')}
               </button>
               <button
                 onClick={() => { /* No fullscreen toggle in EnhancedHome */ }}
@@ -255,7 +255,7 @@ export default function EnhancedHome() {
               <button
                 onClick={() => setLocation('/script')}
                 className={`px-5 py-3 rounded-xl text-[10px] tracking-[0.22em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                style={{ border: `1px solid ${activeTrailer.color}44`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.9)' }}
+                style={{ border: `1px solid ${activeTrailer.color}44`, background: 'rgba(0,0,0,0.35)', color: 'rgba(255,255,255,0.7)' }}
               >
                 {isArabic ? 'النص الكامل' : 'FULL SCRIPT'}
               </button>
@@ -273,96 +273,114 @@ export default function EnhancedHome() {
             </div>
           </div>
         </motion.div>
+      </AnimatePresence>
 
-        {/* Chapter Grid - Desktop */}
-        <div className="hidden md:block h-full">
-          <div className="h-full overflow-y-auto snap-y snap-mandatory">
-            {chapters.map((c) => (
-              <motion.div
-                key={c.id}
-                className="snap-start shrink-0 w-[280px] h-[200px] rounded-2xl border overflow-hidden text-left"
-                style={{ borderColor: `${activeTrailer.color}22`, background: "rgba(0,0,0,0.35)" }}
-                whileHover={{ scale: 1.02 }}
-                onClick={() => openLaunch(c)}
-              >
-                <div className="relative h-full">
-                  <img src={c.imageSrc} alt={isArabic ? c.arabicTitle : c.title} className="absolute inset-0 h-full w-full object-cover" style={{ filter: "brightness(0.72) contrast(1.15) saturate(1.05)" }} />
-                  <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${activeTrailer.color}10 0%, rgba(0,0,0,0.84) 70%, rgba(0,0,0,0.98) 100%)` }} />
-                  <div className="relative h-full p-5 flex flex-col justify-end">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="text-[12px] font-mono tracking-[0.22em] text-white/70">{c.number}</div>
-                      <div className="text-2xl">{c.icon}</div>
-                    </div>
-                    <div className="text-xl font-semibold text-white">{isArabic ? c.arabicTitle : c.title}</div>
-                    <div className="mt-2 text-sm text-white/85 leading-relaxed">{isArabic ? c.arabicSubtitle : c.subtitle}</div>
-                    <div className="mt-3 text-[12px] font-mono text-white/75">{isArabic ? `${c.estMinutes} دقيقة` : `${c.estMinutes} min`}</div>
-                    <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: c.accentColor }}>
-                      <span>{isArabic ? "فتح" : "Open"}</span>
-                      <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
+      <div className="h-full w-full px-4 sm:px-6 pt-5 pb-[calc(env(safe-area-inset-bottom)+76px)] flex flex-col min-h-0 relative">
+
+      {/* Chapter Grid - Desktop */}
+      <div className="hidden md:block h-full">
+        <div className="h-full overflow-y-auto snap-y snap-mandatory">
+          {chapters.map((c) => (
+            <motion.div
+              key={c.id}
+              className="snap-start shrink-0 w-[280px] h-[200px] rounded-2xl border overflow-hidden text-left"
+              style={{ borderColor: OSIRIS_EFFECTS.border(activeTrailer.color, 0.22), background: "rgba(0,0,0,0.35)" }}
+              whileHover={{ scale: 1.02 }}
+              onClick={() => openLaunch(c)}
+            >
+              <div className="relative h-full">
+                <img src={c.imageSrc} alt={isArabic ? c.arabicTitle : c.title} className="absolute inset-0 h-full w-full object-cover" style={{ filter: "brightness(0.72) contrast(1.15) saturate(1.05)" }} />
+                <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${OSIRIS_EFFECTS.fade(activeTrailer.color, 0.10)} 0%, rgba(0,0,0,0.84) 70%, rgba(0,0,0,0.98) 100%)` }} />
+                <div className="relative h-full p-5 flex flex-col justify-end">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="text-[12px] font-mono tracking-[0.22em] text-white/70">{c.number}</div>
+                    <div className="text-2xl">{c.icon}</div>
+                  </div>
+                  <div className="text-xl font-semibold text-white">{isArabic ? c.arabicTitle : c.title}</div>
+                  <div className="mt-2 text-sm text-white/85 leading-relaxed">{isArabic ? c.arabicSubtitle : c.subtitle}</div>
+                  <div className="mt-3 text-[12px] font-mono text-white/75">{isArabic ? `${c.estMinutes} دقيقة` : `${c.estMinutes} min`}</div>
+                  <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: c.accentColor }}>
+                    <span>{isArabic ? "فتح" : "Open"}</span>
+                    <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-
-        {/* Chapter Grid - Mobile */}
-        <div className="md:hidden h-full">
-          <div className="h-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory flex gap-4 px-4">
-            {chapters.map((c) => (
-              <motion.button
-                key={c.id}
-                onClick={() => openLaunch(c)}
-                onFocus={() => setSelected(c)}
-                className="snap-start shrink-0 w-[78vw] h-full rounded-2xl border overflow-hidden text-left min-h-[280px]"
-                style={{ borderColor: `${activeTrailer.color}22`, background: "rgba(0,0,0,0.35)" }}
-              >
-                <div className="relative h-full">
-                  <img src={c.imageSrc} alt={isArabic ? c.arabicTitle : c.title} className="absolute inset-0 h-full w-full object-cover" style={{ filter: "brightness(0.72) contrast(1.15) saturate(1.05)" }} />
-                  <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${activeTrailer.color}10 0%, rgba(0,0,0,0.84) 70%, rgba(0,0,0,0.98) 100%)` }} />
-                  <div className="relative h-full p-5 flex flex-col justify-end">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="text-[12px] font-mono tracking-[0.22em] text-white/70">{c.number}</div>
-                      <div className="text-2xl">{c.icon}</div>
-                    </div>
-                    <div className="text-xl font-semibold text-white">{isArabic ? c.arabicTitle : c.title}</div>
-                    <div className="mt-2 text-sm text-white/85 leading-relaxed">{isArabic ? c.arabicSubtitle : c.subtitle}</div>
-                    <div className="mt-3 text-[12px] font-mono text-white/75">{isArabic ? `${c.estMinutes} دقيقة` : `${c.estMinutes} min`}</div>
-                    <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: c.accentColor }}>
-                      <span>{isArabic ? "فتح" : "Open"}</span>
-                      <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </motion.button>
-            ))}
-          </div>
-        </div>
-
-        {/* Audio Consent Modal */}
-        <AnimatePresence>
-          {showAudioPrompt && (
-            <AudioConsentModal
-              onConsent={handleAudioConsent}
-              lang={isArabic ? "ar" : "en"}
-            />
-          )}
-        </AnimatePresence>
-
-        {/* Chapter Launch Modal */}
-        <ChapterLaunchModal
-          open={launchOpen}
-          onOpenChange={setLaunchOpen}
-          chapter={selected}
-          uiLang={uiLang}
-          onStart={handleStart}
-        />
       </div>
+
+      {/* Chapter Grid - Mobile */}
+      <div className="md:hidden h-full">
+        <div className="h-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory flex gap-4 px-4">
+          {chapters.map((c) => (
+            <motion.button
+              key={c.id}
+              onClick={() => openLaunch(c)}
+              onFocus={() => setSelected(c)}
+              className="snap-start shrink-0 w-[78vw] h-full rounded-2xl border overflow-hidden text-left min-h-[280px]"
+              style={{ borderColor: OSIRIS_EFFECTS.border(activeTrailer.color, 0.22), background: "rgba(0,0,0,0.35)" }}
+            >
+              <div className="relative h-full">
+                <img src={c.imageSrc} alt={isArabic ? c.arabicTitle : c.title} className="absolute inset-0 h-full w-full object-cover" style={{ filter: "brightness(0.72) contrast(1.15) saturate(1.05)" }} />
+                <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${OSIRIS_EFFECTS.fade(activeTrailer.color, 0.10)} 0%, rgba(0,0,0,0.84) 70%, rgba(0,0,0,0.98) 100%)` }} />
+                <div className={`flex items-center justify-between ${isArabic ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                    <img src={osirisFavicon} alt="OSIRIS logo" className="w-9 h-9 opacity-90" />
+                    <div className="text-[10px] font-mono tracking-[0.26em] text-white/65">CINEMATIC TRAILER</div>
+                  </div>
+                  <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                    <button
+                      onClick={() => {
+                        // No audio control in EnhancedHome, as MediaControllerContext handles it globally
+                      }}
+                      className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
+                      style={{ border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.75)', background: 'rgba(0,0,0,0.35)' }}
+                    >
+                      {mediaState.isMuted ? (isArabic ? 'صامت' : 'MUTED') : (isArabic ? 'صوت' : 'AUDIO')}
+                    </button>
+                    <button
+                      onClick={() => (mediaState.isPlaying ? pause() : play())}
+                      className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
+                      style={{ border: `1px solid ${activeTrailer.color}`, color: activeTrailer.color, background: 'rgba(0,0,0,0.35)' }}
+                    >
+                      {mediaState.isPlaying ? (isArabic ? 'إيقاف' : 'PAUSE') : (isArabic ? 'تشغيل الصوت' : 'PLAY AUDIO')}
+                    </button>
+                    <button
+                      onClick={() => { /* No fullscreen toggle in EnhancedHome */ }}
+                      className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
+                      style={{ border: '1px solid rgba(201,169,110,0.2)', color: 'rgba(201,169,110,0.9)', background: 'rgba(0,0,0,0.35)' }}
+                    >
+                      {isArabic ? 'ملء الشاشة' : 'FULL'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
+      {/* Audio Consent Modal */}
+      <AnimatePresence>
+        {showAudioPrompt && (
+          <AudioConsentModal
+            onConsent={handleAudioConsent}
+            lang={isArabic ? "ar" : "en"}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Chapter Launch Modal */}
+      <ChapterLaunchModal
+        open={launchOpen}
+        onOpenChange={setLaunchOpen}
+        chapter={selected}
+        uiLang={uiLang}
+        onStart={handleStart}
+      />
     </div>
   );
 }

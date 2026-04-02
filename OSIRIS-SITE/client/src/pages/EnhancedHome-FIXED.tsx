@@ -28,6 +28,11 @@ const formatTime = (ms: number) => {
   return `${minutes}:${(seconds % 60).toString().padStart(2, '0')}`;
 };
 
+const openLaunch = (c: ChapterMeta) => {
+  setSelected(c);
+  setLaunchOpen(true);
+};
+
 export default function EnhancedHome() {
   const [, setLocation] = useLocation();
   const { state: mediaState, play, pause, setAccentColor, setDurationMs, setUiLang } = useMediaController();
@@ -37,11 +42,6 @@ export default function EnhancedHome() {
   const [showTrailer, setShowTrailer] = useState(false);
   const [trailerIdx, setTrailerIdx] = useState(0);
   const [showAudioPrompt, setShowAudioPrompt] = useState(true);
-
-  const openLaunch = (c: ChapterMeta) => {
-    setSelected(c);
-    setLaunchOpen(true);
-  };
 
   const chapters = useMemo(() => [
     {

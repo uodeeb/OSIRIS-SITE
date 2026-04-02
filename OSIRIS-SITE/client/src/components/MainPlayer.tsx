@@ -1402,7 +1402,6 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     if (!desiredSceneCandidates.includes(ASSET_URLS.audio.main_theme)) {
       desiredSceneCandidates.push(ASSET_URLS.audio.main_theme);
     }
-    const normalizedSceneCandidates = desiredSceneCandidates.map((u) => normalize(u));
     const desiredAmbientUrl = (currentScene?.ambientKeys ?? [])
       .map(k => resolveAsset(k))
       .find((u): u is string => typeof u === "string" && u.length > 0);
@@ -1707,6 +1706,27 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
   const bgVideoSrc = resolveAsset(currentScene.backgroundVideo);
   const bgImageSrc = resolveAsset(currentScene.backgroundImage);
+
+  // Calculate normalized scene audio candidates for GlobalMediaLayer
+  const normalizedSceneCandidates = useMemo(() => {
+    const normalize = (url: string) => {
+      try {
+        return new URL(url, window.location.href).href;
+      } catch {
+        return url;
+      }
+    };
+    const sceneFallbackMusicUrl = resolveAsset(currentScene?.musicKey);
+    const sceneTrackCandidates = TRACK_URL_CANDIDATES[sceneTrackKey] ?? TRACK_URL_CANDIDATES.track01;
+    const desiredSceneCandidates = [...sceneTrackCandidates];
+    if (sceneFallbackMusicUrl && !desiredSceneCandidates.includes(sceneFallbackMusicUrl)) {
+      desiredSceneCandidates.push(sceneFallbackMusicUrl);
+    }
+    if (!desiredSceneCandidates.includes(ASSET_URLS.audio.main_theme)) {
+      desiredSceneCandidates.push(ASSET_URLS.audio.main_theme);
+    }
+    return desiredSceneCandidates.map((u) => normalize(u));
+  }, [currentScene?.musicKey, sceneTrackKey, resolveAsset]);
 
   const grade = (() => {
     switch (currentScene.emotionalTone) {
