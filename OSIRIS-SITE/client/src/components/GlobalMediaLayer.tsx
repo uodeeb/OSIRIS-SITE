@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
+import styles from "./GlobalMediaLayer.module.css";
 import { OSIRIS_EFFECTS, getOsirisMediaUrl } from "@/lib/osirisEffects";
 import { useBandwidthStrategy } from "@/lib/mediaStrategy";
 import { useMediaController } from "@/contexts/MediaControllerContext";
@@ -25,7 +26,7 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
   const effect = OSIRIS_EFFECTS["FX-03-HOLOGRAM-DATA"];
   const videoSrc = useMemo(() => getOsirisMediaUrl(effect.base), [effect.base]);
   const posterSrc = useMemo(() => getOsirisMediaUrl(effect.fallback), [effect.fallback]);
-  const audioSrc = primaryAudioSources[0] || "";
+  const audioSrc = primaryAudioSources?.[0] || "";
   useEffect(() => {
     if (!videoRef.current) return;
     return registerMedia(videoRef.current);
@@ -42,14 +43,30 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
     if (!a) return;
     a.loop = true;
     a.preload = "metadata";
-    setPrimaryAudioSources(primaryAudioSources, true);
+    if (primaryAudioSources && primaryAudioSources.length > 0) {
+      setPrimaryAudioSources(primaryAudioSources, true);
+    }
     setPrimaryAudioVolume(0.22);
   }, [primaryAudioSources, setPrimaryAudioSources, setPrimaryAudioVolume]);
 
   const accent = state.accentColor || "#c9a96e";
 
+  // Compute a dynamic class for accent color
+  const accentHex = withAlpha(accent, 0.22);
+  // Create a style element for the dynamic accent variable
+  const accentStyle = document.createElement('style');
+  accentStyle.innerHTML = `:root { --media-accent: ${accentHex}; }`;
+  if (!document.head.querySelector('#media-accent-style')) {
+    accentStyle.id = 'media-accent-style';
+    document.head.appendChild(accentStyle);
+  } else {
+    document.head.querySelector('#media-accent-style').innerHTML = accentStyle.innerHTML;
+  }
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden bg-black" aria-hidden="true">
+    <div
+      className={`fixed inset-0 z-0 overflow-hidden bg-black pointer-events-none ${styles.mediaAccent}`}
+      aria-hidden="true"
+    >
       {allowVideo ? (
         <video
           ref={videoRef}
@@ -59,34 +76,25 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
           loop
           playsInline
           preload="metadata"
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ filter: "brightness(0.55) saturate(1.08) contrast(1.12)" }}
+          className={`absolute inset-0 h-full w-full object-cover ${styles.mediaVideo}`}
         />
       ) : (
         <img
           src={posterSrc}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ filter: "brightness(0.55) saturate(1.08) contrast(1.12)" }}
+          className={`absolute inset-0 h-full w-full object-cover ${styles.mediaImage}`}
         />
       )}
 
-      {audioSrc && <audio ref={audioRef} src={audioSrc} preload="metadata" />}
+      {primaryAudioSources?.[0] ? (
+        <audio ref={audioRef} src={primaryAudioSources[0]} preload="metadata" />
+      ) : null}
 
       <div
-        className="absolute inset-0"
-        style={{
-          background: `radial-gradient(circle at 35% 30%, ${withAlpha(accent, 0.22)} 0%, rgba(0,0,0,0.86) 58%, rgba(0,0,0,0.98) 100%)`,
-        }}
+        className={`absolute inset-0 ${styles.mediaRadial}`}
       />
       <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0) 2px, rgba(0,0,0,0) 6px)",
-          mixBlendMode: "screen",
-          opacity: 0.12,
-        }}
+        className={`absolute inset-0 ${styles.mediaPattern}`}
       />
     </div>
   );

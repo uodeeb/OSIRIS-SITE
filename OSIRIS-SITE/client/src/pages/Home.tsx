@@ -28,10 +28,6 @@ export default function Home() {
   const { allowVideo } = useBandwidthStrategy();
   const [showTrailer, setShowTrailer] = useState(true);
   const [trailerClip, setTrailerClip] = useState(0);
-  const trailerAudioRef = useRef<HTMLAudioElement | null>(null);
-  const [musicVol, setMusicVol] = useState(0.22);
-  const [musicOn, setMusicOn] = useState(false);
-  const [musicMuted, setMusicMuted] = useState(false);
 
   useEffect(() => {
     const t1 = setTimeout(() => setIntroPhase(1), 250);
@@ -81,32 +77,6 @@ export default function Home() {
     if (!showTrailer) return;
     const t = setInterval(() => setTrailerClip((v) => (v + 1) % TRAILER_CLIPS.length), 5200);
     return () => clearInterval(t);
-  }, [showTrailer]);
-
-  const ensureTrailerAudio = () => {
-    if (!trailerAudioRef.current) {
-      trailerAudioRef.current = new Audio('/music/TRACK-01.mp3');
-      trailerAudioRef.current.loop = true;
-      trailerAudioRef.current.preload = 'metadata';
-    }
-    return trailerAudioRef.current;
-  };
-
-  useEffect(() => {
-    if (!showTrailer) return;
-    const a = ensureTrailerAudio();
-    a.muted = musicMuted;
-    a.volume = Math.max(0, Math.min(1, musicVol));
-    if (musicOn) {
-      a.play().catch(() => {});
-    } else {
-      a.pause();
-    }
-  }, [showTrailer, musicOn, musicMuted, musicVol]);
-
-  useEffect(() => {
-    if (showTrailer) return;
-    if (trailerAudioRef.current) trailerAudioRef.current.pause();
   }, [showTrailer]);
 
   useEffect(() => {

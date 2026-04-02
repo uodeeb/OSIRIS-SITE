@@ -12,6 +12,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState, useCallback, type CSSProperties } from 'react';
+import styles from './MainPlayer.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
 import { PART_LABELS, SCENES as ALL_SCENES, type DialogueLine, type Scene, type SceneChoice } from '@/lib/sceneSystem';
@@ -605,8 +606,7 @@ function VolumeControl({
     <div className="relative" onClick={(e) => e.stopPropagation()}>
       <button
         onClick={() => setOpen((p) => !p)}
-        className="flex items-center gap-1 px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/10"
-        style={{ color: 'rgba(201,169,110,0.7)' }}
+        className={`flex items-center gap-1 px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.audioButton}`}
         title="Audio Controls"
       >
         {isMuted ? (
@@ -630,12 +630,7 @@ function VolumeControl({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-full right-0 mb-2 p-4 rounded-xl z-50 min-w-[200px]"
-            style={{
-              background: 'rgba(0,0,0,0.92)',
-              border: '1px solid rgba(201,169,110,0.2)',
-              backdropFilter: 'blur(20px)',
-            }}
+            className={`absolute bottom-full right-0 mb-2 p-4 rounded-xl z-50 min-w-[200px] ${styles.audioPanel}`}
           >
             <div className="mb-3">
               <div className="flex items-center justify-between mb-1.5">
@@ -646,8 +641,9 @@ function VolumeControl({
                 type="range" min="0" max="1" step="0.05"
                 value={musicVol}
                 onChange={(e) => onMusicChange(parseFloat(e.target.value))}
-                className="w-full h-1 rounded-full appearance-none cursor-pointer"
-                style={{ accentColor: '#c9a96e' }}
+                className={`w-full h-1 rounded-full appearance-none cursor-pointer ${styles.audioRange}`}
+                title="Ambient Music Volume"
+                aria-label="Ambient Music Volume"
               />
             </div>
             <div className="mb-3">
@@ -659,18 +655,14 @@ function VolumeControl({
                 type="range" min="0" max="1" step="0.05"
                 value={sfxVol}
                 onChange={(e) => onSfxChange(parseFloat(e.target.value))}
-                className="w-full h-1 rounded-full appearance-none cursor-pointer"
-                style={{ accentColor: '#c9a96e' }}
+                className={`w-full h-1 rounded-full appearance-none cursor-pointer ${styles.audioRange}`}
+                title="Ambient / SFX Volume"
+                aria-label="Ambient / SFX Volume"
               />
             </div>
             <button
               onClick={onToggleMute}
-              className="w-full py-1.5 rounded-lg text-[9px] font-mono tracking-wider transition-all duration-200"
-              style={{
-                background: isMuted ? 'rgba(201,169,110,0.2)' : 'rgba(255,255,255,0.06)',
-                color: isMuted ? '#c9a96e' : 'rgba(255,255,255,0.5)',
-                border: '1px solid rgba(201,169,110,0.15)',
-              }}
+              className={`w-full py-1.5 rounded-lg text-[9px] font-mono tracking-wider transition-all duration-200 ${isMuted ? styles.audioMute : styles.audioUnmute}`}
             >
               {isMuted ? '▶ UNMUTE ALL' : '⏸ MUTE ALL'}
             </button>
@@ -1382,9 +1374,9 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     return () => clearTimeout(t);
   }, [currentSceneId, dialogueIndex]);
 
-  useEffect(() => {
-    if (!audioEnabled) return;
-    const shouldPlay = globalMediaState.isPlaying;
+
+  // --- Music candidate normalization logic moved to render scope ---
+  const normalizedSceneCandidates = useMemo(() => {
     const normalize = (url: string) => {
       try {
         return new URL(url, window.location.href).href;
@@ -1402,6 +1394,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     if (!desiredSceneCandidates.includes(ASSET_URLS.audio.main_theme)) {
       desiredSceneCandidates.push(ASSET_URLS.audio.main_theme);
     }
+    return desiredSceneCandidates.map((u) => normalize(u));
+  }, [currentScene?.musicKey, sceneTrackKey, resolveAsset]);
+
+  useEffect(() => {
+    if (!audioEnabled) return;
+    const shouldPlay = globalMediaState.isPlaying;
     const desiredAmbientUrl = (currentScene?.ambientKeys ?? [])
       .map(k => resolveAsset(k))
       .find((u): u is string => typeof u === "string" && u.length > 0);
@@ -1467,7 +1465,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     return () => {
       if (ambientFadeRef.current) cancelAnimationFrame(ambientFadeRef.current);
     };
-  }, [audioEnabled, globalMediaState.isPlaying, currentSceneId, currentScene?.musicKey, currentScene?.ambientKeys, isMuted, musicVol, sfxVol, resolveAsset, sceneTrackKey, voiceSyncLock, registerMedia, setPrimaryAudioMuted, setPrimaryAudioSources, setPrimaryAudioVolume]);
+  }, [audioEnabled, globalMediaState.isPlaying, currentSceneId, currentScene?.musicKey, currentScene?.ambientKeys, isMuted, musicVol, sfxVol, resolveAsset, sceneTrackKey, voiceSyncLock, registerMedia, setPrimaryAudioMuted, setPrimaryAudioSources, setPrimaryAudioVolume, normalizedSceneCandidates]);
 
   useEffect(() => {
     if (!audioEnabled || !globalMediaState.isPlaying) return;
@@ -1707,27 +1705,6 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const bgVideoSrc = resolveAsset(currentScene.backgroundVideo);
   const bgImageSrc = resolveAsset(currentScene.backgroundImage);
 
-  // Calculate normalized scene audio candidates for GlobalMediaLayer
-  const normalizedSceneCandidates = useMemo(() => {
-    const normalize = (url: string) => {
-      try {
-        return new URL(url, window.location.href).href;
-      } catch {
-        return url;
-      }
-    };
-    const sceneFallbackMusicUrl = resolveAsset(currentScene?.musicKey);
-    const sceneTrackCandidates = TRACK_URL_CANDIDATES[sceneTrackKey] ?? TRACK_URL_CANDIDATES.track01;
-    const desiredSceneCandidates = [...sceneTrackCandidates];
-    if (sceneFallbackMusicUrl && !desiredSceneCandidates.includes(sceneFallbackMusicUrl)) {
-      desiredSceneCandidates.push(sceneFallbackMusicUrl);
-    }
-    if (!desiredSceneCandidates.includes(ASSET_URLS.audio.main_theme)) {
-      desiredSceneCandidates.push(ASSET_URLS.audio.main_theme);
-    }
-    return desiredSceneCandidates.map((u) => normalize(u));
-  }, [currentScene?.musicKey, sceneTrackKey, resolveAsset]);
-
   const grade = (() => {
     switch (currentScene.emotionalTone) {
       case 'hopeful':
@@ -1814,7 +1791,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
             animate={{ opacity: activeImageCue.opacity, scale: [1.03, 1.06, 1.03], x: ['0%', '0.8%', '0%'], y: ['0%', '-0.4%', '0%'] }}
             exit={{ opacity: 0 }}
             transition={{ opacity: { duration: 0.65 }, scale: { duration: 16, repeat: Infinity, ease: 'easeInOut' }, x: { duration: 13, repeat: Infinity, ease: 'easeInOut' }, y: { duration: 15, repeat: Infinity, ease: 'easeInOut' } }}
-            style={{ mixBlendMode: activeImageCue.blend, zIndex: 7, filter: 'saturate(1.1) contrast(1.05)' }}
+            style={{ '--blend-mode': activeImageCue.blend, '--z-index': 7, '--filter': 'saturate(1.1) contrast(1.05)' } as React.CSSProperties}
             onError={() => setActiveImageCue(null)}
           />
         </AnimatePresence>
@@ -1916,8 +1893,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               <p className="text-white/40 text-xs mb-8 leading-relaxed font-arabic" dir="rtl">للحصول على أفضل تجربة، استخدم سماعات الأذن</p>
               <button
                 onClick={enableAudio}
-                className="w-full py-4 rounded-xl font-semibold tracking-[0.2em] text-sm transition-all duration-300 hover:brightness-110 active:scale-95 text-black"
-                style={{ background: 'linear-gradient(135deg, #c9a96e, #f0d080)' }}
+                className={`w-full py-4 rounded-xl font-semibold tracking-[0.2em] text-sm transition-all duration-300 hover:brightness-110 active:scale-95 text-black ${styles.dynamicEndButton}`}
+                style={{
+                  '--end-btn-bg': 'linear-gradient(135deg, #c9a96e, #f0d080)',
+                  '--end-btn-color': '#000000'
+                } as React.CSSProperties}
               >
                 ▶ BEGIN THE TRIAL
               </button>
@@ -1935,8 +1915,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
             onClick={(e) => { e.stopPropagation(); setLocation('/'); }}
-            className="flex items-center gap-1.5 px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/10"
-            style={{ color: 'rgba(201,169,110,0.65)' }}
+            className={`flex items-center gap-1.5 px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.dynamicColor}`}
+            style={{ '--dynamic-color': 'rgba(201,169,110,0.65)' } as React.CSSProperties}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <polyline points={isArabic ? '9 18 15 12 9 6' : '15 18 9 12 15 6'} />
@@ -1967,23 +1947,39 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
           >
             <button
               onClick={toggleFullscreen}
-              className="px-2 py-1 text-[9px] font-mono rounded-lg tracking-wider transition-all duration-200 hover:bg-white/10"
-              style={{ border: '1px solid rgba(201,169,110,0.2)', background: 'rgba(0,0,0,0.5)', color: 'rgba(201,169,110,0.85)' }}
+              className={`px-2 py-1 text-[9px] font-mono rounded-lg tracking-wider transition-all duration-200 hover:bg-white/10 ${styles.dynamicBorder} ${styles.dynamicBg} ${styles.dynamicColor}`}
+              style={{
+                '--dynamic-border': 'rgba(201,169,110,0.2)',
+                '--dynamic-bg': 'rgba(0,0,0,0.5)',
+                '--dynamic-color': 'rgba(201,169,110,0.85)'
+              } as React.CSSProperties}
             >
               {isFullscreen ? (isArabic ? 'إغلاق ملء الشاشة' : 'EXIT FULL') : (isArabic ? 'ملء الشاشة' : 'FULL')}
             </button>
 
-            <div className="flex items-center rounded-lg overflow-hidden" style={{ border: '1px solid rgba(201,169,110,0.2)', background: 'rgba(0,0,0,0.5)' }}>
+            <div
+              className={`flex items-center rounded-lg overflow-hidden ${styles.dynamicBorder} ${styles.dynamicBg}`}
+              style={{
+                '--dynamic-border': 'rgba(201,169,110,0.2)',
+                '--dynamic-bg': 'rgba(0,0,0,0.5)'
+              } as React.CSSProperties}
+            >
               <button
                 onClick={() => setLang('ar')}
-                className="px-2.5 py-1 text-[9px] font-mono tracking-wider transition-all duration-200"
-                style={{ background: lang === 'ar' ? 'rgba(201,169,110,0.25)' : 'transparent', color: lang === 'ar' ? '#c9a96e' : 'rgba(255,255,255,0.35)' }}
+                className={`px-2.5 py-1 text-[9px] font-mono tracking-wider transition-all duration-200 ${styles.dynamicBg} ${styles.dynamicColor}`}
+                style={{
+                  '--dynamic-bg': lang === 'ar' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                  '--dynamic-color': lang === 'ar' ? '#c9a96e' : 'rgba(255,255,255,0.35)'
+                } as React.CSSProperties}
               >عر</button>
-              <div style={{ width: '1px', height: '14px', background: 'rgba(201,169,110,0.15)' }} />
+              <div className={styles.separatorLine} style={{ '--auto-line': 'rgba(201,169,110,0.15)' } as React.CSSProperties} />
               <button
                 onClick={() => setLang('en')}
-                className="px-2.5 py-1 text-[9px] font-mono tracking-wider transition-all duration-200"
-                style={{ background: lang === 'en' ? 'rgba(201,169,110,0.25)' : 'transparent', color: lang === 'en' ? '#c9a96e' : 'rgba(255,255,255,0.35)' }}
+                className={`px-2.5 py-1 text-[9px] font-mono tracking-wider transition-all duration-200 ${styles.dynamicBg} ${styles.dynamicColor}`}
+                style={{
+                  '--dynamic-bg': lang === 'en' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                  '--dynamic-color': lang === 'en' ? '#c9a96e' : 'rgba(255,255,255,0.35)'
+                } as React.CSSProperties}
               >EN</button>
             </div>
           </motion.div>
@@ -1997,15 +1993,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="absolute z-20 flex flex-col items-center px-3 py-1 rounded-full"
+        className={`absolute z-20 flex flex-col items-center px-3 py-1 rounded-full ${styles.dynamicPartLabel}`}
         style={{
-          top: 56,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: 'rgba(0,0,0,0.35)',
-          border: '1px solid rgba(255,255,255,0.06)',
-          backdropFilter: 'blur(10px)',
-        }}
+          '--dynamic-bg': 'rgba(0,0,0,0.35)',
+          '--dynamic-border': '1px solid rgba(255,255,255,0.06)',
+          '--dynamic-backdrop': 'blur(10px)'
+        } as React.CSSProperties}
       >
         {lang === 'ar' ? (
           <span className="text-amber-400/70 text-[12px] font-arabic-title leading-none" dir="rtl">
@@ -2031,29 +2024,29 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
           >
             <div className="relative">
               <div
-                className="absolute -inset-4 rounded-3xl blur-2xl opacity-25"
-                style={{ background: currentCharConfig.glowColor }}
+                className={`absolute -inset-4 rounded-3xl blur-2xl opacity-25 ${styles.dynamicGlow}`}
+                style={{ '--glow-color': currentCharConfig.glowColor } as React.CSSProperties}
               />
               <img
                 src={currentCharConfig.imageUrl}
                 alt={currentCharConfig.name}
-                className="relative w-20 h-28 sm:w-28 sm:h-40 md:w-36 md:h-52 object-cover rounded-2xl"
+                className={`relative w-20 h-28 sm:w-28 sm:h-40 md:w-36 md:h-52 object-cover rounded-2xl ${styles.dynamicPortrait}`}
                 style={{
-                  boxShadow: `0 0 50px ${currentCharConfig.glowColor}, 0 20px 60px rgba(0,0,0,0.7)`,
-                  border: `1px solid ${currentCharConfig.color}25`,
-                  filter: 'brightness(0.85) contrast(1.05)',
-                }}
+                  '--portrait-shadow': `0 0 50px ${currentCharConfig.glowColor}, 0 20px 60px rgba(0,0,0,0.7)`,
+                  '--portrait-border': `1px solid ${currentCharConfig.color}25`,
+                  '--portrait-filter': 'brightness(0.85) contrast(1.05)'
+                } as React.CSSProperties}
                 onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
               />
               <div
-                className="absolute bottom-0 left-0 right-0 h-16 rounded-b-2xl"
-                style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }}
+                className={`absolute bottom-0 left-0 right-0 h-16 rounded-b-2xl ${styles.dynamicGradientOverlay}`}
+                style={{ '--gradient-overlay': 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' } as React.CSSProperties}
               />
               <div
                 className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[8px] font-mono tracking-wider whitespace-nowrap"
                 style={{
                   background: 'rgba(0,0,0,0.85)',
-                  border: `1px solid ${currentCharConfig.color}30`,
+                  borderColor: `${currentCharConfig.color}30`,
                   color: currentCharConfig.color,
                 }}
               >
@@ -2085,8 +2078,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   className={`mb-3 flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}
                 >
                   <div
-                    className="h-px flex-1 max-w-[50px]"
-                    style={{ background: isArabic ? `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` : `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` }}
+                    className={`h-px flex-1 max-w-[50px] ${styles.dynamicAutoLine}`}
+                    style={{ '--auto-line': isArabic ? `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` : `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` } as React.CSSProperties}
                   />
                   <span
                     className={lang === 'ar'
@@ -2097,70 +2090,70 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       color: currentCharConfig.color,
                       borderColor: `${currentCharConfig.color}28`,
                       background: `linear-gradient(90deg, ${currentCharConfig.color}18, rgba(0,0,0,0.25))`,
-                      textShadow: `0 0 16px ${currentCharConfig.glowColor}`,
+                      textShadow: `0 0 16px ${currentCharConfig.glowColor}`
                     }}
                   >
                     {lang === 'ar' ? currentCharConfig.arabicName : currentCharConfig.name}
                   </span>
-                  <div className="h-px flex-1 max-w-[50px]" style={{ background: isArabic ? `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` : `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` }} />
+                  <div className={`h-px flex-1 max-w-[50px] ${styles.dynamicAutoLine}`} style={{ '--auto-line': isArabic ? `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` : `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` } as React.CSSProperties} />
                 </motion.div>
               )}
 
               {/* Dialogue Box */}
               <div
-                className={`relative rounded-2xl px-4 py-4 sm:px-7 sm:py-6 md:px-9 md:py-7 ${isArabic ? 'text-right' : ''}`}
+                className={`relative rounded-2xl px-4 py-4 sm:px-7 sm:py-6 md:px-9 md:py-7 ${isArabic ? 'text-right' : ''} ${styles.dynamicDialogueBox}`}
                 dir={isArabic ? 'rtl' : 'ltr'}
                 style={{
-                  background: currentScene.backgroundVideo ? 'rgba(0,0,0,0.56)' : 'rgba(0,0,0,0.66)',
-                  border: isAutoRunning && !showChoices ? '1px solid rgba(0,0,0,0)' : `1px solid ${currentCharConfig.color}18`,
-                  boxShadow: `0 10px 70px rgba(0,0,0,0.78), 0 0 0 1px rgba(255,255,255,0.02), inset 0 1px 0 ${currentCharConfig.color}10`,
-                  backdropFilter: 'blur(18px)',
-                }}
+                  '--dialogue-bg': currentScene.backgroundVideo ? 'rgba(0,0,0,0.56)' : 'rgba(0,0,0,0.66)',
+                  '--dialogue-border': isAutoRunning && !showChoices ? '1px solid rgba(0,0,0,0)' : `1px solid ${currentCharConfig.color}18`,
+                  '--dialogue-shadow': `0 10px 70px rgba(0,0,0,0.78), 0 0 0 1px rgba(255,255,255,0.02), inset 0 1px 0 ${currentCharConfig.color}10`,
+                  '--dialogue-backdrop': 'blur(18px)'
+                } as React.CSSProperties}
               >
 
                 <div
-                  className="absolute inset-0 rounded-2xl pointer-events-none"
+                  className={`absolute inset-0 rounded-2xl pointer-events-none ${styles.dynamicGradientOverlay}`}
                   style={{
-                    background: `linear-gradient(180deg, ${currentCharConfig.color}10, rgba(0,0,0,0) 45%, rgba(0,0,0,0.25))`,
-                  }}
+                    '--gradient-overlay': `linear-gradient(180deg, ${currentCharConfig.color}10, rgba(0,0,0,0) 45%, rgba(0,0,0,0.25))`
+                  } as React.CSSProperties}
                 />
                 <div
-                  className="absolute inset-0 rounded-2xl pointer-events-none"
+                  className={`absolute inset-0 rounded-2xl pointer-events-none ${styles.dynamicRadialGlow}`}
                   style={{
-                    opacity: uiGlow * 0.7,
-                    background: `radial-gradient(circle at 20% 20%, ${currentCharConfig.color}33, rgba(0,0,0,0) 55%)`,
-                    mixBlendMode: "screen",
-                  }}
+                    '--radial-glow': `radial-gradient(circle at 20% 20%, ${currentCharConfig.color}33, rgba(0,0,0,0) 55%)`,
+                    '--blend-mode': 'screen',
+                    opacity: uiGlow * 0.7
+                  } as React.CSSProperties}
                 />
                 <motion.div
-                  className="absolute top-0 left-0 h-[2px] rounded-t-2xl"
-                  style={{ background: `linear-gradient(to right, ${accentColor}30, ${accentColor}95)` }}
+                  className={`absolute top-0 left-0 h-[2px] rounded-t-2xl ${styles.dynamicProgressLine}`}
+                  style={{ '--progress-line': `linear-gradient(to right, ${accentColor}30, ${accentColor}95)` } as React.CSSProperties}
                   animate={{ width: `${((currentIdx + 1) / sceneKeys.length) * 100}%` }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
                 />
                 {isAutoRunning && !showChoices && (
                   <>
                     <motion.div
-                      className="absolute top-0 left-0 h-px rounded-t-2xl"
-                      style={{ background: currentCharConfig.color }}
+                      className={`absolute top-0 left-0 h-px rounded-t-2xl ${styles.dynamicAutoLine}`}
+                      style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
                       animate={{ width: `${autoTop * 100}%` }}
                       transition={{ duration: 0.05, ease: 'linear' }}
                     />
                     <motion.div
-                      className="absolute top-0 right-0 w-px rounded-r-2xl"
-                      style={{ background: currentCharConfig.color }}
+                      className={`absolute top-0 right-0 w-px rounded-r-2xl ${styles.dynamicAutoLine}`}
+                      style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
                       animate={{ height: `${autoRight * 100}%` }}
                       transition={{ duration: 0.05, ease: 'linear' }}
                     />
                     <motion.div
-                      className="absolute bottom-0 right-0 h-px rounded-b-2xl"
-                      style={{ background: currentCharConfig.color }}
+                      className={`absolute bottom-0 right-0 h-px rounded-b-2xl ${styles.dynamicAutoLine}`}
+                      style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
                       animate={{ width: `${autoBottom * 100}%` }}
                       transition={{ duration: 0.05, ease: 'linear' }}
                     />
                     <motion.div
-                      className="absolute bottom-0 left-0 w-px rounded-l-2xl"
-                      style={{ background: currentCharConfig.color }}
+                      className={`absolute bottom-0 left-0 w-px rounded-l-2xl ${styles.dynamicAutoLine}`}
+                      style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
                       animate={{ height: `${autoLeft * 100}%` }}
                       transition={{ duration: 0.05, ease: 'linear' }}
                     />
@@ -2169,18 +2162,18 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                 {/* Active Language Text Only */}
                 {lang === 'en' ? (
                   <p
-                    className="text-white/93 text-[20px] md:text-[26px] font-light"
+                    className={`text-white/93 text-[20px] md:text-[26px] font-light ${styles.dynamicDialogueText}`}
                     style={{
-                      textShadow: '0 1px 8px rgba(0,0,0,0.98)',
-                      letterSpacing: '0.012em',
-                      lineHeight: '1.75',
-                    }}
+                      '--text-shadow': '0 1px 8px rgba(0,0,0,0.98)',
+                      '--letter-spacing': '0.012em',
+                      '--line-height': '1.75'
+                    } as React.CSSProperties}
                   >
                     {displayedText}
                     {isTyping && (
                       <motion.span
-                        className="inline-block w-0.5 h-6 ml-1 align-middle"
-                        style={{ background: currentCharConfig.color }}
+                        className={`inline-block w-0.5 h-6 ml-1 align-middle ${styles.dynamicAutoLine}`}
+                        style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
                         animate={{ opacity: [1, 0] }}
                         transition={{ duration: 0.55, repeat: Infinity }}
                       />
@@ -2188,18 +2181,18 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   </p>
                 ) : (
                   <p
-                    className="text-white/93 text-[22px] md:text-[30px] text-right font-arabic"
+                    className={`text-white/93 text-[22px] md:text-[30px] text-right font-arabic ${styles.dynamicArabicText}`}
                     dir="rtl"
                     style={{
-                      textShadow: '0 1px 8px rgba(0,0,0,0.98)',
-                      lineHeight: '2.1',
-                    }}
+                      '--text-shadow': '0 1px 8px rgba(0,0,0,0.98)',
+                      '--line-height': '2.1'
+                    } as React.CSSProperties}
                   >
                     {displayedArabic}
                     {isTyping && (
                       <motion.span
-                        className="inline-block w-0.5 h-6 mr-1 align-middle"
-                        style={{ background: currentCharConfig.color }}
+                        className={`inline-block w-0.5 h-6 mr-1 align-middle ${styles.dynamicAutoLine}`}
+                        style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
                         animate={{ opacity: [1, 0] }}
                         transition={{ duration: 0.55, repeat: Infinity }}
                       />
@@ -2238,8 +2231,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       <button
                         onClick={(e) => { e.stopPropagation(); handleBackScene(); }}
                         disabled={!showChoices && dialogueIndex === 0}
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed"
-                        style={{ color: 'rgba(201,169,110,0.75)', border: '1px solid rgba(201,169,110,0.22)', background: 'rgba(0,0,0,0.35)' }}
+                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed ${styles.dynamicColor} ${styles.dynamicBorder} ${styles.dynamicBg}`}
+                        style={{
+                          '--dynamic-color': 'rgba(201,169,110,0.75)',
+                          '--dynamic-border': 'rgba(201,169,110,0.22)',
+                          '--dynamic-bg': 'rgba(0,0,0,0.35)'
+                        } as React.CSSProperties}
                       >
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                           <polyline points={isArabic ? '9 18 15 12 9 6' : '15 18 9 12 15 6'} />
@@ -2248,8 +2245,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); handleForwardScript(); }}
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10"
-                        style={{ color: 'rgba(201,169,110,0.78)', border: '1px solid rgba(201,169,110,0.26)', background: 'rgba(0,0,0,0.35)' }}
+                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.dynamicColor} ${styles.dynamicBorder} ${styles.dynamicBg}`}
+                        style={{
+                          '--dynamic-color': 'rgba(201,169,110,0.78)',
+                          '--dynamic-border': 'rgba(201,169,110,0.26)',
+                          '--dynamic-bg': 'rgba(0,0,0,0.35)'
+                        } as React.CSSProperties}
                       >
                         <span className="text-[9px] font-mono tracking-wider">{isArabic ? 'التالي' : 'NEXT'}</span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
@@ -2259,11 +2260,45 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     </div>
 
                     <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
-                      <div className={`flex items-center rounded-lg overflow-hidden ${isArabic ? 'flex-row-reverse' : ''}`} style={{ border: '1px solid rgba(201,169,110,0.22)', background: 'rgba(0,0,0,0.35)' }}>
-                        <button onClick={() => setAutoMode('off')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'off' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'off' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'تلقائي إيقاف' : 'AUTO OFF'}</button>
-                        <button onClick={() => setAutoMode('very-slow')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'very-slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'very-slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'بطيء جدًا' : 'VSLOW'}</button>
-                        <button onClick={() => setAutoMode('slow')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'بطيء' : 'SLOW'}</button>
-                        <button onClick={() => setAutoMode('normal')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'normal' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'normal' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'عادي' : 'NORMAL'}</button>
+                      <div
+                        className={`flex items-center rounded-lg overflow-hidden ${isArabic ? 'flex-row-reverse' : ''} ${styles.dynamicBorder} ${styles.dynamicBg}`}
+                        style={{
+                          '--dynamic-border': 'rgba(201,169,110,0.22)',
+                          '--dynamic-bg': 'rgba(0,0,0,0.35)'
+                        } as React.CSSProperties}
+                      >
+                        <button
+                          onClick={() => setAutoMode('off')}
+                          className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
+                          style={{
+                            '--dynamic-bg': autoMode === 'off' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                            '--dynamic-color': autoMode === 'off' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
+                          } as React.CSSProperties}
+                        >{isArabic ? 'تلقائي إيقاف' : 'AUTO OFF'}</button>
+                        <button
+                          onClick={() => setAutoMode('very-slow')}
+                          className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
+                          style={{
+                            '--dynamic-bg': autoMode === 'very-slow' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                            '--dynamic-color': autoMode === 'very-slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
+                          } as React.CSSProperties}
+                        >{isArabic ? 'بطيء جدًا' : 'VSLOW'}</button>
+                        <button
+                          onClick={() => setAutoMode('slow')}
+                          className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
+                          style={{
+                            '--dynamic-bg': autoMode === 'slow' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                            '--dynamic-color': autoMode === 'slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
+                          } as React.CSSProperties}
+                        >{isArabic ? 'بطيء' : 'SLOW'}</button>
+                        <button
+                          onClick={() => setAutoMode('normal')}
+                          className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
+                          style={{
+                            '--dynamic-bg': autoMode === 'normal' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                            '--dynamic-color': autoMode === 'normal' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
+                          } as React.CSSProperties}
+                        >{isArabic ? 'عادي' : 'NORMAL'}</button>
                       </div>
                       <VolumeControl
                         musicVol={musicVol}
@@ -2297,26 +2332,26 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               <div className={`mb-4 flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                 <div className="flex-1 h-0.5 bg-white/8 rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full rounded-full"
+                    className={`h-full rounded-full ${styles.dynamicProgressBar}`}
                     style={{
-                      width: `${choiceProgress}%`,
-                      background: choiceProgress > 55
+                      '--progress-background': choiceProgress > 55
                         ? `linear-gradient(to right, ${accentColor}80, ${accentColor})`
                         : choiceProgress > 22
                           ? 'linear-gradient(to right, #f97316, #fbbf24)'
                           : 'linear-gradient(to right, #ef4444, #f97316)',
-                      transition: 'width 0.05s linear',
-                    }}
+                      width: `${choiceProgress}%`,
+                      transition: 'width 0.05s linear'
+                    } as React.CSSProperties}
                   />
                 </div>
                 {/* Countdown number */}
                 <motion.span
-                  className={`text-[11px] font-mono tabular-nums flex-shrink-0 w-6 ${isArabic ? 'text-left' : 'text-right'}`}
+                  className={`text-[11px] font-mono tabular-nums flex-shrink-0 w-6 ${styles.dynamicCountdown} ${isArabic ? 'text-left' : 'text-right'}`}
                   style={{
-                    color: choiceProgress > 55 ? `${accentColor}90`
+                    '--countdown-color': choiceProgress > 55 ? `${accentColor}90`
                       : choiceProgress > 22 ? '#fbbf2490'
-                      : '#ef444490',
-                  }}
+                      : '#ef444490'
+                  } as React.CSSProperties}
                   animate={{ scale: timerSeconds <= 5 ? [1, 1.2, 1] : 1 }}
                   transition={{ duration: 0.5, repeat: timerSeconds <= 5 ? Infinity : 0 }}
                 >
@@ -2332,34 +2367,34 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.55, delay: idx * 0.1 }}
                     onClick={() => handleChoice(choice)}
-                    className={`group relative rounded-xl p-4 transition-all duration-300 hover:scale-[1.01] ${isArabic ? 'text-right' : 'text-left'}`}
+                    className={`group relative rounded-xl p-4 transition-all duration-300 hover:scale-[1.01] ${isArabic ? 'text-right' : 'text-left'} ${styles.dynamicChoicePanel}`}
                     style={{
-                      background: 'rgba(0,0,0,0.72)',
-                      border: `1px solid ${accentColor}20`,
-                      boxShadow: '0 4px 30px rgba(0,0,0,0.5)',
-                      backdropFilter: 'blur(14px)',
-                    }}
+                      '--choice-bg': 'rgba(0,0,0,0.72)',
+                      '--choice-border': `1px solid ${accentColor}20`,
+                      '--choice-shadow': '0 4px 30px rgba(0,0,0,0.5)',
+                      '--choice-backdrop': 'blur(14px)'
+                    } as React.CSSProperties}
                     onMouseEnter={(e) => {
                       const el = e.currentTarget as HTMLButtonElement;
-                      el.style.borderColor = `${accentColor}55`;
-                      el.style.background = `${accentColor}0a`;
-                      el.style.boxShadow = `0 4px 40px ${accentColor}15`;
+                      el.style.setProperty('--choice-border', `1px solid ${accentColor}55`);
+                      el.style.setProperty('--choice-bg', `${accentColor}0a`);
+                      el.style.setProperty('--choice-shadow', `0 4px 40px ${accentColor}15`);
                     }}
                     onMouseLeave={(e) => {
                       const el = e.currentTarget as HTMLButtonElement;
-                      el.style.borderColor = `${accentColor}20`;
-                      el.style.background = 'rgba(0,0,0,0.72)';
-                      el.style.boxShadow = '0 4px 30px rgba(0,0,0,0.5)';
+                      el.style.setProperty('--choice-border', `1px solid ${accentColor}20`);
+                      el.style.setProperty('--choice-bg', 'rgba(0,0,0,0.72)');
+                      el.style.setProperty('--choice-shadow', '0 4px 30px rgba(0,0,0,0.5)');
                     }}
                   >
                     <div className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                       <span
-                        className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono flex-shrink-0"
+                        className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono flex-shrink-0 ${styles.dynamicChoiceNumber}`}
                         style={{
-                          background: `${accentColor}15`,
-                          color: accentColor,
-                          border: `1px solid ${accentColor}30`,
-                        }}
+                          '--choice-num-bg': `${accentColor}15`,
+                          '--choice-num-color': accentColor,
+                          '--choice-num-border': `1px solid ${accentColor}30`
+                        } as React.CSSProperties}
                       >
                         {idx + 1}
                       </span>
@@ -2372,8 +2407,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       </div>
 
                       <span
-                        className={`text-base mx-1 flex-shrink-0 opacity-0 group-hover:opacity-70 transition-all duration-300 ${isArabic ? 'order-first' : ''}`}
-                        style={{ color: accentColor }}
+                        className={`text-base mx-1 flex-shrink-0 opacity-0 group-hover:opacity-70 transition-all duration-300 ${styles.dynamicCountdown} ${isArabic ? 'order-first' : ''}`}
+                        style={{ '--countdown-color': accentColor } as React.CSSProperties}
                       >
                         {isArabic ? '←' : '→'}
                       </span>
@@ -2407,12 +2442,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               onClick={(e) => { e.stopPropagation(); }}
             >
               <div
-                className="inline-flex flex-col items-center gap-3 px-6 sm:px-10 py-5 sm:py-6 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+                className={`inline-flex flex-col items-center gap-3 px-6 sm:px-10 py-5 sm:py-6 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-[1.02] ${styles.dynamicEndOfScene}`}
                 style={{
-                  background: 'rgba(0,0,0,0.75)',
-                  border: `1px solid ${accentColor}22`,
-                  backdropFilter: 'blur(16px)',
-                }}
+                  '--end-scene-bg': 'rgba(0,0,0,0.75)',
+                  '--end-scene-border': `1px solid ${accentColor}22`,
+                  '--end-scene-backdrop': 'blur(16px)'
+                } as React.CSSProperties}
               >
                 {currentScene?.defaultNextScene ? (
                   <motion.button
@@ -2421,11 +2456,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     transition={{ duration: 2.5, repeat: Infinity }}
                     className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}
                   >
-                    <span className={lang === 'ar' ? 'text-sm tracking-wider font-arabic-ui' : 'text-sm font-mono tracking-[0.25em] uppercase'} style={{ color: `${accentColor}90` }}>
+                    <span className={`${lang === 'ar' ? 'text-sm tracking-wider font-arabic-ui' : 'text-sm font-mono tracking-[0.25em] uppercase'} ${styles.dynamicCountdown}`} style={{ '--countdown-color': `${accentColor}90` } as React.CSSProperties}>
                       {isArabic ? 'التالي' : 'NEXT'}
                     </span>
                     <motion.span
-                      style={{ color: `${accentColor}90`, fontSize: '18px' }}
+                      className={styles.dynamicCountdown}
+                      style={{ '--countdown-color': `${accentColor}90`, fontSize: '18px' } as React.CSSProperties}
                       animate={{ x: isArabic ? [0, -6, 0] : [0, 6, 0] }}
                       transition={{ duration: 1.8, repeat: Infinity }}
                     >
@@ -2440,29 +2476,44 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     <div className={`flex flex-wrap items-center justify-center gap-2 sm:gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                       <button
                         onClick={(e) => { e.stopPropagation(); setLocation('/'); }}
-                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} `}
-                        style={{ background: `linear-gradient(135deg, ${accentColor}, #f0d080)`, color: '#0b0b0d' }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicEndButton}`}
+                        style={{
+                          '--end-btn-bg': `linear-gradient(135deg, ${accentColor}, #f0d080)`,
+                          '--end-btn-color': '#0b0b0d'
+                        } as React.CSSProperties}
                       >
                         {isArabic ? 'الصفحة الرئيسية' : 'HOME'}
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); setShareMenuOpen((v) => !v); }}
-                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                        style={{ border: `1px solid ${accentColor}33`, background: 'rgba(0,0,0,0.35)', color: `${accentColor}CC` }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicSecondaryButton}`}
+                        style={{
+                          '--secondary-btn-border': `1px solid ${accentColor}33`,
+                          '--secondary-btn-bg': 'rgba(0,0,0,0.35)',
+                          '--secondary-btn-color': `${accentColor}CC`
+                        } as React.CSSProperties}
                       >
                         {isArabic ? 'مشاركة' : 'SHARE'}
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); handleCopyShareLink(); }}
-                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                        style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.7)' }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                        style={{
+                          '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                          '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                          '--tertiary-btn-color': 'rgba(255,255,255,0.7)'
+                        } as React.CSSProperties}
                       >
                         {isArabic ? 'نسخ الرابط' : 'COPY LINK'}
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); goToScene('zero-1-1-summons'); }}
-                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                        style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.7)' }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                        style={{
+                          '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                          '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                          '--tertiary-btn-color': 'rgba(255,255,255,0.7)'
+                        } as React.CSSProperties}
                       >
                         {isArabic ? 'إعادة البدء' : 'RESTART'}
                       </button>
@@ -2471,43 +2522,67 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       <div className={`mt-3 flex flex-wrap items-center justify-center gap-2 sm:gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareNative(); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           {isArabic ? 'مشاركة النظام' : 'NATIVE'}
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareTo('whatsapp'); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           WhatsApp
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareTo('telegram'); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           Telegram
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareTo('facebook'); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           Facebook
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareTo('x'); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           X
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareTo('email'); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           Email
                         </button>
@@ -2535,8 +2610,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
             {[1, 2, 1].map((h, i) => (
               <motion.div
                 key={i}
-                className="w-0.5 rounded-full"
-                style={{ background: 'rgba(255,255,255,0.5)' }}
+                className={`w-0.5 rounded-full ${styles.dynamicAudioIndicator}`}
+                style={{ '--audio-bar-bg': 'rgba(255,255,255,0.5)' } as React.CSSProperties}
                 animate={{ height: [h * 2, h * 3, h * 2] }}
                 transition={{
                   duration: 1.2,

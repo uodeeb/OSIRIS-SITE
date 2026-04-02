@@ -1,0 +1,394 @@
+{
+  "generatedAt": "2026-03-30T13:19:49.485Z",
+  "cwd": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE",
+  "dirPath": "E:\\Books-library2025\\mofsedon-novel\\OSIRIS-SITE\\generated-assets\\video-bg\\osiris-vid-bg",
+  "assets": [
+    {
+      "name": "Egyptian_falcon_eye_202603301359.mp4",
+      "relativePath": "generated-assets/video-bg/osiris-vid-bg/Egyptian_falcon_eye_202603301359.mp4",
+      "bytes": 3108621,
+      "ext": ".mp4",
+      "creativeTags": [
+        "falcon",
+        "eye"
+      ],
+      "media": {
+        "ok": true,
+        "container": "mp4",
+        "video": {
+          "handlerType": "vide",
+          "width": 1280,
+          "height": 720,
+          "timescale": 12288,
+          "duration": 98304,
+          "durationSec": 8,
+          "sampleCount": 192,
+          "fps": 24,
+          "codec": "avc1",
+          "pixelAspect": null,
+          "color": null
+        },
+        "audio": {
+          "handlerType": "soun",
+          "width": 0,
+          "height": 0,
+          "timescale": 48000,
+          "duration": 386048,
+          "durationSec": 8.042666666666667,
+          "sampleCount": 377,
+          "fps": null,
+          "codec": "mp4a",
+          "pixelAspect": null,
+          "color": null
+        },
+        "tracks": [
+          {
+            "handlerType": "vide",
+            "width": 1280,
+            "height": 720,
+            "timescale": 12288,
+            "duration": 98304,
+            "durationSec": 8,
+            "sampleCount": 192,
+            "fps": 24,
+            "codec": "avc1",
+            "pixelAspect": null,
+            "color": null
+          },
+          {
+            "handlerType": "soun",
+            "width": 0,
+            "height": 0,
+            "timescale": 48000,
+            "duration": 386048,
+            "durationSec": 8.042666666666667,
+            "sampleCount": 377,
+            "fps": null,
+            "codec": "mp4a",
+            "pixelAspect": null,
+            "color": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "Falcon_hologram_data_202603301414.mp4",
+      "relativePath": "generated-assets/video-bg/osiris-vid-bg/Falcon_hologram_data_202603301414.mp4",
+      "bytes": 4896156,
+      "ext": ".mp4",
+      "creativeTags": [
+        "falcon",
+        "hologram",
+        "data"
+      ],
+      "media": {
+        "ok": true,
+        "container": "mp4",
+        "video": {
+          "handlerType": "vide",
+          "width": 1280,
+          "height": 720,
+          "timescale": 12288,
+          "duration": 98304,
+          "durationSec": 8,
+          "sampleCount": 192,
+          "fps": 24,
+          "codec": "avc1",
+          "pixelAspect": null,
+          "color": null
+        },
+        "audio": {
+          "handlerType": "soun",
+          "width": 0,
+          "height": 0,
+          "timescale": 48000,
+          "duration": 386048,
+          "durationSec": 8.042666666666667,
+          "sampleCount": 377,
+          "fps": null,
+          "codec": "mp4a",
+          "pixelAspect": null,
+          "color": null
+        },
+        "tracks": [
+          {
+            "handlerType": "vide",
+            "width": 1280,
+            "height": 720,
+            "timescale": 12288,
+            "duration": 98304,
+            "durationSec": 8,
+            "sampleCount": 192,
+            "fps": 24,
+            "codec": "avc1",
+            "pixelAspect": null,
+            "color": null
+          },
+          {
+            "handlerType": "soun",
+            "width": 0,
+            "height": 0,
+            "timescale": 48000,
+            "duration": 386048,
+            "durationSec": 8.042666666666667,
+            "sampleCount": 377,
+            "fps": null,
+            "codec": "mp4a",
+            "pixelAspect": null,
+            "color": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "Medium_wide_shot_of_the_osiris_falcon_logo_re.gif",
+      "relativePath": "generated-assets/video-bg/osiris-vid-bg/Medium_wide_shot_of_the_osiris_falcon_logo_re.gif",
+      "bytes": 7738706,
+      "ext": ".gif",
+      "creativeTags": [
+        "falcon",
+        "logo",
+        "medium"
+      ],
+      "media": {
+        "ok": true,
+        "container": "gif",
+        "signature": "GIF89a",
+        "width": 480,
+        "height": 270,
+        "frameCount": 0,
+        "loopCount": 0,
+        "avgFrameDelayCs": null,
+        "fps": null,
+        "durationSec": null
+      }
+    },
+    {
+      "name": "Neural_network_forms_202603301407.mp4",
+      "relativePath": "generated-assets/video-bg/osiris-vid-bg/Neural_network_forms_202603301407.mp4",
+      "bytes": 4702996,
+      "ext": ".mp4",
+      "creativeTags": [
+        "neural"
+      ],
+      "media": {
+        "ok": true,
+        "container": "mp4",
+        "video": {
+          "handlerType": "vide",
+          "width": 1280,
+          "height": 720,
+          "timescale": 12288,
+          "duration": 98304,
+          "durationSec": 8,
+          "sampleCount": 192,
+          "fps": 24,
+          "codec": "avc1",
+          "pixelAspect": null,
+          "color": null
+        },
+        "audio": {
+          "handlerType": "soun",
+          "width": 0,
+          "height": 0,
+          "timescale": 48000,
+          "duration": 386048,
+          "durationSec": 8.042666666666667,
+          "sampleCount": 377,
+          "fps": null,
+          "codec": "mp4a",
+          "pixelAspect": null,
+          "color": null
+        },
+        "tracks": [
+          {
+            "handlerType": "vide",
+            "width": 1280,
+            "height": 720,
+            "timescale": 12288,
+            "duration": 98304,
+            "durationSec": 8,
+            "sampleCount": 192,
+            "fps": 24,
+            "codec": "avc1",
+            "pixelAspect": null,
+            "color": null
+          },
+          {
+            "handlerType": "soun",
+            "width": 0,
+            "height": 0,
+            "timescale": 48000,
+            "duration": 386048,
+            "durationSec": 8.042666666666667,
+            "sampleCount": 377,
+            "fps": null,
+            "codec": "mp4a",
+            "pixelAspect": null,
+            "color": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "OSIRIS_falcon_hologram_202603301403.mp4",
+      "relativePath": "generated-assets/video-bg/osiris-vid-bg/OSIRIS_falcon_hologram_202603301403.mp4",
+      "bytes": 12146052,
+      "ext": ".mp4",
+      "creativeTags": [
+        "falcon",
+        "hologram"
+      ],
+      "media": {
+        "ok": true,
+        "container": "mp4",
+        "video": {
+          "handlerType": "vide",
+          "width": 1280,
+          "height": 720,
+          "timescale": 12288,
+          "duration": 98304,
+          "durationSec": 8,
+          "sampleCount": 192,
+          "fps": 24,
+          "codec": "avc1",
+          "pixelAspect": null,
+          "color": null
+        },
+        "audio": {
+          "handlerType": "soun",
+          "width": 0,
+          "height": 0,
+          "timescale": 48000,
+          "duration": 386048,
+          "durationSec": 8.042666666666667,
+          "sampleCount": 377,
+          "fps": null,
+          "codec": "mp4a",
+          "pixelAspect": null,
+          "color": null
+        },
+        "tracks": [
+          {
+            "handlerType": "vide",
+            "width": 1280,
+            "height": 720,
+            "timescale": 12288,
+            "duration": 98304,
+            "durationSec": 8,
+            "sampleCount": 192,
+            "fps": 24,
+            "codec": "avc1",
+            "pixelAspect": null,
+            "color": null
+          },
+          {
+            "handlerType": "soun",
+            "width": 0,
+            "height": 0,
+            "timescale": 48000,
+            "duration": 386048,
+            "durationSec": 8.042666666666667,
+            "sampleCount": 377,
+            "fps": null,
+            "codec": "mp4a",
+            "pixelAspect": null,
+            "color": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "OSIRIS_falcon_logo_202603301401.mp4",
+      "relativePath": "generated-assets/video-bg/osiris-vid-bg/OSIRIS_falcon_logo_202603301401.mp4",
+      "bytes": 2466382,
+      "ext": ".mp4",
+      "creativeTags": [
+        "falcon",
+        "logo"
+      ],
+      "media": {
+        "ok": true,
+        "container": "mp4",
+        "video": {
+          "handlerType": "vide",
+          "width": 1280,
+          "height": 720,
+          "timescale": 12288,
+          "duration": 98304,
+          "durationSec": 8,
+          "sampleCount": 192,
+          "fps": 24,
+          "codec": "avc1",
+          "pixelAspect": null,
+          "color": null
+        },
+        "audio": {
+          "handlerType": "soun",
+          "width": 0,
+          "height": 0,
+          "timescale": 48000,
+          "duration": 386048,
+          "durationSec": 8.042666666666667,
+          "sampleCount": 377,
+          "fps": null,
+          "codec": "mp4a",
+          "pixelAspect": null,
+          "color": null
+        },
+        "tracks": [
+          {
+            "handlerType": "vide",
+            "width": 1280,
+            "height": 720,
+            "timescale": 12288,
+            "duration": 98304,
+            "durationSec": 8,
+            "sampleCount": 192,
+            "fps": 24,
+            "codec": "avc1",
+            "pixelAspect": null,
+            "color": null
+          },
+          {
+            "handlerType": "soun",
+            "width": 0,
+            "height": 0,
+            "timescale": 48000,
+            "duration": 386048,
+            "durationSec": 8.042666666666667,
+            "sampleCount": 377,
+            "fps": null,
+            "codec": "mp4a",
+            "pixelAspect": null,
+            "color": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "Slow_orbit_osiris_falcon_hologram_floating_i.gif",
+      "relativePath": "generated-assets/video-bg/osiris-vid-bg/Slow_orbit_osiris_falcon_hologram_floating_i.gif",
+      "bytes": 9195968,
+      "ext": ".gif",
+      "creativeTags": [
+        "falcon",
+        "hologram",
+        "orbit",
+        "slow"
+      ],
+      "media": {
+        "ok": true,
+        "container": "gif",
+        "signature": "GIF89a",
+        "width": 480,
+        "height": 270,
+        "frameCount": 6,
+        "loopCount": 0,
+        "avgFrameDelayCs": 6.4,
+        "fps": 15.625,
+        "durationSec": 0.32
+      }
+    }
+  ]
+}

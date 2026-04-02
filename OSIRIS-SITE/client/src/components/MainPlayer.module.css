@@ -1,0 +1,179 @@
+.dynamicColor {
+  color: var(--dynamic-color, #c9a96e);
+}
+.dynamicBg {
+  background: var(--dynamic-bg, transparent);
+}
+.dynamicBorder {
+  border: 1px solid var(--dynamic-border, #c9a96e);
+}
+.dynamicBoxShadow {
+  box-shadow: var(--dynamic-box-shadow, none);
+}
+.dynamicAccent {
+  color: var(--accent-color, #c9a96e);
+  background: var(--accent-bg, transparent);
+  border: 1px solid var(--accent-border, #c9a96e);
+}
+.dynamicBgGradient {
+  background: var(--dynamic-bg-gradient, transparent);
+}
+.dynamicTextShadow {
+  text-shadow: var(--dynamic-text-shadow, none);
+}
+.dynamicFilter {
+  filter: var(--dynamic-filter, none);
+}
+.dynamicMixBlend {
+  mix-blend-mode: var(--dynamic-mix-blend, normal);
+}
+.dynamicBackdrop {
+  backdrop-filter: var(--dynamic-backdrop, none);
+}
+.dynamicOpacity {
+  opacity: var(--dynamic-opacity, 1);
+}
+.dynamicTransition {
+  transition: var(--dynamic-transition, all 0.3s);
+}
+
+/* Advanced Dynamic Styles */
+.dynamicPartLabel {
+  top: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dynamic-bg, rgba(0, 0, 0, 0.35));
+  border: var(--dynamic-border, 1px solid rgba(255, 255, 255, 0.06));
+  backdrop-filter: var(--dynamic-backdrop, blur(10px));
+}
+
+.dynamicGlow {
+  background: var(--glow-color, rgba(201, 169, 110, 0.25));
+}
+
+.dynamicPortrait {
+  box-shadow: var(--portrait-shadow, 0 0 50px rgba(201, 169, 110, 0.5), 0 20px 60px rgba(0, 0, 0, 0.7));
+  border: var(--portrait-border, 1px solid rgba(201, 169, 110, 0.15));
+  filter: var(--portrait-filter, brightness(0.85) contrast(1.05));
+}
+
+.dynamicGradientOverlay {
+  background: var(--gradient-overlay, linear-gradient(180deg, rgba(201, 169, 110, 0.1), rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.25)));
+}
+
+.dynamicRadialGlow {
+  background: var(--radial-glow, radial-gradient(circle at 20% 20%, rgba(201, 169, 110, 0.33), rgba(0, 0, 0, 0) 55%));
+  mix-blend-mode: var(--blend-mode, screen);
+}
+
+.dynamicProgressBar {
+  background: var(--progress-background, linear-gradient(to right, rgba(201, 169, 110, 0.3), rgba(201, 169, 110, 0.95)));
+}
+
+.dynamicProgressLine {
+  background: var(--progress-line, rgba(201, 169, 110, 0.3));
+  height: 2px;
+}
+
+.dynamicDialogueBox {
+  background: var(--dialogue-bg, rgba(0, 0, 0, 0.56));
+  border: var(--dialogue-border, 1px solid rgba(201, 169, 110, 0.18));
+  box-shadow: var(--dialogue-shadow, 0 10px 70px rgba(0, 0, 0, 0.78), 0 0 0 1px rgba(255, 255, 255, 0.02), inset 0 1px 0 rgba(201, 169, 110, 0.1));
+  backdrop-filter: var(--dialogue-backdrop, blur(18px));
+}
+
+.dynamicAutoLine {
+  background: var(--auto-line, rgba(201, 169, 110, 0.5));
+}
+
+.dynamicDialogueText {
+  text-shadow: var(--text-shadow, 0 1px 8px rgba(0, 0, 0, 0.98));
+  letter-spacing: var(--letter-spacing, 0.012em);
+  line-height: var(--line-height, 1.75);
+}
+
+.dynamicArabicText {
+  text-shadow: var(--text-shadow, 0 1px 8px rgba(0, 0, 0, 0.98));
+  line-height: var(--line-height, 2.1);
+}
+
+.dynamicProgressDot {
+  height: 3px;
+  background: var(--dot-color, rgba(255, 255, 255, 0.12));
+}
+
+.dynamicChoicePanel {
+  background: var(--choice-bg, rgba(0, 0, 0, 0.72));
+  border: var(--choice-border, 1px solid rgba(201, 169, 110, 0.2));
+  box-shadow: var(--choice-shadow, 0 4px 30px rgba(0, 0, 0, 0.5));
+  backdrop-filter: var(--choice-backdrop, blur(14px));
+}
+
+.dynamicChoiceNumber {
+  background: var(--choice-num-bg, rgba(201, 169, 110, 0.15));
+  color: var(--choice-num-color, #c9a96e);
+  border: var(--choice-num-border, 1px solid rgba(201, 169, 110, 0.3));
+}
+
+.dynamicCountdown {
+  color: var(--countdown-color, rgba(201, 169, 110, 0.9));
+}
+
+.dynamicEndOfScene {
+  background: var(--end-scene-bg, rgba(0, 0, 0, 0.75));
+  border: var(--end-scene-border, 1px solid rgba(201, 169, 110, 0.22));
+  backdrop-filter: var(--end-scene-backdrop, blur(16px));
+}
+
+.dynamicEndButton {
+  background: var(--end-btn-bg, linear-gradient(135deg, #c9a96e, #f0d080));
+  color: var(--end-btn-color, #0b0b0d);
+}
+
+.dynamicSecondaryButton {
+  border: var(--secondary-btn-border, 1px solid rgba(201, 169, 110, 0.33));
+  background: var(--secondary-btn-bg, rgba(0, 0, 0, 0.35));
+  color: var(--secondary-btn-color, rgba(201, 169, 110, 0.8));
+}
+
+.dynamicTertiaryButton {
+  border: var(--tertiary-btn-border, 1px solid rgba(201, 169, 110, 0.22));
+  background: var(--tertiary-btn-bg, rgba(0, 0, 0, 0.25));
+  color: var(--tertiary-btn-color, rgba(255, 255, 255, 0.7));
+}
+
+.dynamicAudioIndicator {
+  background: var(--audio-bar-bg, rgba(255, 255, 255, 0.5));
+}
+
+.separatorLine {
+  width: 1px;
+  height: 14px;
+  background: var(--auto-line, rgba(201, 169, 110, 0.15));
+}
+
+.audioButton {
+  color: rgba(201,169,110,0.7);
+}
+
+.audioPanel {
+  background: rgba(0,0,0,0.92);
+  border: 1px solid rgba(201,169,110,0.2);
+  backdrop-filter: blur(20px);
+}
+
+.audioRange {
+  accent-color: #c9a96e;
+}
+
+.audioMute {
+  background: rgba(201,169,110,0.2);
+  color: #c9a96e;
+  border: 1px solid rgba(201,169,110,0.15);
+}
+
+.audioUnmute {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(201,169,110,0.15);
+}

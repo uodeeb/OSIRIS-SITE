@@ -15,31 +15,32 @@ import { useRTL } from '@/hooks/useRTL';
 import { useSettings } from '@/hooks/useSettings';
 
 /**
- * Music Asset URLs - Maps to existing MUSIC-BG folder
+ * Music Asset URLs - Maps to generated-assets/music-tracks folder
  */
 const MUSIC_ASSET_URLS = {
-  'main-theme': '/music/TRACK%2001%20%E2%80%94%20%D8%A7%D9%84%D8%AB%D9%8A%D9%85%20%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%20%D9%84%D9%84%D8%B1%D9%88%D8%A7%D9%8A%D8%A9.mp3',
-  'courtroom-cosmic': '/music/TRACK%2002%20%E2%80%94%20%D8%A7%D9%84%D8%AC%D8%B2%D8%A1%20%D8%A7%D9%84%D8%B5%D9%81%D8%B1-%D8%BA%D8%B1%D9%81%D8%A9%20%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%83%D9%85%D8%A9%20%D8%A7%D9%84%D9%83%D9%88%D9%86%D9%8A%D8%A9.m4a',
-  'iblis-theme': '/music/devil-voice-to-clone.m4a',
-  'tariq-tragedy': '/music/TRACK-04.m4a',
-  'golden-calf-desert': '/music/TRACK%2005.m4a',
-  'nicaea-byzantine': '/music/TRACK%2006.m4a',
-  'andalus-elegy': '/music/TRACK%2007.m4a',
-  'totalitarian-horror': '/music/TRACK%2008.m4a',
-  'karbala-spiritual': '/music/TRACK%2009.m4a',
-  'digital-confrontation': '/music/TRACK%2010.m4a',
-  'bittersweet-resolution': '/music/TRACK%2011.m4a',
-  'action-escape': '/music/TRACK%2012.m4a',
-  'dream-before-battle': '/music/TRACK%2013.m4a',
-  'credits-finale': '/music/TRACK%2011.m4a'
+  // Avoid using TRACK-01 as a background track for global mute compatibility
+  'main-theme': '/generated-assets/music-tracks/TRACK-02.m4a',
+  'courtroom-cosmic': '/generated-assets/music-tracks/TRACK 02.m4a',
+  'iblis-theme': '/generated-assets/music-tracks/TRACK 03.mp3',
+  'tariq-tragedy': '/generated-assets/music-tracks/TRACK-04.m4a',
+  'golden-calf-desert': '/generated-assets/music-tracks/TRACK-05.m4a',
+  'nicaea-byzantine': '/generated-assets/music-tracks/TRACK-06.m4a',
+  'andalus-elegy': '/generated-assets/music-tracks/TRACK-07.m4a',
+  'totalitarian-horror': '/generated-assets/music-tracks/TRACK-08.m4a',
+  'karbala-spiritual': '/generated-assets/music-tracks/TRACK-09.m4a',
+  'digital-confrontation': '/generated-assets/music-tracks/TRACK-10.m4a',
+  'bittersweet-resolution': '/generated-assets/music-tracks/TRACK-11.m4a',
+  'action-escape': '/generated-assets/music-tracks/TRACK-12.m4a',
+  'dream-before-battle': '/generated-assets/music-tracks/TRACK-13.m4a',
+  'credits-finale': '/generated-assets/music-tracks/TRACK-14.m4a'
 };
 
 /**
- * Voice Asset URLs - Maps to existing voice files
+ * Voice Asset URLs - Maps to generated-assets/voices folder
  */
 const VOICE_ASSET_URLS = {
-  'opening-statement': '/music/VOICE%2001%20%E2%80%94%20%D8%A7%D9%84%D9%85%D8%B1%D8%A7%D9%81%D8%B9%D8%A9%20%D8%A7%D9%84%D8%A7%D9%81%D8%AA%D8%AA%D8%A7%D8%AD%D9%8A%D8%A9%20(%D8%A7%D9%84%D8%A3%D9%8A%D9%82%D9%88%D9%86%D9%8A%D8%A9%20%D8%A7%D9%84%D9%83%D8%A8%D8%B1%D9%89).wav',
-  'iblis-oath': '/music/devil-voice-to-clone.wav'
+  'opening-statement': '/generated-assets/voices/VOICE-01.wav',
+  'iblis-oath': '/generated-assets/voices/VOICE-02.wav'
 };
 
 /**
