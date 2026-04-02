@@ -1,22 +1,6 @@
-@import "tailwindcss";
-
-@theme {
-  --color-osiris-gold: #c9a96e;
-  --color-osiris-blue: #1e3a8a;
-  --color-osiris-green: #22c55e;
-  --color-osiris-purple: #6b21a8;
-  --color-osiris-red: #dc2626;
-  --color-osiris-dark: #0a0a0a;
-  --color-osiris-darker: #050505;
-  --color-osiris-surface: #111111;
-  --color-osiris-border: #1a1a1a;
-  --color-osiris-text: #e5e5e5;
-  --color-osiris-text-dim: #888888;
-  --color-osiris-accent: #c9a96e;
-
-  --font-sans: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
-  --font-arabic: 'Segoe UI', 'Tahoma', 'Arial', 'Noto Sans Arabic', sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   margin: 0;

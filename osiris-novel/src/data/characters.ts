@@ -11,10 +11,14 @@ export type CharacterId =
   | 'athanasius'
   | 'abuAbdullah'
   | 'aisha'
+  | 'motherAisha'
   | 'hitler'
   | 'stalin'
   | 'polPot'
-  | 'hussein';
+  | 'hussein'
+  | 'ibrahim'
+  | 'bilal'
+  | 'salahuddin';
 
 export interface Character {
   id: CharacterId;
@@ -154,6 +158,38 @@ export const CHARACTERS: Record<CharacterId, Character> = {
     align: 'center',
     portrait: '',
   },
+  motherAisha: {
+    id: 'motherAisha',
+    nameAr: 'عائشة',
+    nameEn: 'Mother Aisha',
+    color: '#888888',
+    align: 'center',
+    portrait: '',
+  },
+  ibrahim: {
+    id: 'ibrahim',
+    nameAr: 'إبراهيم',
+    nameEn: 'Ibrahim',
+    color: '#22c55e',
+    align: 'center',
+    portrait: '',
+  },
+  bilal: {
+    id: 'bilal',
+    nameAr: 'بلال',
+    nameEn: 'Bilal',
+    color: '#3b82f6',
+    align: 'center',
+    portrait: '',
+  },
+  salahuddin: {
+    id: 'salahuddin',
+    nameAr: 'صلاح الدين',
+    nameEn: 'Salahuddin',
+    color: '#22c55e',
+    align: 'center',
+    portrait: '',
+  },
 };
 
 export const CHARACTER_COLORS: Record<CharacterId, string> = {
@@ -173,4 +209,8 @@ export const CHARACTER_COLORS: Record<CharacterId, string> = {
   stalin: '#dc2626',
   polPot: '#dc2626',
   hussein: '#22c55e',
+  motherAisha: '#888888',
+  ibrahim: '#22c55e',
+  bilal: '#3b82f6',
+  salahuddin: '#22c55e',
 };
