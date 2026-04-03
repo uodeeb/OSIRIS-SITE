@@ -1,0 +1,1015 @@
+{
+  "parts": [
+    {
+      "id": 0,
+      "title": "The Cosmic Courtroom",
+      "arabicTitle": "غرفة المحاكمة الكونية",
+      "description": "The trial begins. Iblis accuses humanity of unworthiness.",
+      "scenes": [
+        {
+          "id": "zero-opening",
+          "title": "Opening Statement",
+          "arabicTitle": "الافتتاحية",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "audioUrl": "https://manus-webdev.s3.amazonaws.com/osiris-novel/audio/aud_intro_narration.wav",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "The File Number: One",
+              "arabicText": "الملف رقم: واحد",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "The Accused: Humanity",
+              "arabicText": "المتهم: الإنسان",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "The Prosecutor: Iblis",
+              "arabicText": "المدّعي: إبليس",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "The Charge: Unworthy of Honor",
+              "arabicText": "الاتهام: عدم الأهلية للتكريم",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "The Evidence: 6,000 Years of History",
+              "arabicText": "الأدلة: ستة آلاف سنة من التاريخ",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "The Judge: God Alone",
+              "arabicText": "القاضي: الله وحده",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "Open the file...",
+              "arabicText": "افتح الملف...",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "zero-begin",
+              "text": "Begin the Trial",
+              "arabicText": "ابدأ المحاكمة",
+              "nextSceneId": "one-qabil-intro",
+              "timer": 8000
+            }
+          ],
+          "transitionType": "fade",
+          "transitionDuration": 2000,
+          "emotionalTone": "intense"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "title": "The First Crime",
+      "arabicTitle": "الجريمة الأولى",
+      "description": "The story of Qabil and Habil - the first murder in history",
+      "scenes": [
+        {
+          "id": "one-qabil-intro",
+          "title": "Qabil & Habil",
+          "arabicTitle": "قابيل وهابيل",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "audioUrl": "https://manus-webdev.s3.amazonaws.com/osiris-novel/audio/aud_intro_narration.wav",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Iblis did not hate Adam.",
+              "arabicText": "لم يكن إبليس يكره آدم",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "This is where people are always mistaken.",
+              "arabicText": "هذا ما يخطئ فيه الناس دائماً",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "Iblis hated the answer that Adam would represent.",
+              "arabicText": "إبليس كان يكره الإجابة التي سيمثّلها آدم",
+              "duration": 3000
+            },
+            {
+              "character": "Narrator",
+              "text": "He hated that Adam's existence, standing firm and whole before God, meant that the case was lost.",
+              "arabicText": "كان يكره أن وجود آدم صامداً معافىً شاهداً لله يعني أن القضية خُسرت",
+              "duration": 4000
+            },
+            {
+              "character": "Narrator",
+              "text": "So Iblis decided not to fight Adam...",
+              "arabicText": "فقرّر إبليس ألا يُقاتل آدم",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "But to transform him into evidence against himself.",
+              "arabicText": "بل أن يحوّله إلى دليل اتهام ضد نفسه",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "one-witness",
+              "text": "Witness the First Murder",
+              "arabicText": "شاهد أول قتل",
+              "nextSceneId": "one-qabil-murder",
+              "timer": 5000
+            }
+          ],
+          "transitionType": "dissolve",
+          "transitionDuration": 1500,
+          "emotionalTone": "dark"
+        },
+        {
+          "id": "one-qabil-murder",
+          "title": "The First Murder",
+          "arabicTitle": "أول قتل في التاريخ",
+          "backgroundVideo": "https://d2xsxph8kpxj0f.cloudfront.net/310519663180701130/YMNaFYPNBVUKvJbdDwnwD8/vid_qabil_scene.mp4",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Qabil looks at Habil.",
+              "arabicText": "قابيل ينظر إلى هابيل",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "He sees the difference between them.",
+              "arabicText": "يرى الفرق بينهما",
+              "duration": 2000
+            },
+            {
+              "character": "Qabil",
+              "text": "'I am better than him'",
+              "arabicText": "'أنا خير منه'",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "And in that moment, the first murder in history is committed.",
+              "arabicText": "وفي تلك اللحظة، يُرتكب أول قتل في التاريخ",
+              "duration": 3000
+            },
+            {
+              "character": "Iblis",
+              "text": "Look... look closely. This is what was created from clay.",
+              "arabicText": "انظروا... انظروا جيدًا. هذا ما خُلق من طين",
+              "duration": 3000
+            },
+            {
+              "character": "Iblis",
+              "text": "Claiming divinity. Did I not say he was unworthy?",
+              "arabicText": "يدّعي الألوهية. ألم أقل أنه لا يستحق؟",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "one-pattern",
+              "text": "The Pattern Emerges",
+              "arabicText": "يظهر النمط",
+              "nextSceneId": "one-six-axes",
+              "timer": 6000
+            }
+          ],
+          "transitionType": "slideUp",
+          "transitionDuration": 1500,
+          "emotionalTone": "tragic"
+        },
+        {
+          "id": "one-six-axes",
+          "title": "The Six Axes of Corruption",
+          "arabicTitle": "المحاور الستة للفساد",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "After his rejection from prostration, Iblis swore an oath:",
+              "arabicText": "بعد الرفض من السجود، أقسم إبليس قسماً:",
+              "duration": 2500
+            },
+            {
+              "character": "Iblis",
+              "text": "'I will surely mislead them all, except Your sincere servants among them'",
+              "arabicText": "'لأغوينّهم أجمعين إلا عبادك منهم المخلصين'",
+              "duration": 4000
+            },
+            {
+              "character": "Narrator",
+              "text": "And he began to plan. Six axes. Six paths to corruption.",
+              "arabicText": "وبدأ يخطط. ستة محاور. ستة طرق للفساد",
+              "duration": 3000
+            },
+            {
+              "character": "Narrator",
+              "text": "Pride. Lust. Lies. Division. Despair. Doubt.",
+              "arabicText": "الكبر. الشهوة. الكذب. الفرقة. اليأس. الشبهة",
+              "duration": 3000
+            },
+            {
+              "character": "Narrator",
+              "text": "Six weapons. Six centuries of corruption. All rooted in one phrase:",
+              "arabicText": "ستة أسلحة. ستة قرون من الفساد. كلها متجذرة في جملة واحدة:",
+              "duration": 3500
+            },
+            {
+              "character": "Iblis",
+              "text": "'I am better than him'",
+              "arabicText": "'أنا خير منه'",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "one-to-pharaoh",
+              "text": "Move to Part Two: Pharaoh",
+              "arabicText": "انتقل إلى الجزء الثاني: فرعون",
+              "nextSceneId": "two-pharaoh-intro",
+              "timer": 6000
+            }
+          ],
+          "transitionType": "slideDown",
+          "transitionDuration": 2000,
+          "emotionalTone": "intense"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Pharaoh",
+      "arabicTitle": "فرعون",
+      "description": "The perfect model of corruption - Ramses II and the claim to divinity",
+      "scenes": [
+        {
+          "id": "two-pharaoh-intro",
+          "title": "The Perfect Model",
+          "arabicTitle": "النموذج الأكمل",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "In Egypt, where the Nile flows eternal...",
+              "arabicText": "في مصر، حيث النيل يجري أبداً...",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "A man stands before the mirror of water.",
+              "arabicText": "رجل يقف أمام مرآة الماء",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "His name: Ramses II",
+              "arabicText": "اسمه: رمسيس الثاني",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "A genius. A warrior. Undefeated.",
+              "arabicText": "عبقري. محارب. لا يُهزم",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "But he carries a deep wound: the need to be a god.",
+              "arabicText": "لكنه يحمل جرحاً عميقاً: الحاجة إلى أن يكون إلهاً",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "two-mirror",
+              "text": "See His Reflection",
+              "arabicText": "شاهد انعكاسه",
+              "nextSceneId": "two-mirror-scene",
+              "timer": 5000
+            }
+          ],
+          "transitionType": "dissolve",
+          "transitionDuration": 1500,
+          "emotionalTone": "dark"
+        },
+        {
+          "id": "two-mirror-scene",
+          "title": "The Mirror of the Nile",
+          "arabicTitle": "مرآة النيل",
+          "backgroundImage": "/generated-assets/images/EGYPT-NILE-TEMPLE02.jpg",
+          "backgroundVideo": "/generated-assets/video-bg/egypt-nile-temple.mp4",
+          "characterImages": {
+            "Ramses": "/generated-assets/characters/RAMSIS.jpg",
+            "RamsesAlt": "/generated-assets/characters/RAMSIS01.jpg"
+          },
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Ramses looks at his reflection.",
+              "arabicText": "ينظر رمسيس إلى انعكاسه",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "He sees a great king.",
+              "arabicText": "يرى ملكاً عظيماً",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "But he asks his priest:",
+              "arabicText": "لكنه يسأل كاهنه:",
+              "duration": 1500
+            },
+            {
+              "character": "Ramses",
+              "text": "'Why must I die?'",
+              "arabicText": "'لماذا يجب أن أموت؟'",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "The mysterious priest emerges from the shadows.",
+              "arabicText": "الكاهن الغامض يظهر من الظلال",
+              "duration": 2500
+            },
+            {
+              "character": "Priest",
+              "text": "'Because they say there is a God above you'",
+              "arabicText": "'لأنهم يقولون إن فوقك رباً'",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "two-divine",
+              "text": "Witness the Declaration",
+              "arabicText": "شاهد الإعلان",
+              "nextSceneId": "two-divine-declaration",
+              "timer": 6000
+            }
+          ],
+          "transitionType": "slideUp",
+          "transitionDuration": 1500,
+          "emotionalTone": "intense"
+        },
+        {
+          "id": "two-divine-declaration",
+          "title": "The Declaration of Divinity",
+          "arabicTitle": "إعلان الألوهية",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "On the walls of Abu Simbel, it is carved:",
+              "arabicText": "على جدران أبو سمبل، يُنقش:",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "'I am the God'",
+              "arabicText": "'أنا الإله'",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "Pharaoh declares his divinity.",
+              "arabicText": "فرعون يعلن ألوهيته",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "But on the other side of the Nile, a child is born.",
+              "arabicText": "لكن في الجهة الأخرى من النيل، يُولد طفل",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "A child who will prove to history that the true God needs no walls to prove His existence.",
+              "arabicText": "طفل سيثبت للتاريخ أن الإله الحقيقي لا يحتاج إلى جدران لإثبات وجوده",
+              "duration": 4000
+            }
+          ],
+          "choices": [
+            {
+              "id": "two-moses",
+              "text": "The Confrontation Begins",
+              "arabicText": "تبدأ المواجهة",
+              "nextSceneId": "two-moses-confrontation",
+              "timer": 5000
+            }
+          ],
+          "transitionType": "fade",
+          "transitionDuration": 2000,
+          "emotionalTone": "hopeful"
+        },
+        {
+          "id": "two-moses-confrontation",
+          "title": "The Confrontation",
+          "arabicTitle": "المواجهة",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Moses stands before Pharaoh.",
+              "arabicText": "موسى يقف أمام فرعون",
+              "duration": 2000
+            },
+            {
+              "character": "Moses",
+              "text": "'I do not claim divinity.'",
+              "arabicText": "'أنا لا أدعي الألوهية'",
+              "duration": 2500
+            },
+            {
+              "character": "Moses",
+              "text": "'I am only a messenger of the true God.'",
+              "arabicText": "'أنا فقط رسول من الله الحق'",
+              "duration": 3000
+            },
+            {
+              "character": "Narrator",
+              "text": "And here begins the true struggle.",
+              "arabicText": "وهنا يبدأ الصراع الحقيقي",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "Pride against Truth.",
+              "arabicText": "الكبر ضد الحق",
+              "duration": 2000
+            },
+            {
+              "character": "Iblis",
+              "text": "Look... look closely. This is what I said would happen.",
+              "arabicText": "انظروا... انظروا جيداً. هذا ما قلت أنه سيحدث",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "two-to-nicaea",
+              "text": "Move to Part Three: Nicaea",
+              "arabicText": "انتقل إلى الجزء الثالث: نيقية",
+              "nextSceneId": "three-nicaea-intro",
+              "timer": 6000
+            }
+          ],
+          "transitionType": "slideDown",
+          "transitionDuration": 2000,
+          "emotionalTone": "intense"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Nicaea",
+      "arabicTitle": "نيقية",
+      "description": "When religion was stolen - Council of Nicaea 325 AD",
+      "scenes": [
+        {
+          "id": "three-nicaea-intro",
+          "title": "The Council Begins",
+          "arabicTitle": "بدء المجلس",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Rome, 325 AD. The Council of Nicaea.",
+              "arabicText": "روما، 325 ميلادية. مجمع نيقية",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "Constantine does not care about doctrine.",
+              "arabicText": "قسطنطين لا يهتم بالعقيدة",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "He cares only about unity.",
+              "arabicText": "يهتم فقط بالوحدة",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "And he has summoned the bishops to decide what billions will believe.",
+              "arabicText": "وقد استدعى الأساقفة ليقررو ما سيؤمن به مليارات",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "three-council-scene",
+              "text": "Enter the Council Chamber",
+              "arabicText": "ادخل حجرة المجلس",
+              "nextSceneId": "three-council-chamber",
+              "timer": 5000
+            }
+          ],
+          "transitionType": "dissolve",
+          "transitionDuration": 1500,
+          "emotionalTone": "dark"
+        },
+        {
+          "id": "three-council-chamber",
+          "title": "The Decision",
+          "arabicTitle": "القرار",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Constantine",
+              "text": "'Agree on doctrine, or I will make you agree.'",
+              "arabicText": "'اتفقوا على العقيدة، أو سأجعلكم تتفقون'",
+              "duration": 3000
+            },
+            {
+              "character": "Narrator",
+              "text": "In one night, what billions will believe for two thousand years is decided.",
+              "arabicText": "في ليلة واحدة، يُقرّر ما سيؤمن به مليارات لألفي سنة قادمة",
+              "duration": 4000
+            },
+            {
+              "character": "Narrator",
+              "text": "Not by revelation.",
+              "arabicText": "ليس بالوحي",
+              "duration": 1500
+            },
+            {
+              "character": "Narrator",
+              "text": "Not by truth.",
+              "arabicText": "ليس بالحق",
+              "duration": 1500
+            },
+            {
+              "character": "Narrator",
+              "text": "But by politics.",
+              "arabicText": "بل بالسياسة",
+              "duration": 2000
+            },
+            {
+              "character": "Iblis",
+              "text": "And the mysterious priest smiles from the shadows.",
+              "arabicText": "والكاهن الغامض يبتسم من الظلال",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "three-to-andalus",
+              "text": "Move to Part Four: Andalusia",
+              "arabicText": "انتقل إلى الجزء الرابع: الأندلس",
+              "nextSceneId": "four-andalus-intro",
+              "timer": 6000
+            }
+          ],
+          "transitionType": "slideDown",
+          "transitionDuration": 2000,
+          "emotionalTone": "tragic"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Andalusia & The 20th Century",
+      "arabicTitle": "الأندلس والقرن العشرون",
+      "description": "When we destroyed what we built, and when pride became ideology",
+      "scenes": [
+        {
+          "id": "four-andalus-intro",
+          "title": "The Fall of Granada",
+          "arabicTitle": "سقوط غرناطة",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Spain, 1492. The last Muslim kingdom falls.",
+              "arabicText": "إسبانيا، 1492. آخر مملكة إسلامية تسقط",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "Not to external enemies.",
+              "arabicText": "ليس للأعداء الخارجيين",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "But to internal division.",
+              "arabicText": "بل للفرقة الداخلية",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "Each prince said: 'I am better than my brother.'",
+              "arabicText": "كل أمير قال: 'أنا خير من أخي'",
+              "duration": 3000
+            },
+            {
+              "character": "Narrator",
+              "text": "And the civilization that lit the world... fell to darkness.",
+              "arabicText": "والحضارة التي أضاءت العالم... سقطت في الظلام",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "four-twentieth",
+              "text": "The Twentieth Century",
+              "arabicText": "القرن العشرون",
+              "nextSceneId": "four-twentieth-century",
+              "timer": 5000
+            }
+          ],
+          "transitionType": "dissolve",
+          "transitionDuration": 1500,
+          "emotionalTone": "tragic"
+        },
+        {
+          "id": "four-twentieth-century",
+          "title": "When Pride Became Ideology",
+          "arabicTitle": "حين أصبح الكبر أيديولوجيا",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Berlin, 1933. Moscow, 1937. Cambodia, 1975.",
+              "arabicText": "برلين، 1933. موسكو، 1937. كمبوديا، 1975",
+              "duration": 3000
+            },
+            {
+              "character": "Narrator",
+              "text": "Three men. Three ideologies. One phrase:",
+              "arabicText": "ثلاثة رجال. ثلاث أيديولوجيات. جملة واحدة:",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "'I alone know the truth.'",
+              "arabicText": "'أنا وحدي أعرف الحقيقة'",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "Which is the same as:",
+              "arabicText": "وهذا هو نفس:",
+              "duration": 1500
+            },
+            {
+              "character": "Narrator",
+              "text": "'I am better than them.'",
+              "arabicText": "'أنا خير منهم'",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "And millions died.",
+              "arabicText": "وملايين ماتوا",
+              "duration": 2000
+            }
+          ],
+          "choices": [
+            {
+              "id": "four-to-digital",
+              "text": "Move to Part Five: The Digital Age",
+              "arabicText": "انتقل إلى الجزء الخامس: العصر الرقمي",
+              "nextSceneId": "five-digital-intro",
+              "timer": 6000
+            }
+          ],
+          "transitionType": "slideDown",
+          "transitionDuration": 2000,
+          "emotionalTone": "tragic"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "The Digital Age",
+      "arabicTitle": "العصر الرقمي",
+      "description": "Pride in the age of algorithms",
+      "scenes": [
+        {
+          "id": "five-digital-intro",
+          "title": "The New Priesthood",
+          "arabicTitle": "الكهنوت الجديد",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Today, Iblis does not need temples.",
+              "arabicText": "اليوم، إبليس لا يحتاج إلى معابد",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "He needs algorithms.",
+              "arabicText": "يحتاج إلى خوارزميات",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "Engineers discovered that outrage spreads six times faster than truth.",
+              "arabicText": "اكتشف المهندسون أن الغضب ينتشر ستة أضعاف أسرع من الحقيقة",
+              "duration": 3500
+            },
+            {
+              "character": "Narrator",
+              "text": "And they chose to feed it anyway.",
+              "arabicText": "واختاروا تغذيته على أي حال",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "Because engagement means profit.",
+              "arabicText": "لأن التفاعل يعني الربح",
+              "duration": 2500
+            }
+          ],
+          "choices": [
+            {
+              "id": "five-witnesses",
+              "text": "Move to Part Six: Defense Witnesses",
+              "arabicText": "انتقل إلى الجزء السادس: شهود الدفاع",
+              "nextSceneId": "six-witnesses-intro",
+              "timer": 6000
+            }
+          ],
+          "transitionType": "dissolve",
+          "transitionDuration": 1500,
+          "emotionalTone": "dark"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Defense Witnesses",
+      "arabicTitle": "شهود الدفاع",
+      "description": "Those who stood against corruption",
+      "scenes": [
+        {
+          "id": "six-witnesses-intro",
+          "title": "The Witnesses Rise",
+          "arabicTitle": "يقوم الشهود",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "But Iblis was wrong about one thing.",
+              "arabicText": "لكن إبليس كان مخطئاً في شيء واحد",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "Humanity did not fall completely.",
+              "arabicText": "الإنسان لم يسقط تماماً",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "Some stood. Some refused.",
+              "arabicText": "البعض وقف. البعض رفض",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "And their names are written in eternity.",
+              "arabicText": "وأسماؤهم مكتوبة في الأبدية",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "six-abraham",
+              "text": "Witness Abraham",
+              "arabicText": "شاهد إبراهيم",
+              "nextSceneId": "six-abraham",
+              "timer": 5000
+            }
+          ],
+          "transitionType": "fade",
+          "transitionDuration": 2000,
+          "emotionalTone": "hopeful"
+        },
+        {
+          "id": "six-abraham",
+          "title": "Abraham - Alone Against Civilization",
+          "arabicTitle": "إبراهيم - وحيداً ضد الحضارة",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Abraham stood alone.",
+              "arabicText": "إبراهيم وقف وحيداً",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "No army. No power. No influence.",
+              "arabicText": "لا جيش. لا قوة. لا نفوذ",
+              "duration": 2500
+            },
+            {
+              "character": "Abraham",
+              "text": "'I have turned my face to the One who created the heavens and the earth.'",
+              "arabicText": "'إنني وجهت وجهي للذي فطر السماوات والأرض'",
+              "duration": 4000
+            },
+            {
+              "character": "Narrator",
+              "text": "And that was enough.",
+              "arabicText": "وكان ذلك كافياً",
+              "duration": 2000
+            }
+          ],
+          "choices": [
+            {
+              "id": "six-bilal",
+              "text": "Witness Bilal",
+              "arabicText": "شاهد بلال",
+              "nextSceneId": "six-bilal",
+              "timer": 5000
+            }
+          ],
+          "transitionType": "slideUp",
+          "transitionDuration": 1500,
+          "emotionalTone": "hopeful"
+        },
+        {
+          "id": "six-bilal",
+          "title": "Bilal - The Stone Cannot Break the Soul",
+          "arabicTitle": "بلال - الحجر لا يستطيع أن يحطم الروح",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Bilal was enslaved. Tortured. Broken.",
+              "arabicText": "بلال كان مستعبداً. معذباً. مكسوراً",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "Under the sun, with a stone on his chest.",
+              "arabicText": "تحت الشمس، مع حجر على صدره",
+              "duration": 2500
+            },
+            {
+              "character": "Bilal",
+              "text": "'One... One...'",
+              "arabicText": "'أحد... أحد...'",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "Pride could crush his body.",
+              "arabicText": "الكبر يستطيع أن يحطم جسده",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "But it could never crush his soul.",
+              "arabicText": "لكنه لا يستطيع أن يحطم روحه",
+              "duration": 2500
+            }
+          ],
+          "choices": [
+            {
+              "id": "six-saladin",
+              "text": "Witness Saladin",
+              "arabicText": "شاهد صلاح الدين",
+              "nextSceneId": "six-saladin",
+              "timer": 5000
+            }
+          ],
+          "transitionType": "slideUp",
+          "transitionDuration": 1500,
+          "emotionalTone": "hopeful"
+        },
+        {
+          "id": "six-saladin",
+          "title": "Saladin - Mercy in Victory",
+          "arabicTitle": "صلاح الدين - الرحمة في النصر",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "Saladin conquered Jerusalem.",
+              "arabicText": "صلاح الدين فتح القدس",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "He could have slaughtered them all.",
+              "arabicText": "كان يستطيع أن يقتلهم جميعاً",
+              "duration": 2500
+            },
+            {
+              "character": "Narrator",
+              "text": "The Crusaders had done worse when they conquered it.",
+              "arabicText": "الصليبيون فعلوا أسوأ حين فتحوها",
+              "duration": 3000
+            },
+            {
+              "character": "Narrator",
+              "text": "But he chose mercy.",
+              "arabicText": "لكنه اختار الرحمة",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "And history remembers him as the noble one.",
+              "arabicText": "والتاريخ يتذكره كالنبيل",
+              "duration": 2500
+            }
+          ],
+          "choices": [
+            {
+              "id": "six-verdict",
+              "text": "The Verdict",
+              "arabicText": "الحكم",
+              "nextSceneId": "six-verdict",
+              "timer": 5000
+            }
+          ],
+          "transitionType": "slideUp",
+          "transitionDuration": 1500,
+          "emotionalTone": "hopeful"
+        },
+        {
+          "id": "six-verdict",
+          "title": "The Verdict",
+          "arabicTitle": "الحكم",
+          "backgroundImage": "https://manus-webdev.s3.amazonaws.com/osiris-novel/backgrounds/bg_yahya_apartment.png",
+          "dialogue": [
+            {
+              "character": "Narrator",
+              "text": "The trial is over.",
+              "arabicText": "انتهت المحاكمة",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "Iblis presented his evidence.",
+              "arabicText": "إبليس قدم أدلته",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "Humanity presented its witnesses.",
+              "arabicText": "الإنسان قدم شهوده",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "And the Judge... has spoken.",
+              "arabicText": "والقاضي... تحدث",
+              "duration": 3000
+            },
+            {
+              "character": "Narrator",
+              "text": "The case continues.",
+              "arabicText": "القضية تستمر",
+              "duration": 2000
+            },
+            {
+              "character": "Narrator",
+              "text": "Every day, in every heart.",
+              "arabicText": "كل يوم، في كل قلب",
+              "duration": 3000
+            },
+            {
+              "character": "Narrator",
+              "text": "The choice remains yours.",
+              "arabicText": "الخيار يبقى لك",
+              "duration": 3000
+            }
+          ],
+          "choices": [
+            {
+              "id": "six-end",
+              "text": "The End... and The Beginning",
+              "arabicText": "النهاية... والبداية",
+              "nextSceneId": null,
+              "timer": 8000
+            }
+          ],
+          "transitionType": "fade",
+          "transitionDuration": 2000,
+          "emotionalTone": "contemplative"
+        }
+      ]
+    }
+  ]
+}
