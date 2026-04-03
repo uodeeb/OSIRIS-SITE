@@ -99,83 +99,69 @@ export default function ExpandableChapters({
                 <motion.div
                   className="text-xl"
                   animate={{ scale: isActive ? 1.2 : 1, opacity: isActive ? 1 : 0.7 }}
-                  transition={{ duration: 0.3 }}
-                  style={{ filter: `drop-shadow(0 0 16px ${chapter.accentColor}50)` }}
+                  transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  {chapter.icon}
+                  {isArabic ? chapter.arabicTitle : chapter.title}
                 </motion.div>
               </div>
 
-              <div className="space-y-2">
-                <AnimatePresence mode="wait">
-                  {isActive && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.4, delay: 0.1 }}
-                      className="space-y-2"
+              <AnimatePresence mode="wait">
+                {isActive && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.4, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    className="space-y-2"
+                  >
+                    <motion.p
+                      className="text-xs text-white/70 leading-relaxed"
+                      initial={{ y: 30, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
                     >
-                      <div className="overflow-hidden">
-                        <motion.h3
-                          className="text-lg sm:text-xl font-semibold text-white leading-tight"
-                          initial={{ y: 30, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                        >
-                          {isArabic ? chapter.arabicTitle : chapter.title}
-                        </motion.h3>
-                      </div>
+                      {isArabic ? chapter.arabicSubtitle : chapter.subtitle}
+                    </motion.p>
 
-                      <motion.p
-                        className="text-xs text-white/70 leading-relaxed"
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                      >
-                        {isArabic ? chapter.arabicSubtitle : chapter.subtitle}
-                      </motion.p>
+                    <motion.div
+                      className="flex items-center justify-between pt-2"
+                      initial={{ y: 15, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.4, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    >
+                      <span className="text-[11px] font-mono text-white/60">
+                        {isArabic ? `${chapter.estMinutes} دقيقة` : `${chapter.estMinutes} min`}
+                      </span>
 
                       <motion.div
-                        className="flex items-center justify-between pt-2"
-                        initial={{ y: 15, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.4, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        className="h-8 w-8 rounded-lg border flex items-center justify-center"
+                        style={{
+                          borderColor: `${chapter.accentColor}40`,
+                          background: `${chapter.accentColor}20`,
+                          color: chapter.accentColor,
+                        }}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
                       >
-                        <span className="text-[11px] font-mono text-white/60">
-                          {isArabic ? `${chapter.estMinutes} دقيقة` : `${chapter.estMinutes} min`}
-                        </span>
-
-                        <motion.div
-                          className="h-8 w-8 rounded-lg border flex items-center justify-center"
-                          style={{
-                            borderColor: `${chapter.accentColor}40`,
-                            background: `${chapter.accentColor}20`,
-                            color: chapter.accentColor,
-                          }}
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </motion.div>
+                        <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
                       </motion.div>
                     </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {!isActive && (
-                  <motion.div className="flex flex-col items-center gap-2" initial={false} animate={{ opacity: 1 }}>
-                    <span
-                      className="text-[10px] font-mono text-white/50"
-                      style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
-                    >
-                      {chapter.number}
-                    </span>
                   </motion.div>
                 )}
-              </div>
+              </AnimatePresence>
+
+              {!isActive && (
+                <motion.div className="flex flex-col items-center gap-2" initial={false} animate={{ opacity: 1 }}>
+                  <span
+                    className="text-[10px] font-mono text-white/50"
+                    style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+                  >
+                    {chapter.number}
+                  </span>
+                </motion.div>
+              )}
             </div>
 
             <motion.div
@@ -191,4 +177,3 @@ export default function ExpandableChapters({
     </div>
   );
 }
-

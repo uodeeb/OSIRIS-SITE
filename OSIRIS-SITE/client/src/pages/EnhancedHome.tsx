@@ -40,6 +40,19 @@ const formatTime = (ms: number) => {
   return `${minutes}:${(seconds % 60).toString().padStart(2, '0')}`;
 };
 
+type TrailerLine = {
+  id: string;
+  src: string;
+  fallback: string;
+  ar: string;
+  en: string;
+  color: string;
+  captionSrcEn?: string;
+  captionSrcAr?: string;
+  audioDescSrcEn?: string;
+  audioDescSrcAr?: string;
+};
+
 export default function EnhancedHome() {
   const [, setLocation] = useLocation();
   const { state: mediaState, play, pause, setAccentColor, setDurationMs, setUiLang } = useMediaController();
@@ -55,19 +68,6 @@ export default function EnhancedHome() {
     setSelected(c);
     setLaunchOpen(true);
   };
-
-type TrailerLine = {
-  id: string;
-  src: string;
-  fallback: string;
-  ar: string;
-  en: string;
-  color: string;
-  captionSrcEn?: string;
-  captionSrcAr?: string;
-  audioDescSrcEn?: string;
-  audioDescSrcAr?: string;
-};
 
   const trailerLines = useMemo<TrailerLine[]>(
     () => [
@@ -370,7 +370,10 @@ type TrailerLine = {
 
             <div className="mt-4 flex items-center justify-between gap-3">
               <button
-                onClick={() => openLaunch(chapters[0])}
+                onClick={() => {
+                  console.log('Start Experience clicked, chapters[0]:', chapters[0]);
+                  openLaunch(chapters[0]);
+                }}
                 className="px-5 py-3 rounded-xl text-sm font-semibold"
                 style={{
                   background:
@@ -382,7 +385,10 @@ type TrailerLine = {
                 {isArabic ? "ابدأ التجربة" : "Start Experience"}
               </button>
               <button
-                onClick={() => setLocation("/model")}
+                onClick={() => {
+                  console.log('About OSIRIS Model clicked');
+                  setLocation("/model");
+                }}
                 className="px-5 py-3 rounded-xl border text-sm text-white/90 hover:text-white"
                 style={{
                   borderColor: "rgba(255,255,255,0.28)",

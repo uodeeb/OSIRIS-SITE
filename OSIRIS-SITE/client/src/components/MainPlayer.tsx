@@ -1178,7 +1178,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     }, 1800);
   }, [currentSceneId]);
   const handleBackScene = useCallback(() => {
-    if (!currentScene || voiceSyncLock) return;
+    if (!currentScene) return;
 
     if (showChoices) {
       setShowChoices(false);
@@ -1188,7 +1188,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     }
 
     setDialogueIndex((prev) => Math.max(0, prev - 1));
-  }, [currentScene, showChoices, voiceSyncLock, dialogueLines.length]);
+  }, [currentScene, showChoices, dialogueLines.length]);
 
   const handleChoice = useCallback((choice: SceneChoice) => {
     if (voiceSyncLock) return;
@@ -1607,7 +1607,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       voiceRef.current = new Audio();
       voiceRef.current.preload = 'metadata';
       voiceRef.current.loop = false;
-      registerMedia(voiceRef.current);
+      // Note: Voice is NOT registered with media controller to prevent play/pause interference
     }
 
     const voice = voiceRef.current;
@@ -2498,7 +2498,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       <button
                         data-testid="back-button"
                         onClick={(e) => { e.stopPropagation(); handleBackScene(); }}
-                        disabled={!showChoices && dialogueIndex === 0}
+                        disabled={dialogueIndex === 0 && !showChoices}
                         className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed ${styles.dynamicColor} ${styles.dynamicBorder} ${styles.dynamicBg}`}
                         style={{
                           '--dynamic-color': 'rgba(201,169,110,0.75)',
