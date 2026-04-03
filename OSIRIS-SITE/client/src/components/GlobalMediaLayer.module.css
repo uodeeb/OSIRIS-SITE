@@ -1,0 +1,17 @@
+.mediaAccent {
+  --media-accent: #c9a96e38;
+}
+.mediaVideo,
+.mediaImage {
+  filter: brightness(0.55) saturate(1.08) contrast(1.12);
+}
+
+.mediaRadial {
+  background: radial-gradient(circle at 35% 30%, var(--media-accent, #c9a96e38) 0%, rgba(0,0,0,0.86) 58%, rgba(0,0,0,0.98) 100%);
+}
+
+.mediaPattern {
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0) 2px, rgba(0,0,0,0) 6px);
+  mix-blend-mode: screen;
+  opacity: 0.12;
+}

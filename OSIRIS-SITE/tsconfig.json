@@ -1,0 +1,39 @@
+{
+  "include": ["client/src/**/*", "shared/**/*", "server/**/*"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "**/*.test.ts",
+    "client/src/components/Cinematic*.tsx",
+    "client/src/components/EnhancedCinematic*.tsx",
+    "client/src/components/OSIRISCompleteExperience.tsx",
+    "client/src/components/OSIRISNovelApp.tsx",
+    "client/src/launch/**/*",
+    "client/src/tests/**/*",
+    "client/src/lib/cinematicCompositionEngine.ts",
+    "client/src/lib/culturalAudioEngine.ts",
+    "client/src/lib/musicIntegrationEngine.ts"
+  ],
+  "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
+    "noEmit": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "strict": true,
+    "downlevelIteration": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "types": ["node", "vite/client"],
+    "paths": {
+      "@/*": ["./client/src/*"],
+      "@shared/*": ["./shared/*"]
+    }
+  }
+}
