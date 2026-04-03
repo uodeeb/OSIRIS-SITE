@@ -1,10 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Arabic Font Imports */
+/* Arabic Font Imports - with system fallbacks */
 @font-face {
   font-family: 'Scheherazade New';
-  src: url('/fonts/ScheherazadeNew-Regular.ttf') format('truetype');
+  src: local('Scheherazade New'), local('ScheherazadeNew'), local('Amiri'), local('Noto Naskh Arabic');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -12,7 +12,7 @@
 
 @font-face {
   font-family: 'Lateef';
-  src: url('/fonts/Lateef-Regular.ttf') format('truetype');
+  src: local('Lateef'), local('Amiri'), local('Noto Naskh Arabic');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -20,7 +20,7 @@
 
 @font-face {
   font-family: 'Harmattan';
-  src: url('/fonts/Harmattan-Regular.ttf') format('truetype');
+  src: local('Harmattan'), local('Noto Sans Arabic'), local('Amiri');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

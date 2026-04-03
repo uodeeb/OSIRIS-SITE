@@ -448,6 +448,7 @@ type ImageCue = {
 
 const SCENE_IMAGE_CUES: Partial<Record<string, ImageCue>> = {
   'zero-1-1-summons': { src: '/generated-assets/images/01.jpg', points: [0], opacity: 0.2, blend: 'screen' },
+  'zero-1-2-prosecution': { src: '/generated-assets/characters/الراوي الكوني-التجسيد البصري (Visual Representation).png', points: [2], opacity: 0.35, blend: 'overlay' },
   'four-4-1-desert': { src: '/generated-assets/images/02.jpg', points: [1], opacity: 0.24, blend: 'soft-light' },
   'four-4-2-crowd-engineering': { src: '/generated-assets/images/03.jpg', points: [1], opacity: 0.24, blend: 'overlay' },
   'six-8-1-andalusia': { src: '/generated-assets/images/04.jpg', points: [1], opacity: 0.22, blend: 'screen' },
@@ -474,6 +475,7 @@ type VoiceCue = { at: number; voice: number };
 type VoiceDefinition = { voice: number; sceneId: string; anchor: string; fallbackAt?: number };
 
 const VOICE_DEFINITIONS: VoiceDefinition[] = [
+  { voice: 1, sceneId: 'zero-1-2-prosecution', anchor: 'الملف رقم واحد', fallbackAt: 2 },
   { voice: 3, sceneId: 'four-5-1-tarek-message', anchor: 'اذا كنت تستمع لهذا', fallbackAt: 0 },
   { voice: 4, sceneId: 'one-1-5-4-sacrifice', anchor: 'اخي اذا وصلت اليك هذه الرسالة', fallbackAt: 2 },
   { voice: 5, sceneId: 'three-3-2-virus-design', anchor: 'طارق كان محقا', fallbackAt: 9 },
@@ -545,7 +547,23 @@ const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFINITIONS.
 
 function getVoiceCandidates(voiceNumber: number) {
   const padded = String(Math.max(1, Math.min(18, voiceNumber))).padStart(2, '0');
-  return [`/music/VOICE-${padded}.wav`, `/generated-assets/voices/VOICE-${padded}.wav`];
+  return [
+    // New high-quality voices (priority)
+    `/generated-assets/voices/new-voices/VOICE${padded}.mp3`,
+    `/generated-assets/voices/new-voices/VOICE${voiceNumber}.mp3`,
+    // Legacy voices
+    `/music/VOICE-${padded}.wav`,
+    `/generated-assets/voices/VOICE-${padded}.wav`,
+  ];
+}
+
+// Special voice for devil scenes
+function getDevilVoiceCandidates() {
+  return [
+    '/generated-assets/voices/new-voices/main-devil.wav',
+    '/music/main-devil.wav',
+    '/generated-assets/voices/main-devil.wav',
+  ];
 }
 
 // ─── Particles ───────────────────────────────────────────────────────────────
@@ -583,30 +601,53 @@ function Particles({ tone }: { tone: string }) {
   );
 }
 
-// ─── Volume Control UI ───────────────────────────────────────────────────────
+// ─── Audio Control UI ─────────────────────────────────────────────────────────
+// Clean minimal 4-channel control: BG, Scene, Voice, SFX
 
-function VolumeControl({
-  musicVol,
-  sfxVol,
-  onMusicChange,
-  onSfxChange,
-  isMuted,
-  onToggleMute,
-}: {
-  musicVol: number;
+interface AudioControlProps {
+  bgVol: number;
+  sceneVol: number;
+  voiceVol: number;
   sfxVol: number;
-  onMusicChange: (v: number) => void;
-  onSfxChange: (v: number) => void;
   isMuted: boolean;
+  onBgChange: (v: number) => void;
+  onSceneChange: (v: number) => void;
+  onVoiceChange: (v: number) => void;
+  onSfxChange: (v: number) => void;
   onToggleMute: () => void;
-}) {
+  onPlayPause: () => void;
+  isPlaying: boolean;
+}
+
+function AudioControl({
+  bgVol,
+  sceneVol,
+  voiceVol,
+  sfxVol,
+  isMuted,
+  onBgChange,
+  onSceneChange,
+  onVoiceChange,
+  onSfxChange,
+  onToggleMute,
+  onPlayPause,
+  isPlaying,
+}: AudioControlProps) {
   const [open, setOpen] = useState(false);
+
+  const channels = [
+    { key: 'bg', label: 'BG', value: bgVol, onChange: onBgChange, color: '#c9a96e' },
+    { key: 'scene', label: 'SCENE', value: sceneVol, onChange: onSceneChange, color: '#3b82f6' },
+    { key: 'voice', label: 'VOICE', value: voiceVol, onChange: onVoiceChange, color: '#22c55e' },
+    { key: 'sfx', label: 'SFX', value: sfxVol, onChange: onSfxChange, color: '#ef4444' },
+  ];
 
   return (
     <div className="relative" onClick={(e) => e.stopPropagation()}>
+      {/* Main Toggle Button */}
       <button
         onClick={() => setOpen((p) => !p)}
-        className={`flex items-center gap-1 px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.audioButton}`}
+        className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.audioButton}`}
         title="Audio Controls"
       >
         {isMuted ? (
@@ -630,41 +671,49 @@ function VolumeControl({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className={`absolute bottom-full right-0 mb-2 p-4 rounded-xl z-50 min-w-[200px] ${styles.audioPanel}`}
+            className={`absolute bottom-full right-0 mb-2 p-4 rounded-xl z-50 min-w-[240px] ${styles.audioPanel}`}
           >
-            <div className="mb-3">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[9px] font-mono tracking-wider text-amber-300/70">AMBIENT MUSIC</span>
-                <span className="text-[9px] font-mono text-white/40">{Math.round(musicVol * 100)}%</span>
-              </div>
-              <input
-                type="range" min="0" max="1" step="0.05"
-                value={musicVol}
-                onChange={(e) => onMusicChange(parseFloat(e.target.value))}
-                className={`w-full h-1 rounded-full appearance-none cursor-pointer ${styles.audioRange}`}
-                title="Ambient Music Volume"
-                aria-label="Ambient Music Volume"
-              />
+            {/* Play/Pause Button - Top */}
+            <button
+              onClick={() => { onPlayPause(); }}
+              className={`w-full mb-4 py-2 rounded-lg text-[10px] font-mono tracking-wider transition-all duration-200 flex items-center justify-center gap-2 ${isPlaying ? 'bg-amber-500/20 text-amber-300 hover:bg-amber-500/30' : 'bg-green-500/20 text-green-300 hover:bg-green-500/30'}`}
+            >
+              {isPlaying ? (
+                <><span className="text-sm">⏸</span> PAUSE ALL</>
+              ) : (
+                <><span className="text-sm">▶</span> PLAY ALL</>
+              )}
+            </button>
+
+            {/* 4 Channel Sliders */}
+            <div className="space-y-3 mb-4">
+              {channels.map((ch) => (
+                <div key={ch.key} className="flex items-center gap-3">
+                  <span className="text-[8px] font-mono w-10 text-white/50">{ch.label}</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value={ch.value}
+                    onChange={(e) => ch.onChange(parseFloat(e.target.value))}
+                    className="flex-1 h-1 rounded-full appearance-none cursor-pointer"
+                    style={{
+                      background: `linear-gradient(to right, ${ch.color} ${ch.value * 100}%, rgba(255,255,255,0.1) ${ch.value * 100}%)`,
+                    }}
+                    aria-label={`${ch.label} Volume`}
+                  />
+                  <span className="text-[8px] font-mono w-6 text-right text-white/40">{Math.round(ch.value * 100)}</span>
+                </div>
+              ))}
             </div>
-            <div className="mb-3">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[9px] font-mono tracking-wider text-amber-300/70">AMBIENT / SFX</span>
-                <span className="text-[9px] font-mono text-white/40">{Math.round(sfxVol * 100)}%</span>
-              </div>
-              <input
-                type="range" min="0" max="1" step="0.05"
-                value={sfxVol}
-                onChange={(e) => onSfxChange(parseFloat(e.target.value))}
-                className={`w-full h-1 rounded-full appearance-none cursor-pointer ${styles.audioRange}`}
-                title="Ambient / SFX Volume"
-                aria-label="Ambient / SFX Volume"
-              />
-            </div>
+
+            {/* Mute Toggle */}
             <button
               onClick={onToggleMute}
-              className={`w-full py-1.5 rounded-lg text-[9px] font-mono tracking-wider transition-all duration-200 ${isMuted ? styles.audioMute : styles.audioUnmute}`}
+              className={`w-full py-2 rounded-lg text-[9px] font-mono tracking-wider transition-all duration-200 ${isMuted ? 'bg-red-500/20 text-red-300 hover:bg-red-500/30' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}
             >
-              {isMuted ? '▶ UNMUTE ALL' : '⏸ MUTE ALL'}
+              {isMuted ? '🔇 UNMUTE ALL' : '🔊 MUTE ALL'}
             </button>
           </motion.div>
         )}
@@ -732,9 +781,13 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const [autoProgress, setAutoProgress] = useState(100);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [showAudioPrompt, setShowAudioPrompt] = useState(true);
-  const [musicVol, setMusicVol] = useState(0.18);
-  const [sfxVol, setSfxVol] = useState(0.22);
+  // 4-Channel Audio System: BG, Scene, Voice, SFX
+  const [bgVol, setBgVol] = useState(0.25);
+  const [sceneVol, setSceneVol] = useState(0.40);
+  const [voiceVol, setVoiceVol] = useState(0.85);
+  const [sfxVol, setSfxVol] = useState(0.35);
   const [isMuted, setIsMuted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [scriptTrackOverride, setScriptTrackOverride] = useState<keyof typeof TRACK_URL_CANDIDATES | null>(null);
   const [activeImageCue, setActiveImageCue] = useState<{ src: string; opacity: number; blend: CSSProperties['mixBlendMode']; token: string } | null>(null);
   const [techBoost, setTechBoost] = useState(0);
@@ -744,6 +797,9 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [shareMenuOpen, setShareMenuOpen] = useState(false);
   const [canonicalDialogueByScene, setCanonicalDialogueByScene] = useState<Record<string, DialogueLine[]>>({});
+  // Multi-track audio refs: base (main theme) + scene overlay
+  const baseTrackRef = useRef<HTMLAudioElement | null>(null);
+  const sceneTrackRef = useRef<HTMLAudioElement | null>(null);
   const voiceRef = useRef<HTMLAudioElement | null>(null);
   const voiceSyncRafRef = useRef<number | null>(null);
   const lastVoiceCueRef = useRef<string>('');
@@ -918,33 +974,92 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const enableAudio = useCallback(() => {
     setAudioEnabled(true);
     setShowAudioPrompt(false);
+    setIsPlaying(true);
     globalPlay();
   }, [globalPlay]);
 
-  const handleMusicVol = useCallback((v: number) => {
-    const next = Math.min(1, Math.max(0, v));
-    setMusicVol(next);
-    if (isMuted) return;
-    const voiceMixFactor = voiceSyncLock ? 0.46 : 1;
-    setPrimaryAudioVolume(next * voiceMixFactor);
-  }, [isMuted, setPrimaryAudioVolume, voiceSyncLock]);
+  // 4-Channel Volume Handlers
+  const handleBgVol = useCallback((v: number) => {
+    setBgVol(Math.min(1, Math.max(0, v)));
+    if (baseTrackRef.current && !isMuted) {
+      baseTrackRef.current.volume = v;
+    }
+  }, [isMuted]);
+
+  const handleSceneVol = useCallback((v: number) => {
+    setSceneVol(Math.min(1, Math.max(0, v)));
+    if (sceneTrackRef.current && !isMuted) {
+      sceneTrackRef.current.volume = v;
+    }
+  }, [isMuted]);
+
+  const handleVoiceVol = useCallback((v: number) => {
+    setVoiceVol(Math.min(1, Math.max(0, v)));
+    if (voiceRef.current && !isMuted) {
+      voiceRef.current.volume = v;
+    }
+  }, [isMuted]);
 
   const handleSfxVol = useCallback((v: number) => {
-    const next = Math.min(1, Math.max(0, v));
-    setSfxVol(next);
+    setSfxVol(Math.min(1, Math.max(0, v)));
     if (ambientRef.current && !isMuted) {
-      ambientRef.current.volume = next * (voiceSyncLock ? 0.55 : 1);
+      ambientRef.current.volume = v;
     }
-  }, [isMuted, voiceSyncLock]);
+  }, [isMuted]);
+
+  // Solid Play/Pause Control - affects all audio without interrupting
+  const handlePlayPause = useCallback(() => {
+    const newPlaying = !isPlaying;
+    setIsPlaying(newPlaying);
+
+    // Control base track
+    if (baseTrackRef.current) {
+      if (newPlaying) {
+        baseTrackRef.current.play().catch(() => {});
+      } else {
+        baseTrackRef.current.pause();
+      }
+    }
+
+    // Control scene track
+    if (sceneTrackRef.current) {
+      if (newPlaying) {
+        sceneTrackRef.current.play().catch(() => {});
+      } else {
+        sceneTrackRef.current.pause();
+      }
+    }
+
+    // Control ambient
+    if (ambientRef.current) {
+      if (newPlaying) {
+        ambientRef.current.play().catch(() => {});
+      } else {
+        ambientRef.current.pause();
+      }
+    }
+
+    // Note: Voice is intentionally NOT controlled here - voice cues play independently
+    // and should not be affected by the play/pause button
+
+    // Sync with global media controller
+    if (newPlaying) {
+      globalPlay();
+    } else {
+      // Note: we don't call globalPause here to avoid affecting video state
+    }
+  }, [isPlaying, globalPlay]);
 
   const handleToggleMute = useCallback(() => {
     const newMuted = !isMuted;
     setIsMuted(newMuted);
-    const voiceMixFactor = voiceSyncLock ? 0.46 : 1;
-    setPrimaryAudioMuted(newMuted);
-    if (!newMuted) setPrimaryAudioVolume(musicVol * voiceMixFactor);
-    if (ambientRef.current) ambientRef.current.volume = newMuted ? 0 : sfxVol * (voiceSyncLock ? 0.55 : 1);
-  }, [isMuted, musicVol, sfxVol, setPrimaryAudioMuted, setPrimaryAudioVolume, voiceSyncLock]);
+
+    // Apply to all audio elements
+    if (baseTrackRef.current) baseTrackRef.current.volume = newMuted ? 0 : bgVol;
+    if (sceneTrackRef.current) sceneTrackRef.current.volume = newMuted ? 0 : sceneVol;
+    if (voiceRef.current) voiceRef.current.volume = newMuted ? 0 : voiceVol;
+    if (ambientRef.current) ambientRef.current.volume = newMuted ? 0 : sfxVol;
+  }, [isMuted, bgVol, sceneVol, voiceVol, sfxVol]);
 
   const toggleFullscreen = useCallback(() => {
     if (!document.fullscreenElement) {
@@ -1290,10 +1405,15 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
     if (autoMode === 'off' || sceneTransitioning || voiceSyncLock) return;
 
+    // Use refs to avoid stale closures
+    const currentSceneRef = currentScene;
+    const currentDialogueIndexRef = dialogueIndex;
+    const currentDialogueLinesRef = dialogueLines;
+
     let action: (() => void) | null = null;
 
     if (showChoices) {
-      const firstChoice = currentScene?.choices?.[0];
+      const firstChoice = currentSceneRef?.choices?.[0];
       if (firstChoice) {
         action = () => handleChoice(firstChoice);
       } else {
@@ -1302,7 +1422,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
     } else if (isDialogueComplete && !isTyping) {
       action = () => {
-        if (dialogueIndex < (dialogueLines.length || 1) - 1) {
+        if (currentDialogueIndexRef < (currentDialogueLinesRef.length || 1) - 1) {
           advanceDialogue();
         } else {
           setShowChoices(true);
@@ -1431,7 +1551,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     };
 
     setPrimaryAudioMuted(isMuted);
-    setPrimaryAudioSources(normalizedSceneCandidates, true);
+    setPrimaryAudioSources(normalizedSceneCandidates || [], true);
 
     if (desiredAmbientUrl) {
       if (!ambientRef.current) {
@@ -1457,30 +1577,14 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       ambientRef.current = null;
     }
 
-    const baseMusic = isMuted ? 0 : musicVol;
+    const baseMusic = isMuted ? 0 : bgVol;
     const voiceMixFactor = voiceSyncLock ? 0.46 : 1;
     setPrimaryAudioVolume(baseMusic * voiceMixFactor);
-    if (ambientRef.current) fade(ambientRef.current, (isMuted ? 0 : sfxVol) * (voiceSyncLock ? 0.55 : 1), ambientFadeRef);
 
     return () => {
       if (ambientFadeRef.current) cancelAnimationFrame(ambientFadeRef.current);
     };
-  }, [audioEnabled, globalMediaState.isPlaying, currentSceneId, currentScene?.musicKey, currentScene?.ambientKeys, isMuted, musicVol, sfxVol, resolveAsset, sceneTrackKey, voiceSyncLock, registerMedia, setPrimaryAudioMuted, setPrimaryAudioSources, setPrimaryAudioVolume, normalizedSceneCandidates]);
-
-  useEffect(() => {
-    if (!audioEnabled || !globalMediaState.isPlaying) return;
-    const keys = currentScene?.enterSfxKeys ?? [];
-    if (!keys.length) return;
-    for (const key of keys) {
-      const url = resolveAsset(key);
-      if (!url) continue;
-      const a = new Audio(url);
-      a.preload = 'metadata';
-      a.loop = false;
-      a.volume = isMuted ? 0 : Math.min(1, Math.max(0, sfxVol));
-      a.play().catch(() => {});
-    }
-  }, [audioEnabled, globalMediaState.isPlaying, currentSceneId, currentScene?.enterSfxKeys, isMuted, sfxVol, resolveAsset]);
+  }, [audioEnabled, globalMediaState.isPlaying, currentSceneId, currentScene?.musicKey, currentScene?.ambientKeys, isMuted, bgVol, resolveAsset, sceneTrackKey, voiceSyncLock, registerMedia, setPrimaryAudioMuted, setPrimaryAudioSources, setPrimaryAudioVolume, normalizedSceneCandidates]);
 
   useEffect(() => {
     if (!audioEnabled || !globalMediaState.isPlaying || showChoices || !currentDialogue || !currentVoiceCue) {
@@ -1507,7 +1611,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     }
 
     const voice = voiceRef.current;
-    voice.volume = isMuted ? 0 : Math.min(1, Math.max(0.12, sfxVol * 1.1));
+    voice.volume = isMuted ? 0 : voiceVol;
     const fullText = currentDialogue.text || '';
     const fullArabic = currentDialogue.arabicText || '';
 
@@ -1517,8 +1621,14 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     let lastRendered = 0;
     let lastUpdateMs = 0;
 
-    const syncDisplayedTextToVoice = () => {
-      if (cancelled) return;
+  const syncDisplayedTextToVoice = () => {
+      if (cancelled || voice.ended || voice.paused) {
+        if (voiceSyncRafRef.current) {
+          cancelAnimationFrame(voiceSyncRafRef.current);
+          voiceSyncRafRef.current = null;
+        }
+        return;
+      }
       const activeText = lang === 'ar' ? fullArabic : fullText;
       const len = activeText.length;
       if (len === 0) {
@@ -1589,6 +1699,30 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         disabledVoiceTokensRef.current.add(token);
         setVoiceSyncLock(false);
         setActiveVoiceNumber(null);
+        // FALLBACK: Start typewriter when voice fails
+        if (typewriterRef.current) clearTimeout(typewriterRef.current);
+        setIsTyping(true);
+        setIsDialogueComplete(false);
+        const activeText = lang === 'ar' ? fullArabic : fullText;
+        const len = activeText.length;
+        if (len > 0) {
+          let i = 0;
+          const tick = () => {
+            i++;
+            if (lang === 'ar') setDisplayedArabic(fullArabic.slice(0, i));
+            else setDisplayedText(fullText.slice(0, i));
+            if (i < len) {
+              typewriterRef.current = setTimeout(tick, 50);
+            } else {
+              setIsTyping(false);
+              setIsDialogueComplete(true);
+            }
+          };
+          typewriterRef.current = setTimeout(tick, 50);
+        } else {
+          setIsTyping(false);
+          setIsDialogueComplete(true);
+        }
         return;
       }
       voice.onerror = () => tryCandidate(index + 1);
@@ -1633,7 +1767,118 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       voice.pause();
     };
 
-  }, [audioEnabled, globalMediaState.isPlaying, showChoices, currentSceneId, dialogueIndex, currentDialogue, currentVoiceCue, isMuted, sfxVol, lang, registerMedia]);
+  }, [audioEnabled, globalMediaState.isPlaying, showChoices, currentSceneId, dialogueIndex, currentDialogue, currentVoiceCue, isMuted, voiceVol, lang, registerMedia]);
+
+  // ── Multi-Track Audio System: Base (main theme) + Scene Overlay ─────────────────
+  useEffect(() => {
+    if (!audioEnabled) return;
+    const shouldPlay = isPlaying;
+
+    // Base track - always track01 (main theme)
+    const baseCandidates = TRACK_URL_CANDIDATES.track01;
+    if (!baseTrackRef.current) {
+      baseTrackRef.current = new Audio(baseCandidates[0]);
+      baseTrackRef.current.preload = 'metadata';
+      baseTrackRef.current.loop = true;
+      baseTrackRef.current.volume = isMuted ? 0 : bgVol * 0.6; // Base at 60% of BG volume
+      if (shouldPlay) baseTrackRef.current.play().catch(() => {});
+      registerMedia(baseTrackRef.current);
+    } else {
+      // Update volume if changed
+      baseTrackRef.current.volume = isMuted ? 0 : bgVol * 0.6;
+    }
+
+    // Scene overlay track - changes per scene
+    const sceneCandidates = TRACK_URL_CANDIDATES[sceneTrackKey] ?? TRACK_URL_CANDIDATES.track01;
+    const sceneUrl = sceneCandidates[0];
+
+    if (!sceneTrackRef.current) {
+      // First time - create and play
+      if (sceneTrackKey !== 'track01') { // Only if different from base
+        sceneTrackRef.current = new Audio(sceneUrl);
+        sceneTrackRef.current.preload = 'metadata';
+        sceneTrackRef.current.loop = true;
+        sceneTrackRef.current.volume = isMuted ? 0 : sceneVol;
+        if (shouldPlay) sceneTrackRef.current.play().catch(() => {});
+        registerMedia(sceneTrackRef.current);
+      }
+    } else {
+      // Check if scene changed
+      const currentSceneSrc = sceneTrackRef.current.src;
+      const normalizedCurrent = currentSceneSrc ? new URL(currentSceneSrc).pathname : '';
+      const normalizedNew = new URL(sceneUrl, window.location.href).pathname;
+
+      if (normalizedCurrent !== normalizedNew && sceneTrackKey !== 'track01') {
+        // Scene changed - crossfade
+        const oldTrack = sceneTrackRef.current;
+        const fadeOut = () => {
+          let vol = oldTrack.volume;
+          const fade = setInterval(() => {
+            vol -= 0.05;
+            if (vol <= 0) {
+              clearInterval(fade);
+              oldTrack.pause();
+              oldTrack.src = '';
+            } else {
+              oldTrack.volume = Math.max(0, vol);
+            }
+          }, 50);
+        };
+        fadeOut();
+
+        // Create new track
+        sceneTrackRef.current = new Audio(sceneUrl);
+        sceneTrackRef.current.preload = 'metadata';
+        sceneTrackRef.current.loop = true;
+        sceneTrackRef.current.volume = 0;
+        if (shouldPlay) sceneTrackRef.current.play().catch(() => {});
+        registerMedia(sceneTrackRef.current);
+
+        // Fade in
+        let newVol = 0;
+        const fadeIn = setInterval(() => {
+          newVol += 0.05;
+          if (newVol >= (isMuted ? 0 : sceneVol)) {
+            clearInterval(fadeIn);
+            sceneTrackRef.current!.volume = isMuted ? 0 : sceneVol;
+          } else {
+            sceneTrackRef.current!.volume = newVol;
+          }
+        }, 50);
+      } else {
+        // Just update volume
+        sceneTrackRef.current.volume = isMuted ? 0 : sceneVol;
+      }
+    }
+
+    // Handle ambient/SFX
+    const desiredAmbientUrl = (currentScene?.ambientKeys ?? [])
+      .map(k => resolveAsset(k))
+      .find((u): u is string => typeof u === "string" && u.length > 0);
+
+    if (desiredAmbientUrl) {
+      if (!ambientRef.current) {
+        ambientRef.current = new Audio(desiredAmbientUrl);
+        ambientRef.current.preload = 'metadata';
+        ambientRef.current.loop = true;
+        ambientRef.current.volume = isMuted ? 0 : sfxVol;
+        if (shouldPlay) ambientRef.current.play().catch(() => {});
+        registerMedia(ambientRef.current);
+      } else if (ambientRef.current.src !== desiredAmbientUrl) {
+        ambientRef.current.src = desiredAmbientUrl;
+        ambientRef.current.volume = isMuted ? 0 : sfxVol;
+        if (shouldPlay) ambientRef.current.play().catch(() => {});
+      } else {
+        ambientRef.current.volume = isMuted ? 0 : sfxVol;
+      }
+    } else if (ambientRef.current) {
+      ambientRef.current.pause();
+    }
+
+    return () => {
+      // Cleanup handled in main cleanup effect
+    };
+  }, [audioEnabled, isPlaying, currentSceneId, sceneTrackKey, isMuted, bgVol, sceneVol, sfxVol, resolveAsset, registerMedia]);
 
   // ── Background video ─────────────────────────────────────────────────────────
   useEffect(() => {
@@ -1647,7 +1892,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       return;
     }
     if (bgVideoRef.current && bgVideoSrc) {
-      bgVideoRef.current.load();
+      // Only reload if source changed - prevents jump on resume
+      const currentSrc = bgVideoRef.current.currentSrc || bgVideoRef.current.src;
+      if (currentSrc !== bgVideoSrc) {
+        bgVideoRef.current.src = bgVideoSrc;
+        bgVideoRef.current.load();
+      }
       bgVideoRef.current.play().catch(() => {});
     }
   }, [allowVideo, globalMediaState.isPlaying, currentSceneId, currentScene?.backgroundVideo, resolveAsset]);
@@ -1663,6 +1913,9 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     return () => {
       if (voiceSyncRafRef.current) cancelAnimationFrame(voiceSyncRafRef.current);
       if (ambientFadeRef.current) cancelAnimationFrame(ambientFadeRef.current);
+      // Cleanup all audio elements
+      if (baseTrackRef.current) { baseTrackRef.current.pause(); baseTrackRef.current.src = ''; }
+      if (sceneTrackRef.current) { sceneTrackRef.current.pause(); sceneTrackRef.current.src = ''; }
       if (ambientRef.current) { ambientRef.current.pause(); ambientRef.current.src = ''; }
       if (voiceRef.current) { voiceRef.current.pause(); voiceRef.current.src = ''; }
       if (typewriterRef.current) clearTimeout(typewriterRef.current);
@@ -1792,7 +2045,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
             animate={{ opacity: activeImageCue.opacity, scale: [1.03, 1.06, 1.03], x: ['0%', '0.8%', '0%'], y: ['0%', '-0.4%', '0%'] }}
             exit={{ opacity: 0 }}
             transition={{ opacity: { duration: 0.65 }, scale: { duration: 16, repeat: Infinity, ease: 'easeInOut' }, x: { duration: 13, repeat: Infinity, ease: 'easeInOut' }, y: { duration: 15, repeat: Infinity, ease: 'easeInOut' } }}
-            style={{ '--blend-mode': activeImageCue.blend, '--z-index': 7, '--filter': 'saturate(1.1) contrast(1.05)' } as React.CSSProperties}
+            style={{
+              mixBlendMode: activeImageCue.blend || 'screen',
+              zIndex: 7,
+              filter: 'saturate(1.1) contrast(1.05)'
+            }}
             onError={() => setActiveImageCue(null)}
           />
         </AnimatePresence>
@@ -2161,47 +2418,53 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     />
                   </>
                 )}
-                {/* Active Language Text Only */}
+                {/* Single Language Text Display - Only show selected language */}
                 {lang === 'en' ? (
-                  <p
-                    data-testid="dialogue-text"
-                    className={`text-white/93 text-[20px] md:text-[26px] font-light ${styles.dynamicDialogueText}`}
-                    style={{
-                      '--text-shadow': '0 1px 8px rgba(0,0,0,0.98)',
-                      '--letter-spacing': '0.012em',
-                      '--line-height': '1.75'
-                    } as React.CSSProperties}
-                  >
-                    {displayedText}
-                    {isTyping && (
-                      <motion.span
-                        className={`inline-block w-0.5 h-6 ml-1 align-middle ${styles.dynamicAutoLine}`}
-                        style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ duration: 0.55, repeat: Infinity }}
-                      />
-                    )}
-                  </p>
+                  <div>
+                    {/* English Text Only */}
+                    <p
+                      data-testid="dialogue-text"
+                      className={`text-white/93 text-[20px] md:text-[26px] font-light ${styles.dynamicDialogueText}`}
+                      style={{
+                        '--text-shadow': '0 1px 8px rgba(0,0,0,0.98)',
+                        '--letter-spacing': '0.012em',
+                        '--line-height': '1.75'
+                      } as React.CSSProperties}
+                    >
+                      {displayedText}
+                      {isTyping && (
+                        <motion.span
+                          className={`inline-block w-0.5 h-6 ml-1 align-middle ${styles.dynamicAutoLine}`}
+                          style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
+                          animate={{ opacity: [1, 0] }}
+                          transition={{ duration: 0.55, repeat: Infinity }}
+                        />
+                      )}
+                    </p>
+                  </div>
                 ) : (
-                  <p
-                    data-testid="dialogue-text"
-                    className={`text-white/93 text-[22px] md:text-[30px] text-right font-arabic ${styles.dynamicArabicText}`}
-                    dir="rtl"
-                    style={{
-                      '--text-shadow': '0 1px 8px rgba(0,0,0,0.98)',
-                      '--line-height': '2.1'
-                    } as React.CSSProperties}
-                  >
-                    {displayedArabic}
-                    {isTyping && (
-                      <motion.span
-                        className={`inline-block w-0.5 h-6 mr-1 align-middle ${styles.dynamicAutoLine}`}
-                        style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ duration: 0.55, repeat: Infinity }}
-                      />
-                    )}
-                  </p>
+                  <div>
+                    {/* Arabic Text Only */}
+                    <p
+                      data-testid="dialogue-text"
+                      className={`text-white/93 text-[22px] md:text-[30px] text-right font-arabic ${styles.dynamicArabicText}`}
+                      dir="rtl"
+                      style={{
+                        '--text-shadow': '0 1px 8px rgba(0,0,0,0.98)',
+                        '--line-height': '2.1'
+                      } as React.CSSProperties}
+                    >
+                      {displayedArabic}
+                      {isTyping && (
+                        <motion.span
+                          className={`inline-block w-0.5 h-6 mr-1 align-middle ${styles.dynamicAutoLine}`}
+                          style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
+                          animate={{ opacity: [1, 0] }}
+                          transition={{ duration: 0.55, repeat: Infinity }}
+                        />
+                      )}
+                    </p>
+                  </div>
                 )}
 
                 {/* Dialogue Progress Dots */}
@@ -2306,13 +2569,19 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                           } as React.CSSProperties}
                         >{isArabic ? 'عادي' : 'NORMAL'}</button>
                       </div>
-                      <VolumeControl
-                        musicVol={musicVol}
+                      <AudioControl
+                        bgVol={bgVol}
+                        sceneVol={sceneVol}
+                        voiceVol={voiceVol}
                         sfxVol={sfxVol}
-                        onMusicChange={handleMusicVol}
-                        onSfxChange={handleSfxVol}
                         isMuted={isMuted}
+                        onBgChange={handleBgVol}
+                        onSceneChange={handleSceneVol}
+                        onVoiceChange={handleVoiceVol}
+                        onSfxChange={handleSfxVol}
                         onToggleMute={handleToggleMute}
+                        onPlayPause={handlePlayPause}
+                        isPlaying={isPlaying}
                       />
                     </div>
                   </div>

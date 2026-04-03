@@ -4,6 +4,7 @@ import { useLocation } from "wouter";
 import { ASSET_URLS } from "@/lib/assetUrls";
 import { AudioConsentModal } from "@/components/AudioConsentModal";
 import { ChapterLaunchModal, type ChapterMeta } from "@/components/ChapterLaunchModal";
+import ExpandableChapters from "@/components/ExpandableChapters";
 import { useMediaController } from "@/contexts/MediaControllerContext";
 import { OSIRIS_EFFECTS, getOsirisMediaUrl } from "@/lib/osirisEffects";
 import { useBandwidthStrategy } from "@/lib/mediaStrategy";
@@ -14,6 +15,15 @@ import styles from "./EnhancedHome.module.css";
 
 type ChapterDef = ChapterMeta & {
   number: string;
+  icon: string;
+  title: string;
+  arabicTitle: string;
+  subtitle: string;
+  arabicSubtitle: string;
+  estMinutes: number;
+  imageSrc: string;
+  accentColor: string;
+  sceneId: string;
 };
 
 const TRAILER_LINES = [
@@ -384,153 +394,14 @@ type TrailerLine = {
             </div>
           </div>
 
-          <div className="lg:col-span-8 min-h-0">
-            <div className="hidden md:grid min-h-0 grid-cols-2 xl:grid-cols-3 gap-4 h-full">
-              {chapters.map((c) => (
-                <motion.div
-                  key={c.id}
-                  onClick={() => openLaunch(c)}
-                  className="relative rounded-2xl border overflow-hidden cursor-pointer select-none min-h-[280px]"
-                  style={{
-                    borderColor: `${c.accentColor}22`,
-                    background: "rgba(0,0,0,0.35)",
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="absolute inset-0">
-                    <img
-                      src={c.imageSrc}
-                      alt={isArabic ? c.arabicTitle : c.title}
-                      className="absolute inset-0 h-full w-full object-cover"
-                      style={{
-                        filter:
-                          "brightness(0.75) contrast(1.15) saturate(1.05)",
-                      }}
-                    />
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background: `linear-gradient(180deg, ${c.accentColor}10 0%, rgba(0,0,0,0.82) 70%, rgba(0,0,0,0.96) 100%)`,
-                      }}
-                    />
-                  </div>
-
-                  <div className="relative h-full p-4 flex flex-col justify-between">
-                    <div className="flex items-center justify-between">
-                      <div className="text-[11px] font-mono tracking-[0.22em] text-white/85">
-                        {c.number}
-                      </div>
-                      <div
-                        className="text-xl"
-                        style={{
-                          filter: `drop-shadow(0 0 16px ${c.accentColor}35)`,
-                        }}
-                      >
-                        {c.icon}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-lg font-semibold text-white">
-                        {isArabic ? c.arabicTitle : c.title}
-                      </div>
-                      <div className="mt-1 text-[12px] text-white/70 leading-relaxed">
-                        {isArabic ? c.arabicSubtitle : c.subtitle}
-                      </div>
-                      <div className="mt-3 flex items-center justify-between">
-                        <div className="text-[11px] font-mono text-white/55">
-                          {isArabic
-                            ? `${c.estMinutes} دقيقة`
-                            : `${c.estMinutes} min`}
-                        </div>
-                        <div
-                          className="h-9 w-9 rounded-xl border flex items-center justify-center"
-                          style={{
-                            borderColor: `${c.accentColor}22`,
-                            background: `${c.accentColor}10`,
-                            color: c.accentColor,
-                          }}
-                        >
-                          <svg
-                            className="h-4 w-4"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="md:hidden h-full">
-              <div className="h-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory flex gap-4 px-4">
-                {chapters.map((c) => (
-                  <button
-                    key={c.id}
-                    onClick={() => openLaunch(c)}
-                    className="snap-start shrink-0 w-[78vw] h-full rounded-2xl border overflow-hidden text-left min-h-[280px]"
-                    style={{
-                      borderColor: `${c.accentColor}22`,
-                      background: "rgba(0,0,0,0.35)",
-                    }}
-                  >
-                    <div className="relative h-full">
-                      <img
-                        src={c.imageSrc}
-                        alt={isArabic ? c.arabicTitle : c.title}
-                        className="absolute inset-0 h-full w-full object-cover"
-                        style={{
-                          filter:
-                            "brightness(0.72) contrast(1.15) saturate(1.05)",
-                        }}
-                      />
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          background: `linear-gradient(180deg, ${c.accentColor}10 0%, rgba(0,0,0,0.84) 70%, rgba(0,0,0,0.98) 100%)`,
-                        }}
-                      />
-                      <div className="relative h-full p-5 flex flex-col justify-end">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="text-[12px] font-mono tracking-[0.22em] text-white/70">
-                            {c.number}
-                          </div>
-                          <div className="text-2xl">{c.icon}</div>
-                        </div>
-                        <div className="text-xl font-semibold text-white">
-                          {isArabic ? c.arabicTitle : c.title}
-                        </div>
-                        <div className="mt-2 text-sm text-white/85 leading-relaxed">
-                          {isArabic ? c.arabicSubtitle : c.subtitle}
-                        </div>
-                        <div className="mt-3 text-[12px] font-mono text-white/75">
-                          {isArabic
-                            ? `${c.estMinutes} دقيقة`
-                            : `${c.estMinutes} min`}
-                        </div>
-                        <div
-                          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold"
-                          style={{ color: c.accentColor }}
-                        >
-                          <span>{isArabic ? "فتح" : "Open"}</span>
-                          <svg
-                            className="h-4 w-4"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
+          <div className="lg:col-span-8 min-h-0 flex flex-col">
+            <ExpandableChapters
+              chapters={chapters}
+              isArabic={isArabic}
+              onSelect={openLaunch}
+              autoPlay={true}
+              className="flex-1"
+            />
           </div>
         </div>
       </div>
