@@ -6,20 +6,19 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import EnhancedHome from "./pages/EnhancedHome";
-import Intro from "./pages/Intro";
 import { initAssetOverrides } from "@/lib/assetOverrides";
 import { MediaControllerProvider, useMediaController } from "./contexts/MediaControllerContext";
 import { GlobalMediaLayer } from "@/components/GlobalMediaLayer";
-import { MediaTransportBar } from "@/components/MediaTransportBar";
+import { PlayerSkeleton, ModelSkeleton } from "@/components/LoadingSkeletons";
 
-const MainPlayer = lazy(() => import("@/components/MainPlayer").then((m) => ({ default: m.MainPlayer })));
+const MainPlayer = lazy(() => import("@/components/MainPlayer"));
 const OsirisAIModel = lazy(() => import("./pages/OsirisAIModel"));
 
 function PlayRoute() {
   const params = new URLSearchParams(window.location.search);
   const sceneId = params.get('scene') || 'zero-1-1-summons';
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<PlayerSkeleton />}>
       <MainPlayer initialSceneId={sceneId} />
     </Suspense>
   );
@@ -29,9 +28,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={EnhancedHome} />
-      <Route path="/intro" component={Intro} />
       <Route path="/model">
-        <Suspense fallback={null}>
+        <Suspense fallback={<ModelSkeleton />}>
           <OsirisAIModel />
         </Suspense>
       </Route>
@@ -55,10 +53,9 @@ function AppContent() {
         <ThemeProvider defaultTheme="dark" switchable={false}>
           <TooltipProvider>
             <Toaster />
-            <GlobalMediaLayer />
+            <GlobalMediaLayer primaryAudioSources={[]} />
             <main id="main-content" tabIndex={-1} className="focus:outline-none">
               <Router />
-              <MediaTransportBar />
             </main>
           </TooltipProvider>
         </ThemeProvider>

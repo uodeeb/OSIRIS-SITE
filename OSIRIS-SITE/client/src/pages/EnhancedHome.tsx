@@ -10,6 +10,7 @@ import { OSIRIS_EFFECTS, getOsirisMediaUrl } from "@/lib/osirisEffects";
 import { useBandwidthStrategy } from "@/lib/mediaStrategy";
 import osirisFavicon from "@/LOGO/new-logo/favicon-black-0.25.png";
 import osirisFalcon from "@/LOGO/new-logo/logo-falcon.png";
+import { BookOpen, Clock, Music, Volume2, Sparkles, Scroll, ChevronRight } from "lucide-react";
 
 import styles from "./EnhancedHome.module.css";
 
@@ -25,14 +26,6 @@ type ChapterDef = ChapterMeta & {
   accentColor: string;
   sceneId: string;
 };
-
-const TRAILER_LINES = [
-  { color: "#c9a96e", text: { en: "6000 years of injustice", ar: "6000 سنة من الظلم" } },
-  { color: "#dc2626", text: { en: "One man's quest for truth", ar: "بحث رجل واحد عن الحقيقة" } },
-  { color: "#9333ea", text: { en: "From cosmic courtrooms to digital battlegrounds", ar: "من غرف المحاكمة الكونية إلى ساحات المعارك الرقمية" } },
-  { color: "#22c55e", text: { en: "The weight of evidence", ar: "ثقل الأدلة" } },
-  { color: "#e74c3c", text: { en: "When history becomes personal", ar: "عندما يصبح التاريخ شخصياً" } },
-];
 
 const formatTime = (ms: number) => {
   const seconds = Math.floor(ms / 1000);
@@ -52,6 +45,15 @@ type TrailerLine = {
   audioDescSrcEn?: string;
   audioDescSrcAr?: string;
 };
+
+// Novel features data
+const NOVEL_FEATURES = [
+  { icon: Volume2, en: "Voice-Synced Narration", ar: "سرد متزامن مع الصوت" },
+  { icon: Music, en: "Cinematic Soundtrack", ar: "موسيقى تصويرية سينمائية" },
+  { icon: Scroll, en: "7 Historical Chapters", ar: "7 فصول تاريخية" },
+  { icon: Clock, en: "108 Minutes Experience", ar: "تجربة 108 دقيقة" },
+  { icon: Sparkles, en: "AI-Powered Visuals", ar: "صور مدعومة بالذكاء الاصطناعي" },
+];
 
 export default function EnhancedHome() {
   const [, setLocation] = useLocation();
@@ -251,8 +253,6 @@ export default function EnhancedHome() {
 
   const allowVideo = useBandwidthStrategy();
 
-  const activeTrailer = TRAILER_LINES[trailerIdx % TRAILER_LINES.length];
-
   const handleStart = (c: ChapterMeta) => {
     setDurationMs(Math.max(10_000, c.estMinutes * 60 * 1000));
     setLaunchOpen(false);
@@ -271,136 +271,211 @@ export default function EnhancedHome() {
     [play, pause]
   );
 
+  // Start from first chapter
+  const handleStartExperience = () => {
+    const firstChapter = chapters[0];
+    if (firstChapter) {
+      handleStart(firstChapter);
+    }
+  };
+
   return (
     <div
       className="relative z-10 h-[100dvh] w-screen overflow-hidden text-white"
       dir={isArabic ? "rtl" : "ltr"}
     >
-      <div className="h-full w-full px-4 sm:px-6 pt-5 pb-[calc(env(safe-area-inset-bottom)+76px)] flex flex-col min-h-0 relative">
-        <div
-          className="absolute inset-0 z-0 opacity-[0.03]"
+      {/* Animated background gradient */}
+      <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage: "url(/patterns/geometric-pattern.svg)",
-            backgroundSize: "20px 20px",
+            background: `radial-gradient(ellipse at 30% 20%, ${currentAccentColor}15 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, #1a1a2e 0%, #0a0a0f 100%)`,
           }}
         />
-        <div
+        {/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: '50px 50px',
+          }}
+        />
+      </div>
+
+      <div className="h-full w-full px-4 sm:px-6 pt-4 pb-[calc(env(safe-area-inset-bottom)+76px)] flex flex-col min-h-0 relative">
+        {/* Header - Minimal & Elegant */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
           className="relative z-10 flex items-center justify-between pb-3 border-b"
-          style={{ borderColor: "rgba(255,255,255,0.10)" }}
+          style={{ borderColor: "rgba(255,255,255,0.08)" }}
         >
-          <div
-            className={`flex items-center gap-3 ${
-              isArabic ? "flex-row-reverse" : ""
-            }`}
-          >
-            <img
-              src={osirisFavicon}
-              alt="OSIRIS"
-              className="h-8 w-8 opacity-95"
-            />
+          <div className={`flex items-center gap-3 ${isArabic ? "flex-row-reverse" : ""}`}>
+            <motion.div 
+              className="relative"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="absolute inset-0 bg-amber-500/20 blur-xl rounded-full" />
+              <img
+                src={osirisFavicon}
+                alt="OSIRIS"
+                className="relative h-9 w-9 opacity-95"
+              />
+            </motion.div>
             <div>
-              <div className="text-[12px] font-mono tracking-[0.26em] text-white/70">
-                OSIRIS ARCHIVE
+              <div className="text-[11px] font-mono tracking-[0.3em] text-amber-200/70 uppercase">
+                OSIRIS
               </div>
-              <div className="text-sm text-white/90">
-                {isArabic
-                  ? "رواية تفاعلية متعددة الوسائط"
-                  : "Multimedia Interactive Novel"}
+              <div className="text-[10px] text-white/50 tracking-wider">
+                {isArabic ? "المفسدون في الأرض" : "The Corruptors on Earth"}
               </div>
             </div>
           </div>
 
-          <div
-            className={`flex items-center gap-2 ${
-              isArabic ? "flex-row-reverse" : ""
-            }`}
-          >
-            <button
-              onClick={() => setUiLang(isArabic ? "en" : "ar")}
-              className="px-3 py-1.5 rounded-lg text-xs border"
-              style={{
-                borderColor: "rgba(255,255,255,0.16)",
-                color: "rgba(255,255,255,0.85)",
-              }}
-            >
-              {isArabic ? "English" : "العربية"}
-            </button>
-            <button
-              onClick={() => (mediaState.isPlaying ? pause() : play())}
-              className="px-3 py-1.5 rounded-lg text-xs border"
-              style={{
-                borderColor: "rgba(201,169,110,0.4)",
-                color: "rgba(201,169,110,0.95)",
-              }}
-            >
-              {mediaState.isPlaying
-                ? isArabic
-                  ? "إيقاف"
-                  : "Pause"
-                : isArabic
-                ? "تشغيل"
-                : "Play"}
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-5 grid flex-1 min-h-0 grid-cols-1 lg:grid-cols-12 gap-4">
-          <div
-            className="lg:col-span-4 flex flex-col justify-between rounded-2xl border p-4 sm:p-5"
+          {/* Language Toggle Only - No Play Button */}
+          <motion.button
+            onClick={() => setUiLang(isArabic ? "en" : "ar")}
+            className="px-4 py-2 rounded-lg text-xs border backdrop-blur-sm transition-all duration-300 hover:bg-white/5"
             style={{
-              borderColor: "rgba(201,169,110,0.22)",
-              background: "rgba(0,0,0,0.38)",
+              borderColor: "rgba(201,169,110,0.3)",
+              color: "rgba(201,169,110,0.9)",
             }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <div>
-              <div className="text-[11px] font-mono tracking-[0.22em] text-white/55">
-                {isArabic ? "المفسدون في الأرض" : "THE CORRUPTORS ON EARTH"}
+            {isArabic ? "English" : "العربية"}
+          </motion.button>
+        </motion.div>
+
+        {/* Main Content Grid */}
+        <div className="mt-4 grid flex-1 min-h-0 grid-cols-1 lg:grid-cols-12 gap-4">
+          {/* Left Panel - Novel Info Card */}
+          <motion.div
+            initial={{ opacity: 0, x: isArabic ? 20 : -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:col-span-3 flex flex-col gap-4"
+          >
+            {/* Main Info Card */}
+            <div
+              className="flex-1 flex flex-col rounded-2xl border p-5 overflow-hidden relative"
+              style={{
+                borderColor: "rgba(201,169,110,0.15)",
+                background: "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(10,10,15,0.8) 100%)",
+                boxShadow: "0 0 60px rgba(201,169,110,0.05), inset 0 1px 0 rgba(255,255,255,0.05)",
+              }}
+            >
+              {/* Decorative top line */}
+              <div 
+                className="absolute top-0 left-0 right-0 h-px"
+                style={{ 
+                  background: "linear-gradient(90deg, transparent 0%, rgba(201,169,110,0.5) 50%, transparent 100%)" 
+                }}
+              />
+
+              {/* Novel Title */}
+              <div className="relative z-10">
+                <motion.div 
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-mono tracking-[0.2em] text-amber-200/60 border"
+                  style={{ borderColor: "rgba(201,169,110,0.2)", background: "rgba(201,169,110,0.05)" }}
+                >
+                  <BookOpen className="w-3 h-3" />
+                  {isArabic ? "رواية تفاعلية" : "INTERACTIVE NOVEL"}
+                </motion.div>
+
+                <h1 className="mt-4 text-2xl font-light tracking-[0.15em] text-white">
+                  OSIRIS
+                </h1>
+                <p className="mt-1 text-lg text-amber-200/70 font-arabic-title" dir="rtl">
+                  المفسدون في الأرض
+                </p>
               </div>
-              <div className="mt-3 text-3xl sm:text-4xl font-semibold leading-tight">
-                {isArabic
-                  ? "محاكمة تمتد عبر ستة آلاف سنة"
-                  : "A trial across six thousand years"}
+
+              {/* Description */}
+              <p className="mt-4 text-sm text-white/70 leading-relaxed flex-1">
+                {isArabic 
+                  ? "محاكمة سينمائية تمتد عبر ستة آلاف سنة، تقودك فيها الأصوات والموسيقى والشهادات التاريخية ضمن سرد تفاعلي حي يتحدث عن الشرِّ ككودٍ برمجيٍّ يتكرر عبر التاريخ."
+                  : "A cinematic courtroom spanning six thousand years. Voices, music, and historical witnesses guide you through an interactive narrative exploring evil as a recurring code throughout history."
+                }
+              </p>
+
+              {/* Features Grid */}
+              <div className="mt-4 grid grid-cols-1 gap-2">
+                {NOVEL_FEATURES.map((feature, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 + idx * 0.1 }}
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg"
+                    style={{ background: "rgba(255,255,255,0.03)" }}
+                  >
+                    <feature.icon className="w-4 h-4 text-amber-400/60" />
+                    <span className="text-[11px] text-white/60">
+                      {isArabic ? feature.ar : feature.en}
+                    </span>
+                  </motion.div>
+                ))}
               </div>
-              <div className="mt-3 text-sm sm:text-base text-white/85 leading-relaxed">
-                {isArabic
-                  ? "نمط سينمائي متزامن مع الصوت. تحكم موحد يوقف/يشغل كل الوسائط ويحسب زمن القراءة الحقيقي."
-                  : "A cinematic mode synced with audio. One unified controller to play/pause all media and track real reading time."}
+
+              {/* CTA Buttons */}
+              <div className="mt-4 flex flex-col gap-2">
+                <motion.button
+                  onClick={handleStartExperience}
+                  className="w-full py-3 rounded-xl text-sm font-semibold tracking-wider flex items-center justify-center gap-2"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(201,169,110,0.95), rgba(201,169,110,0.7))",
+                    boxShadow: "0 8px 32px rgba(201,169,110,0.25), inset 0 1px 0 rgba(255,255,255,0.2)",
+                    color: "#0b0b0f",
+                  }}
+                  whileHover={{ scale: 1.02, boxShadow: "0 12px 40px rgba(201,169,110,0.35)" }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {isArabic ? "▶ ابدأ التجربة" : "▶ BEGIN THE TRIAL"}
+                  <ChevronRight className="w-4 h-4" />
+                </motion.button>
+
+                <motion.button
+                  onClick={() => setLocation("/model")}
+                  className="w-full py-3 rounded-xl border text-sm text-white/80 hover:text-white transition-colors flex items-center justify-center gap-2"
+                  style={{
+                    borderColor: "rgba(255,255,255,0.12)",
+                    background: "rgba(0,0,0,0.3)",
+                  }}
+                  whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.05)" }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {isArabic ? "عن نموذج OSIRIS" : "About OSIRIS Model"}
+                </motion.button>
               </div>
             </div>
+          </motion.div>
 
-            <div className="mt-4 flex items-center justify-between gap-3">
-              <button
-                onClick={() => {
-                  console.log('Start Experience clicked, chapters[0]:', chapters[0]);
-                  openLaunch(chapters[0]);
-                }}
-                className="px-5 py-3 rounded-xl text-sm font-semibold"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(201,169,110,0.9), rgba(201,169,110,0.62))",
-                  boxShadow: "0 14px 40px rgba(201,169,110,0.20)",
-                  color: "#0b0b0f",
-                }}
-              >
-                {isArabic ? "ابدأ التجربة" : "Start Experience"}
-              </button>
-              <button
-                onClick={() => {
-                  console.log('About OSIRIS Model clicked');
-                  setLocation("/model");
-                }}
-                className="px-5 py-3 rounded-xl border text-sm text-white/90 hover:text-white"
-                style={{
-                  borderColor: "rgba(255,255,255,0.28)",
-                  background: "rgba(0,0,0,0.30)",
-                }}
-              >
-                {isArabic ? "عن نموذج OSIRIS" : "About OSIRIS Model"}
-              </button>
+          {/* Right Panel - Expandable Chapters */}
+          <motion.div 
+            initial={{ opacity: 0, x: isArabic ? -20 : 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-9 min-h-0 flex flex-col"
+          >
+            {/* Section Header */}
+            <div className={`flex items-center justify-between mb-3 ${isArabic ? "flex-row-reverse" : ""}`}>
+              <div className={`flex items-center gap-2 ${isArabic ? "flex-row-reverse" : ""}`}>
+                <span className="text-[11px] font-mono tracking-[0.2em] text-white/50 uppercase">
+                  {isArabic ? "الفصول السبعة" : "Seven Chapters"}
+                </span>
+                <div className="h-px w-8 bg-white/20" />
+              </div>
+              <span className="text-[10px] text-white/40">
+                {isArabic ? "انقر لتوسيع الفصل" : "Click chapter to expand"}
+              </span>
             </div>
-          </div>
 
-          <div className="lg:col-span-8 min-h-0 flex flex-col">
+            {/* Chapters Component */}
             <ExpandableChapters
               chapters={chapters}
               isArabic={isArabic}
@@ -408,16 +483,38 @@ export default function EnhancedHome() {
               autoPlay={true}
               className="flex-1"
             />
-          </div>
+
+            {/* Bottom Hint */}
+            <div 
+              className={`mt-3 flex items-center gap-3 px-4 py-3 rounded-xl border ${isArabic ? "flex-row-reverse" : ""}`}
+              style={{ 
+                borderColor: "rgba(201,169,110,0.1)",
+                background: "rgba(0,0,0,0.3)",
+              }}
+            >
+              <div 
+                className="w-2 h-2 rounded-full animate-pulse"
+                style={{ background: "#c9a96e" }}
+              />
+              <span className="text-[11px] text-white/50">
+                {isArabic 
+                  ? "كل فصل يمثل حقبة تاريخية في قصة الإفساد في الأرض"
+                  : "Each chapter represents a historical epoch in the story of corruption on Earth"
+                }
+              </span>
+            </div>
+          </motion.div>
         </div>
       </div>
 
+      {/* Audio Consent Modal */}
       <AnimatePresence>
         {showAudioPrompt && (
           <AudioConsentModal onConsent={handleAudioConsent} lang={uiLang} />
         )}
       </AnimatePresence>
 
+      {/* Chapter Launch Modal */}
       <ChapterLaunchModal
         open={launchOpen}
         onOpenChange={setLaunchOpen}
@@ -425,6 +522,26 @@ export default function EnhancedHome() {
         uiLang={uiLang}
         onStart={handleStart}
       />
+
+      {/* Ambient decoration */}
+      <motion.div
+        className="absolute bottom-0 right-0 w-[400px] h-[400px] pointer-events-none opacity-10"
+        animate={{ 
+          rotate: 360,
+          scale: [1, 1.1, 1],
+        }}
+        transition={{ 
+          rotate: { duration: 60, repeat: Infinity, ease: "linear" },
+          scale: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+        }}
+      >
+        <img 
+          src={osirisFalcon} 
+          alt="" 
+          className="w-full h-full object-contain"
+          style={{ filter: 'drop-shadow(0 0 30px rgba(201,169,110,0.3))' }}
+        />
+      </motion.div>
     </div>
   );
 }

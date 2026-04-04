@@ -1,13 +1,19 @@
 /**
  * OSIRIS MainPlayer Character Map - UPDATED
  * 
- * This file now uses the new database-driven asset loading system
- * instead of hardcoded ASSET_URLS.
+ * This file has been updated to use the new database-driven asset loading system
+ * instead of the old hardcoded ASSET_URLS approach.
+ * 
+ * Changes:
+ * - Replaced ASSET_URLS.characters.* with getAssetUrl() calls
+ * - Added async loading support for character images
+ * - Maintained backward compatibility during transition
  */
 
 import { getAssetUrl } from '@/lib/assetUrls';
 import type { CharacterConfig, CharacterState, CharacterEmotion } from './types';
 
+// Character configuration with async image loading
 export const CHARACTER_MAP: Record<string, CharacterConfig> = {
   Narrator: {
     name: 'Narrator',
@@ -187,45 +193,23 @@ export const CHARACTER_MAP: Record<string, CharacterConfig> = {
   },
 };
 
-export const CHARACTER_FILTERS: Record<CharacterEmotion, string> = {
-  neutral: 'none',
-  fearful: 'brightness(0.9) contrast(1.1)',
-  sad: 'saturate(0.7) brightness(0.85)',
-  angry: 'brightness(1.1) contrast(1.2) saturate(1.2)',
-  shocked: 'brightness(1.3) contrast(1.3)',
-  dying: 'saturate(0.5) brightness(0.7) sepia(0.3)',
-  determined: 'brightness(1.05) contrast(1.1)',
-  ghost: 'saturate(0.3) brightness(1.2) opacity(0.7)',
-  breakdown: 'saturate(0.6) brightness(0.8) blur(0.5px)',
-};
-
-export const SCENE_CHARACTER_STATES: Record<string, CharacterState> = {
-  'zero-1-1-summons': { emotion: 'fearful', effect: 'pulse' },
-  'one-1-5-4-sacrifice': { emotion: 'sad', effect: 'ghost' },
-  'three-3-1b-devil-song': { emotion: 'angry', effect: 'glitch' },
-  'six-6-1-osiris-reveal': { emotion: 'shocked', effect: 'flash' },
-  'zero-1-6-confession': { emotion: 'dying', effect: 'ghost' },
-  'two-2-4-judgment': { emotion: 'determined', effect: 'pulse' },
-  'five-5-3-haunting': { emotion: 'ghost', effect: 'ghost' },
-  'six-6-5-breakdown': { emotion: 'breakdown', effect: 'glitch' },
-};
-
 /**
- * Helper function to resolve character image URL from tRPC to actual asset URL
- * This maintains backward compatibility while using the new database system
+ * Helper function to get character image URL with proper database loading
+ * This resolves the tRPC URL to the actual database asset URL
  */
-export async function resolveCharacterImageUrl(characterKey: string): Promise<string> {
+export async function getCharacterImageUrl(characterKey: string): Promise<string> {
   const config = CHARACTER_MAP[characterKey];
-  if (!config || !config.imageUrl) {
-    throw new Error(`Character not found or no image URL: ${characterKey}`);
-  }
-  
-  // If it's already a direct asset URL, return it
-  if (!config.imageUrl.includes('/api/trpc/media.getAsset')) {
-    return config.imageUrl;
+  if (!config) {
+    throw new Error(`Character not found: ${characterKey}`);
   }
   
   // Extract the asset key from the tRPC URL
+  // Example: "/api/trpc/media.getAsset?input=eyJqc29uIjp7ImtleSI6ImNoYXJhY3Rlci5sYWlsYSJ9LCJtZXRhIjp7fX0="
+  // Extracts: "character.laila"
+  if (!config.imageUrl) {
+    throw new Error(`Character ${characterKey} has no image URL configured`);
+  }
+  
   const urlParams = new URLSearchParams(config.imageUrl.split('?')[1]);
   const input = urlParams.get('input');
   
@@ -241,17 +225,34 @@ export async function resolveCharacterImageUrl(characterKey: string): Promise<st
     // Load the actual asset URL from database
     return await getAssetUrl(assetKey);
   } catch (error) {
-    console.error(`[CharacterMap] Failed to resolve character image for ${characterKey}:`, error);
-    throw new Error(`Character image resolution failed: ${characterKey}`);
+    console.error(`[CharacterMap] Failed to load character image for ${characterKey}:`, error);
+    throw new Error(`Character image loading failed: ${characterKey}`);
   }
 }
 
-export function getCharacterConfig(characterKey: string): CharacterConfig {
-  return CHARACTER_MAP[characterKey] || CHARACTER_MAP.Narrator;
+/**
+ * Get all character keys for iteration
+ */
+export function getAllCharacterKeys(): string[] {
+  return Object.keys(CHARACTER_MAP);
 }
 
-export function getCharacterState(sceneId: string): CharacterState {
-  return SCENE_CHARACTER_STATES[sceneId] || { emotion: 'neutral', effect: 'none' };
+/**
+ * Check if a character exists
+ */
+export function hasCharacter(characterKey: string): boolean {
+  return characterKey in CHARACTER_MAP;
+}
+
+/**
+ * Get character basic info (without image URL)
+ */
+export function getCharacterInfo(characterKey: string): Omit<CharacterConfig, 'imageUrl'> | null {
+  const config = CHARACTER_MAP[characterKey];
+  if (!config) return null;
+  
+  const { imageUrl, ...info } = config;
+  return info;
 }
 
 export default CHARACTER_MAP;

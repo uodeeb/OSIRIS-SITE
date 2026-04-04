@@ -60,7 +60,10 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
     accentStyle.id = 'media-accent-style';
     document.head.appendChild(accentStyle);
   } else {
-    document.head.querySelector('#media-accent-style').innerHTML = accentStyle.innerHTML;
+    const existingStyle = document.head.querySelector('#media-accent-style');
+    if (existingStyle) {
+      existingStyle.innerHTML = accentStyle.innerHTML;
+    }
   }
   return (
     <div

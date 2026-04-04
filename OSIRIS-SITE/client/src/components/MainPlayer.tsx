@@ -27,6 +27,15 @@ import { GlobalMediaLayer } from "@/components/GlobalMediaLayer";
 import { useMediaController } from "@/contexts/MediaControllerContext";
 import osirisLogo from '@/LOGO/new-logo/favicon-black-0.25.png';
 
+// Helper function to normalize URLs
+function normalize(url: string): string {
+  try {
+    return new URL(url, window.location.href).href;
+  } catch {
+    return url;
+  }
+}
+
 interface MainPlayerProps {
   initialSceneId?: string;
 }
@@ -615,8 +624,6 @@ interface AudioControlProps {
   onVoiceChange: (v: number) => void;
   onSfxChange: (v: number) => void;
   onToggleMute: () => void;
-  onPlayPause: () => void;
-  isPlaying: boolean;
 }
 
 function AudioControl({
@@ -630,16 +637,14 @@ function AudioControl({
   onVoiceChange,
   onSfxChange,
   onToggleMute,
-  onPlayPause,
-  isPlaying,
 }: AudioControlProps) {
   const [open, setOpen] = useState(false);
 
   const channels = [
-    { key: 'bg', label: 'BG', value: bgVol, onChange: onBgChange, color: '#c9a96e' },
-    { key: 'scene', label: 'SCENE', value: sceneVol, onChange: onSceneChange, color: '#3b82f6' },
-    { key: 'voice', label: 'VOICE', value: voiceVol, onChange: onVoiceChange, color: '#22c55e' },
-    { key: 'sfx', label: 'SFX', value: sfxVol, onChange: onSfxChange, color: '#ef4444' },
+    { key: 'bg', label: 'خلفية', value: bgVol, onChange: onBgChange, color: '#c9a96e' },
+    { key: 'scene', label: 'مشهد', value: sceneVol, onChange: onSceneChange, color: '#3b82f6' },
+    { key: 'voice', label: 'صوت', value: voiceVol, onChange: onVoiceChange, color: '#22c55e' },
+    { key: 'sfx', label: 'مؤثرات', value: sfxVol, onChange: onSfxChange, color: '#ef4444' },
   ];
 
   return (
@@ -648,7 +653,7 @@ function AudioControl({
       <button
         onClick={() => setOpen((p) => !p)}
         className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.audioButton}`}
-        title="Audio Controls"
+        title="التحكم بالصوت"
       >
         {isMuted ? (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -661,7 +666,7 @@ function AudioControl({
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
           </svg>
         )}
-        <span className="text-[9px] font-mono tracking-wider">AUDIO</span>
+        <span className="text-[9px] font-arabic-ui tracking-wider">صوت</span>
       </button>
 
       <AnimatePresence>
@@ -673,18 +678,6 @@ function AudioControl({
             transition={{ duration: 0.2 }}
             className={`absolute bottom-full right-0 mb-2 p-4 rounded-xl z-50 min-w-[240px] ${styles.audioPanel}`}
           >
-            {/* Play/Pause Button - Top */}
-            <button
-              onClick={() => { onPlayPause(); }}
-              className={`w-full mb-4 py-2 rounded-lg text-[10px] font-mono tracking-wider transition-all duration-200 flex items-center justify-center gap-2 ${isPlaying ? 'bg-amber-500/20 text-amber-300 hover:bg-amber-500/30' : 'bg-green-500/20 text-green-300 hover:bg-green-500/30'}`}
-            >
-              {isPlaying ? (
-                <><span className="text-sm">⏸</span> PAUSE ALL</>
-              ) : (
-                <><span className="text-sm">▶</span> PLAY ALL</>
-              )}
-            </button>
-
             {/* 4 Channel Sliders */}
             <div className="space-y-3 mb-4">
               {channels.map((ch) => (
@@ -711,9 +704,9 @@ function AudioControl({
             {/* Mute Toggle */}
             <button
               onClick={onToggleMute}
-              className={`w-full py-2 rounded-lg text-[9px] font-mono tracking-wider transition-all duration-200 ${isMuted ? 'bg-red-500/20 text-red-300 hover:bg-red-500/30' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}
+              className={`w-full py-2 rounded-lg text-[9px] font-arabic-ui tracking-wider transition-all duration-200 ${isMuted ? 'bg-red-500/20 text-red-300 hover:bg-red-500/30' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}
             >
-              {isMuted ? '🔇 UNMUTE ALL' : '🔊 MUTE ALL'}
+              {isMuted ? '🔊 تفعيل الصوت' : '🔇 كتم الصوت'}
             </button>
           </motion.div>
         )}
@@ -916,6 +909,64 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     return typeof cur === "string" ? cur : undefined;
   }, []);
 
+  // Resolve character image URL using the override system (same as videos)
+  const resolvedCharImageUrl = useMemo(() => {
+    if (!currentCharConfig.imageUrl) return undefined;
+    
+    // Extract character name from the config key reference
+    // currentCharConfig.imageUrl is like ASSET_URLS.characters.yahya
+    // We need to re-access through the proxy to get the resolved R2 URL
+    const charKey = dialogueCharacterKey || preferredCharacterKey || 'narrator';
+    const normalizedCharKey = charKey.toLowerCase().replace(/[^a-z0-9_]/g, '');
+    
+    // Map character keys to ASSET_URLS character names
+    const charNameMap: Record<string, string> = {
+      'narrator': 'narrator',
+      'yahya': 'yahya',
+      'yahya_breakdown': 'yahya_breakdown',
+      'yahya_confront': 'yahya_confront',
+      'yahya_dying': 'yahya_dying',
+      'yahya_main': 'yahya_main',
+      'laila': 'laila',
+      'laila_faith': 'laila_faith',
+      'laila_witness': 'laila_witness',
+      'laila_crying': 'laila_crying',
+      'tarek': 'tarek',
+      'tarek_ghost': 'tarek_ghost',
+      'tarek_dream': 'tarek_dream',
+      'first_engineer': 'first_engineer',
+      'first_engineer_2': 'first_engineer_2',
+      'first_engineer_confront': 'first_engineer_confront',
+      'first_engineer_exposed': 'first_engineer_exposed',
+      'arius': 'arius',
+      'athanasius': 'athanasius',
+      'samiri': 'samiri',
+      'samiri_calf': 'samiri_calf',
+      'constantine': 'constantine',
+      'ramses': 'ramses',
+      'abu_abdullah': 'abu_abdullah',
+      'dictator': 'dictator',
+      'hitler': 'narrator',
+      'iblis': 'narrator',
+    };
+    
+    const charName = charNameMap[normalizedCharKey] || normalizedCharKey;
+    
+    // Re-access through ASSET_URLS proxy to get resolved R2 URL
+    const s3Url = (ASSET_URLS.characters as any)[charName];
+    if (s3Url && s3Url.startsWith('http')) {
+      return s3Url;
+    }
+    
+    // Fallback: try the original imageUrl if it's already a URL
+    if (currentCharConfig.imageUrl.startsWith('http')) {
+      return currentCharConfig.imageUrl;
+    }
+    
+    // Last resort: resolve via resolveAsset
+    return resolveAsset(currentCharConfig.imageUrl);
+  }, [dialogueCharacterKey, preferredCharacterKey, currentCharConfig.imageUrl, resolveAsset]);
+
   const burstFx = useCallback((fx: { flash?: number; shake?: boolean; ui?: number }) => {
     fxTimersRef.current.forEach(t => clearTimeout(t));
     fxTimersRef.current = [];
@@ -1007,16 +1058,35 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     }
   }, [isMuted]);
 
-  // Solid Play/Pause Control - affects all audio without interrupting
+  // Refs to track paused state for resume from exact same point
+  const videoPausedTimeRef = useRef<number>(0);
+  const audioPausedTimeRef = useRef<{base: number, scene: number, ambient: number}>({base: 0, scene: 0, ambient: 0});
+
+  // Solid Play/Pause Control - affects all media (audio + video) and pauses at current point
   const handlePlayPause = useCallback(() => {
     const newPlaying = !isPlaying;
     setIsPlaying(newPlaying);
 
+    // Control background video
+    if (bgVideoRef.current) {
+      if (newPlaying) {
+        // Resume from paused time
+        bgVideoRef.current.currentTime = videoPausedTimeRef.current;
+        bgVideoRef.current.play().catch(() => {});
+      } else {
+        // Store current time and pause
+        videoPausedTimeRef.current = bgVideoRef.current.currentTime;
+        bgVideoRef.current.pause();
+      }
+    }
+
     // Control base track
     if (baseTrackRef.current) {
       if (newPlaying) {
+        baseTrackRef.current.currentTime = audioPausedTimeRef.current.base;
         baseTrackRef.current.play().catch(() => {});
       } else {
+        audioPausedTimeRef.current.base = baseTrackRef.current.currentTime;
         baseTrackRef.current.pause();
       }
     }
@@ -1024,8 +1094,10 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     // Control scene track
     if (sceneTrackRef.current) {
       if (newPlaying) {
+        sceneTrackRef.current.currentTime = audioPausedTimeRef.current.scene;
         sceneTrackRef.current.play().catch(() => {});
       } else {
+        audioPausedTimeRef.current.scene = sceneTrackRef.current.currentTime;
         sceneTrackRef.current.pause();
       }
     }
@@ -1033,8 +1105,10 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     // Control ambient
     if (ambientRef.current) {
       if (newPlaying) {
+        ambientRef.current.currentTime = audioPausedTimeRef.current.ambient;
         ambientRef.current.play().catch(() => {});
       } else {
+        audioPausedTimeRef.current.ambient = ambientRef.current.currentTime;
         ambientRef.current.pause();
       }
     }
@@ -1045,8 +1119,6 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     // Sync with global media controller
     if (newPlaying) {
       globalPlay();
-    } else {
-      // Note: we don't call globalPause here to avoid affecting video state
     }
   }, [isPlaying, globalPlay]);
 
@@ -2115,57 +2187,6 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {showAudioPrompt && (
-          <motion.div
-            className="absolute inset-0 z-40 flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            style={{ background: 'rgba(0,0,0,0.92)' }}
-          >
-            <motion.div
-              initial={{ scale: 0.88, y: 24 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.88, y: 24 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-center px-10 py-12 rounded-2xl max-w-sm mx-4"
-              style={{
-                background: 'rgba(0,0,0,0.75)',
-                border: '1px solid rgba(201,169,110,0.25)',
-                backdropFilter: 'blur(24px)',
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={osirisLogo}
-                alt="OSIRIS"
-                className="w-20 h-20 mx-auto mb-6 opacity-95"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-              />
-              <h2 className="text-3xl font-light text-amber-300 mb-1 tracking-[0.3em]">OSIRIS</h2>
-              <p className="text-amber-200/55 text-sm font-arabic-title mb-1" dir="rtl">المفسدون في الأرض</p>
-              <p className="text-white/35 text-[10px] mb-8 font-mono tracking-widest">A MULTIMEDIA INTERACTIVE DIGITAL NOVEL</p>
-              <p className="text-white/60 text-sm mb-2 leading-relaxed">For the best experience, use headphones.</p>
-              <p className="text-white/40 text-xs mb-8 leading-relaxed font-arabic" dir="rtl">للحصول على أفضل تجربة، استخدم سماعات الأذن</p>
-              <button
-                onClick={enableAudio}
-                className={`w-full py-4 rounded-xl font-semibold tracking-[0.2em] text-sm transition-all duration-300 hover:brightness-110 active:scale-95 text-black ${styles.dynamicEndButton}`}
-                style={{
-                  '--end-btn-bg': 'linear-gradient(135deg, #c9a96e, #f0d080)',
-                  '--end-btn-color': '#000000'
-                } as React.CSSProperties}
-              >
-                ▶ BEGIN THE TRIAL
-              </button>
-              <p className="text-white/25 text-[10px] mt-3 font-arabic" dir="rtl">ابدأ المحاكمة</p>
-              <p className="text-white/20 text-[9px] mt-4 font-mono">SPACE or CLICK to advance · ESC to exit</p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {!isVoiceModeActive && (
         <div className={`absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-3 sm:px-6 h-11 sm:h-12 ${isArabic ? 'flex-row-reverse' : ''}`}>
           <motion.button
@@ -2271,7 +2292,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
       {/* ── CHARACTER PORTRAIT ── */}
       <AnimatePresence mode="wait">
-        {showCharacter && currentCharConfig.imageUrl && preferredCharacterKey !== 'Narrator' && (
+        {showCharacter && resolvedCharImageUrl && preferredCharacterKey !== 'Narrator' && (
           <motion.div
             key={dialogueCharacterKey + '-portrait-' + dialogueIndex}
             className={`absolute bottom-44 sm:bottom-32 ${currentCharConfig.position === 'left' ? 'left-4 sm:left-6 md:left-14' : 'right-4 sm:right-6 md:right-14'} z-30 pointer-events-none`}
@@ -2286,7 +2307,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                 style={{ '--glow-color': currentCharConfig.glowColor } as React.CSSProperties}
               />
               <img
-                src={currentCharConfig.imageUrl}
+                src={resolvedCharImageUrl}
                 alt={currentCharConfig.name}
                 className={`relative w-20 h-28 sm:w-28 sm:h-40 md:w-36 md:h-52 object-cover rounded-2xl ${styles.dynamicPortrait}`}
                 style={{
@@ -2294,17 +2315,20 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   '--portrait-border': `1px solid ${currentCharConfig.color}25`,
                   '--portrait-filter': 'brightness(0.85) contrast(1.05)'
                 } as React.CSSProperties}
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                onError={(e) => { 
+                  console.warn('[Character] Failed to load image:', resolvedCharImageUrl);
+                  (e.target as HTMLImageElement).style.display = 'none'; 
+                }}
               />
               <div
                 className={`absolute bottom-0 left-0 right-0 h-16 rounded-b-2xl ${styles.dynamicGradientOverlay}`}
                 style={{ '--gradient-overlay': 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' } as React.CSSProperties}
               />
               <div
-                className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[8px] font-mono tracking-wider whitespace-nowrap"
+                className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[8px] font-mono tracking-wider whitespace-nowrap border"
                 style={{
                   background: 'rgba(0,0,0,0.85)',
-                  borderColor: `${currentCharConfig.color}30`,
+                  borderColor: `${currentCharConfig.color}40`,
                   color: currentCharConfig.color,
                 }}
               >
@@ -2543,7 +2567,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                             '--dynamic-bg': autoMode === 'off' ? 'rgba(201,169,110,0.25)' : 'transparent',
                             '--dynamic-color': autoMode === 'off' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
                           } as React.CSSProperties}
-                        >{isArabic ? 'تلقائي إيقاف' : 'AUTO OFF'}</button>
+                        >{isArabic ? 'تلقائي إيقاف' : 'إيقاف تلقائي'}</button>
                         <button
                           onClick={() => setAutoMode('very-slow')}
                           className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
@@ -2551,7 +2575,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                             '--dynamic-bg': autoMode === 'very-slow' ? 'rgba(201,169,110,0.25)' : 'transparent',
                             '--dynamic-color': autoMode === 'very-slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
                           } as React.CSSProperties}
-                        >{isArabic ? 'بطيء جدًا' : 'VSLOW'}</button>
+                        >{isArabic ? 'بطيء جدًا' : 'بطيء جدا'}</button>
                         <button
                           onClick={() => setAutoMode('slow')}
                           className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
@@ -2559,7 +2583,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                             '--dynamic-bg': autoMode === 'slow' ? 'rgba(201,169,110,0.25)' : 'transparent',
                             '--dynamic-color': autoMode === 'slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
                           } as React.CSSProperties}
-                        >{isArabic ? 'بطيء' : 'SLOW'}</button>
+                        >{isArabic ? 'بطيء' : 'بطيء'}</button>
                         <button
                           onClick={() => setAutoMode('normal')}
                           className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
@@ -2567,8 +2591,21 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                             '--dynamic-bg': autoMode === 'normal' ? 'rgba(201,169,110,0.25)' : 'transparent',
                             '--dynamic-color': autoMode === 'normal' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
                           } as React.CSSProperties}
-                        >{isArabic ? 'عادي' : 'NORMAL'}</button>
+                        >{isArabic ? 'عادي' : 'عادي'}</button>
                       </div>
+
+                      {/* Main Play/Pause Button - Always visible */}
+                      <button
+                        onClick={handlePlayPause}
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all duration-200 ${isPlaying ? 'bg-amber-500/20 text-amber-300 hover:bg-amber-500/30' : 'bg-green-500/20 text-green-300 hover:bg-green-500/30'}`}
+                        title={isPlaying ? 'إيقاف' : 'تشغيل'}
+                      >
+                        <span className="text-sm">{isPlaying ? '⏸' : '▶'}</span>
+                        <span className="text-[10px] font-arabic-ui tracking-wider">
+                          {isPlaying ? 'إيقاف' : 'تشغيل'}
+                        </span>
+                      </button>
+
                       <AudioControl
                         bgVol={bgVol}
                         sceneVol={sceneVol}
@@ -2580,8 +2617,6 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                         onVoiceChange={handleVoiceVol}
                         onSfxChange={handleSfxVol}
                         onToggleMute={handleToggleMute}
-                        onPlayPause={handlePlayPause}
-                        isPlaying={isPlaying}
                       />
                     </div>
                   </div>

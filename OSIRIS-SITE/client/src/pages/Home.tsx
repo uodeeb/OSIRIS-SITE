@@ -29,6 +29,18 @@ export default function Home() {
   const [showTrailer, setShowTrailer] = useState(true);
   const [trailerClip, setTrailerClip] = useState(0);
 
+  // Audio state for trailer (simplified - removed per user request)
+  const [trailerMuted, setTrailerMuted] = useState(false);
+  const trailerAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  const ensureTrailerAudio = () => {
+    if (!trailerAudioRef.current) {
+      trailerAudioRef.current = new Audio();
+      trailerAudioRef.current.loop = true;
+    }
+    return trailerAudioRef.current;
+  };
+
   useEffect(() => {
     const t1 = setTimeout(() => setIntroPhase(1), 250);
     const t2 = setTimeout(() => setIntroPhase(2), 900);
@@ -320,33 +332,11 @@ export default function Home() {
                 </div>
                 <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
                   <button
-                    onClick={() => setMusicMuted((v) => {
-                      const next = !v;
-                      if (showTrailer) {
-                        const a = ensureTrailerAudio();
-                        a.muted = next;
-                      }
-                      return next;
-                    })}
+                    onClick={() => setTrailerMuted((v) => !v)}
                     className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
                     style={{ border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.75)', background: 'rgba(0,0,0,0.35)' }}
                   >
-                    {musicMuted ? (isArabic ? 'صامت' : 'MUTED') : (isArabic ? 'صوت' : 'AUDIO')}
-                  </button>
-                  <button
-                    onClick={() => setMusicOn((v) => {
-                      const next = !v;
-                      if (showTrailer) {
-                        const a = ensureTrailerAudio();
-                        if (next) a.play().catch(() => {});
-                        else a.pause();
-                      }
-                      return next;
-                    })}
-                    className="px-2.5 py-1 text-[9px] rounded-md font-mono tracking-wider"
-                    style={{ border: `1px solid ${activeTrailer.color}33`, color: activeTrailer.color, background: 'rgba(0,0,0,0.35)' }}
-                  >
-                    {musicOn ? (isArabic ? 'إيقاف' : 'PAUSE') : (isArabic ? 'تشغيل الصوت' : 'PLAY AUDIO')}
+                    {trailerMuted ? (isArabic ? 'صامت' : 'MUTED') : (isArabic ? 'صوت' : 'AUDIO')}
                   </button>
                   <button
                     onClick={toggleFullscreen}
@@ -398,17 +388,6 @@ export default function Home() {
                   >
                     {isArabic ? 'تخطي المقطع' : 'SKIP'}
                   </button>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="range"
-                      min={0}
-                      max={1}
-                      step={0.01}
-                      value={musicVol}
-                      onChange={(e) => setMusicVol(Number(e.target.value))}
-                      className="w-28"
-                    />
-                  </div>
                 </div>
               </div>
 

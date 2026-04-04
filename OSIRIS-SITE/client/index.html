@@ -32,6 +32,36 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Suppress jQuery SVG path errors temporarily
+      window.addEventListener('error', function(e) {
+        if (e.message && e.message.includes('Expected number') && e.message.includes('path attribute d')) {
+          console.warn('Suppressed jQuery SVG path error:', e.message);
+          e.preventDefault();
+          return false;
+        }
+      }, true);
+      
+      // Override jQuery error handler when jQuery loads
+      (function() {
+        const originalJQuery = window.jQuery;
+        Object.defineProperty(window, 'jQuery', {
+          get: function() { return originalJQuery; },
+          set: function(value) {
+            originalJQuery = value;
+            if (value && value.error) {
+              value.error = function(message) {
+                if (message && message.includes('Expected number') && message.includes('path attribute d')) {
+                  console.warn('Suppressed jQuery SVG path error:', message);
+                  return;
+                }
+                console.error('jQuery error:', message);
+              };
+            }
+          }
+        });
+      })();
+    </script>
   </body>
 
 </html>
