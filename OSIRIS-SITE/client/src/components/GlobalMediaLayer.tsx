@@ -17,7 +17,7 @@ interface GlobalMediaLayerProps {
   primaryAudioSources: string[];
 }
 
-export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerProps) {
+export function GlobalMediaLayer({ primaryAudioSources }: GlobalMediaLayerProps) {
   const { allowVideo } = useBandwidthStrategy();
   const { state, registerMedia, setPrimaryAudioElement, setPrimaryAudioSources, setPrimaryAudioVolume } = useMediaController();
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -26,7 +26,7 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
   const effect = OSIRIS_EFFECTS["FX-03-HOLOGRAM-DATA"];
   const videoSrc = useMemo(() => getOsirisMediaUrl(effect.base), [effect.base]);
   const posterSrc = useMemo(() => getOsirisMediaUrl(effect.fallback), [effect.fallback]);
-  const audioSrc = primaryAudioSources?.[0] || "";
+
   useEffect(() => {
     if (!videoRef.current) return;
     return registerMedia(videoRef.current);
@@ -60,10 +60,7 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
     accentStyle.id = 'media-accent-style';
     document.head.appendChild(accentStyle);
   } else {
-    const existingStyle = document.head.querySelector('#media-accent-style');
-    if (existingStyle) {
-      existingStyle.innerHTML = accentStyle.innerHTML;
-    }
+    document.head.querySelector('#media-accent-style').innerHTML = accentStyle.innerHTML;
   }
   return (
     <div
