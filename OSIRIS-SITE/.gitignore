@@ -117,12 +117,20 @@ temp/
 # Video files
 generated-assets/video-bg/*.mp4
 generated-assets/video-bg/**/*.mp4
+client/public/generated-assets/video-bg/*.mp4
+client/public/generated-assets/video-bg/**/*.mp4
+client/public/generated-assets/master/*.mp4
+client/public/generated-assets/master/**/*.mp4
 
 # Audio files (both formats)
 generated-assets/music-tracks/*.m4a
 generated-assets/music-tracks/*.mp3
 generated-assets/voices/*.wav
 generated-assets/songs+/*.mp3
+client/public/generated-assets/music-tracks/*.m4a
+client/public/generated-assets/music-tracks/*.mp3
+client/public/generated-assets/voices/*.wav
+client/public/generated-assets/songs+/*.mp3
 
 # Images (keep small ones, exclude large)
 generated-assets/images/*.png
@@ -131,6 +139,15 @@ generated-assets/images/*.jpeg
 generated-assets/characters/*.png
 generated-assets/characters/*.jpg
 generated-assets/characters/*.jpeg
+client/public/generated-assets/images/*.png
+client/public/generated-assets/images/*.jpg
+client/public/generated-assets/images/*.jpeg
+client/public/generated-assets/characters/*.png
+client/public/generated-assets/characters/*.jpg
+client/public/generated-assets/characters/*.jpeg
+
+# Legacy music folder
+MUSIC-BG/
 
 # Temp video clips from video production (~180MB)
 generated-assets/master/temp/
