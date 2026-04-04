@@ -45,6 +45,13 @@ async function startServer() {
     if (process.env.NODE_ENV !== "development") {
       res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
     }
+    
+    // Log all requests to /api/trpc for debugging
+    if (req.path.startsWith('/api/trpc')) {
+      console.log(`[Express] ${req.method} ${req.path} - Query:`, req.query);
+      console.log(`[Express] Headers:`, req.headers);
+    }
+    
     next();
   });
 
@@ -71,12 +78,56 @@ async function startServer() {
   );
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
+  
+  // Custom middleware to handle tRPC query parameter format
+  app.use("/api/trpc", (req, res, next) => {
+    // Log all tRPC requests for debugging
+    console.log(`[tRPC Middleware] ${req.method} ${req.path}`);
+    console.log(`[tRPC Middleware] Query:`, req.query);
+    
+    // If input is in query string (GET request), parse it
+    if (req.query.input) {
+      try {
+        const decoded = Buffer.from(req.query.input as string, 'base64').toString('utf-8');
+        console.log(`[tRPC Middleware] Decoded input:`, decoded);
+        
+        // Parse the superjson format: {"json":{...},"meta":{...}}
+        const parsed = JSON.parse(decoded);
+        console.log(`[tRPC Middleware] Parsed input:`, parsed);
+        
+        // For tRPC Express adapter, we need to handle the input differently
+        // The adapter expects the input in the body for POST, but for GET requests
+        // it might need special handling
+        if (parsed.json) {
+          // Set the actual input in the body for tRPC to use
+          req.body = parsed.json;
+          // Also keep it in query for tRPC's GET handling
+          req.query.input = JSON.stringify(parsed.json);
+        } else {
+          req.body = parsed;
+          req.query.input = JSON.stringify(parsed);
+        }
+      } catch (error) {
+        console.error(`[tRPC Middleware] Failed to parse input:`, error);
+        return res.status(400).json({ error: 'Invalid input format' });
+      }
+    }
+    
+    next();
+  });
+  
   // tRPC API
   app.use(
     "/api/trpc",
     createExpressMiddleware({
       router: appRouter,
       createContext,
+      onError: ({ error, path, type }) => {
+        console.error(`[tRPC] ${type} ${path} - Error:`, error);
+        if (error.code === 'INTERNAL_SERVER_ERROR') {
+          console.error('[tRPC] Internal Server Error Details:', error.cause);
+        }
+      },
     })
   );
   // development mode uses Vite, production mode uses static files

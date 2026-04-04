@@ -108,3 +108,87 @@ temp/
 
 # Webdev artifacts (checkpoint zips, migrations, etc.)
 .webdev/
+
+# ============================================
+# OSIRIS-SPECIFIC: LARGE MEDIA & DUPLICATES
+# ============================================
+
+# Temp video clips from video production (~180MB)
+generated-assets/master/temp/
+generated-assets/master/*.mp4
+generated-assets/master/*.json
+
+# Audacity project files (~154MB)
+MUSIC-BG/*.aup3
+
+# Duplicate assets in client/public (copied during build)
+client/public/generated-assets/
+
+# Video files duplicated in dist (build output)
+dist/public/video-bg/
+dist/public/generated-assets/
+
+# Duplicate media files - keep dashed names ONLY
+# Audio: Keep TRACK-01.m4a, ignore "TRACK 01.m4a" (spaced names)
+generated-assets/music-tracks/TRACK *.m4a
+generated-assets/music-tracks/TRACK *.mp3
+
+# Voices: Keep VOICE-01.wav, ignore "VOICE 01 — ... .wav"
+generated-assets/voices/VOICE *.wav
+
+# Development/Project files (not runtime)
+.trae/
+.manus-logs/
+*.skill
+progress-tracker/
+audit/
+
+# Documentation (keep minimal)
+CINEMATIC_EXPERIENCE_SYSTEM.md
+ISSUES_ANALYSIS.md
+IMPLEMENTATION_ROADMAP.md
+PHASE2_COMPLETION_REPORT.md
+PRODUCTION_READINESS_*.md
+SYNC_*.md
+UX_UI_AUDIT_REPORT.md
+REPORT-*.md
+todo.md
+
+# Scripts (dev only, not runtime)
+scripts/
+!scripts/copyStaticMedia.mjs
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+.python-packages/
+
+# UI screenshots & misc
+ui-screens/
+osiris-novel.zip
+*.backup
+
+# e2e artifacts
+e2e/test-results/
+e2e/playwright-report/
+
+# Server logs & debug files
+server-start.log
+server/*.log
+server/_core/*.log
+trpc-debug.js
+database-check.js
+db-test.js
+browser-test.js
+
+# Vite & build artifacts
+*.vite
+test-seed*.js
+seed-database*.js
+repair_main_player.js
+fix.cjs
+
+# Test batch files (Windows)
+test-b64.bat
+test-b64.js
+run-insert.js

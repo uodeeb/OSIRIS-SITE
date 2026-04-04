@@ -1,21 +1,69 @@
 import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 import { assets, type Asset, type InsertAsset, InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
+let _pool: Pool | null = null;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
-export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
-    try {
-      _db = drizzle(process.env.DATABASE_URL);
-    } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
-      _db = null;
-    }
+// Optimized pool configuration for Supabase
+function createPool(): Pool | null {
+  if (!process.env.DATABASE_URL) {
+    console.warn("[Database] DATABASE_URL not set");
+    return null;
   }
-  return _db;
+
+  return new Pool({
+    connectionString: process.env.DATABASE_URL,
+    max: 20, // Maximum pool size
+    idleTimeoutMillis: 30000, // Close idle connections after 30s
+    connectionTimeoutMillis: 5000, // Timeout for new connections
+    // Enable SSL for production (Supabase requires it)
+    ssl: process.env.NODE_ENV === 'production' 
+      ? { rejectUnauthorized: false } 
+      : undefined,
+  });
+}
+
+// Lazily create the drizzle instance with retry logic
+export async function getDb(): Promise<ReturnType<typeof drizzle> | null> {
+  if (_db) return _db;
+  
+  if (!process.env.DATABASE_URL) {
+    if (ENV.isProduction) {
+      console.warn("[Database] DATABASE_URL not set in production");
+    }
+    return null;
+  }
+
+  try {
+    _pool = createPool();
+    if (!_pool) return null;
+
+    // Test connection
+    const client = await _pool.connect();
+    client.release();
+
+    _db = drizzle(_pool);
+    console.log("[Database] Connected successfully");
+    return _db;
+  } catch (error) {
+    console.error("[Database] Connection failed:", error);
+    _db = null;
+    _pool = null;
+    return null;
+  }
+}
+
+// Graceful shutdown helper
+export async function closeDb(): Promise<void> {
+  if (_pool) {
+    await _pool.end();
+    _pool = null;
+    _db = null;
+    console.log("[Database] Pool closed");
+  }
 }
 
 export async function upsertUser(user: InsertUser): Promise<void> {
@@ -35,43 +83,25 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     const values: InsertUser = {
       openId: user.openId,
     };
-    const updateSet: Record<string, unknown> = {};
-
-    const textFields = ["name", "email", "loginMethod"] as const;
-    type TextField = (typeof textFields)[number];
-
-    const assignNullable = (field: TextField) => {
-      const value = user[field];
-      if (value === undefined) return;
-      const normalized = value ?? null;
-      values[field] = normalized;
-      updateSet[field] = normalized;
-    };
-
-    textFields.forEach(assignNullable);
-
-    if (user.lastSignedIn !== undefined) {
-      values.lastSignedIn = user.lastSignedIn;
-      updateSet.lastSignedIn = user.lastSignedIn;
-    }
-    if (user.role !== undefined) {
-      values.role = user.role;
-      updateSet.role = user.role;
-    } else if (user.openId === ENV.ownerOpenId) {
-      values.role = 'admin';
-      updateSet.role = 'admin';
-    }
-
-    if (!values.lastSignedIn) {
-      values.lastSignedIn = new Date();
-    }
-
-    if (Object.keys(updateSet).length === 0) {
-      updateSet.lastSignedIn = new Date();
-    }
-
-    await db.insert(users).values(values).onDuplicateKeyUpdate({
-      set: updateSet,
+    // Note: PostgreSQL uses ON CONFLICT for upserts
+    // For simplicity, we'll do insert and handle conflict
+    await db.insert(users).values({
+      openId: user.openId,
+      name: user.name ?? null,
+      email: user.email ?? null,
+      loginMethod: user.loginMethod ?? null,
+      role: user.role ?? (user.openId === ENV.ownerOpenId ? 'admin' : 'user'),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }).onConflictDoUpdate({
+      target: users.openId,
+      set: {
+        name: user.name ?? null,
+        email: user.email ?? null,
+        loginMethod: user.loginMethod ?? null,
+        role: user.role ?? (user.openId === ENV.ownerOpenId ? 'admin' : 'user'),
+        updatedAt: new Date(),
+      },
     });
   } catch (error) {
     console.error("[Database] Failed to upsert user:", error);
@@ -109,12 +139,23 @@ export async function upsertAsset(assetRow: InsertAsset): Promise<void> {
     }
     return;
   }
-  await db.insert(assets).values(assetRow).onDuplicateKeyUpdate({
+  // PostgreSQL uses onConflictDoUpdate instead of onDuplicateKeyUpdate
+  await db.insert(assets).values({
+    key: assetRow.key,
+    kind: assetRow.kind,
+    url: assetRow.url,
+    mime: assetRow.mime ?? null,
+    bytes: assetRow.bytes ?? null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }).onConflictDoUpdate({
+    target: assets.key,
     set: {
       kind: assetRow.kind,
       url: assetRow.url,
       mime: assetRow.mime ?? null,
       bytes: assetRow.bytes ?? null,
+      updatedAt: new Date(),
     },
   });
 }
