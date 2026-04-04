@@ -1,0 +1,23 @@
+{
+  "videoBg.yahya_room": "/generated-assets/video-bg/yehya-office-vid.mp4",
+  "videoBg.sinai_desert": "/generated-assets/video-bg/desert.mp4",
+  "videoBg.andalusia": "/generated-assets/video-bg/andalus.mp4",
+  "videoBg.karbala": "/generated-assets/video-bg/karblaa.mp4",
+  "character.narrator": "/generated-assets/characters/الراوي الكوني-التجسيد البصري (Visual Representation).png",
+  "character.yahya": "/generated-assets/characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg",
+  "character.laila": "/generated-assets/characters/ليلى حسنالصورة الأساسية (Portrait).jpeg",
+  "character.tarek": "/generated-assets/characters/طارق الراشد-الصورة الأساسية (Portrait).jpeg",
+  "character.first_engineer": "/generated-assets/characters/المهندس الأول-الصورة الأساسية (Portrait).jpeg",
+  "character.arius": "/generated-assets/characters/آريوس.jpeg",
+  "character.athanasius": "/generated-assets/characters/أثناسيوس.jpeg",
+  "character.samiri": "/generated-assets/characters/السامري-الصورة الأساسية (Portrait).jpeg",
+  "character.constantine": "/generated-assets/characters/قسطنطين-الصورة الأساسية (Portrait).jpeg",
+  "sceneBg.zero-1-1-summons": "/generated-assets/images/01.jpg",
+  "sceneBg.four-4-1-desert": "/generated-assets/images/02.jpg",
+  "sceneBg.four-4-2-crowd-engineering": "/generated-assets/images/03.jpg",
+  "sceneBg.six-8-1-andalusia": "/generated-assets/images/04.jpg",
+  "sceneBg.six-8-2-last-tears": "/generated-assets/images/04.jpg",
+  "sceneBg.seven-10-1-karbala": "/generated-assets/images/05.jpg",
+  "sceneBg.seven-12-1-truth-leak": "/generated-assets/images/06.jpg",
+  "sceneBg.six-8d-1-attack": "/generated-assets/images/07.jpg"
+}
