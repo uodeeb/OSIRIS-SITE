@@ -2486,3 +2486,4 @@ export function getAllSceneIds(): string[] {
 export function getScenesByPart(part: number): Scene[] {
   return Object.values(SCENES).filter((s) => s.part === part);
 }
+
