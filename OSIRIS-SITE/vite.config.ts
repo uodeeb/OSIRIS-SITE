@@ -170,18 +170,21 @@ export default defineConfig({
     chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
-        manualChunks: {
+        manualChunks(id) {
           // Vendor chunks
-          'react-vendor': ['react', 'react-dom'],
-          'animation-vendor': ['framer-motion'],
-          'router-vendor': ['wouter'],
-          'audio-vendor': ['howler'],
-          'query-vendor': ['@tanstack/react-query'],
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'react-vendor';
+            if (id.includes('framer-motion')) return 'animation-vendor';
+            if (id.includes('wouter')) return 'router-vendor';
+            if (id.includes('howler')) return 'audio-vendor';
+            if (id.includes('@tanstack')) return 'query-vendor';
+            return 'vendor';
+          }
           // Feature chunks
-          'ui-components': ['./client/src/components/ui'],
-          'scenes-core': ['./client/src/lib/sceneSystem.ts'],
-          'audio-engine': ['./client/src/lib/culturalAudioEngine.ts'],
-          'cinematic-engine': ['./client/src/lib/cinematicCompositionEngine.ts'],
+          if (id.includes('/lib/sceneSystem')) return 'scenes-core';
+          if (id.includes('/lib/culturalAudioEngine')) return 'audio-engine';
+          if (id.includes('/lib/cinematicCompositionEngine')) return 'cinematic-engine';
+          if (id.includes('/components/ui/')) return 'ui-components';
         },
       },
     },
