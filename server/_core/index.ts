@@ -85,31 +85,16 @@ async function startServer() {
     console.log(`[tRPC Middleware] ${req.method} ${req.path}`);
     console.log(`[tRPC Middleware] Query:`, req.query);
     
-    // If input is in query string (GET request), parse it
-    if (req.query.input) {
+    // For GET requests with input, decode base64 superjson for logging but DON'T modify req.query.input
+    // tRPC 11 Express adapter expects the original base64 string to parse itself
+    if (req.method === 'GET' && req.query.input && typeof req.query.input === 'string') {
       try {
-        const decoded = Buffer.from(req.query.input as string, 'base64').toString('utf-8');
-        console.log(`[tRPC Middleware] Decoded input:`, decoded);
-        
-        // Parse the superjson format: {"json":{...},"meta":{...}}
-        const parsed = JSON.parse(decoded);
-        console.log(`[tRPC Middleware] Parsed input:`, parsed);
-        
-        // For tRPC Express adapter, we need to handle the input differently
-        // The adapter expects the input in the body for POST, but for GET requests
-        // it might need special handling
-        if (parsed.json) {
-          // Set the actual input in the body for tRPC to use
-          req.body = parsed.json;
-          // Also keep it in query for tRPC's GET handling
-          req.query.input = JSON.stringify(parsed.json);
-        } else {
-          req.body = parsed;
-          req.query.input = JSON.stringify(parsed);
-        }
+        const decoded = Buffer.from(req.query.input, 'base64').toString('utf-8');
+        console.log(`[tRPC Middleware] Decoded input (for logging):`, decoded);
+        // DO NOT modify req.query.input - tRPC needs the original base64 string
+        // The adapter will decode it properly
       } catch (error) {
-        console.error(`[tRPC Middleware] Failed to parse input:`, error);
-        return res.status(400).json({ error: 'Invalid input format' });
+        console.error(`[tRPC Middleware] Failed to decode input for logging:`, error);
       }
     }
     
