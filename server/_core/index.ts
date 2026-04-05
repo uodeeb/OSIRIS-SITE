@@ -79,25 +79,9 @@ async function startServer() {
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   
-  // Custom middleware to handle tRPC query parameter format
+  // Custom middleware - minimal logging for production
   app.use("/api/trpc", (req, res, next) => {
-    // Log all tRPC requests for debugging
-    console.log(`[tRPC Middleware] ${req.method} ${req.path}`);
-    console.log(`[tRPC Middleware] Query:`, req.query);
-    
-    // For GET requests with input, decode base64 superjson for logging but DON'T modify req.query.input
-    // tRPC 11 Express adapter expects the original base64 string to parse itself
-    if (req.method === 'GET' && req.query.input && typeof req.query.input === 'string') {
-      try {
-        const decoded = Buffer.from(req.query.input, 'base64').toString('utf-8');
-        console.log(`[tRPC Middleware] Decoded input (for logging):`, decoded);
-        // DO NOT modify req.query.input - tRPC needs the original base64 string
-        // The adapter will decode it properly
-      } catch (error) {
-        console.error(`[tRPC Middleware] Failed to decode input for logging:`, error);
-      }
-    }
-    
+    // Only log errors, not every request
     next();
   });
   

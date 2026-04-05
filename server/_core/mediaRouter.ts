@@ -51,17 +51,11 @@ export const mediaRouter = router({
    */
   getAsset: publicProcedure
     .input(z.object({ key: z.string() }))
-    .query(async ({ input, ctx }) => {
-      // Check cache first (server-cache-lru best practice)
+    .query(async ({ input }) => {
+      // Check cache first
       const cached = getCachedAsset(input.key);
-      if (cached) {
-        console.log('[media.getAsset] Cache hit for:', input.key);
-        return cached;
-      }
-      
-      // Debug logging
-      console.log('[media.getAsset] Received input:', JSON.stringify(input));
-      
+      if (cached) return cached;
+
       const database = await getDb();
       if (!database) {
         throw new TRPCError({
@@ -70,14 +64,11 @@ export const mediaRouter = router({
         });
       }
 
-      console.log('[media.getAsset] Looking for key:', input.key);
       const result = await database
         .select()
         .from(assets)
         .where(eq(assets.key, input.key))
         .limit(1);
-
-      console.log('[media.getAsset] Query result:', result.length, 'rows');
 
       if (result.length === 0) {
         throw new TRPCError({
@@ -86,7 +77,7 @@ export const mediaRouter = router({
         });
       }
 
-      // Minimize data serialization (server-serialization best practice)
+      // Minimize data serialization
       const response = { 
         key: result[0].key, 
         kind: result[0].kind, 

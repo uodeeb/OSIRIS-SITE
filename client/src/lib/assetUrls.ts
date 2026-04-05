@@ -51,15 +51,11 @@ export async function getAssetUrl(key: string): Promise<string> {
       throw new Error(`Asset not found: ${key}`);
     }
     assetCache.set(key, asset.url);
-    console.log(`[Asset] Loaded ${key} from database:`, asset.url.substring(0, 50) + '...');
     return asset.url;
   } catch (error) {
-    console.error(`[Asset] Failed to load ${key} from database:`, error);
-    
     // Fallback to hardcoded URLs for critical assets
     const fallbackUrl = getFallbackAssetUrl(key);
     if (fallbackUrl) {
-      console.warn(`[Asset] Using fallback URL for ${key}:`, fallbackUrl.substring(0, 50) + '...');
       assetCache.set(key, fallbackUrl);
       return fallbackUrl;
     }
@@ -76,13 +72,10 @@ export async function getAssetsByKind(kind: "audio" | "video" | "background" | "
   try {
     const json = await apiCall('media.listByKind', { kind });
     const assets = extractAssetFromResponse(json);
-    console.log(`[Asset] Loaded ${assets.length} ${kind} assets from database`);
     return Array.isArray(assets) ? assets : [];
   } catch (error) {
-    console.error(`[Asset] Failed to list ${kind} assets from database:`, error);
     // Fallback to hardcoded assets
     const fallbackAssets = getFallbackAssetsByKind(kind);
-    console.warn(`[Asset] Using ${fallbackAssets.length} fallback ${kind} assets`);
     return fallbackAssets;
   }
 }
@@ -99,7 +92,6 @@ export async function getAssetUrls(keys: string[]): Promise<Record<string, strin
         const url = await getAssetUrl(key);
         return { key, url };
       } catch (error) {
-        console.warn(`[Asset] Failed to load ${key}`, error);
         return { key, url: getFallbackAssetUrl(key) || '' };
       }
     })
@@ -136,10 +128,8 @@ export async function getAllAssets() {
   try {
     const json = await apiCall('media.listAssets');
     const assets = extractAssetFromResponse(json);
-    console.log(`[Asset] Loaded ${assets.length} total assets from database`);
     return Array.isArray(assets) ? assets : [];
   } catch (error) {
-    console.error(`[Asset] Failed to list all assets from database:`, error);
     return [];
   }
 }

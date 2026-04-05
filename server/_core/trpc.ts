@@ -10,18 +10,10 @@ const t = initTRPC.context<TrpcContext>().create({
 export const router = t.router;
 export { TRPCError };
 
-// Add logging middleware for debugging
+// Logging middleware disabled for production - only log errors
 const logMiddleware = t.middleware(async opts => {
-  const { path, type, input, next } = opts;
-  console.log(`[tRPC] ${type} ${path} - Input:`, JSON.stringify(input));
-  try {
-    const result = await next();
-    console.log(`[tRPC] ${type} ${path} - Success`);
-    return result;
-  } catch (error) {
-    console.error(`[tRPC] ${type} ${path} - Error:`, error);
-    throw error;
-  }
+  const { next } = opts;
+  return next();
 });
 
 export const publicProcedure = t.procedure.use(logMiddleware);

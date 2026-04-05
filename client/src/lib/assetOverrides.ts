@@ -53,10 +53,8 @@ export function createAssetProxy<T extends object>(target: T, path: string[] = [
         const dbKey = parts.join('.');
         const override = getAssetOverride(dbKey);
         if (override) {
-          console.log(`[AssetProxy] Found override for ${dbKey}:`, override.substring(0, 50) + '...');
           return override;
         }
-        console.log(`[AssetProxy] No override for ${dbKey}, using raw value:`, value.substring(0, 50) + '...');
         return value;
       }
       if (value && typeof value === "object") {
@@ -80,7 +78,6 @@ function extractAssetsFromTrpcResponse(payload: any): AssetRow[] {
   ];
   
   const assets = candidates.find(Array.isArray);
-  console.log('[AssetOverrides] Found array at path:', candidates.indexOf(assets), 'Length:', assets?.length || 0);
   return Array.isArray(assets) ? assets : [];
 }
 
@@ -117,33 +114,21 @@ export async function initAssetOverrides(opts?: { timeoutMs?: number }) {
     try {
       // Use proper superjson format like apiCall does
       const input = btoa(superjson.stringify({}));
-      console.log('[AssetOverrides] Fetching with input:', input);
       const res = await fetch(`/api/trpc/system.assets?input=${encodeURIComponent(input)}`, {
         credentials: "include",
         signal: controller?.signal,
       });
-      console.log('[AssetOverrides] Response status:', res.status);
       if (!res.ok) {
-        console.warn('[AssetOverrides] Failed to fetch, trying local overrides');
         await tryLoadLocalOverrides(controller);
         return;
       }
       const json = await res.json().catch(() => null);
-      console.log('[AssetOverrides] Response JSON:', json);
-      console.log('[AssetOverrides] Response structure check:', {
-        'result?.data?.json?.assets': json?.result?.data?.json?.assets,
-        'result?.data?.assets': json?.result?.data?.assets,
-        'result?.data?.json': json?.result?.data?.json,
-        'result?.data': json?.result?.data,
-        'assets': json?.assets,
-      });
       if (!json) {
         await tryLoadLocalOverrides(controller);
         return;
       }
 
       const assets = extractAssetsFromTrpcResponse(json);
-      console.log('[AssetOverrides] Extracted assets:', assets);
       if (!assets.length) {
         await tryLoadLocalOverrides(controller);
         return;
@@ -156,11 +141,9 @@ export async function initAssetOverrides(opts?: { timeoutMs?: number }) {
         if (typeof a.url !== "string") continue;
         next[a.key] = a.url;
       }
-      console.log('[AssetOverrides] Setting overrides:', next);
       if (Object.keys(next).length) setAssetOverrides(next);
       overridesLoaded = true;
     } catch (e) {
-      console.error('[AssetOverrides] Error:', e);
       await tryLoadLocalOverrides(controller);
     } finally {
       if (timer) clearTimeout(timer);
