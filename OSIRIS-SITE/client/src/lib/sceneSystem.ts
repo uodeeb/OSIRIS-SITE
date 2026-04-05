@@ -1,13 +1,13 @@
 // OSIRIS Scene System - v1.0.1 (Modular)
-import { PART_ZERO } from './scenes/partZero';
-import { PART_ONE } from './scenes/partOne';
-import { PART_TWO } from './scenes/partTwo';
-import { PART_THREE } from './scenes/partThree';
-import { PART_FOUR } from './scenes/partFour';
-import { PART_FIVE } from './scenes/partFive';
-import { PART_SIX } from './scenes/partSix';
-import { TRANSITION } from './scenes/transition';
-import { PART_SEVEN } from './scenes/partSeven';
+import { PART_ZERO } from './scenes/partZero.ts';
+import { PART_ONE } from './scenes/partOne.ts';
+import { PART_TWO } from './scenes/partTwo.ts';
+import { PART_THREE } from './scenes/partThree.ts';
+import { PART_FOUR } from './scenes/partFour.ts';
+import { PART_FIVE } from './scenes/partFive.ts';
+import { PART_SIX } from './scenes/partSix.ts';
+import { TRANSITION } from './scenes/transition.ts';
+import { PART_SEVEN } from './scenes/partSeven.ts';
 
 export interface DialogueLine {
   character: string;
