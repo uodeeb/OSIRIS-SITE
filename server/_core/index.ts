@@ -79,18 +79,40 @@ async function startServer() {
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   
-  // Custom middleware - minimal logging for production
+  // Custom middleware - handle tRPC GET request input parsing
   app.use("/api/trpc", (req, res, next) => {
-    // Only log errors, not every request
+    // For GET requests with input query param, decode base64 superjson
+    if (req.method === 'GET' && req.query.input) {
+      try {
+        const inputStr = typeof req.query.input === 'string' 
+          ? req.query.input 
+          : Array.isArray(req.query.input) 
+            ? req.query.input[0] 
+            : '';
+        
+        if (inputStr) {
+          // Decode base64
+          const decoded = Buffer.from(inputStr, 'base64').toString('utf-8');
+          const parsed = JSON.parse(decoded);
+          
+          // Store parsed input where tRPC expects it
+          req.query.input = parsed;
+        }
+      } catch (error) {
+        console.error('[tRPC Middleware] Failed to parse input:', error);
+      }
+    }
     next();
   });
   
-  // tRPC API
+  // tRPC API with GET support for asset fetching
   app.use(
     "/api/trpc",
     createExpressMiddleware({
       router: appRouter,
       createContext,
+      allowBatching: true,
+      allowMethodOverride: true,
       onError: ({ error, path, type }) => {
         console.error(`[tRPC] ${type} ${path} - Error:`, error);
         if (error.code === 'INTERNAL_SERVER_ERROR') {
