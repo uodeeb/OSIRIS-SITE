@@ -1,6 +1,39 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Arabic Font Imports - with system fallbacks */
+@font-face {
+  font-family: 'Scheherazade New';
+  src: local('Scheherazade New'), local('ScheherazadeNew'), local('Amiri'), local('Noto Naskh Arabic');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lateef';
+  src: local('Lateef'), local('Amiri'), local('Noto Naskh Arabic');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Harmattan';
+  src: local('Harmattan'), local('Noto Sans Arabic'), local('Amiri');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* Custom focus-visible styles */
+*:focus-visible {
+  outline: 2px solid var(--accent-color, #c9a96e);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -44,9 +77,9 @@
 
 :root {
   --font-novel-en: "Georgia", serif;
-  --font-arabic: "Amiri", "Noto Naskh Arabic", serif;
-  --font-arabic-ui: "Noto Naskh Arabic", "Amiri", serif;
-  --font-arabic-title: "Aref Ruqaa Ink", "Amiri", "Noto Naskh Arabic", serif;
+  --font-arabic: "Scheherazade New", "Lateef", "Harmattan", "Amiri", "Noto Naskh Arabic", serif;
+  --font-arabic-ui: "Harmattan", "Noto Naskh Arabic", "Amiri", serif;
+  --font-arabic-title: "Aref Ruqaa Ink", "Scheherazade New", "Amiri", "Noto Naskh Arabic", serif;
   --primary: oklch(0.65 0.18 280);
   --primary-foreground: oklch(0.98 0.01 280);
   --sidebar-primary: oklch(0.55 0.22 280);

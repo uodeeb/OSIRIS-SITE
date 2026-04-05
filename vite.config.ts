@@ -2,6 +2,7 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
@@ -10,7 +11,7 @@ import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 // Writes browser logs directly to files, trimmed when exceeding size limit
 // =============================================================================
 
-const PROJECT_ROOT = import.meta.dirname;
+const PROJECT_ROOT = path.dirname(fileURLToPath(import.meta.url));
 const LOG_DIR = path.join(PROJECT_ROOT, ".manus-logs");
 const MAX_LOG_SIZE_BYTES = 1 * 1024 * 1024; // 1MB per log file
 const TRIM_TARGET_BYTES = Math.floor(MAX_LOG_SIZE_BYTES * 0.6); // Trim to 60% to avoid constant re-trimming
@@ -155,21 +156,49 @@ export default defineConfig({
   plugins,
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "client", "src"),
-      "@shared": path.resolve(import.meta.dirname, "shared"),
-      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+      "@": path.resolve(PROJECT_ROOT, "client", "src"),
+      "@shared": path.resolve(PROJECT_ROOT, "shared"),
+      "@assets": path.resolve(PROJECT_ROOT, "attached_assets"),
     },
   },
-  envDir: path.resolve(import.meta.dirname),
-  root: path.resolve(import.meta.dirname, "client"),
-  publicDir: path.resolve(import.meta.dirname, "client", "public"),
+  envDir: path.resolve(PROJECT_ROOT),
+  root: path.resolve(PROJECT_ROOT, "client"),
+  publicDir: path.resolve(PROJECT_ROOT, "client", "public"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: path.resolve(PROJECT_ROOT, "dist/public"),
     emptyOutDir: true,
-    chunkSizeWarningLimit: 1200,
+    chunkSizeWarningLimit: 500,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Vendor chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'react-vendor';
+            if (id.includes('framer-motion')) return 'animation-vendor';
+            if (id.includes('wouter')) return 'router-vendor';
+            if (id.includes('howler')) return 'audio-vendor';
+            if (id.includes('@tanstack')) return 'query-vendor';
+            return 'vendor';
+          }
+          // Feature chunks
+          if (id.includes('/lib/sceneSystem')) return 'scenes-core';
+          if (id.includes('/lib/culturalAudioEngine')) return 'audio-engine';
+          if (id.includes('/lib/cinematicCompositionEngine')) return 'cinematic-engine';
+          if (id.includes('/components/ui/')) return 'ui-components';
+        },
+      },
+    },
   },
   server: {
     host: true,
+    port: 3001,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
     allowedHosts: [
       ".manuspre.computer",
       ".manus.computer",

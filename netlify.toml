@@ -2,6 +2,13 @@
   command = "pnpm build"
   publish = "dist/public"
 
+[build.environment]
+  NODE_OPTIONS = "NODE_OPTIONS"
+  # Clear ALL caches for clean build
+  NPM_CONFIG_CACHE = ""
+  PNPM_HOME = ""
+  NETLIFY_CACHE_DIR = ""
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

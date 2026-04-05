@@ -1,0 +1,178 @@
+/**
+ * OSIRIS Accessibility CSS
+ * Reduced motion, high contrast, and focus styles
+ */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Disable complex visual effects */
+  .scanline-overlay,
+  .glitch-effect,
+  .particle-effect,
+  .vignette-overlay {
+    display: none !important;
+  }
+  
+  /* Simplify character animations */
+  .character-portrait {
+    animation: none !important;
+    transition: opacity 0.2s ease !important;
+  }
+  
+  /* Disable background video effects */
+  .background-video {
+    filter: none !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  /* Increase text contrast */
+  .dialogue-text {
+    color: #ffffff !important;
+    text-shadow: 0 0 4px #000000 !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+  }
+  
+  /* Ensure buttons are clearly visible */
+  button,
+  .choice-button {
+    border: 2px solid currentColor !important;
+    outline: 2px solid transparent !important;
+    outline-offset: 2px !important;
+  }
+  
+  /* Strong focus indicators */
+  *:focus-visible {
+    outline: 3px solid #fff !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 6px #000 !important;
+  }
+  
+  /* Character name badges */
+  .character-badge {
+    border: 2px solid currentColor !important;
+    background: rgba(0, 0, 0, 0.95) !important;
+  }
+}
+
+/* Focus visible styles */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid #c9a96e;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.3);
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: auto;
+  height: auto;
+  padding: 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background: #000;
+  color: #fff;
+  z-index: 9999;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #c9a96e;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  z-index: 9999;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* High contrast focus for choice buttons */
+.choice-button:focus-visible {
+  outline: 3px solid #fff !important;
+  outline-offset: -3px !important;
+  box-shadow: 0 0 0 6px #000, 0 0 0 8px #c9a96e !important;
+}
+
+/* Reduced motion: typewriter effect */
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-cursor {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Screen reader announcements container */
+#sr-announcements {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Accessible dialog backdrop */
+.dialog-backdrop {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+@media (prefers-contrast: high) {
+  .dialog-backdrop {
+    background: #000;
+  }
+}
+
+/* Ensure minimum touch targets (44x44px per WCAG) */
+button,
+.interactive-element {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Disable complex effects in high contrast */
+@media (prefers-contrast: high) {
+  .gradient-overlay,
+  .blur-backdrop {
+    backdrop-filter: none !important;
+    filter: none !important;
+  }
+}

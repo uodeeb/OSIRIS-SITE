@@ -1,14 +1,230 @@
-# OSIRIS-SITE
-node_modules/
-dist/
-generated-assets/
+# Dependencies
+**/node_modules
 .pnpm-store/
+
+# Build outputs
+dist/
+build/
+*.dist
+
+# Environment variables
 .env
 .env.local
-.env.*.local
-*.log
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
 .DS_Store
-.vite/
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+*.bak
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+
+# Gatsby files
 .cache/
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Database
 *.db
-*.db-journal
+*.sqlite
+*.sqlite3
+
+# Webdev artifacts (checkpoint zips, migrations, etc.)
+.webdev/
+
+# ============================================
+# OSIRIS-SPECIFIC: LARGE MEDIA & DUPLICATES (R2-ONLY ASSETS)
+# ============================================
+
+# ALL media files should be R2-only, not in git
+# Video files
+generated-assets/video-bg/*.mp4
+generated-assets/video-bg/**/*.mp4
+client/public/generated-assets/video-bg/*.mp4
+client/public/generated-assets/video-bg/**/*.mp4
+client/public/generated-assets/master/*.mp4
+client/public/generated-assets/master/**/*.mp4
+
+# Audio files (both formats)
+generated-assets/music-tracks/*.m4a
+generated-assets/music-tracks/*.mp3
+generated-assets/voices/*.wav
+generated-assets/songs+/*.mp3
+client/public/generated-assets/music-tracks/*.m4a
+client/public/generated-assets/music-tracks/*.mp3
+client/public/generated-assets/voices/*.wav
+client/public/generated-assets/songs+/*.mp3
+
+# Images (keep small ones, exclude large)
+generated-assets/images/*.png
+generated-assets/images/*.jpg
+generated-assets/images/*.jpeg
+generated-assets/characters/*.png
+generated-assets/characters/*.jpg
+generated-assets/characters/*.jpeg
+client/public/generated-assets/images/*.png
+client/public/generated-assets/images/*.jpg
+client/public/generated-assets/images/*.jpeg
+client/public/generated-assets/characters/*.png
+client/public/generated-assets/characters/*.jpg
+client/public/generated-assets/characters/*.jpeg
+
+# Legacy music folder
+MUSIC-BG/
+
+# Temp video clips from video production (~180MB)
+generated-assets/master/temp/
+generated-assets/master/*.mp4
+generated-assets/master/*.json
+
+# Audacity project files (~154MB)
+MUSIC-BG/*.aup3
+
+# Duplicate assets in client/public (copied during build)
+client/public/generated-assets/
+
+# Video files duplicated in dist (build output)
+dist/public/video-bg/
+dist/public/generated-assets/
+
+# Duplicate media files - keep dashed names ONLY
+# Audio: Keep TRACK-01.m4a, ignore "TRACK 01.m4a" (spaced names)
+generated-assets/music-tracks/TRACK *.m4a
+generated-assets/music-tracks/TRACK *.mp3
+
+# Voices: Keep VOICE-01.wav, ignore "VOICE 01 — ... .wav"
+generated-assets/voices/VOICE *.wav
+
+# Development/Project files (not runtime)
+.trae/
+.manus-logs/
+*.skill
+progress-tracker/
+audit/
+
+# Documentation (keep minimal)
+CINEMATIC_EXPERIENCE_SYSTEM.md
+ISSUES_ANALYSIS.md
+IMPLEMENTATION_ROADMAP.md
+PHASE2_COMPLETION_REPORT.md
+PRODUCTION_READINESS_*.md
+SYNC_*.md
+UX_UI_AUDIT_REPORT.md
+REPORT-*.md
+todo.md
+
+# Scripts (dev only, not runtime)
+scripts/
+!scripts/copyStaticMedia.mjs
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+.python-packages/
+
+# UI screenshots & misc
+ui-screens/
+osiris-novel.zip
+*.backup
+
+# e2e artifacts
+e2e/test-results/
+e2e/playwright-report/
+
+# Server logs & debug files
+server-start.log
+server/*.log
+server/_core/*.log
+trpc-debug.js
+database-check.js
+db-test.js
+browser-test.js
+
+# Vite & build artifacts
+*.vite
+test-seed*.js
+seed-database*.js
+repair_main_player.js
+fix.cjs
+
+# Test batch files (Windows)
+test-b64.bat
+test-b64.js
+run-insert.js

@@ -3,6 +3,7 @@ import express from "express";
 import { createServer } from "http";
 import net from "net";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
@@ -31,15 +32,37 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
-  // Configure body parser with larger size limit for file uploads
-  app.use(express.json({ limit: "50mb" }));
-  app.use(express.urlencoded({ limit: "50mb", extended: true }));
-  const generatedMusicPath = path.resolve(import.meta.dirname, "..", "..", "generated-assets", "music-tracks");
-  const generatedVoicesPath = path.resolve(import.meta.dirname, "..", "..", "generated-assets", "voices");
-  const legacyMusicPath = path.resolve(import.meta.dirname, "..", "..", "MUSIC-BG");
-  const generatedVideoBgPath = path.resolve(import.meta.dirname, "..", "..", "generated-assets", "video-bg");
-  const legacyVideoBgPath = path.resolve(import.meta.dirname, "..", "..", "video-bg");
-  const scriptPath = path.resolve(import.meta.dirname, "..", "..", "script");
+  const serverDir = path.dirname(fileURLToPath(import.meta.url));
+
+  app.use((req, res, next) => {
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("X-Frame-Options", "DENY");
+    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+    res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+    res.setHeader("X-DNS-Prefetch-Control", "off");
+    res.setHeader("X-Download-Options", "noopen");
+    res.setHeader("X-Permitted-Cross-Domain-Policies", "none");
+    if (process.env.NODE_ENV !== "development") {
+      res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+    }
+    
+    // Log all requests to /api/trpc for debugging
+    if (req.path.startsWith('/api/trpc')) {
+      console.log(`[Express] ${req.method} ${req.path} - Query:`, req.query);
+      console.log(`[Express] Headers:`, req.headers);
+    }
+    
+    next();
+  });
+
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ limit: "10mb", extended: true }));
+  const generatedMusicPath = path.resolve(serverDir, "..", "..", "generated-assets", "music-tracks");
+  const generatedVoicesPath = path.resolve(serverDir, "..", "..", "generated-assets", "voices");
+  const legacyMusicPath = path.resolve(serverDir, "..", "..", "MUSIC-BG");
+  const generatedVideoBgPath = path.resolve(serverDir, "..", "..", "generated-assets", "video-bg");
+  const legacyVideoBgPath = path.resolve(serverDir, "..", "..", "video-bg");
+  const scriptPath = path.resolve(serverDir, "..", "..", "script");
 
   app.use("/music", express.static(generatedMusicPath));
   app.use("/music", express.static(generatedVoicesPath));
@@ -51,16 +74,33 @@ async function startServer() {
   app.use("/script", express.static(scriptPath));
   app.use(
     "/generated-assets",
-    express.static(path.resolve(import.meta.dirname, "..", "..", "generated-assets"))
+    express.static(path.resolve(serverDir, "..", "..", "generated-assets"))
   );
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
+  
+  // Custom middleware to handle tRPC query parameter format
+  // NOTE: tRPC's createExpressMiddleware handles SuperJSON input parsing natively.
+  // This middleware only logs requests for debugging purposes.
+  app.use("/api/trpc", (req, res, next) => {
+    if (req.path.startsWith('/api/trpc')) {
+      console.log(`[tRPC] ${req.method} ${req.path} - Query:`, req.query);
+    }
+    next();
+  });
+  
   // tRPC API
   app.use(
     "/api/trpc",
     createExpressMiddleware({
       router: appRouter,
       createContext,
+      onError: ({ error, path, type }) => {
+        console.error(`[tRPC] ${type} ${path} - Error:`, error);
+        if (error.code === 'INTERNAL_SERVER_ERROR') {
+          console.error('[tRPC] Internal Server Error Details:', error.cause);
+        }
+      },
     })
   );
   // development mode uses Vite, production mode uses static files

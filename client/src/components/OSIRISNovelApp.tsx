@@ -70,20 +70,26 @@ export const OSIRISNovelApp: React.FC = () => {
    */
   const verifyMusicAssets = async (): Promise<void> => {
     const musicTracks = [
-      '/music/TRACK%2001%20%E2%80%94%20%D8%A7%D9%84%D8%AB%D9%8A%D9%85%20%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%20%D9%84%D9%84%D8%B1%D9%88%D8%A7%D9%8A%D8%A9.mp3',
-      '/music/TRACK%2002%20%E2%80%94%20%D8%A7%D9%84%D8%AC%D8%B2%D8%A1%20%D8%A7%D9%84%D8%B5%D9%81%D8%B1-%D8%BA%D8%B1%D9%81%D8%A9%20%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%83%D9%85%D8%A9%20%D8%A7%D9%84%D9%83%D9%88%D9%86%D9%8A%D8%A9.m4a',
-      '/music/TRACK%2003.m4a',
-      '/music/TRACK-04.m4a',
-      '/music/TRACK%2005.m4a',
-      '/music/TRACK%2006.m4a',
-      '/music/TRACK%2007.m4a',
-      '/music/TRACK%2008.m4a',
-      '/music/TRACK%2009.m4a',
-      '/music/TRACK%2010.m4a',
-      '/music/TRACK%2011.m4a',
-      '/music/TRACK%2012.m4a',
-      '/music/TRACK%2013.m4a',
-      '/music/TRACK%2014.m4a'
+      '/generated-assets/music-tracks/TRACK-02.m4a',
+      '/generated-assets/music-tracks/TRACK 02.m4a',
+      '/generated-assets/music-tracks/TRACK 03.mp3',
+      '/generated-assets/music-tracks/TRACK-04.m4a',
+      '/generated-assets/music-tracks/TRACK-05.m4a',
+      '/generated-assets/music-tracks/TRACK-06.m4a',
+      '/generated-assets/music-tracks/TRACK-07.m4a',
+      '/generated-assets/music-tracks/TRACK-08.m4a',
+      '/generated-assets/music-tracks/TRACK-09.m4a',
+      '/generated-assets/music-tracks/TRACK-10.m4a',
+      '/generated-assets/music-tracks/TRACK-11.m4a',
+      '/generated-assets/music-tracks/TRACK-12.m4a',
+      '/generated-assets/music-tracks/TRACK-13.m4a',
+      '/generated-assets/music-tracks/TRACK-14.m4a'
+    ];
+
+    const voiceAssets = [
+      '/generated-assets/voices/VOICE-01.wav',
+      '/generated-assets/voices/VOICE-02.wav',
+      '/generated-assets/voices/VOICE-03.wav'
     ];
 
     const voiceAssets = [

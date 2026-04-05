@@ -12,17 +12,29 @@
  */
 
 import { useEffect, useMemo, useRef, useState, useCallback, type CSSProperties } from 'react';
+import styles from './MainPlayer.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
-import { PART_LABELS, SCENES as ALL_SCENES, type DialogueLine, type Scene, type SceneChoice } from '@/lib/sceneSystem';
-import { ASSET_URLS } from '@/lib/assetUrls';
-import { getAssetOverride } from '@/lib/assetOverrides';
-import { useBandwidthStrategy } from '@/lib/mediaStrategy';
-import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "@/lib/osirisEffects";
-import { loadCanonicalDialogueMap } from '@/lib/canonicalScript';
-import { CinematicStage } from '@/components/CinematicStage';
-import { OsirisEffectLayer } from "@/components/OsirisEffectLayer";
-import osirisLogo from '@/LOGO/new-logo/favicon-black-0.25.png';
+import { PART_LABELS, SCENES as ALL_SCENES, type DialogueLine, type Scene, type SceneChoice } from '../lib/sceneSystem';
+import { ASSET_URLS } from '../lib/assetUrls';
+import { getAssetOverride } from '../lib/assetOverrides';
+import { useBandwidthStrategy } from '../lib/mediaStrategy';
+import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "../lib/osirisEffects";
+import { loadCanonicalDialogueMap } from '../lib/canonicalScript';
+import { CinematicStage } from './CinematicStage';
+import { OsirisEffectLayer } from "./OsirisEffectLayer";
+import { GlobalMediaLayer } from "./GlobalMediaLayer";
+import { useMediaController } from "../contexts/MediaControllerContext";
+import osirisLogo from '../LOGO/new-logo/favicon-black-0.25.png';
+
+// Helper function to normalize URLs
+function normalize(url: string): string {
+  try {
+    return new URL(url, window.location.href).href;
+  } catch {
+    return url;
+  }
+}
 
 interface MainPlayerProps {
   initialSceneId?: string;
@@ -42,41 +54,69 @@ interface CharacterConfig {
 const CHARACTER_MAP: Record<string, CharacterConfig> = {
   Narrator: {
     name: 'Narrator',
-    arabicName: 'الراوي',
+    arabicName: 'الراوي الكوني',
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
+    imageUrl: ASSET_URLS.characters.narrator,
   },
-  Iblis: {
-    name: 'Iblis',
-    arabicName: 'إبليس',
-    color: '#ff4444',
-    glowColor: 'rgba(255,68,68,0.35)',
+  yahya: {
+    name: 'Yahya',
+    arabicName: 'يحيى',
+    color: '#fbbf24',
+    glowColor: 'rgba(251,191,36,0.3)',
+    position: 'right',
+    imageUrl: ASSET_URLS.characters.yahya,
+  },
+  laila: {
+    name: 'Laila',
+    arabicName: 'ليلى',
+    color: '#f472b6',
+    glowColor: 'rgba(244,114,182,0.3)',
+    position: 'right',
+    imageUrl: ASSET_URLS.characters.laila,
+  },
+  tarek: {
+    name: 'Tarek',
+    arabicName: 'طارق',
+    color: '#60a5fa',
+    glowColor: 'rgba(96,165,250,0.3)',
     position: 'left',
+    imageUrl: ASSET_URLS.characters.tarek,
   },
-  Ramses: {
-    name: 'Ramses',
-    arabicName: 'رمسيس',
+  first_engineer: {
+    name: 'First Engineer',
+    arabicName: 'المهندس الأول',
+    color: '#ef4444',
+    glowColor: 'rgba(239,68,68,0.3)',
+    position: 'left',
+    imageUrl: ASSET_URLS.characters.first_engineer,
+  },
+  arius: {
+    name: 'Arius',
+    arabicName: 'آريوس',
+    color: '#a78bfa',
+    glowColor: 'rgba(167,139,250,0.3)',
+    position: 'left',
+    imageUrl: ASSET_URLS.characters.arius,
+  },
+  athanasius: {
+    name: 'Athanasius',
+    arabicName: 'أثناسيوس',
     color: '#d4af37',
     glowColor: 'rgba(212,175,55,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.ramses,
+    imageUrl: ASSET_URLS.characters.athanasius,
   },
-  Priest: {
-    name: 'Mysterious Priest',
-    arabicName: 'الكاهن الغامض',
-    color: '#8b5cf6',
-    glowColor: 'rgba(139,92,246,0.3)',
+  samiri: {
+    name: 'Al-Samiri',
+    arabicName: 'السامري',
+    color: '#f59e0b',
+    glowColor: 'rgba(245,158,11,0.3)',
     position: 'left',
+    imageUrl: ASSET_URLS.characters.samiri,
   },
-  Moses: {
-    name: 'Moses',
-    arabicName: 'موسى',
-    color: '#22c55e',
-    glowColor: 'rgba(34,197,94,0.3)',
-    position: 'right',
-  },
-  Constantine: {
+  constantine: {
     name: 'Constantine',
     arabicName: 'قسطنطين',
     color: '#3b82f6',
@@ -84,42 +124,109 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     position: 'right',
     imageUrl: ASSET_URLS.characters.constantine,
   },
-  Arius: {
-    name: 'Arius',
-    arabicName: 'آريوس',
-    color: '#a78bfa',
-    glowColor: 'rgba(167,139,250,0.3)',
-    position: 'left',
-  },
-  AbuAbdullah: {
-    name: 'Abu Abdullah',
-    arabicName: 'أبو عبد الله',
-    color: '#f59e0b',
-    glowColor: 'rgba(245,158,11,0.3)',
-    position: 'right',
-    imageUrl: ASSET_URLS.characters.abu_abdullah,
-  },
-  Qabil: {
-    name: 'Qabil',
-    arabicName: 'قابيل',
+  yahya_breakdown: {
+    name: 'Yahya',
+    arabicName: 'يحيى',
     color: '#ef4444',
-    glowColor: 'rgba(239,68,68,0.35)',
-    position: 'left',
+    glowColor: 'rgba(239,68,68,0.3)',
+    position: 'right',
+    imageUrl: ASSET_URLS.characters.yahya_breakdown,
   },
-  Mother: {
-    name: 'Mother',
-    arabicName: 'الأم',
-    color: '#a78bfa',
-    glowColor: 'rgba(167,139,250,0.3)',
-    position: 'left',
+  yahya_confront: {
+    name: 'Yahya',
+    arabicName: 'يحيى',
+    color: '#fbbf24',
+    glowColor: 'rgba(251,191,36,0.4)',
+    position: 'right',
+    imageUrl: ASSET_URLS.characters.yahya_confront,
   },
-  Bilal: {
-    name: 'Bilal',
-    arabicName: 'بلال',
+  tarek_ghost: {
+    name: 'Tarek (Recording)',
+    arabicName: 'تسجيل طارق',
+    color: '#94a3b8',
+    glowColor: 'rgba(148,163,184,0.3)',
+    position: 'left',
+    imageUrl: ASSET_URLS.characters.tarek_ghost,
+  },
+  tarek_dream: {
+    name: 'Tarek (Dream)',
+    arabicName: 'طارق',
+    color: '#818cf8',
+    glowColor: 'rgba(129,140,248,0.3)',
+    position: 'left',
+    imageUrl: ASSET_URLS.characters.tarek_dream,
+  },
+  laila_faith: {
+    name: 'Laila',
+    arabicName: 'ليلى',
+    color: '#f472b6',
+    glowColor: 'rgba(244,114,182,0.4)',
+    position: 'right',
+    imageUrl: ASSET_URLS.characters.laila_faith,
+  },
+  laila_witness: {
+    name: 'Laila (Witness)',
+    arabicName: 'ليلى',
+    color: '#f472b6',
+    glowColor: 'rgba(244,114,182,0.4)',
+    position: 'right',
+    imageUrl: ASSET_URLS.characters.laila_witness,
+  },
+  first_engineer_2: {
+    name: 'First Engineer',
+    arabicName: 'المهندس الأول',
+    color: '#ef4444',
+    glowColor: 'rgba(239,68,68,0.3)',
+    position: 'left',
+    imageUrl: ASSET_URLS.characters.first_engineer_2,
+  },
+  first_engineer_exposed: {
+    name: 'First Engineer (Exposed)',
+    arabicName: 'المهندس الأول',
+    color: '#b91c1c',
+    glowColor: 'rgba(185,28,28,0.4)',
+    position: 'left',
+    imageUrl: ASSET_URLS.characters.first_engineer_exposed,
+  },
+  first_engineer_confront: {
+    name: 'First Engineer',
+    arabicName: 'المهندس الأول',
+    color: '#dc2626',
+    glowColor: 'rgba(220,38,38,0.4)',
+    position: 'left',
+    imageUrl: ASSET_URLS.characters.first_engineer_confront,
+  },
+  yahya_dying: {
+    name: 'Yahya (Dying)',
+    arabicName: 'يحيى (يحتضر)',
+    color: '#991b1b',
+    glowColor: 'rgba(153,27,27,0.5)',
+    position: 'right',
+    imageUrl: ASSET_URLS.characters.yahya_dying,
+  },
+  laila_crying: {
+    name: 'Laila (Crying)',
+    arabicName: 'ليلى (تبكي)',
+    color: '#be185d',
+    glowColor: 'rgba(190,24,93,0.4)',
+    position: 'right',
+    imageUrl: ASSET_URLS.characters.laila_crying,
+  },
+  samiri_calf: {
+    name: 'Al-Samiri',
+    arabicName: 'السامري',
+    color: '#f59e0b',
+    glowColor: 'rgba(245,158,11,0.5)',
+    position: 'left',
+    imageUrl: ASSET_URLS.characters.samiri_calf,
+  },
+  Yahya: {
+    name: 'Yahya',
+    arabicName: 'يحيى',
     color: '#fbbf24',
     glowColor: 'rgba(251,191,36,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.yahya_main,
+    imageUrl: ASSET_URLS.characters.yahya,
   },
   Laila: {
     name: 'Laila',
@@ -137,35 +244,119 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     position: 'left',
     imageUrl: ASSET_URLS.characters.tarek,
   },
-  Yahya: {
-    name: 'Yahya',
-    arabicName: 'يحيى',
-    color: '#34d399',
-    glowColor: 'rgba(52,211,153,0.3)',
+  FirstEngineer: {
+    name: 'First Engineer',
+    arabicName: 'المهندس الأول',
+    color: '#ef4444',
+    glowColor: 'rgba(239,68,68,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.yahya_main,
+    imageUrl: ASSET_URLS.characters.first_engineer,
   },
-  Hitler: {
+  Arius: {
+    name: 'Arius',
+    arabicName: 'آريوس',
+    color: '#a78bfa',
+    glowColor: 'rgba(167,139,250,0.3)',
+    position: 'left',
+    imageUrl: ASSET_URLS.characters.arius,
+  },
+  Athanasius: {
+    name: 'Athanasius',
+    arabicName: 'أثناسيوس',
+    color: '#d4af37',
+    glowColor: 'rgba(212,175,55,0.3)',
+    position: 'right',
+    imageUrl: ASSET_URLS.characters.athanasius,
+  },
+  Samiri: {
+    name: 'Al-Samiri',
+    arabicName: 'السامري',
+    color: '#f59e0b',
+    glowColor: 'rgba(245,158,11,0.3)',
+    position: 'left',
+    imageUrl: ASSET_URLS.characters.samiri,
+  },
+  Constantine: {
+    name: 'Constantine',
+    arabicName: 'قسطنطين',
+    color: '#3b82f6',
+    glowColor: 'rgba(59,130,246,0.3)',
+    position: 'right',
+    imageUrl: ASSET_URLS.characters.constantine,
+  },
+  Ramses: {
+    name: 'Narrator',
+    arabicName: 'الراوي الكوني',
+    color: '#c9a96e',
+    glowColor: 'rgba(201,169,110,0.3)',
+    position: 'center',
+    imageUrl: ASSET_URLS.characters.narrator,
+  },
+  Iblis: {
+    name: 'Narrator',
+    arabicName: 'الراوي الكوني',
+    color: '#c9a96e',
+    glowColor: 'rgba(201,169,110,0.3)',
+    position: 'center',
+    imageUrl: ASSET_URLS.characters.narrator,
+  },
+  hitler: {
     name: 'Hitler',
     arabicName: 'هتلر',
     color: '#dc2626',
     glowColor: 'rgba(220,38,38,0.35)',
     position: 'left',
   },
-  Stalin: {
+  stalin: {
     name: 'Stalin',
     arabicName: 'ستالين',
     color: '#b91c1c',
     glowColor: 'rgba(185,28,28,0.35)',
     position: 'left',
   },
-  PotPot: {
+  polpot: {
     name: 'Pol Pot',
     arabicName: 'بول بوت',
     color: '#991b1b',
     glowColor: 'rgba(153,27,27,0.35)',
     position: 'left',
+    imageUrl: ASSET_URLS.characters.narrator,
   },
+};
+
+const SCENE_CHARACTER_TIMELINE: Record<string, string> = {
+  'zero-1-1-summons': 'yahya',
+  'zero-1-2-prosecution': 'Narrator',
+  'one-1-5-1-promise': 'tarek',
+  'one-1-5-2-bitter-truth': 'laila',
+  'one-1-5-3-no-escape': 'yahya',
+  'one-1-5-4-sacrifice': 'tarek',
+  'two-2-1-escape': 'yahya',
+  'two-2-2-osiris-launch': 'first_engineer',
+  'three-3-1-creation': 'yahya',
+  'three-3-1b-devil-song': 'Narrator',
+  'three-3-2-virus-design': 'first_engineer',
+  'four-4-1-desert': 'samiri',
+  'four-4-2-crowd-engineering': 'samiri_calf',
+  'four-5-1-tarek-message': 'tarek_ghost',
+  'four-5-2-analyst-tears': 'yahya_breakdown',
+  'five-6a-1-nicaea-debate': 'arius',
+  'five-6b-1-constantine': 'constantine',
+  'five-6c-1-laila-pain': 'laila_faith',
+  'five-6c-2-tarek-second': 'tarek_dream',
+  'six-8-1-andalusia': 'Narrator',
+  'six-8-2-last-tears': 'Narrator',
+  'six-8b-1-berlin': 'Narrator',
+  'six-8c-1-death-signatures': 'Narrator',
+  'six-8d-1-attack': 'yahya_confront',
+  'six-8d-2-final-update': 'first_engineer_exposed',
+  'transition-dream': 'tarek_dream',
+  'seven-10-1-karbala': 'Narrator',
+  'seven-11-1-temptation': 'first_engineer_2',
+  'seven-11-2-decision': 'yahya_confront',
+  'seven-12-1-truth-leak': 'laila_witness',
+  'seven-13-1-awakening': 'yahya',
+  'seven-13-2-closing': 'Narrator',
 };
 
 // ─── Emotional Tone Styles ───────────────────────────────────────────────────
@@ -206,6 +397,7 @@ const TRACK_URL_CANDIDATES: Record<string, string[]> = {
   track12: ['/music/TRACK-12.m4a', '/music/TRACK%2012.m4a'],
   track13: ['/music/TRACK-13.m4a', '/music/TRACK%2013.m4a'],
   track14: ['/music/TRACK-14.m4a', '/music/TRACK%2014.m4a', '/music/TRACK%2014.mp3', '/music/TRACK-01.mp3', '/music/TRACK%2011.m4a'],
+  track15: ['/generated-assets/songs+/ya-rab.m4a'],
 };
 
 const SCENE_TRACK_SEQUENCE: Record<string, keyof typeof TRACK_URL_CANDIDATES> = {
@@ -218,6 +410,7 @@ const SCENE_TRACK_SEQUENCE: Record<string, keyof typeof TRACK_URL_CANDIDATES> = 
   'two-2-1-escape': 'track12',
   'two-2-2-osiris-launch': 'track01',
   'three-3-1-creation': 'track03',
+  'three-3-1b-devil-song': 'track15',
   'three-3-2-virus-design': 'track03',
   'four-4-1-desert': 'track05',
   'four-4-2-crowd-engineering': 'track05',
@@ -264,6 +457,7 @@ type ImageCue = {
 
 const SCENE_IMAGE_CUES: Partial<Record<string, ImageCue>> = {
   'zero-1-1-summons': { src: '/generated-assets/images/01.jpg', points: [0], opacity: 0.2, blend: 'screen' },
+  'zero-1-2-prosecution': { src: '/generated-assets/characters/الراوي الكوني-التجسيد البصري (Visual Representation).png', points: [2], opacity: 0.35, blend: 'overlay' },
   'four-4-1-desert': { src: '/generated-assets/images/02.jpg', points: [1], opacity: 0.24, blend: 'soft-light' },
   'four-4-2-crowd-engineering': { src: '/generated-assets/images/03.jpg', points: [1], opacity: 0.24, blend: 'overlay' },
   'six-8-1-andalusia': { src: '/generated-assets/images/04.jpg', points: [1], opacity: 0.22, blend: 'screen' },
@@ -290,6 +484,7 @@ type VoiceCue = { at: number; voice: number };
 type VoiceDefinition = { voice: number; sceneId: string; anchor: string; fallbackAt?: number };
 
 const VOICE_DEFINITIONS: VoiceDefinition[] = [
+  { voice: 1, sceneId: 'zero-1-2-prosecution', anchor: 'الملف رقم واحد', fallbackAt: 2 },
   { voice: 3, sceneId: 'four-5-1-tarek-message', anchor: 'اذا كنت تستمع لهذا', fallbackAt: 0 },
   { voice: 4, sceneId: 'one-1-5-4-sacrifice', anchor: 'اخي اذا وصلت اليك هذه الرسالة', fallbackAt: 2 },
   { voice: 5, sceneId: 'three-3-2-virus-design', anchor: 'طارق كان محقا', fallbackAt: 9 },
@@ -361,7 +556,23 @@ const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFINITIONS.
 
 function getVoiceCandidates(voiceNumber: number) {
   const padded = String(Math.max(1, Math.min(18, voiceNumber))).padStart(2, '0');
-  return [`/music/VOICE-${padded}.wav`, `/generated-assets/voices/VOICE-${padded}.wav`];
+  return [
+    // New high-quality voices (priority)
+    `/generated-assets/voices/new-voices/VOICE${padded}.mp3`,
+    `/generated-assets/voices/new-voices/VOICE${voiceNumber}.mp3`,
+    // Legacy voices
+    `/music/VOICE-${padded}.wav`,
+    `/generated-assets/voices/VOICE-${padded}.wav`,
+  ];
+}
+
+// Special voice for devil scenes
+function getDevilVoiceCandidates() {
+  return [
+    '/generated-assets/voices/new-voices/main-devil.wav',
+    '/music/main-devil.wav',
+    '/generated-assets/voices/main-devil.wav',
+  ];
 }
 
 // ─── Particles ───────────────────────────────────────────────────────────────
@@ -399,32 +610,50 @@ function Particles({ tone }: { tone: string }) {
   );
 }
 
-// ─── Volume Control UI ───────────────────────────────────────────────────────
+// ─── Audio Control UI ─────────────────────────────────────────────────────────
+// Clean minimal 4-channel control: BG, Scene, Voice, SFX
 
-function VolumeControl({
-  musicVol,
-  sfxVol,
-  onMusicChange,
-  onSfxChange,
-  isMuted,
-  onToggleMute,
-}: {
-  musicVol: number;
+interface AudioControlProps {
+  bgVol: number;
+  sceneVol: number;
+  voiceVol: number;
   sfxVol: number;
-  onMusicChange: (v: number) => void;
-  onSfxChange: (v: number) => void;
   isMuted: boolean;
+  onBgChange: (v: number) => void;
+  onSceneChange: (v: number) => void;
+  onVoiceChange: (v: number) => void;
+  onSfxChange: (v: number) => void;
   onToggleMute: () => void;
-}) {
+}
+
+function AudioControl({
+  bgVol,
+  sceneVol,
+  voiceVol,
+  sfxVol,
+  isMuted,
+  onBgChange,
+  onSceneChange,
+  onVoiceChange,
+  onSfxChange,
+  onToggleMute,
+}: AudioControlProps) {
   const [open, setOpen] = useState(false);
+
+  const channels = [
+    { key: 'bg', label: 'خلفية', value: bgVol, onChange: onBgChange, color: '#c9a96e' },
+    { key: 'scene', label: 'مشهد', value: sceneVol, onChange: onSceneChange, color: '#3b82f6' },
+    { key: 'voice', label: 'صوت', value: voiceVol, onChange: onVoiceChange, color: '#22c55e' },
+    { key: 'sfx', label: 'مؤثرات', value: sfxVol, onChange: onSfxChange, color: '#ef4444' },
+  ];
 
   return (
     <div className="relative" onClick={(e) => e.stopPropagation()}>
+      {/* Main Toggle Button */}
       <button
         onClick={() => setOpen((p) => !p)}
-        className="flex items-center gap-1 px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/10"
-        style={{ color: 'rgba(201,169,110,0.7)' }}
-        title="Audio Controls"
+        className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.audioButton}`}
+        title="التحكم بالصوت"
       >
         {isMuted ? (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -437,7 +666,7 @@ function VolumeControl({
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
           </svg>
         )}
-        <span className="text-[9px] font-mono tracking-wider">AUDIO</span>
+        <span className="text-[9px] font-arabic-ui tracking-wider">صوت</span>
       </button>
 
       <AnimatePresence>
@@ -447,49 +676,37 @@ function VolumeControl({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-full right-0 mb-2 p-4 rounded-xl z-50 min-w-[200px]"
-            style={{
-              background: 'rgba(0,0,0,0.92)',
-              border: '1px solid rgba(201,169,110,0.2)',
-              backdropFilter: 'blur(20px)',
-            }}
+            className={`absolute bottom-full right-0 mb-2 p-4 rounded-xl z-50 min-w-[240px] ${styles.audioPanel}`}
           >
-            <div className="mb-3">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[9px] font-mono tracking-wider text-amber-300/70">AMBIENT MUSIC</span>
-                <span className="text-[9px] font-mono text-white/40">{Math.round(musicVol * 100)}%</span>
-              </div>
-              <input
-                type="range" min="0" max="1" step="0.05"
-                value={musicVol}
-                onChange={(e) => onMusicChange(parseFloat(e.target.value))}
-                className="w-full h-1 rounded-full appearance-none cursor-pointer"
-                style={{ accentColor: '#c9a96e' }}
-              />
+            {/* 4 Channel Sliders */}
+            <div className="space-y-3 mb-4">
+              {channels.map((ch) => (
+                <div key={ch.key} className="flex items-center gap-3">
+                  <span className="text-[8px] font-mono w-10 text-white/50">{ch.label}</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value={ch.value}
+                    onChange={(e) => ch.onChange(parseFloat(e.target.value))}
+                    className="flex-1 h-1 rounded-full appearance-none cursor-pointer"
+                    style={{
+                      background: `linear-gradient(to right, ${ch.color} ${ch.value * 100}%, rgba(255,255,255,0.1) ${ch.value * 100}%)`,
+                    }}
+                    aria-label={`${ch.label} Volume`}
+                  />
+                  <span className="text-[8px] font-mono w-6 text-right text-white/40">{Math.round(ch.value * 100)}</span>
+                </div>
+              ))}
             </div>
-            <div className="mb-3">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[9px] font-mono tracking-wider text-amber-300/70">AMBIENT / SFX</span>
-                <span className="text-[9px] font-mono text-white/40">{Math.round(sfxVol * 100)}%</span>
-              </div>
-              <input
-                type="range" min="0" max="1" step="0.05"
-                value={sfxVol}
-                onChange={(e) => onSfxChange(parseFloat(e.target.value))}
-                className="w-full h-1 rounded-full appearance-none cursor-pointer"
-                style={{ accentColor: '#c9a96e' }}
-              />
-            </div>
+
+            {/* Mute Toggle */}
             <button
               onClick={onToggleMute}
-              className="w-full py-1.5 rounded-lg text-[9px] font-mono tracking-wider transition-all duration-200"
-              style={{
-                background: isMuted ? 'rgba(201,169,110,0.2)' : 'rgba(255,255,255,0.06)',
-                color: isMuted ? '#c9a96e' : 'rgba(255,255,255,0.5)',
-                border: '1px solid rgba(201,169,110,0.15)',
-              }}
+              className={`w-full py-2 rounded-lg text-[9px] font-arabic-ui tracking-wider transition-all duration-200 ${isMuted ? 'bg-red-500/20 text-red-300 hover:bg-red-500/30' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}
             >
-              {isMuted ? '▶ UNMUTE ALL' : '⏸ MUTE ALL'}
+              {isMuted ? '🔊 تفعيل الصوت' : '🔇 كتم الصوت'}
             </button>
           </motion.div>
         )}
@@ -502,10 +719,35 @@ function VolumeControl({
 
 export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerProps) {
   const [, setLocation] = useLocation();
+  const {
+    state: globalMediaState,
+    play: globalPlay,
+    setAccentColor,
+    setPrimaryAudioMuted,
+    setPrimaryAudioSources,
+    setPrimaryAudioVolume,
+    registerMedia,
+    setDurationMs,
+  } = useMediaController();
   const canonicalMode = useMemo(() => {
     if (typeof window === 'undefined') return false;
     const params = new URLSearchParams(window.location.search);
     return params.get('canonical') === '1' || params.get('script') === 'canonical';
+  }, []);
+
+  // Handle scene parameter from shared URLs
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const sceneParam = params.get('scene');
+    if (sceneParam && sceneParam in ALL_SCENES) {
+      setCurrentSceneId(sceneParam);
+      setDialogueIndex(0);
+      setDisplayedText('');
+      setDisplayedArabic('');
+      setIsDialogueComplete(false);
+      setShowChoices(false);
+    }
   }, []);
 
   // Language state — 'en' or 'ar'
@@ -532,9 +774,13 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const [autoProgress, setAutoProgress] = useState(100);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [showAudioPrompt, setShowAudioPrompt] = useState(true);
-  const [musicVol, setMusicVol] = useState(0.18);
-  const [sfxVol, setSfxVol] = useState(0.22);
+  // 4-Channel Audio System: BG, Scene, Voice, SFX
+  const [bgVol, setBgVol] = useState(0.25);
+  const [sceneVol, setSceneVol] = useState(0.40);
+  const [voiceVol, setVoiceVol] = useState(0.85);
+  const [sfxVol, setSfxVol] = useState(0.35);
   const [isMuted, setIsMuted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [scriptTrackOverride, setScriptTrackOverride] = useState<keyof typeof TRACK_URL_CANDIDATES | null>(null);
   const [activeImageCue, setActiveImageCue] = useState<{ src: string; opacity: number; blend: CSSProperties['mixBlendMode']; token: string } | null>(null);
   const [techBoost, setTechBoost] = useState(0);
@@ -544,10 +790,9 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [shareMenuOpen, setShareMenuOpen] = useState(false);
   const [canonicalDialogueByScene, setCanonicalDialogueByScene] = useState<Record<string, DialogueLine[]>>({});
-  const bedMusicRef = useRef<HTMLAudioElement | null>(null);
-  const bedMusicFadeRef = useRef<number | null>(null);
-  const sceneMusicRef = useRef<HTMLAudioElement | null>(null);
-  const sceneMusicFadeRef = useRef<number | null>(null);
+  // Multi-track audio refs: base (main theme) + scene overlay
+  const baseTrackRef = useRef<HTMLAudioElement | null>(null);
+  const sceneTrackRef = useRef<HTMLAudioElement | null>(null);
   const voiceRef = useRef<HTMLAudioElement | null>(null);
   const voiceSyncRafRef = useRef<number | null>(null);
   const lastVoiceCueRef = useRef<string>('');
@@ -563,6 +808,28 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const lastPartRef = useRef<number>(-1);
   const fxTimersRef = useRef<Array<ReturnType<typeof setTimeout>>>([]);
   const currentScene: Scene | undefined = ALL_SCENES[currentSceneId];
+  useEffect(() => {
+    if (!currentScene) return;
+    const part = currentScene.part;
+    const color =
+      part === 0 ? "#c9a96e" :
+      part === 1 ? "#ef4444" :
+      part === 2 ? "#d4af37" :
+      part === 3 ? "#3b82f6" :
+      part === 4 ? "#22c55e" :
+      part === 5 ? "#f97316" :
+      "#8b5cf6";
+    setAccentColor(color);
+    const estMinutes =
+      part === 0 ? 14 :
+      part === 1 ? 16 :
+      part === 2 ? 18 :
+      part === 3 ? 16 :
+      part === 4 ? 18 :
+      part === 5 ? 14 :
+      12;
+    setDurationMs(Math.max(10_000, estMinutes * 60 * 1000));
+  }, [currentScene, setAccentColor, setDurationMs]);
   const dialogueLines = useMemo(() => {
     if (!currentScene) return [];
     if (!canonicalMode) return currentScene.dialogue || [];
@@ -578,8 +845,35 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const isVoicedDialogue = !!currentVoiceCue;
   const isVoiceModeActive = voiceSyncLock && activeVoiceNumber !== null;
   const isArabic = lang === 'ar';
-  const currentCharConfig = currentDialogue?.character
-    ? (CHARACTER_MAP[currentDialogue.character] || CHARACTER_MAP['Narrator'])
+  const timelineCharacterKey = SCENE_CHARACTER_TIMELINE[currentSceneId];
+  const rawDialogueCharacterKey = currentDialogue?.character || '';
+  const dialogueTextForCharacter = `${currentDialogue?.text || ''} ${currentDialogue?.arabicText || ''}`;
+  const resolveCharacterKey = (rawKey: string, text: string, sceneId: string) => {
+    if (/قال يحيى|أجاب يحيى|همس يحيى|صرخ يحيى|رد يحيى/i.test(text)) return sceneId === 'four-5-2-analyst-tears' ? 'yahya_breakdown' : 'yahya';
+    if (/قالت ليلى|أجابت ليلى|همست ليلى|صرخت ليلى/i.test(text)) return sceneId === 'seven-12-1-truth-leak' ? 'laila_witness' : 'laila';
+    if (/قال طارق|أجاب طارق|همس طارق|صوت طارق|تسجيل طارق/i.test(text)) return sceneId === 'four-5-1-tarek-message' ? 'tarek_ghost' : 'tarek';
+    if (/قال المهندس الأول|أجاب المهندس الأول|المهندس الأول/i.test(text)) return sceneId === 'six-8d-2-final-update' ? 'first_engineer_exposed' : 'first_engineer';
+    if (/قال آريوس|آريوس/i.test(text)) return 'arius';
+    if (/قال أثناسيوس|أثناسيوس/i.test(text)) return 'athanasius';
+    if (/قال قسطنطين|قسطنطين/i.test(text)) return 'constantine';
+    if (/السامري|العجل/i.test(text)) return /عجل/i.test(text) ? 'samiri_calf' : 'samiri';
+    if (rawKey && rawKey in CHARACTER_MAP && rawKey !== 'Narrator') return rawKey;
+    if (/يحيى/i.test(text)) return sceneId === 'four-5-2-analyst-tears' ? 'yahya_breakdown' : 'yahya';
+    if (/ليلى/i.test(text)) return sceneId === 'seven-12-1-truth-leak' ? 'laila_witness' : 'laila';
+    if (/طارق/i.test(text)) return sceneId === 'four-5-1-tarek-message' ? 'tarek_ghost' : 'tarek';
+    if (/المهندس/i.test(text)) return sceneId === 'six-8d-2-final-update' ? 'first_engineer_exposed' : 'first_engineer';
+    if (/آريوس/i.test(text)) return 'arius';
+    if (/أثناسيوس/i.test(text)) return 'athanasius';
+    if (/قسطنطين/i.test(text)) return 'constantine';
+    if (/السامري|العجل/i.test(text)) return /عجل/i.test(text) ? 'samiri_calf' : 'samiri';
+    return rawKey;
+  };
+  const dialogueCharacterKey = resolveCharacterKey(rawDialogueCharacterKey, dialogueTextForCharacter, currentSceneId);
+  const preferredCharacterKey = dialogueCharacterKey in CHARACTER_MAP
+    ? dialogueCharacterKey
+    : (timelineCharacterKey || 'Narrator');
+  const currentCharConfig = preferredCharacterKey && CHARACTER_MAP[preferredCharacterKey]
+    ? CHARACTER_MAP[preferredCharacterKey]
     : CHARACTER_MAP['Narrator'];
 
   const tone = currentScene?.emotionalTone || 'dark';
@@ -615,6 +909,64 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     return typeof cur === "string" ? cur : undefined;
   }, []);
 
+  // Resolve character image URL using the override system (same as videos)
+  const resolvedCharImageUrl = useMemo(() => {
+    if (!currentCharConfig.imageUrl) return undefined;
+    
+    // Extract character name from the config key reference
+    // currentCharConfig.imageUrl is like ASSET_URLS.characters.yahya
+    // We need to re-access through the proxy to get the resolved R2 URL
+    const charKey = dialogueCharacterKey || preferredCharacterKey || 'narrator';
+    const normalizedCharKey = charKey.toLowerCase().replace(/[^a-z0-9_]/g, '');
+    
+    // Map character keys to ASSET_URLS character names
+    const charNameMap: Record<string, string> = {
+      'narrator': 'narrator',
+      'yahya': 'yahya',
+      'yahya_breakdown': 'yahya_breakdown',
+      'yahya_confront': 'yahya_confront',
+      'yahya_dying': 'yahya_dying',
+      'yahya_main': 'yahya_main',
+      'laila': 'laila',
+      'laila_faith': 'laila_faith',
+      'laila_witness': 'laila_witness',
+      'laila_crying': 'laila_crying',
+      'tarek': 'tarek',
+      'tarek_ghost': 'tarek_ghost',
+      'tarek_dream': 'tarek_dream',
+      'first_engineer': 'first_engineer',
+      'first_engineer_2': 'first_engineer_2',
+      'first_engineer_confront': 'first_engineer_confront',
+      'first_engineer_exposed': 'first_engineer_exposed',
+      'arius': 'arius',
+      'athanasius': 'athanasius',
+      'samiri': 'samiri',
+      'samiri_calf': 'samiri_calf',
+      'constantine': 'constantine',
+      'ramses': 'ramses',
+      'abu_abdullah': 'abu_abdullah',
+      'dictator': 'dictator',
+      'hitler': 'narrator',
+      'iblis': 'narrator',
+    };
+    
+    const charName = charNameMap[normalizedCharKey] || normalizedCharKey;
+    
+    // Re-access through ASSET_URLS proxy to get resolved R2 URL
+    const s3Url = (ASSET_URLS.characters as any)[charName];
+    if (s3Url && s3Url.startsWith('http')) {
+      return s3Url;
+    }
+    
+    // Fallback: try the original imageUrl if it's already a URL
+    if (currentCharConfig.imageUrl.startsWith('http')) {
+      return currentCharConfig.imageUrl;
+    }
+    
+    // Last resort: resolve via resolveAsset
+    return resolveAsset(currentCharConfig.imageUrl);
+  }, [dialogueCharacterKey, preferredCharacterKey, currentCharConfig.imageUrl, resolveAsset]);
+
   const burstFx = useCallback((fx: { flash?: number; shake?: boolean; ui?: number }) => {
     fxTimersRef.current.forEach(t => clearTimeout(t));
     fxTimersRef.current = [];
@@ -634,6 +986,21 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
   const triggerBeatsForDialogue = useCallback((d: { text?: string; arabicText?: string }) => {
     const t = `${d.text || ""} ${d.arabicText || ""}`.toLowerCase();
+    if (
+      t.includes("الاهتزاز الكوني") ||
+      t.includes("اهتزاز كوني") ||
+      t.includes("ارتجاج") ||
+      t.includes("رجفة") ||
+      t.includes("زلزال") ||
+      t.includes("اهتز") ||
+      t.includes("ارتعاش") ||
+      t.includes("cosmic vibration") ||
+      t.includes("shockwave") ||
+      t.includes("rumble")
+    ) {
+      burstFx({ flash: 0.3, shake: true, ui: 1 });
+      return;
+    }
     if (t.includes("warning") || t.includes("تحذير")) {
       burstFx({ flash: 0.18, shake: true, ui: 1 });
       return;
@@ -658,35 +1025,113 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const enableAudio = useCallback(() => {
     setAudioEnabled(true);
     setShowAudioPrompt(false);
-  }, []);
+    setIsPlaying(true);
+    globalPlay();
+  }, [globalPlay]);
 
-  const handleMusicVol = useCallback((v: number) => {
-    const next = Math.min(1, Math.max(0, v));
-    setMusicVol(next);
-    if (isMuted) return;
-    const voiceMixFactor = voiceSyncLock ? 0.46 : 1;
-    const bedTarget = (isSceneUsingBedOnly ? next : next * 0.35) * voiceMixFactor;
-    const sceneTarget = (isSceneUsingBedOnly ? 0 : Math.min(1, next * 0.95)) * voiceMixFactor;
-    if (bedMusicRef.current) bedMusicRef.current.volume = bedTarget;
-    if (sceneMusicRef.current) sceneMusicRef.current.volume = sceneTarget;
-  }, [isMuted, isSceneUsingBedOnly, voiceSyncLock]);
+  // 4-Channel Volume Handlers
+  const handleBgVol = useCallback((v: number) => {
+    setBgVol(Math.min(1, Math.max(0, v)));
+    if (baseTrackRef.current && !isMuted) {
+      baseTrackRef.current.volume = v;
+    }
+  }, [isMuted]);
+
+  const handleSceneVol = useCallback((v: number) => {
+    setSceneVol(Math.min(1, Math.max(0, v)));
+    if (sceneTrackRef.current && !isMuted) {
+      sceneTrackRef.current.volume = v;
+    }
+  }, [isMuted]);
+
+  const handleVoiceVol = useCallback((v: number) => {
+    setVoiceVol(Math.min(1, Math.max(0, v)));
+    if (voiceRef.current && !isMuted) {
+      voiceRef.current.volume = v;
+    }
+  }, [isMuted]);
 
   const handleSfxVol = useCallback((v: number) => {
-    const next = Math.min(1, Math.max(0, v));
-    setSfxVol(next);
+    setSfxVol(Math.min(1, Math.max(0, v)));
     if (ambientRef.current && !isMuted) {
-      ambientRef.current.volume = next * (voiceSyncLock ? 0.55 : 1);
+      ambientRef.current.volume = v;
     }
-  }, [isMuted, voiceSyncLock]);
+  }, [isMuted]);
+
+  // Refs to track paused state for resume from exact same point
+  const videoPausedTimeRef = useRef<number>(0);
+  const audioPausedTimeRef = useRef<{base: number, scene: number, ambient: number}>({base: 0, scene: 0, ambient: 0});
+
+  // Solid Play/Pause Control - affects all media (audio + video) and pauses at current point
+  const handlePlayPause = useCallback(() => {
+    const newPlaying = !isPlaying;
+    setIsPlaying(newPlaying);
+
+    // Control background video
+    if (bgVideoRef.current) {
+      if (newPlaying) {
+        // Resume from paused time
+        bgVideoRef.current.currentTime = videoPausedTimeRef.current;
+        bgVideoRef.current.play().catch(() => {});
+      } else {
+        // Store current time and pause
+        videoPausedTimeRef.current = bgVideoRef.current.currentTime;
+        bgVideoRef.current.pause();
+      }
+    }
+
+    // Control base track
+    if (baseTrackRef.current) {
+      if (newPlaying) {
+        baseTrackRef.current.currentTime = audioPausedTimeRef.current.base;
+        baseTrackRef.current.play().catch(() => {});
+      } else {
+        audioPausedTimeRef.current.base = baseTrackRef.current.currentTime;
+        baseTrackRef.current.pause();
+      }
+    }
+
+    // Control scene track
+    if (sceneTrackRef.current) {
+      if (newPlaying) {
+        sceneTrackRef.current.currentTime = audioPausedTimeRef.current.scene;
+        sceneTrackRef.current.play().catch(() => {});
+      } else {
+        audioPausedTimeRef.current.scene = sceneTrackRef.current.currentTime;
+        sceneTrackRef.current.pause();
+      }
+    }
+
+    // Control ambient
+    if (ambientRef.current) {
+      if (newPlaying) {
+        ambientRef.current.currentTime = audioPausedTimeRef.current.ambient;
+        ambientRef.current.play().catch(() => {});
+      } else {
+        audioPausedTimeRef.current.ambient = ambientRef.current.currentTime;
+        ambientRef.current.pause();
+      }
+    }
+
+    // Note: Voice is intentionally NOT controlled here - voice cues play independently
+    // and should not be affected by the play/pause button
+
+    // Sync with global media controller
+    if (newPlaying) {
+      globalPlay();
+    }
+  }, [isPlaying, globalPlay]);
 
   const handleToggleMute = useCallback(() => {
     const newMuted = !isMuted;
     setIsMuted(newMuted);
-    const voiceMixFactor = voiceSyncLock ? 0.46 : 1;
-    if (bedMusicRef.current) bedMusicRef.current.volume = newMuted ? 0 : (isSceneUsingBedOnly ? musicVol : musicVol * 0.35) * voiceMixFactor;
-    if (sceneMusicRef.current) sceneMusicRef.current.volume = newMuted ? 0 : (isSceneUsingBedOnly ? 0 : Math.min(1, musicVol * 0.95)) * voiceMixFactor;
-    if (ambientRef.current) ambientRef.current.volume = newMuted ? 0 : sfxVol * (voiceSyncLock ? 0.55 : 1);
-  }, [isMuted, musicVol, sfxVol, isSceneUsingBedOnly, voiceSyncLock]);
+
+    // Apply to all audio elements
+    if (baseTrackRef.current) baseTrackRef.current.volume = newMuted ? 0 : bgVol;
+    if (sceneTrackRef.current) sceneTrackRef.current.volume = newMuted ? 0 : sceneVol;
+    if (voiceRef.current) voiceRef.current.volume = newMuted ? 0 : voiceVol;
+    if (ambientRef.current) ambientRef.current.volume = newMuted ? 0 : sfxVol;
+  }, [isMuted, bgVol, sceneVol, voiceVol, sfxVol]);
 
   const toggleFullscreen = useCallback(() => {
     if (!document.fullscreenElement) {
@@ -805,7 +1250,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     }, 1800);
   }, [currentSceneId]);
   const handleBackScene = useCallback(() => {
-    if (!currentScene || voiceSyncLock) return;
+    if (!currentScene) return;
 
     if (showChoices) {
       setShowChoices(false);
@@ -815,7 +1260,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     }
 
     setDialogueIndex((prev) => Math.max(0, prev - 1));
-  }, [currentScene, showChoices, voiceSyncLock, dialogueLines.length]);
+  }, [currentScene, showChoices, dialogueLines.length]);
 
   const handleChoice = useCallback((choice: SceneChoice) => {
     if (voiceSyncLock) return;
@@ -858,8 +1303,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
   const getShareUrl = useCallback(() => {
     if (typeof window === 'undefined') return '';
-    return window.location.origin;
-  }, []);
+    const baseUrl = window.location.origin;
+    const currentPath = window.location.pathname;
+    const sceneParam = currentSceneId ? `?scene=${encodeURIComponent(currentSceneId)}` : '';
+    return `${baseUrl}${currentPath}${sceneParam}`;
+  }, [currentSceneId]);
 
   const handleCopyShareLink = useCallback(() => {
     const url = getShareUrl();
@@ -870,19 +1318,41 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const handleShareNative = useCallback(() => {
     const url = getShareUrl();
     if (!url) return;
-    const title = lang === 'ar' ? 'OSIRIS — المفسدون في الأرض' : 'OSIRIS — Multimedia Interactive Novel';
-    const text = lang === 'ar' ? 'تجربة رواية تفاعلية سينمائية' : 'A cinematic interactive novel experience';
+    
+    // Get current scene info for better sharing
+    const sceneTitle = currentScene?.arabicTitle || currentScene?.title || 'OSIRIS';
+    const scenePart = currentScene?.part !== undefined ? `Part ${currentScene.part}` : '';
+    
+    const title = lang === 'ar' 
+      ? `OSIRIS — ${sceneTitle}` 
+      : `OSIRIS — ${currentScene?.title || 'Interactive Novel'}`;
+    
+    const text = lang === 'ar' 
+      ? `أنا أقرأ "المفسدون في الأرض" - ${sceneTitle} ${scenePart}. انضم إليّ في هذه التجربة السينمائية.`
+      : `I'm reading "OSIRIS - The Corruptors on Earth" - ${currentScene?.title || 'Interactive Novel'} ${scenePart}. Join me in this cinematic experience.`;
+    
     const nav: any = navigator as any;
     if (nav?.share) {
       nav.share({ title, text, url }).catch(() => {});
     }
-  }, [getShareUrl, lang]);
+  }, [getShareUrl, lang, currentScene]);
 
   const handleShareTo = useCallback((target: 'whatsapp' | 'telegram' | 'facebook' | 'x' | 'email') => {
     const url = getShareUrl();
     if (!url) return;
-    const title = lang === 'ar' ? 'OSIRIS — المفسدون في الأرض' : 'OSIRIS — Multimedia Interactive Novel';
-    const text = lang === 'ar' ? 'تجربة رواية تفاعلية سينمائية' : 'A cinematic interactive novel experience';
+    
+    // Get current scene info for better sharing
+    const sceneTitle = currentScene?.arabicTitle || currentScene?.title || 'OSIRIS';
+    const scenePart = currentScene?.part !== undefined ? `Part ${currentScene.part}` : '';
+    
+    const title = lang === 'ar' 
+      ? `OSIRIS — ${sceneTitle}` 
+      : `OSIRIS — ${currentScene?.title || 'Interactive Novel'}`;
+    
+    const text = lang === 'ar' 
+      ? `أنا أقرأ "المفسدون في الأرض" - ${sceneTitle} ${scenePart}. انضم إليّ في هذه التجربة السينمائية.`
+      : `I'm reading "OSIRIS - The Corruptors on Earth" - ${currentScene?.title || 'Interactive Novel'} ${scenePart}. Join me in this cinematic experience.`;
+    
     const shareUrl = encodeURIComponent(url);
     const shareText = encodeURIComponent(`${text} — ${title}`);
     const open = (href: string) => window.open(href, '_blank', 'noopener,noreferrer');
@@ -892,7 +1362,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     if (target === 'facebook') return open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`);
     if (target === 'x') return open(`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`);
     open(`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${text}\n\n${url}`)}`);
-  }, [getShareUrl, lang]);
+  }, [getShareUrl, lang, currentScene]);
 
 
   const handleForwardScript = useCallback(() => {
@@ -910,6 +1380,17 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.tagName === 'SELECT' ||
+          target.tagName === 'BUTTON' ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
       if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') {
         e.preventDefault();
         handleForwardScript();
@@ -996,10 +1477,15 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
     if (autoMode === 'off' || sceneTransitioning || voiceSyncLock) return;
 
+    // Use refs to avoid stale closures
+    const currentSceneRef = currentScene;
+    const currentDialogueIndexRef = dialogueIndex;
+    const currentDialogueLinesRef = dialogueLines;
+
     let action: (() => void) | null = null;
 
     if (showChoices) {
-      const firstChoice = currentScene?.choices?.[0];
+      const firstChoice = currentSceneRef?.choices?.[0];
       if (firstChoice) {
         action = () => handleChoice(firstChoice);
       } else {
@@ -1008,7 +1494,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
     } else if (isDialogueComplete && !isTyping) {
       action = () => {
-        if (dialogueIndex < (dialogueLines.length || 1) - 1) {
+        if (currentDialogueIndexRef < (currentDialogueLinesRef.length || 1) - 1) {
           advanceDialogue();
         } else {
           setShowChoices(true);
@@ -1080,8 +1566,9 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     return () => clearTimeout(t);
   }, [currentSceneId, dialogueIndex]);
 
-  useEffect(() => {
-    if (!audioEnabled) return;
+
+  // --- Music candidate normalization logic moved to render scope ---
+  const normalizedSceneCandidates = useMemo(() => {
     const normalize = (url: string) => {
       try {
         return new URL(url, window.location.href).href;
@@ -1090,7 +1577,6 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       }
     };
 
-    const desiredBedCandidates = TRACK_URL_CANDIDATES.track01.map((u) => normalize(u));
     const sceneFallbackMusicUrl = resolveAsset(currentScene?.musicKey);
     const sceneTrackCandidates = TRACK_URL_CANDIDATES[sceneTrackKey] ?? TRACK_URL_CANDIDATES.track01;
     const desiredSceneCandidates = [...sceneTrackCandidates];
@@ -1100,23 +1586,15 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     if (!desiredSceneCandidates.includes(ASSET_URLS.audio.main_theme)) {
       desiredSceneCandidates.push(ASSET_URLS.audio.main_theme);
     }
-    const normalizedSceneCandidates = desiredSceneCandidates.map((u) => normalize(u));
+    return desiredSceneCandidates.map((u) => normalize(u));
+  }, [currentScene?.musicKey, sceneTrackKey, resolveAsset]);
+
+  useEffect(() => {
+    if (!audioEnabled) return;
+    const shouldPlay = globalMediaState.isPlaying;
     const desiredAmbientUrl = (currentScene?.ambientKeys ?? [])
       .map(k => resolveAsset(k))
       .find((u): u is string => typeof u === "string" && u.length > 0);
-
-    const setSourceWithFallback = (audio: HTMLAudioElement, candidates: string[]) => {
-      let index = 0;
-      const tryNext = () => {
-        if (index >= candidates.length) return;
-        const nextSrc = candidates[index++];
-        audio.onerror = tryNext;
-        audio.src = nextSrc;
-        audio.load();
-        audio.play().catch(() => {});
-      };
-      tryNext();
-    };
 
     const fade = (
       audio: HTMLAudioElement,
@@ -1141,39 +1619,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       };
 
       ref.current = requestAnimationFrame(tick);
-      if (audio.paused) audio.play().catch(() => {});
+      if (shouldPlay && audio.paused) audio.play().catch(() => {});
     };
 
-    if (!bedMusicRef.current) {
-      bedMusicRef.current = new Audio();
-      bedMusicRef.current.preload = 'auto';
-      bedMusicRef.current.loop = true;
-      bedMusicRef.current.volume = 0;
-      setSourceWithFallback(bedMusicRef.current, desiredBedCandidates);
-    } else {
-      const activeSrc = normalize(bedMusicRef.current.src);
-      if (!desiredBedCandidates.includes(activeSrc)) {
-        bedMusicRef.current.pause();
-        bedMusicRef.current.volume = 0;
-        setSourceWithFallback(bedMusicRef.current, desiredBedCandidates);
-      }
-    }
-
-    if (!sceneMusicRef.current) {
-      sceneMusicRef.current = new Audio();
-      sceneMusicRef.current.preload = 'auto';
-      sceneMusicRef.current.loop = true;
-      sceneMusicRef.current.volume = 0;
-    }
-
-    if (!isSceneUsingBedOnly && sceneMusicRef.current) {
-      const activeSrc = normalize(sceneMusicRef.current.src);
-      if (!normalizedSceneCandidates.includes(activeSrc)) {
-        sceneMusicRef.current.pause();
-        sceneMusicRef.current.volume = 0;
-        setSourceWithFallback(sceneMusicRef.current, normalizedSceneCandidates);
-      }
-    }
+    setPrimaryAudioMuted(isMuted);
+    setPrimaryAudioSources(normalizedSceneCandidates || [], true);
 
     if (desiredAmbientUrl) {
       if (!ambientRef.current) {
@@ -1181,7 +1631,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         ambientRef.current.preload = 'metadata';
         ambientRef.current.loop = true;
         ambientRef.current.volume = isMuted ? 0 : 0;
-        ambientRef.current.play().catch(() => {});
+        if (shouldPlay) ambientRef.current.play().catch(() => {});
+        registerMedia(ambientRef.current);
       } else {
         const nextSrc = normalize(desiredAmbientUrl);
         if (ambientRef.current.src !== nextSrc) {
@@ -1189,7 +1640,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
           ambientRef.current.src = nextSrc;
           ambientRef.current.loop = true;
           ambientRef.current.volume = 0;
-          ambientRef.current.play().catch(() => {});
+          if (shouldPlay) ambientRef.current.play().catch(() => {});
         }
       }
     } else if (ambientRef.current) {
@@ -1198,39 +1649,17 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       ambientRef.current = null;
     }
 
-    const baseMusic = isMuted ? 0 : musicVol;
+    const baseMusic = isMuted ? 0 : bgVol;
     const voiceMixFactor = voiceSyncLock ? 0.46 : 1;
-    const bedTarget = (isSceneUsingBedOnly ? baseMusic : baseMusic * 0.35) * voiceMixFactor;
-    const sceneTarget = (isSceneUsingBedOnly ? 0 : Math.min(1, baseMusic * 0.95)) * voiceMixFactor;
-
-    if (bedMusicRef.current) fade(bedMusicRef.current, bedTarget, bedMusicFadeRef);
-    if (sceneMusicRef.current) fade(sceneMusicRef.current, sceneTarget, sceneMusicFadeRef);
-    if (ambientRef.current) fade(ambientRef.current, (isMuted ? 0 : sfxVol) * (voiceSyncLock ? 0.55 : 1), ambientFadeRef);
+    setPrimaryAudioVolume(baseMusic * voiceMixFactor);
 
     return () => {
-      if (bedMusicFadeRef.current) cancelAnimationFrame(bedMusicFadeRef.current);
-      if (sceneMusicFadeRef.current) cancelAnimationFrame(sceneMusicFadeRef.current);
       if (ambientFadeRef.current) cancelAnimationFrame(ambientFadeRef.current);
     };
-  }, [audioEnabled, currentSceneId, currentScene?.musicKey, currentScene?.ambientKeys, isMuted, musicVol, sfxVol, resolveAsset, isSceneUsingBedOnly, sceneTrackKey, voiceSyncLock]);
+  }, [audioEnabled, globalMediaState.isPlaying, currentSceneId, currentScene?.musicKey, currentScene?.ambientKeys, isMuted, bgVol, resolveAsset, sceneTrackKey, voiceSyncLock, registerMedia, setPrimaryAudioMuted, setPrimaryAudioSources, setPrimaryAudioVolume, normalizedSceneCandidates]);
 
   useEffect(() => {
-    if (!audioEnabled) return;
-    const keys = currentScene?.enterSfxKeys ?? [];
-    if (!keys.length) return;
-    for (const key of keys) {
-      const url = resolveAsset(key);
-      if (!url) continue;
-      const a = new Audio(url);
-      a.preload = 'metadata';
-      a.loop = false;
-      a.volume = isMuted ? 0 : Math.min(1, Math.max(0, sfxVol));
-      a.play().catch(() => {});
-    }
-  }, [audioEnabled, currentSceneId, currentScene?.enterSfxKeys, isMuted, sfxVol, resolveAsset]);
-
-  useEffect(() => {
-    if (!audioEnabled || showChoices || !currentDialogue || !currentVoiceCue) {
+    if (!audioEnabled || !globalMediaState.isPlaying || showChoices || !currentDialogue || !currentVoiceCue) {
       setVoiceSyncLock(false);
       setActiveVoiceNumber(null);
       return;
@@ -1250,10 +1679,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       voiceRef.current = new Audio();
       voiceRef.current.preload = 'metadata';
       voiceRef.current.loop = false;
+      // Note: Voice is NOT registered with media controller to prevent play/pause interference
     }
 
     const voice = voiceRef.current;
-    voice.volume = isMuted ? 0 : Math.min(1, Math.max(0.12, sfxVol * 1.1));
+    voice.volume = isMuted ? 0 : voiceVol;
     const fullText = currentDialogue.text || '';
     const fullArabic = currentDialogue.arabicText || '';
 
@@ -1263,8 +1693,14 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     let lastRendered = 0;
     let lastUpdateMs = 0;
 
-    const syncDisplayedTextToVoice = () => {
-      if (cancelled) return;
+  const syncDisplayedTextToVoice = () => {
+      if (cancelled || voice.ended || voice.paused) {
+        if (voiceSyncRafRef.current) {
+          cancelAnimationFrame(voiceSyncRafRef.current);
+          voiceSyncRafRef.current = null;
+        }
+        return;
+      }
       const activeText = lang === 'ar' ? fullArabic : fullText;
       const len = activeText.length;
       if (len === 0) {
@@ -1335,6 +1771,30 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         disabledVoiceTokensRef.current.add(token);
         setVoiceSyncLock(false);
         setActiveVoiceNumber(null);
+        // FALLBACK: Start typewriter when voice fails
+        if (typewriterRef.current) clearTimeout(typewriterRef.current);
+        setIsTyping(true);
+        setIsDialogueComplete(false);
+        const activeText = lang === 'ar' ? fullArabic : fullText;
+        const len = activeText.length;
+        if (len > 0) {
+          let i = 0;
+          const tick = () => {
+            i++;
+            if (lang === 'ar') setDisplayedArabic(fullArabic.slice(0, i));
+            else setDisplayedText(fullText.slice(0, i));
+            if (i < len) {
+              typewriterRef.current = setTimeout(tick, 50);
+            } else {
+              setIsTyping(false);
+              setIsDialogueComplete(true);
+            }
+          };
+          typewriterRef.current = setTimeout(tick, 50);
+        } else {
+          setIsTyping(false);
+          setIsDialogueComplete(true);
+        }
         return;
       }
       voice.onerror = () => tryCandidate(index + 1);
@@ -1379,7 +1839,118 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       voice.pause();
     };
 
-  }, [audioEnabled, showChoices, currentSceneId, dialogueIndex, currentDialogue, currentVoiceCue, isMuted, sfxVol, lang]);
+  }, [audioEnabled, globalMediaState.isPlaying, showChoices, currentSceneId, dialogueIndex, currentDialogue, currentVoiceCue, isMuted, voiceVol, lang, registerMedia]);
+
+  // ── Multi-Track Audio System: Base (main theme) + Scene Overlay ─────────────────
+  useEffect(() => {
+    if (!audioEnabled) return;
+    const shouldPlay = isPlaying;
+
+    // Base track - always track01 (main theme)
+    const baseCandidates = TRACK_URL_CANDIDATES.track01;
+    if (!baseTrackRef.current) {
+      baseTrackRef.current = new Audio(baseCandidates[0]);
+      baseTrackRef.current.preload = 'metadata';
+      baseTrackRef.current.loop = true;
+      baseTrackRef.current.volume = isMuted ? 0 : bgVol * 0.6; // Base at 60% of BG volume
+      if (shouldPlay) baseTrackRef.current.play().catch(() => {});
+      registerMedia(baseTrackRef.current);
+    } else {
+      // Update volume if changed
+      baseTrackRef.current.volume = isMuted ? 0 : bgVol * 0.6;
+    }
+
+    // Scene overlay track - changes per scene
+    const sceneCandidates = TRACK_URL_CANDIDATES[sceneTrackKey] ?? TRACK_URL_CANDIDATES.track01;
+    const sceneUrl = sceneCandidates[0];
+
+    if (!sceneTrackRef.current) {
+      // First time - create and play
+      if (sceneTrackKey !== 'track01') { // Only if different from base
+        sceneTrackRef.current = new Audio(sceneUrl);
+        sceneTrackRef.current.preload = 'metadata';
+        sceneTrackRef.current.loop = true;
+        sceneTrackRef.current.volume = isMuted ? 0 : sceneVol;
+        if (shouldPlay) sceneTrackRef.current.play().catch(() => {});
+        registerMedia(sceneTrackRef.current);
+      }
+    } else {
+      // Check if scene changed
+      const currentSceneSrc = sceneTrackRef.current.src;
+      const normalizedCurrent = currentSceneSrc ? new URL(currentSceneSrc).pathname : '';
+      const normalizedNew = new URL(sceneUrl, window.location.href).pathname;
+
+      if (normalizedCurrent !== normalizedNew && sceneTrackKey !== 'track01') {
+        // Scene changed - crossfade
+        const oldTrack = sceneTrackRef.current;
+        const fadeOut = () => {
+          let vol = oldTrack.volume;
+          const fade = setInterval(() => {
+            vol -= 0.05;
+            if (vol <= 0) {
+              clearInterval(fade);
+              oldTrack.pause();
+              oldTrack.src = '';
+            } else {
+              oldTrack.volume = Math.max(0, vol);
+            }
+          }, 50);
+        };
+        fadeOut();
+
+        // Create new track
+        sceneTrackRef.current = new Audio(sceneUrl);
+        sceneTrackRef.current.preload = 'metadata';
+        sceneTrackRef.current.loop = true;
+        sceneTrackRef.current.volume = 0;
+        if (shouldPlay) sceneTrackRef.current.play().catch(() => {});
+        registerMedia(sceneTrackRef.current);
+
+        // Fade in
+        let newVol = 0;
+        const fadeIn = setInterval(() => {
+          newVol += 0.05;
+          if (newVol >= (isMuted ? 0 : sceneVol)) {
+            clearInterval(fadeIn);
+            sceneTrackRef.current!.volume = isMuted ? 0 : sceneVol;
+          } else {
+            sceneTrackRef.current!.volume = newVol;
+          }
+        }, 50);
+      } else {
+        // Just update volume
+        sceneTrackRef.current.volume = isMuted ? 0 : sceneVol;
+      }
+    }
+
+    // Handle ambient/SFX
+    const desiredAmbientUrl = (currentScene?.ambientKeys ?? [])
+      .map(k => resolveAsset(k))
+      .find((u): u is string => typeof u === "string" && u.length > 0);
+
+    if (desiredAmbientUrl) {
+      if (!ambientRef.current) {
+        ambientRef.current = new Audio(desiredAmbientUrl);
+        ambientRef.current.preload = 'metadata';
+        ambientRef.current.loop = true;
+        ambientRef.current.volume = isMuted ? 0 : sfxVol;
+        if (shouldPlay) ambientRef.current.play().catch(() => {});
+        registerMedia(ambientRef.current);
+      } else if (ambientRef.current.src !== desiredAmbientUrl) {
+        ambientRef.current.src = desiredAmbientUrl;
+        ambientRef.current.volume = isMuted ? 0 : sfxVol;
+        if (shouldPlay) ambientRef.current.play().catch(() => {});
+      } else {
+        ambientRef.current.volume = isMuted ? 0 : sfxVol;
+      }
+    } else if (ambientRef.current) {
+      ambientRef.current.pause();
+    }
+
+    return () => {
+      // Cleanup handled in main cleanup effect
+    };
+  }, [audioEnabled, isPlaying, currentSceneId, sceneTrackKey, isMuted, bgVol, sceneVol, sfxVol, resolveAsset, registerMedia]);
 
   // ── Background video ─────────────────────────────────────────────────────────
   useEffect(() => {
@@ -1388,22 +1959,35 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       if (bgVideoRef.current) bgVideoRef.current.pause();
       return;
     }
+    if (!globalMediaState.isPlaying) {
+      if (bgVideoRef.current) bgVideoRef.current.pause();
+      return;
+    }
     if (bgVideoRef.current && bgVideoSrc) {
-      bgVideoRef.current.load();
+      // Only reload if source changed - prevents jump on resume
+      const currentSrc = bgVideoRef.current.currentSrc || bgVideoRef.current.src;
+      if (currentSrc !== bgVideoSrc) {
+        bgVideoRef.current.src = bgVideoSrc;
+        bgVideoRef.current.load();
+      }
       bgVideoRef.current.play().catch(() => {});
     }
-  }, [allowVideo, currentSceneId, currentScene?.backgroundVideo, resolveAsset]);
+  }, [allowVideo, globalMediaState.isPlaying, currentSceneId, currentScene?.backgroundVideo, resolveAsset]);
+
+  useEffect(() => {
+    const v = bgVideoRef.current;
+    if (!v) return;
+    return registerMedia(v);
+  }, [currentSceneId, registerMedia, videoReady]);
 
   // ── Cleanup on unmount ───────────────────────────────────────────────────────
   useEffect(() => {
     return () => {
-      if (bedMusicFadeRef.current) cancelAnimationFrame(bedMusicFadeRef.current);
-      if (sceneMusicFadeRef.current) cancelAnimationFrame(sceneMusicFadeRef.current);
       if (voiceSyncRafRef.current) cancelAnimationFrame(voiceSyncRafRef.current);
-      if (bedMusicRef.current) { bedMusicRef.current.pause(); bedMusicRef.current.src = ''; }
-
-      if (sceneMusicRef.current) { sceneMusicRef.current.pause(); sceneMusicRef.current.src = ''; }
       if (ambientFadeRef.current) cancelAnimationFrame(ambientFadeRef.current);
+      // Cleanup all audio elements
+      if (baseTrackRef.current) { baseTrackRef.current.pause(); baseTrackRef.current.src = ''; }
+      if (sceneTrackRef.current) { sceneTrackRef.current.pause(); sceneTrackRef.current.src = ''; }
       if (ambientRef.current) { ambientRef.current.pause(); ambientRef.current.src = ''; }
       if (voiceRef.current) { voiceRef.current.pause(); voiceRef.current.src = ''; }
       if (typewriterRef.current) clearTimeout(typewriterRef.current);
@@ -1469,6 +2053,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
   return (
     <motion.div
+      data-testid="scene-container"
       className="relative w-screen h-screen overflow-hidden bg-black select-none font-novel"
       onClick={handleAdvance}
       animate={fxShake ? { x: [0, -4, 3, -2, 2, 0], y: [0, 2, -2, 3, -1, 0] } : { x: 0, y: 0 }}
@@ -1479,6 +2064,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         sceneId={currentSceneId}
         bgImageSrc={bgImageSrc}
         bgVideoSrc={bgVideoSrc}
+        audioDescSrcEn={currentScene.backgroundVideoAudioDescEn}
+        audioDescSrcAr={currentScene.backgroundVideoAudioDescAr}
         allowVideo={allowVideo}
         bgLoaded={bgLoaded}
         setBgLoaded={setBgLoaded}
@@ -1490,6 +2077,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         fx={{ flash: fxFlash, shake: fxShake, uiPulse }}
       />
       <OsirisEffectLayer effectId={osirisEffectId} allowVideo={allowVideo} />
+        <GlobalMediaLayer primaryAudioSources={normalizedSceneCandidates} />
       {activeVoiceNumber && (
         <motion.div
           className="absolute top-6 right-6 z-30 px-3 py-2 rounded-lg border"
@@ -1529,7 +2117,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
             animate={{ opacity: activeImageCue.opacity, scale: [1.03, 1.06, 1.03], x: ['0%', '0.8%', '0%'], y: ['0%', '-0.4%', '0%'] }}
             exit={{ opacity: 0 }}
             transition={{ opacity: { duration: 0.65 }, scale: { duration: 16, repeat: Infinity, ease: 'easeInOut' }, x: { duration: 13, repeat: Infinity, ease: 'easeInOut' }, y: { duration: 15, repeat: Infinity, ease: 'easeInOut' } }}
-            style={{ mixBlendMode: activeImageCue.blend, zIndex: 7, filter: 'saturate(1.1) contrast(1.05)' }}
+            style={{
+              mixBlendMode: activeImageCue.blend || 'screen',
+              zIndex: 7,
+              filter: 'saturate(1.1) contrast(1.05)'
+            }}
             onError={() => setActiveImageCue(null)}
           />
         </AnimatePresence>
@@ -1595,54 +2187,6 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {showAudioPrompt && (
-          <motion.div
-            className="absolute inset-0 z-40 flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            style={{ background: 'rgba(0,0,0,0.92)' }}
-          >
-            <motion.div
-              initial={{ scale: 0.88, y: 24 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.88, y: 24 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-center px-10 py-12 rounded-2xl max-w-sm mx-4"
-              style={{
-                background: 'rgba(0,0,0,0.75)',
-                border: '1px solid rgba(201,169,110,0.25)',
-                backdropFilter: 'blur(24px)',
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={osirisLogo}
-                alt="OSIRIS"
-                className="w-20 h-20 mx-auto mb-6 opacity-95"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-              />
-              <h2 className="text-3xl font-light text-amber-300 mb-1 tracking-[0.3em]">OSIRIS</h2>
-              <p className="text-amber-200/55 text-sm font-arabic-title mb-1" dir="rtl">المفسدون في الأرض</p>
-              <p className="text-white/35 text-[10px] mb-8 font-mono tracking-widest">A MULTIMEDIA INTERACTIVE DIGITAL NOVEL</p>
-              <p className="text-white/60 text-sm mb-2 leading-relaxed">For the best experience, use headphones.</p>
-              <p className="text-white/40 text-xs mb-8 leading-relaxed font-arabic" dir="rtl">للحصول على أفضل تجربة، استخدم سماعات الأذن</p>
-              <button
-                onClick={enableAudio}
-                className="w-full py-4 rounded-xl font-semibold tracking-[0.2em] text-sm transition-all duration-300 hover:brightness-110 active:scale-95 text-black"
-                style={{ background: 'linear-gradient(135deg, #c9a96e, #f0d080)' }}
-              >
-                ▶ BEGIN THE TRIAL
-              </button>
-              <p className="text-white/25 text-[10px] mt-3 font-arabic" dir="rtl">ابدأ المحاكمة</p>
-              <p className="text-white/20 text-[9px] mt-4 font-mono">SPACE or CLICK to advance · ESC to exit</p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {!isVoiceModeActive && (
         <div className={`absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-3 sm:px-6 h-11 sm:h-12 ${isArabic ? 'flex-row-reverse' : ''}`}>
           <motion.button
@@ -1650,8 +2194,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
             onClick={(e) => { e.stopPropagation(); setLocation('/'); }}
-            className="flex items-center gap-1.5 px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/10"
-            style={{ color: 'rgba(201,169,110,0.65)' }}
+            className={`flex items-center gap-1.5 px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.dynamicColor}`}
+            style={{ '--dynamic-color': 'rgba(201,169,110,0.65)' } as React.CSSProperties}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <polyline points={isArabic ? '9 18 15 12 9 6' : '15 18 9 12 15 6'} />
@@ -1682,23 +2226,39 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
           >
             <button
               onClick={toggleFullscreen}
-              className="px-2 py-1 text-[9px] font-mono rounded-lg tracking-wider transition-all duration-200 hover:bg-white/10"
-              style={{ border: '1px solid rgba(201,169,110,0.2)', background: 'rgba(0,0,0,0.5)', color: 'rgba(201,169,110,0.85)' }}
+              className={`px-2 py-1 text-[9px] font-mono rounded-lg tracking-wider transition-all duration-200 hover:bg-white/10 ${styles.dynamicBorder} ${styles.dynamicBg} ${styles.dynamicColor}`}
+              style={{
+                '--dynamic-border': 'rgba(201,169,110,0.2)',
+                '--dynamic-bg': 'rgba(0,0,0,0.5)',
+                '--dynamic-color': 'rgba(201,169,110,0.85)'
+              } as React.CSSProperties}
             >
               {isFullscreen ? (isArabic ? 'إغلاق ملء الشاشة' : 'EXIT FULL') : (isArabic ? 'ملء الشاشة' : 'FULL')}
             </button>
 
-            <div className="flex items-center rounded-lg overflow-hidden" style={{ border: '1px solid rgba(201,169,110,0.2)', background: 'rgba(0,0,0,0.5)' }}>
+            <div
+              className={`flex items-center rounded-lg overflow-hidden ${styles.dynamicBorder} ${styles.dynamicBg}`}
+              style={{
+                '--dynamic-border': 'rgba(201,169,110,0.2)',
+                '--dynamic-bg': 'rgba(0,0,0,0.5)'
+              } as React.CSSProperties}
+            >
               <button
                 onClick={() => setLang('ar')}
-                className="px-2.5 py-1 text-[9px] font-mono tracking-wider transition-all duration-200"
-                style={{ background: lang === 'ar' ? 'rgba(201,169,110,0.25)' : 'transparent', color: lang === 'ar' ? '#c9a96e' : 'rgba(255,255,255,0.35)' }}
+                className={`px-2.5 py-1 text-[9px] font-mono tracking-wider transition-all duration-200 ${styles.dynamicBg} ${styles.dynamicColor}`}
+                style={{
+                  '--dynamic-bg': lang === 'ar' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                  '--dynamic-color': lang === 'ar' ? '#c9a96e' : 'rgba(255,255,255,0.35)'
+                } as React.CSSProperties}
               >عر</button>
-              <div style={{ width: '1px', height: '14px', background: 'rgba(201,169,110,0.15)' }} />
+              <div className={styles.separatorLine} style={{ '--auto-line': 'rgba(201,169,110,0.15)' } as React.CSSProperties} />
               <button
                 onClick={() => setLang('en')}
-                className="px-2.5 py-1 text-[9px] font-mono tracking-wider transition-all duration-200"
-                style={{ background: lang === 'en' ? 'rgba(201,169,110,0.25)' : 'transparent', color: lang === 'en' ? '#c9a96e' : 'rgba(255,255,255,0.35)' }}
+                className={`px-2.5 py-1 text-[9px] font-mono tracking-wider transition-all duration-200 ${styles.dynamicBg} ${styles.dynamicColor}`}
+                style={{
+                  '--dynamic-bg': lang === 'en' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                  '--dynamic-color': lang === 'en' ? '#c9a96e' : 'rgba(255,255,255,0.35)'
+                } as React.CSSProperties}
               >EN</button>
             </div>
           </motion.div>
@@ -1712,15 +2272,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="absolute z-20 flex flex-col items-center px-3 py-1 rounded-full"
+        className={`absolute z-20 flex flex-col items-center px-3 py-1 rounded-full ${styles.dynamicPartLabel}`}
         style={{
-          top: 56,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: 'rgba(0,0,0,0.35)',
-          border: '1px solid rgba(255,255,255,0.06)',
-          backdropFilter: 'blur(10px)',
-        }}
+          '--dynamic-bg': 'rgba(0,0,0,0.35)',
+          '--dynamic-border': '1px solid rgba(255,255,255,0.06)',
+          '--dynamic-backdrop': 'blur(10px)'
+        } as React.CSSProperties}
       >
         {lang === 'ar' ? (
           <span className="text-amber-400/70 text-[12px] font-arabic-title leading-none" dir="rtl">
@@ -1735,9 +2292,9 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
       {/* ── CHARACTER PORTRAIT ── */}
       <AnimatePresence mode="wait">
-        {showCharacter && currentCharConfig.imageUrl && currentDialogue?.character !== 'Narrator' && (
+        {showCharacter && resolvedCharImageUrl && preferredCharacterKey !== 'Narrator' && (
           <motion.div
-            key={(currentDialogue?.character || '') + '-portrait-' + dialogueIndex}
+            key={dialogueCharacterKey + '-portrait-' + dialogueIndex}
             className={`absolute bottom-44 sm:bottom-32 ${currentCharConfig.position === 'left' ? 'left-4 sm:left-6 md:left-14' : 'right-4 sm:right-6 md:right-14'} z-30 pointer-events-none`}
             initial={{ opacity: 0, y: 40, scale: 0.88 }}
             animate={{ opacity: 0.92, y: 0, scale: 1 }}
@@ -1746,29 +2303,32 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
           >
             <div className="relative">
               <div
-                className="absolute -inset-4 rounded-3xl blur-2xl opacity-25"
-                style={{ background: currentCharConfig.glowColor }}
+                className={`absolute -inset-4 rounded-3xl blur-2xl opacity-25 ${styles.dynamicGlow}`}
+                style={{ '--glow-color': currentCharConfig.glowColor } as React.CSSProperties}
               />
               <img
-                src={currentCharConfig.imageUrl}
+                src={resolvedCharImageUrl}
                 alt={currentCharConfig.name}
-                className="relative w-20 h-28 sm:w-28 sm:h-40 md:w-36 md:h-52 object-cover rounded-2xl"
+                className={`relative w-20 h-28 sm:w-28 sm:h-40 md:w-36 md:h-52 object-cover rounded-2xl ${styles.dynamicPortrait}`}
                 style={{
-                  boxShadow: `0 0 50px ${currentCharConfig.glowColor}, 0 20px 60px rgba(0,0,0,0.7)`,
-                  border: `1px solid ${currentCharConfig.color}25`,
-                  filter: 'brightness(0.85) contrast(1.05)',
+                  '--portrait-shadow': `0 0 50px ${currentCharConfig.glowColor}, 0 20px 60px rgba(0,0,0,0.7)`,
+                  '--portrait-border': `1px solid ${currentCharConfig.color}25`,
+                  '--portrait-filter': 'brightness(0.85) contrast(1.05)'
+                } as React.CSSProperties}
+                onError={(e) => { 
+                  console.warn('[Character] Failed to load image:', resolvedCharImageUrl);
+                  (e.target as HTMLImageElement).style.display = 'none'; 
                 }}
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
               />
               <div
-                className="absolute bottom-0 left-0 right-0 h-16 rounded-b-2xl"
-                style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }}
+                className={`absolute bottom-0 left-0 right-0 h-16 rounded-b-2xl ${styles.dynamicGradientOverlay}`}
+                style={{ '--gradient-overlay': 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' } as React.CSSProperties}
               />
               <div
-                className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[8px] font-mono tracking-wider whitespace-nowrap"
+                className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[8px] font-mono tracking-wider whitespace-nowrap border"
                 style={{
                   background: 'rgba(0,0,0,0.85)',
-                  border: `1px solid ${currentCharConfig.color}30`,
+                  borderColor: `${currentCharConfig.color}40`,
                   color: currentCharConfig.color,
                 }}
               >
@@ -1800,8 +2360,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   className={`mb-3 flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}
                 >
                   <div
-                    className="h-px flex-1 max-w-[50px]"
-                    style={{ background: isArabic ? `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` : `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` }}
+                    className={`h-px flex-1 max-w-[50px] ${styles.dynamicAutoLine}`}
+                    style={{ '--auto-line': isArabic ? `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` : `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` } as React.CSSProperties}
                   />
                   <span
                     className={lang === 'ar'
@@ -1812,114 +2372,123 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       color: currentCharConfig.color,
                       borderColor: `${currentCharConfig.color}28`,
                       background: `linear-gradient(90deg, ${currentCharConfig.color}18, rgba(0,0,0,0.25))`,
-                      textShadow: `0 0 16px ${currentCharConfig.glowColor}`,
+                      textShadow: `0 0 16px ${currentCharConfig.glowColor}`
                     }}
                   >
                     {lang === 'ar' ? currentCharConfig.arabicName : currentCharConfig.name}
                   </span>
-                  <div className="h-px flex-1 max-w-[50px]" style={{ background: isArabic ? `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` : `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` }} />
+                  <div className={`h-px flex-1 max-w-[50px] ${styles.dynamicAutoLine}`} style={{ '--auto-line': isArabic ? `linear-gradient(to right, transparent, ${currentCharConfig.color}70)` : `linear-gradient(to left, transparent, ${currentCharConfig.color}70)` } as React.CSSProperties} />
                 </motion.div>
               )}
 
               {/* Dialogue Box */}
               <div
-                className={`relative rounded-2xl px-4 py-4 sm:px-7 sm:py-6 md:px-9 md:py-7 ${isArabic ? 'text-right' : ''}`}
+                data-testid="dialogue-box"
+                className={`relative rounded-2xl px-4 py-4 sm:px-7 sm:py-6 md:px-9 md:py-7 ${isArabic ? 'text-right' : ''} ${styles.dynamicDialogueBox}`}
                 dir={isArabic ? 'rtl' : 'ltr'}
                 style={{
-                  background: currentScene.backgroundVideo ? 'rgba(0,0,0,0.56)' : 'rgba(0,0,0,0.66)',
-                  border: isAutoRunning && !showChoices ? '1px solid rgba(0,0,0,0)' : `1px solid ${currentCharConfig.color}18`,
-                  boxShadow: `0 10px 70px rgba(0,0,0,0.78), 0 0 0 1px rgba(255,255,255,0.02), inset 0 1px 0 ${currentCharConfig.color}10`,
-                  backdropFilter: 'blur(18px)',
-                }}
+                  '--dialogue-bg': currentScene.backgroundVideo ? 'rgba(0,0,0,0.56)' : 'rgba(0,0,0,0.66)',
+                  '--dialogue-border': isAutoRunning && !showChoices ? '1px solid rgba(0,0,0,0)' : `1px solid ${currentCharConfig.color}18`,
+                  '--dialogue-shadow': `0 10px 70px rgba(0,0,0,0.78), 0 0 0 1px rgba(255,255,255,0.02), inset 0 1px 0 ${currentCharConfig.color}10`,
+                  '--dialogue-backdrop': 'blur(18px)'
+                } as React.CSSProperties}
               >
 
                 <div
-                  className="absolute inset-0 rounded-2xl pointer-events-none"
+                  className={`absolute inset-0 rounded-2xl pointer-events-none ${styles.dynamicGradientOverlay}`}
                   style={{
-                    background: `linear-gradient(180deg, ${currentCharConfig.color}10, rgba(0,0,0,0) 45%, rgba(0,0,0,0.25))`,
-                  }}
+                    '--gradient-overlay': `linear-gradient(180deg, ${currentCharConfig.color}10, rgba(0,0,0,0) 45%, rgba(0,0,0,0.25))`
+                  } as React.CSSProperties}
                 />
                 <div
-                  className="absolute inset-0 rounded-2xl pointer-events-none"
+                  className={`absolute inset-0 rounded-2xl pointer-events-none ${styles.dynamicRadialGlow}`}
                   style={{
-                    opacity: uiGlow * 0.7,
-                    background: `radial-gradient(circle at 20% 20%, ${currentCharConfig.color}33, rgba(0,0,0,0) 55%)`,
-                    mixBlendMode: "screen",
-                  }}
+                    '--radial-glow': `radial-gradient(circle at 20% 20%, ${currentCharConfig.color}33, rgba(0,0,0,0) 55%)`,
+                    '--blend-mode': 'screen',
+                    opacity: uiGlow * 0.7
+                  } as React.CSSProperties}
                 />
                 <motion.div
-                  className="absolute top-0 left-0 h-[2px] rounded-t-2xl"
-                  style={{ background: `linear-gradient(to right, ${accentColor}30, ${accentColor}95)` }}
+                  className={`absolute top-0 left-0 h-[2px] rounded-t-2xl ${styles.dynamicProgressLine}`}
+                  style={{ '--progress-line': `linear-gradient(to right, ${accentColor}30, ${accentColor}95)` } as React.CSSProperties}
                   animate={{ width: `${((currentIdx + 1) / sceneKeys.length) * 100}%` }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
                 />
                 {isAutoRunning && !showChoices && (
                   <>
                     <motion.div
-                      className="absolute top-0 left-0 h-px rounded-t-2xl"
-                      style={{ background: currentCharConfig.color }}
+                      className={`absolute top-0 left-0 h-px rounded-t-2xl ${styles.dynamicAutoLine}`}
+                      style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
                       animate={{ width: `${autoTop * 100}%` }}
                       transition={{ duration: 0.05, ease: 'linear' }}
                     />
                     <motion.div
-                      className="absolute top-0 right-0 w-px rounded-r-2xl"
-                      style={{ background: currentCharConfig.color }}
+                      className={`absolute top-0 right-0 w-px rounded-r-2xl ${styles.dynamicAutoLine}`}
+                      style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
                       animate={{ height: `${autoRight * 100}%` }}
                       transition={{ duration: 0.05, ease: 'linear' }}
                     />
                     <motion.div
-                      className="absolute bottom-0 right-0 h-px rounded-b-2xl"
-                      style={{ background: currentCharConfig.color }}
+                      className={`absolute bottom-0 right-0 h-px rounded-b-2xl ${styles.dynamicAutoLine}`}
+                      style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
                       animate={{ width: `${autoBottom * 100}%` }}
                       transition={{ duration: 0.05, ease: 'linear' }}
                     />
                     <motion.div
-                      className="absolute bottom-0 left-0 w-px rounded-l-2xl"
-                      style={{ background: currentCharConfig.color }}
+                      className={`absolute bottom-0 left-0 w-px rounded-l-2xl ${styles.dynamicAutoLine}`}
+                      style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
                       animate={{ height: `${autoLeft * 100}%` }}
                       transition={{ duration: 0.05, ease: 'linear' }}
                     />
                   </>
                 )}
-                {/* Active Language Text Only */}
+                {/* Single Language Text Display - Only show selected language */}
                 {lang === 'en' ? (
-                  <p
-                    className="text-white/93 text-[20px] md:text-[26px] font-light"
-                    style={{
-                      textShadow: '0 1px 8px rgba(0,0,0,0.98)',
-                      letterSpacing: '0.012em',
-                      lineHeight: '1.75',
-                    }}
-                  >
-                    {displayedText}
-                    {isTyping && (
-                      <motion.span
-                        className="inline-block w-0.5 h-6 ml-1 align-middle"
-                        style={{ background: currentCharConfig.color }}
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ duration: 0.55, repeat: Infinity }}
-                      />
-                    )}
-                  </p>
+                  <div>
+                    {/* English Text Only */}
+                    <p
+                      data-testid="dialogue-text"
+                      className={`text-white/93 text-[20px] md:text-[26px] font-light ${styles.dynamicDialogueText}`}
+                      style={{
+                        '--text-shadow': '0 1px 8px rgba(0,0,0,0.98)',
+                        '--letter-spacing': '0.012em',
+                        '--line-height': '1.75'
+                      } as React.CSSProperties}
+                    >
+                      {displayedText}
+                      {isTyping && (
+                        <motion.span
+                          className={`inline-block w-0.5 h-6 ml-1 align-middle ${styles.dynamicAutoLine}`}
+                          style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
+                          animate={{ opacity: [1, 0] }}
+                          transition={{ duration: 0.55, repeat: Infinity }}
+                        />
+                      )}
+                    </p>
+                  </div>
                 ) : (
-                  <p
-                    className="text-white/93 text-[22px] md:text-[30px] text-right font-arabic"
-                    dir="rtl"
-                    style={{
-                      textShadow: '0 1px 8px rgba(0,0,0,0.98)',
-                      lineHeight: '2.1',
-                    }}
-                  >
-                    {displayedArabic}
-                    {isTyping && (
-                      <motion.span
-                        className="inline-block w-0.5 h-6 mr-1 align-middle"
-                        style={{ background: currentCharConfig.color }}
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ duration: 0.55, repeat: Infinity }}
-                      />
-                    )}
-                  </p>
+                  <div>
+                    {/* Arabic Text Only */}
+                    <p
+                      data-testid="dialogue-text"
+                      className={`text-white/93 text-[22px] md:text-[30px] text-right font-arabic ${styles.dynamicArabicText}`}
+                      dir="rtl"
+                      style={{
+                        '--text-shadow': '0 1px 8px rgba(0,0,0,0.98)',
+                        '--line-height': '2.1'
+                      } as React.CSSProperties}
+                    >
+                      {displayedArabic}
+                      {isTyping && (
+                        <motion.span
+                          className={`inline-block w-0.5 h-6 mr-1 align-middle ${styles.dynamicAutoLine}`}
+                          style={{ '--auto-line': currentCharConfig.color } as React.CSSProperties}
+                          animate={{ opacity: [1, 0] }}
+                          transition={{ duration: 0.55, repeat: Infinity }}
+                        />
+                      )}
+                    </p>
+                  </div>
                 )}
 
                 {/* Dialogue Progress Dots */}
@@ -1951,10 +2520,15 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                   <div className={`mt-4 flex flex-wrap items-center justify-between gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                     <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
                       <button
+                        data-testid="back-button"
                         onClick={(e) => { e.stopPropagation(); handleBackScene(); }}
-                        disabled={!showChoices && dialogueIndex === 0}
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed"
-                        style={{ color: 'rgba(201,169,110,0.75)', border: '1px solid rgba(201,169,110,0.22)', background: 'rgba(0,0,0,0.35)' }}
+                        disabled={dialogueIndex === 0 && !showChoices}
+                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed ${styles.dynamicColor} ${styles.dynamicBorder} ${styles.dynamicBg}`}
+                        style={{
+                          '--dynamic-color': 'rgba(201,169,110,0.75)',
+                          '--dynamic-border': 'rgba(201,169,110,0.22)',
+                          '--dynamic-bg': 'rgba(0,0,0,0.35)'
+                        } as React.CSSProperties}
                       >
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                           <polyline points={isArabic ? '9 18 15 12 9 6' : '15 18 9 12 15 6'} />
@@ -1962,9 +2536,14 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                         <span className="text-[9px] font-mono tracking-wider">{isArabic ? 'السابق' : 'BACK'}</span>
                       </button>
                       <button
+                        data-testid="next-button"
                         onClick={(e) => { e.stopPropagation(); handleForwardScript(); }}
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10"
-                        style={{ color: 'rgba(201,169,110,0.78)', border: '1px solid rgba(201,169,110,0.26)', background: 'rgba(0,0,0,0.35)' }}
+                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.dynamicColor} ${styles.dynamicBorder} ${styles.dynamicBg}`}
+                        style={{
+                          '--dynamic-color': 'rgba(201,169,110,0.78)',
+                          '--dynamic-border': 'rgba(201,169,110,0.26)',
+                          '--dynamic-bg': 'rgba(0,0,0,0.35)'
+                        } as React.CSSProperties}
                       >
                         <span className="text-[9px] font-mono tracking-wider">{isArabic ? 'التالي' : 'NEXT'}</span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
@@ -1974,18 +2553,69 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     </div>
 
                     <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
-                      <div className={`flex items-center rounded-lg overflow-hidden ${isArabic ? 'flex-row-reverse' : ''}`} style={{ border: '1px solid rgba(201,169,110,0.22)', background: 'rgba(0,0,0,0.35)' }}>
-                        <button onClick={() => setAutoMode('off')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'off' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'off' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'تلقائي إيقاف' : 'AUTO OFF'}</button>
-                        <button onClick={() => setAutoMode('very-slow')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'very-slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'very-slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'بطيء جدًا' : 'VSLOW'}</button>
-                        <button onClick={() => setAutoMode('slow')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'slow' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'بطيء' : 'SLOW'}</button>
-                        <button onClick={() => setAutoMode('normal')} className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'}`} style={{ background: autoMode === 'normal' ? 'rgba(201,169,110,0.25)' : 'transparent', color: autoMode === 'normal' ? '#c9a96e' : 'rgba(255,255,255,0.4)' }}>{isArabic ? 'عادي' : 'NORMAL'}</button>
+                      <div
+                        className={`flex items-center rounded-lg overflow-hidden ${isArabic ? 'flex-row-reverse' : ''} ${styles.dynamicBorder} ${styles.dynamicBg}`}
+                        style={{
+                          '--dynamic-border': 'rgba(201,169,110,0.22)',
+                          '--dynamic-bg': 'rgba(0,0,0,0.35)'
+                        } as React.CSSProperties}
+                      >
+                        <button
+                          onClick={() => setAutoMode('off')}
+                          className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
+                          style={{
+                            '--dynamic-bg': autoMode === 'off' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                            '--dynamic-color': autoMode === 'off' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
+                          } as React.CSSProperties}
+                        >{isArabic ? 'تلقائي إيقاف' : 'إيقاف تلقائي'}</button>
+                        <button
+                          onClick={() => setAutoMode('very-slow')}
+                          className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
+                          style={{
+                            '--dynamic-bg': autoMode === 'very-slow' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                            '--dynamic-color': autoMode === 'very-slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
+                          } as React.CSSProperties}
+                        >{isArabic ? 'بطيء جدًا' : 'بطيء جدا'}</button>
+                        <button
+                          onClick={() => setAutoMode('slow')}
+                          className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
+                          style={{
+                            '--dynamic-bg': autoMode === 'slow' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                            '--dynamic-color': autoMode === 'slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
+                          } as React.CSSProperties}
+                        >{isArabic ? 'بطيء' : 'بطيء'}</button>
+                        <button
+                          onClick={() => setAutoMode('normal')}
+                          className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
+                          style={{
+                            '--dynamic-bg': autoMode === 'normal' ? 'rgba(201,169,110,0.25)' : 'transparent',
+                            '--dynamic-color': autoMode === 'normal' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
+                          } as React.CSSProperties}
+                        >{isArabic ? 'عادي' : 'عادي'}</button>
                       </div>
-                      <VolumeControl
-                        musicVol={musicVol}
+
+                      {/* Main Play/Pause Button - Always visible */}
+                      <button
+                        onClick={handlePlayPause}
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all duration-200 ${isPlaying ? 'bg-amber-500/20 text-amber-300 hover:bg-amber-500/30' : 'bg-green-500/20 text-green-300 hover:bg-green-500/30'}`}
+                        title={isPlaying ? 'إيقاف' : 'تشغيل'}
+                      >
+                        <span className="text-sm">{isPlaying ? '⏸' : '▶'}</span>
+                        <span className="text-[10px] font-arabic-ui tracking-wider">
+                          {isPlaying ? 'إيقاف' : 'تشغيل'}
+                        </span>
+                      </button>
+
+                      <AudioControl
+                        bgVol={bgVol}
+                        sceneVol={sceneVol}
+                        voiceVol={voiceVol}
                         sfxVol={sfxVol}
-                        onMusicChange={handleMusicVol}
-                        onSfxChange={handleSfxVol}
                         isMuted={isMuted}
+                        onBgChange={handleBgVol}
+                        onSceneChange={handleSceneVol}
+                        onVoiceChange={handleVoiceVol}
+                        onSfxChange={handleSfxVol}
                         onToggleMute={handleToggleMute}
                       />
                     </div>
@@ -2000,6 +2630,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         <AnimatePresence>
           {showChoices && currentScene.choices && currentScene.choices.length > 0 && (
             <motion.div
+              data-testid="choice-panel"
               key="choices-panel"
               initial={{ opacity: 0, y: 36 }}
               animate={{ opacity: 1, y: 0 }}
@@ -2012,26 +2643,27 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               <div className={`mb-4 flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                 <div className="flex-1 h-0.5 bg-white/8 rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full rounded-full"
+                    className={`h-full rounded-full ${styles.dynamicProgressBar}`}
                     style={{
-                      width: `${choiceProgress}%`,
-                      background: choiceProgress > 55
+                      '--progress-background': choiceProgress > 55
                         ? `linear-gradient(to right, ${accentColor}80, ${accentColor})`
                         : choiceProgress > 22
                           ? 'linear-gradient(to right, #f97316, #fbbf24)'
                           : 'linear-gradient(to right, #ef4444, #f97316)',
-                      transition: 'width 0.05s linear',
-                    }}
+                      width: `${choiceProgress}%`,
+                      transition: 'width 0.05s linear'
+                    } as React.CSSProperties}
                   />
                 </div>
                 {/* Countdown number */}
                 <motion.span
-                  className={`text-[11px] font-mono tabular-nums flex-shrink-0 w-6 ${isArabic ? 'text-left' : 'text-right'}`}
+                  data-testid="choice-timer"
+                  className={`text-[11px] font-mono tabular-nums flex-shrink-0 w-6 ${styles.dynamicCountdown} ${isArabic ? 'text-left' : 'text-right'}`}
                   style={{
-                    color: choiceProgress > 55 ? `${accentColor}90`
+                    '--countdown-color': choiceProgress > 55 ? `${accentColor}90`
                       : choiceProgress > 22 ? '#fbbf2490'
-                      : '#ef444490',
-                  }}
+                      : '#ef444490'
+                  } as React.CSSProperties}
                   animate={{ scale: timerSeconds <= 5 ? [1, 1.2, 1] : 1 }}
                   transition={{ duration: 0.5, repeat: timerSeconds <= 5 ? Infinity : 0 }}
                 >
@@ -2042,39 +2674,40 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               <div className="grid gap-3">
                 {currentScene.choices.map((choice, idx) => (
                   <motion.button
+                    data-testid="choice-button"
                     key={choice.id}
                     initial={{ opacity: 0, x: idx % 2 === 0 ? -28 : 28 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.55, delay: idx * 0.1 }}
                     onClick={() => handleChoice(choice)}
-                    className={`group relative rounded-xl p-4 transition-all duration-300 hover:scale-[1.01] ${isArabic ? 'text-right' : 'text-left'}`}
+                    className={`group relative rounded-xl p-4 transition-all duration-300 hover:scale-[1.01] ${isArabic ? 'text-right' : 'text-left'} ${styles.dynamicChoicePanel}`}
                     style={{
-                      background: 'rgba(0,0,0,0.72)',
-                      border: `1px solid ${accentColor}20`,
-                      boxShadow: '0 4px 30px rgba(0,0,0,0.5)',
-                      backdropFilter: 'blur(14px)',
-                    }}
+                      '--choice-bg': 'rgba(0,0,0,0.72)',
+                      '--choice-border': `1px solid ${accentColor}20`,
+                      '--choice-shadow': '0 4px 30px rgba(0,0,0,0.5)',
+                      '--choice-backdrop': 'blur(14px)'
+                    } as React.CSSProperties}
                     onMouseEnter={(e) => {
                       const el = e.currentTarget as HTMLButtonElement;
-                      el.style.borderColor = `${accentColor}55`;
-                      el.style.background = `${accentColor}0a`;
-                      el.style.boxShadow = `0 4px 40px ${accentColor}15`;
+                      el.style.setProperty('--choice-border', `1px solid ${accentColor}55`);
+                      el.style.setProperty('--choice-bg', `${accentColor}0a`);
+                      el.style.setProperty('--choice-shadow', `0 4px 40px ${accentColor}15`);
                     }}
                     onMouseLeave={(e) => {
                       const el = e.currentTarget as HTMLButtonElement;
-                      el.style.borderColor = `${accentColor}20`;
-                      el.style.background = 'rgba(0,0,0,0.72)';
-                      el.style.boxShadow = '0 4px 30px rgba(0,0,0,0.5)';
+                      el.style.setProperty('--choice-border', `1px solid ${accentColor}20`);
+                      el.style.setProperty('--choice-bg', 'rgba(0,0,0,0.72)');
+                      el.style.setProperty('--choice-shadow', '0 4px 30px rgba(0,0,0,0.5)');
                     }}
                   >
                     <div className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                       <span
-                        className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono flex-shrink-0"
+                        className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono flex-shrink-0 ${styles.dynamicChoiceNumber}`}
                         style={{
-                          background: `${accentColor}15`,
-                          color: accentColor,
-                          border: `1px solid ${accentColor}30`,
-                        }}
+                          '--choice-num-bg': `${accentColor}15`,
+                          '--choice-num-color': accentColor,
+                          '--choice-num-border': `1px solid ${accentColor}30`
+                        } as React.CSSProperties}
                       >
                         {idx + 1}
                       </span>
@@ -2087,8 +2720,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       </div>
 
                       <span
-                        className={`text-base mx-1 flex-shrink-0 opacity-0 group-hover:opacity-70 transition-all duration-300 ${isArabic ? 'order-first' : ''}`}
-                        style={{ color: accentColor }}
+                        className={`text-base mx-1 flex-shrink-0 opacity-0 group-hover:opacity-70 transition-all duration-300 ${styles.dynamicCountdown} ${isArabic ? 'order-first' : ''}`}
+                        style={{ '--countdown-color': accentColor } as React.CSSProperties}
                       >
                         {isArabic ? '←' : '→'}
                       </span>
@@ -2122,12 +2755,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               onClick={(e) => { e.stopPropagation(); }}
             >
               <div
-                className="inline-flex flex-col items-center gap-3 px-6 sm:px-10 py-5 sm:py-6 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+                className={`inline-flex flex-col items-center gap-3 px-6 sm:px-10 py-5 sm:py-6 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-[1.02] ${styles.dynamicEndOfScene}`}
                 style={{
-                  background: 'rgba(0,0,0,0.75)',
-                  border: `1px solid ${accentColor}22`,
-                  backdropFilter: 'blur(16px)',
-                }}
+                  '--end-scene-bg': 'rgba(0,0,0,0.75)',
+                  '--end-scene-border': `1px solid ${accentColor}22`,
+                  '--end-scene-backdrop': 'blur(16px)'
+                } as React.CSSProperties}
               >
                 {currentScene?.defaultNextScene ? (
                   <motion.button
@@ -2136,11 +2769,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     transition={{ duration: 2.5, repeat: Infinity }}
                     className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}
                   >
-                    <span className={lang === 'ar' ? 'text-sm tracking-wider font-arabic-ui' : 'text-sm font-mono tracking-[0.25em] uppercase'} style={{ color: `${accentColor}90` }}>
+                    <span className={`${lang === 'ar' ? 'text-sm tracking-wider font-arabic-ui' : 'text-sm font-mono tracking-[0.25em] uppercase'} ${styles.dynamicCountdown}`} style={{ '--countdown-color': `${accentColor}90` } as React.CSSProperties}>
                       {isArabic ? 'التالي' : 'NEXT'}
                     </span>
                     <motion.span
-                      style={{ color: `${accentColor}90`, fontSize: '18px' }}
+                      className={styles.dynamicCountdown}
+                      style={{ '--countdown-color': `${accentColor}90`, fontSize: '18px' } as React.CSSProperties}
                       animate={{ x: isArabic ? [0, -6, 0] : [0, 6, 0] }}
                       transition={{ duration: 1.8, repeat: Infinity }}
                     >
@@ -2155,29 +2789,44 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                     <div className={`flex flex-wrap items-center justify-center gap-2 sm:gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                       <button
                         onClick={(e) => { e.stopPropagation(); setLocation('/'); }}
-                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} `}
-                        style={{ background: `linear-gradient(135deg, ${accentColor}, #f0d080)`, color: '#0b0b0d' }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicEndButton}`}
+                        style={{
+                          '--end-btn-bg': `linear-gradient(135deg, ${accentColor}, #f0d080)`,
+                          '--end-btn-color': '#0b0b0d'
+                        } as React.CSSProperties}
                       >
                         {isArabic ? 'الصفحة الرئيسية' : 'HOME'}
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); setShareMenuOpen((v) => !v); }}
-                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                        style={{ border: `1px solid ${accentColor}33`, background: 'rgba(0,0,0,0.35)', color: `${accentColor}CC` }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicSecondaryButton}`}
+                        style={{
+                          '--secondary-btn-border': `1px solid ${accentColor}33`,
+                          '--secondary-btn-bg': 'rgba(0,0,0,0.35)',
+                          '--secondary-btn-color': `${accentColor}CC`
+                        } as React.CSSProperties}
                       >
                         {isArabic ? 'مشاركة' : 'SHARE'}
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); handleCopyShareLink(); }}
-                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                        style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.7)' }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                        style={{
+                          '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                          '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                          '--tertiary-btn-color': 'rgba(255,255,255,0.7)'
+                        } as React.CSSProperties}
                       >
                         {isArabic ? 'نسخ الرابط' : 'COPY LINK'}
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); goToScene('zero-1-1-summons'); }}
-                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                        style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.7)' }}
+                        className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                        style={{
+                          '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                          '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                          '--tertiary-btn-color': 'rgba(255,255,255,0.7)'
+                        } as React.CSSProperties}
                       >
                         {isArabic ? 'إعادة البدء' : 'RESTART'}
                       </button>
@@ -2186,43 +2835,67 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                       <div className={`mt-3 flex flex-wrap items-center justify-center gap-2 sm:gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareNative(); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           {isArabic ? 'مشاركة النظام' : 'NATIVE'}
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareTo('whatsapp'); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           WhatsApp
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareTo('telegram'); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           Telegram
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareTo('facebook'); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           Facebook
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareTo('x'); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           X
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); handleShareTo('email'); }}
-                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}
-                          style={{ border: `1px solid ${accentColor}22`, background: 'rgba(0,0,0,0.25)', color: 'rgba(255,255,255,0.75)' }}
+                          className={`px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicTertiaryButton}`}
+                          style={{
+                            '--tertiary-btn-border': `1px solid ${accentColor}22`,
+                            '--tertiary-btn-bg': 'rgba(0,0,0,0.25)',
+                            '--tertiary-btn-color': 'rgba(255,255,255,0.75)'
+                          } as React.CSSProperties}
                         >
                           Email
                         </button>
@@ -2238,7 +2911,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
       {/* ── AUDIO STATUS INDICATOR ── */}
       {/* (Narration indicator removed; only music status remains) */}
-      {audioEnabled && ((bedMusicRef.current && !bedMusicRef.current.paused) || (sceneMusicRef.current && !sceneMusicRef.current.paused)) && (
+      {audioEnabled && globalMediaState.isPlaying && !isMuted && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -2250,8 +2923,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
             {[1, 2, 1].map((h, i) => (
               <motion.div
                 key={i}
-                className="w-0.5 rounded-full"
-                style={{ background: 'rgba(255,255,255,0.5)' }}
+                className={`w-0.5 rounded-full ${styles.dynamicAudioIndicator}`}
+                style={{ '--audio-bar-bg': 'rgba(255,255,255,0.5)' } as React.CSSProperties}
                 animate={{ height: [h * 2, h * 3, h * 2] }}
                 transition={{
                   duration: 1.2,

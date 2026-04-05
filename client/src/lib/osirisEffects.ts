@@ -231,7 +231,7 @@ export const OSIRIS_EFFECTS: Record<OsirisEffectId, OsirisEffectComposition> = {
 function norm(s: string) {
   return s
     .toLowerCase()
-    .replace(/[^\p{L}\p{N}\s]+/gu, " ")
+    .replace(/[^0-9a-z\u0600-\u06ff\u0750-\u077f\u08a0-\u08ff\s]+/gi, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -297,4 +297,3 @@ export function preloadOsirisEffects(allowVideo: boolean) {
     img.src = getOsirisMediaUrl(e.fallback);
   }
 }
-

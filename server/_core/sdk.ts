@@ -30,11 +30,8 @@ const GET_USER_INFO_WITH_JWT_PATH = `/webdev.v1.WebDevAuthPublicService/GetUserI
 
 class OAuthService {
   constructor(private client: ReturnType<typeof axios.create>) {
-    console.log("[OAuth] Initialized with baseURL:", ENV.oAuthServerUrl);
-    if (!ENV.oAuthServerUrl) {
-      console.error(
-        "[OAuth] ERROR: OAUTH_SERVER_URL is not configured! Set OAUTH_SERVER_URL environment variable."
-      );
+    if (ENV.isProduction && ENV.oAuthServerUrl) {
+      console.log("[OAuth] Initialized with baseURL:", ENV.oAuthServerUrl);
     }
   }
 
@@ -199,7 +196,6 @@ class SDKServer {
     cookieValue: string | undefined | null
   ): Promise<{ openId: string; appId: string; name: string } | null> {
     if (!cookieValue) {
-      console.warn("[Auth] Missing session cookie");
       return null;
     }
 
@@ -215,7 +211,9 @@ class SDKServer {
         !isNonEmptyString(appId) ||
         !isNonEmptyString(name)
       ) {
-        console.warn("[Auth] Session payload missing required fields");
+        if (ENV.isProduction) {
+          console.warn("[Auth] Session payload missing required fields");
+        }
         return null;
       }
 
@@ -225,7 +223,9 @@ class SDKServer {
         name,
       };
     } catch (error) {
-      console.warn("[Auth] Session verification failed", String(error));
+      if (ENV.isProduction) {
+        console.warn("[Auth] Session verification failed", String(error));
+      }
       return null;
     }
   }

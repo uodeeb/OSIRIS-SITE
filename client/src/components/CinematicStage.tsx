@@ -8,6 +8,8 @@ type Props = {
   sceneId: string;
   bgImageSrc?: string;
   bgVideoSrc?: string;
+  audioDescSrcEn?: string;
+  audioDescSrcAr?: string;
   allowVideo: boolean;
   bgLoaded: boolean;
   setBgLoaded: (v: boolean) => void;
@@ -28,6 +30,8 @@ export const CinematicStage = memo(function CinematicStage({
   sceneId,
   bgImageSrc,
   bgVideoSrc,
+  audioDescSrcEn,
+  audioDescSrcAr,
   allowVideo,
   bgLoaded,
   setBgLoaded,
@@ -103,6 +107,24 @@ export const CinematicStage = memo(function CinematicStage({
               filter: mediaFilter,
             }}
           />
+          {audioDescSrcEn && (
+            <track
+              kind="descriptions"
+              src={audioDescSrcEn}
+              srcLang="en"
+              label="English Audio Description"
+              default={false}
+            />
+          )}
+          {audioDescSrcAr && (
+            <track
+              kind="descriptions"
+              src={audioDescSrcAr}
+              srcLang="ar"
+              label="وصف صوتي عربي"
+              default={false}
+            />
+          )}
         </motion.div>
       )}
 
