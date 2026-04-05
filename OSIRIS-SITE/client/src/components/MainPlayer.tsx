@@ -15,17 +15,17 @@ import { useEffect, useMemo, useRef, useState, useCallback, type CSSProperties }
 import styles from './MainPlayer.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
-import { PART_LABELS, SCENES as ALL_SCENES, type DialogueLine, type Scene, type SceneChoice } from '@/lib/sceneSystem';
-import { ASSET_URLS } from '@/lib/assetUrls';
-import { getAssetOverride } from '@/lib/assetOverrides';
-import { useBandwidthStrategy } from '@/lib/mediaStrategy';
-import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "@/lib/osirisEffects";
-import { loadCanonicalDialogueMap } from '@/lib/canonicalScript';
-import { CinematicStage } from '@/components/CinematicStage';
-import { OsirisEffectLayer } from "@/components/OsirisEffectLayer";
-import { GlobalMediaLayer } from "@/components/GlobalMediaLayer";
-import { useMediaController } from "@/contexts/MediaControllerContext";
-import osirisLogo from '@/LOGO/new-logo/favicon-black-0.25.png';
+import { PART_LABELS, SCENES as ALL_SCENES, type DialogueLine, type Scene, type SceneChoice } from '../lib/sceneSystem';
+import { ASSET_URLS } from '../lib/assetUrls';
+import { getAssetOverride } from '../lib/assetOverrides';
+import { useBandwidthStrategy } from '../lib/mediaStrategy';
+import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "../lib/osirisEffects";
+import { loadCanonicalDialogueMap } from '../lib/canonicalScript';
+import { CinematicStage } from './CinematicStage';
+import { OsirisEffectLayer } from "./OsirisEffectLayer";
+import { GlobalMediaLayer } from "./GlobalMediaLayer";
+import { useMediaController } from "../contexts/MediaControllerContext";
+import osirisLogo from '../LOGO/new-logo/favicon-black-0.25.png';
 
 // Helper function to normalize URLs
 function normalize(url: string): string {
