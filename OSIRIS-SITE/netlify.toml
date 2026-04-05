@@ -4,9 +4,10 @@
 
 [build.environment]
   NODE_OPTIONS = "NODE_OPTIONS"
-  # Disable Netlify cache for node_modules to avoid stale transforms
-  npm_config_cache = ""
+  # Clear ALL caches for clean build
+  NPM_CONFIG_CACHE = ""
   PNPM_HOME = ""
+  NETLIFY_CACHE_DIR = ""
 
 [[redirects]]
   from = "/*"
