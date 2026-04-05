@@ -171,17 +171,12 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Vendor chunks
+          // Vendor chunks only - these work with package names
           'react-vendor': ['react', 'react-dom'],
           'animation-vendor': ['framer-motion'],
           'router-vendor': ['wouter'],
           'audio-vendor': ['howler'],
           'query-vendor': ['@tanstack/react-query'],
-          // Feature chunks
-          'ui-components': ['./client/src/components/ui'],
-          'scenes-core': ['./client/src/lib/sceneSystem.ts'],
-          'audio-engine': ['./client/src/lib/culturalAudioEngine.ts'],
-          'cinematic-engine': ['./client/src/lib/cinematicCompositionEngine.ts'],
         },
       },
     },
