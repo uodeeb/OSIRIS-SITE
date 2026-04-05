@@ -1,3 +1,4 @@
+// OSIRIS Scene System - v1.0.1 (Modular)
 import { PART_ZERO } from './scenes/partZero';
 import { PART_ONE } from './scenes/partOne';
 import { PART_TWO } from './scenes/partTwo';
