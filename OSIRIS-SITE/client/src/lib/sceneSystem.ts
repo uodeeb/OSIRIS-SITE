@@ -44,7 +44,7 @@ export interface Scene {
   defaultNextScene?: string;
   transitionType?: 'fade' | 'dissolve' | 'glitch' | 'slideUp' | 'slideDown' | 'slideLeft' | 'slideRight';
   transitionDuration?: number;
-  emotionalTone?: 'hopeful' | 'intense' | 'tragic' | 'dark' | 'contemplative';
+  emotionalTone?: 'hopeful' | 'intense' | 'tragic' | 'dark' | 'contemplative' | 'urgent';
 }
 
 export const PART_LABELS: Record<number, { en: string; ar: string }> = {
