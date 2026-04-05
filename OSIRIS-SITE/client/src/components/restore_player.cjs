@@ -13,7 +13,7 @@ import { ASSET_URLS } from '@/lib/assetUrls';
 import { getAssetOverride } from '@/lib/assetOverrides';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "@/lib/osirisEffects";
-import { loadCanonicalDialogueMap } from '@/lib/canonicalScript';
+import { loadCanonicalDialogueMap } from '@/lib/canonicalScript.ts';
 import { CinematicStage } from '@/components/CinematicStage';
 import { OsirisEffectLayer } from "@/components/OsirisEffectLayer";
 import { GlobalMediaLayer } from "@/components/GlobalMediaLayer";
