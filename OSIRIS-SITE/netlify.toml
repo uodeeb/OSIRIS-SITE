@@ -2,6 +2,12 @@
   command = "pnpm build"
   publish = "dist/public"
 
+[build.environment]
+  NODE_OPTIONS = "NODE_OPTIONS"
+  # Disable Netlify cache for node_modules to avoid stale transforms
+  npm_config_cache = ""
+  PNPM_HOME = ""
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
