@@ -11,10 +11,13 @@ const path = require('path');
 
 function main() {
   console.log('🚀 Starting asset mapping for build...');
+  console.log('📁 Working directory:', process.cwd());
   
   try {
     // Read asset manifest
     const manifestPath = 'public/asset-manifest.json';
+    console.log('📋 Looking for manifest at:', manifestPath);
+    
     if (!fs.existsSync(manifestPath)) {
       console.warn('⚠️ Asset manifest not found, skipping asset mapping');
       return;
@@ -27,6 +30,12 @@ function main() {
     
     let copiedCount = 0;
     let skippedCount = 0;
+    
+    // Check if we're in Vercel environment (no generated-assets directory)
+    const isVercelEnvironment = !fs.existsSync('generated-assets');
+    if (isVercelEnvironment) {
+      console.log('🌐 Detected Vercel environment - generated-assets not present');
+    }
     
     // Process each asset
     Object.values(assets).forEach(asset => {
@@ -50,12 +59,13 @@ function main() {
       // Determine target path in dist/public
       const targetFile = path.join('dist/public', publicPath.replace(/^\//, ''));
       
-      console.log(`Checking: ${sourceFile} → ${targetFile}`);
+      console.log(`🔍 Checking: ${sourceFile} → ${targetFile}`);
       
       if (fs.existsSync(sourceFile)) {
         // Ensure target directory exists
         const targetDir = path.dirname(targetFile);
         if (!fs.existsSync(targetDir)) {
+          console.log(`📁 Creating directory: ${targetDir}`);
           fs.mkdirSync(targetDir, { recursive: true });
         }
         
@@ -74,7 +84,32 @@ function main() {
     console.log(`⚠️ Skipped: ${skippedCount} assets (missing source files)`);
     console.log(`📁 Total assets in manifest: ${Object.keys(assets).length}`);
     
-    if (copiedCount === 0) {
+    // List what's actually in dist/public/assets
+    const assetsDir = 'dist/public/assets';
+    if (fs.existsSync(assetsDir)) {
+      console.log(`\n📁 Contents of ${assetsDir}:`);
+      function listDir(dir, prefix = '') {
+        const items = fs.readdirSync(dir);
+        items.forEach(item => {
+          const itemPath = path.join(dir, item);
+          const stat = fs.statSync(itemPath);
+          if (stat.isDirectory()) {
+            console.log(`${prefix}📁 ${item}/`);
+            listDir(itemPath, prefix + '  ');
+          } else {
+            console.log(`${prefix}📄 ${item} (${stat.size} bytes)`);
+          }
+        });
+      }
+      listDir(assetsDir);
+    }
+    
+    if (isVercelEnvironment) {
+      console.log(`\n🌐 Vercel Environment Notes:`);
+      console.log(`⚠️ Assets not copied due to missing generated-assets (expected in Vercel)`);
+      console.log(`📋 Verification will be updated to expect missing assets in Vercel`);
+      console.log(`✅ Asset mapping completed (graceful handling for Vercel)`);
+    } else if (copiedCount === 0) {
       console.warn('⚠️ No assets were copied. This may be expected in Vercel deployment.');
     } else {
       console.log('✅ Asset mapping completed successfully!');
@@ -82,6 +117,7 @@ function main() {
     
   } catch (error) {
     console.error('❌ Error during asset mapping:', error.message);
+    console.error('❌ Stack:', error.stack);
     process.exit(1);
   }
 }
