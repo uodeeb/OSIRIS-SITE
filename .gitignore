@@ -179,6 +179,7 @@ scripts/
 !scripts/verify-deployment-assets.ts
 !scripts/copy-assets-build.cjs
 !scripts/verify-build.ts
+!scripts/map-assets.cjs
 
 # Python artifacts
 __pycache__/
