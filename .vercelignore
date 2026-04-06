@@ -1,0 +1,39 @@
+# Build output
+dist
+.vite
+
+# Dependencies
+node_modules
+.pnpm-store
+
+# Large media files (already in Cloudflare R2)
+generated-assets/video-bg
+generated-assets/music-tracks
+generated-assets/voices
+generated-assets/songs+
+generated-assets/master
+
+# Keep character images for fallback
+generated-assets/images
+
+# Logs
+*.log
+server-start.log
+
+# IDE
+.vscode
+.idea
+
+# Local Netlify/Vercel folders
+.netlify
+.vercel
+
+# Test files
+test-*.js
+test-*.bat
+test-*.ts
+browser-test.js
+
+# OS
+.DS_Store
+Thumbs.db

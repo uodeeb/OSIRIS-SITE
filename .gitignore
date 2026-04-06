@@ -212,3 +212,8 @@ fix.cjs
 test-b64.bat
 test-b64.js
 run-insert.js
+
+# Local Netlify folder
+.netlify
+
+.vercel

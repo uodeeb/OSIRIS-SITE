@@ -156,7 +156,7 @@ function getFallbackAssetUrl(key: string): string | undefined {
     'character.yahya_confront': '/generated-assets/characters/يحيى الراشد-صورة المواجهة (Confrontation Scene).jpeg',
     'character.yahya_dying': '/generated-assets/characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg',
     'character.yahya_main': '/generated-assets/characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg',
-    'character.laila': '/generated-assets/characters/ليلى حسن-الصورة الأساسية (Portrait).jpeg',
+    'character.laila': '/generated-assets/characters/ليلى حسنالصورة الأساسية (Portrait).jpeg',
     'character.laila_faith': '/generated-assets/characters/ليلى حسن-صورة الإيمان (Faith Portrait).jpeg',
     'character.laila_witness': '/generated-assets/characters/ليلى حسن-صورة الشاهدة (Witness Scene — Final Chapter).jpeg',
     'character.laila_crying': '/generated-assets/characters/ليلى حسن-صورة الإيمان (Faith Portrait).jpeg',
@@ -196,7 +196,7 @@ function getFallbackAssetsByKind(kind: string) {
     character: [
       { key: 'character.narrator', url: '/generated-assets/characters/الراوي الكوني-التجسيد البصري (Visual Representation).png', mime: 'image/png' },
       { key: 'character.yahya', url: '/generated-assets/characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
-      { key: 'character.laila', url: '/generated-assets/characters/ليلى حسن-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
+      { key: 'character.laila', url: '/generated-assets/characters/ليلى حسنالصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
       { key: 'character.tarek', url: '/generated-assets/characters/طارق الراشد-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
       { key: 'character.first_engineer', url: '/generated-assets/characters/المهندس الأول-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
       { key: 'character.arius', url: '/generated-assets/characters/آريوس.jpeg', mime: 'image/jpeg' },

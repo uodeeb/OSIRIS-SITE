@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm build"
+  command = ""
   publish = "dist/public"
 
 [[redirects]]
