@@ -111,7 +111,7 @@ export default function Home() {
   const activeTrailer = TRAILER_CLIPS[trailerClip];
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-black text-white font-novel" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className="relative w-screen h-dvh overflow-hidden bg-black text-white font-novel" dir={isArabic ? 'rtl' : 'ltr'}>
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"

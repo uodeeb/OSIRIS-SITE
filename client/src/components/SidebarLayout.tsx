@@ -24,7 +24,7 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
   const currentPart = PARTS.find(p => p.path === location);
 
   return (
-    <div className="flex h-screen bg-background text-foreground overflow-hidden">
+    <div className="flex h-dvh bg-background text-foreground overflow-hidden">
       {/* Sidebar */}
       <AnimatePresence>
         {isOpen && (
@@ -42,7 +42,7 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
         initial={false}
         animate={{ x: isOpen ? 0 : -288 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="fixed md:relative w-72 h-screen bg-gradient-to-b from-primary/20 via-background to-background border-r border-primary/20 overflow-y-auto z-50 md:z-auto"
+        className="fixed md:relative w-72 h-dvh bg-gradient-to-b from-primary/20 via-background to-background border-r border-primary/20 overflow-y-auto z-50 md:z-auto"
       >
         {/* Logo Section */}
         <div className="p-6 border-b border-primary/20">

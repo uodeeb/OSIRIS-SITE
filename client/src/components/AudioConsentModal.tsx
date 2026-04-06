@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 interface AudioConsentModalProps {
   onConsent: (allowed: boolean) => void;
@@ -8,6 +9,7 @@ interface AudioConsentModalProps {
 
 export function AudioConsentModal({ onConsent, lang }: AudioConsentModalProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     // Check if user has already made a choice
@@ -51,12 +53,18 @@ export function AudioConsentModal({ onConsent, lang }: AudioConsentModalProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.3 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
         >
           <motion.div
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { 
+              type: "spring", 
+              stiffness: 300, 
+              damping: 30 
+            }}
             className="mx-4 max-w-md rounded-lg border border-white/10 bg-black/90 p-6 text-center shadow-2xl"
             dir={lang === 'ar' ? 'rtl' : 'ltr'}
           >

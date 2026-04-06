@@ -38,7 +38,7 @@ export function viteTrpcPlugin() {
         console.log('[tRPC] Handling request:', req.url);
         const middleware = getTrpcMiddleware();
         // Call the middleware with proper Express-like request/response objects
-        await middleware(req, res);
+        await middleware(req, res, next);
         console.log('[tRPC] Request completed:', req.url);
       } catch (error) {
         console.error('[tRPC] Middleware error:', error);

@@ -14,6 +14,7 @@ export interface DialogueLine {
   text: string;
   arabicText: string;
   duration: number;
+  delay?: number;
   audioUrl?: string;
 }
 
@@ -35,7 +36,7 @@ export interface Scene {
   backgroundVideoAudioDescEn?: string;
   backgroundVideoAudioDescAr?: string;
   audioUrl?: string;
-  visualEffect?: "glitch" | "scanlines" | "cctv" | "none";
+  visualEffect?: "glitch" | "scanlines" | "cctv" | "alarm" | "montage" | "none";
   musicKey?: string;
   ambientKeys?: string[];
   enterSfxKeys?: string[];

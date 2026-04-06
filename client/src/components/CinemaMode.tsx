@@ -54,7 +54,7 @@ export function CinemaMode({
   }, [audioUrl, audioPermission, autoPlayAudio]);
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-background">
+    <div className="relative w-screen h-dvh overflow-hidden bg-background">
       {/* Background Image */}
       {backgroundImage && (
         <motion.div

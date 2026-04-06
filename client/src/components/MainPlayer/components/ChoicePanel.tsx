@@ -4,8 +4,8 @@
  */
 
 import { motion, AnimatePresence } from 'framer-motion';
-import styles from '../MainPlayer.module.css';
 import type { ChoicePanelProps } from '../types';
+import styles from '../MainPlayer.module.css';
 
 export function ChoicePanel({
   choices,

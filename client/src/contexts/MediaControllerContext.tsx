@@ -1,4 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { MediaStateContext } from "./MediaStateContext";
+import { MediaActionsContext } from "./MediaActionsContext";
 
 type MediaControllerEventName = "state" | "tick" | "play" | "pause" | "seek" | "duration";
 
@@ -357,9 +359,8 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
     return () => document.removeEventListener("visibilitychange", onVis);
   }, [pause]);
 
-  const value = useMemo<MediaControllerApi>(
+  const actions = useMemo(
     () => ({
-      state,
       play,
       pause,
       toggle,
@@ -387,20 +388,24 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
       setPrimaryAudioSources,
       setPrimaryAudioVolume,
       setUiLang,
-      state,
       toggle,
     ],
   );
 
   return (
-    <MediaControllerContext.Provider value={value}>
-      {children}
-    </MediaControllerContext.Provider>
+    <MediaStateContext.Provider value={state}>
+      <MediaActionsContext.Provider value={actions}>
+        {children}
+      </MediaActionsContext.Provider>
+    </MediaStateContext.Provider>
   );
 }
 
 export function useMediaController() {
-  const ctx = useContext(MediaControllerContext);
-  if (!ctx) throw new Error("useMediaController must be used within MediaControllerProvider");
-  return ctx;
+  const state = useContext(MediaStateContext);
+  const actions = useContext(MediaActionsContext);
+  if (!state || !actions) throw new Error("useMediaController must be used within MediaControllerProvider");
+  return { state, ...actions } as MediaControllerApi;
 }
+
+export { MediaControllerContext };

@@ -1,0 +1,105 @@
+{
+  "$schema": "./schemas/asset-manifest.schema.json",
+  "version": "1.0.0",
+  "generated": "2026-04-06T18:52:40.095Z",
+  "totalAssets": 53,
+  "baseUrl": "/generated-assets",
+  "categories": {
+    "characters": {
+      "description": "Character portraits and expressions",
+      "assets": {
+        "yahya": "characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg",
+        "yahya_breakdown": "characters/يحيى الراشد-صورة الانهيار (Breakdown Scene).jpeg",
+        "yahya_confront": "characters/يحيى الراشد-صورة المواجهة (Confrontation Scene).jpeg",
+        "yahya_main": "characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg",
+        "yahya_dying": "characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg",
+        "laila": "characters/ليلى حسنالصورة الأساسية (Portrait).jpeg",
+        "laila_faith": "characters/ليلى حسن-صورة الإيمان (Faith Portrait).jpeg",
+        "laila_witness": "characters/ليلى حسن-صورة الشاهدة (Witness Scene — Final Chapter).jpeg",
+        "laila_crying": "characters/ليلى حسن-صورة الشاهدة (Witness Scene — Final Chapter).jpeg",
+        "tarek": "characters/طارق الراشد-الصورة الأساسية (Portrait).jpeg",
+        "tarek_ghost": "characters/طارق الراشد-صورة التسجيل (Recording — Ghost Image).jpeg",
+        "tarek_dream": "characters/طارق الراشد-صورة الحلم (Dream Sequence).jpeg",
+        "first_engineer": "characters/المهندس الأول-الصورة الأساسية (Portrait).jpeg",
+        "first_engineer_2": "characters/المهندس الأول-الصورة الأساسية (Portrait)02.jpeg",
+        "first_engineer_exposed": "characters/المهندس الأول-صورة الانكشاف (Exposed — Final Scene).jpeg",
+        "first_engineer_confront": "characters/المهندس الأول-صورة المواجهة (Confrontation).jpeg",
+        "arius": "characters/آريوس.jpeg",
+        "athanasius": "characters/أثناسيوس.jpeg",
+        "samiri": "characters/السامري-الصورة الأساسية (Portrait).jpeg",
+        "samiri_calf": "characters/السامري-اصورة صناعة العجل (The Golden Calf Scene).png",
+        "constantine": "characters/قسطنطين-الصورة الأساسية (Portrait).jpeg",
+        "narrator": "characters/الراوي الكوني-التجسيد البصري (Visual Representation).png",
+        "neferhotep": "characters/RAMSIS.jpg",
+        "ramses": "characters/RAMSIS01.jpg",
+        "abu_abdullah": "characters/المهندس الأول-الصورة الأساسية (Portrait).jpeg"
+      }
+    },
+    "videoBg": {
+      "description": "Background video loops for scenes",
+      "assets": {
+        "cosmic_opening": "video-bg/VIDEO 03 — الفضاء الكوني (المرافعة الافتتاحية).mp4",
+        "yahya_room": "video-bg/VIDEO 02 — غرفة يحيى (المشهد الافتتاحي).mp4",
+        "tarek_rooftop": "video-bg/VIDEO 04 — سطح المبنى (وداع طارق).mp4",
+        "sinai_desert": "video-bg/VIDEO 05 — صحراء سيناء (العجل الذهبي).mp4",
+        "molten_gold": "video-bg/VIDEO 06 — صهر الذهب (هندسة الحشود).mp4",
+        "nicaea": "video-bg/VIDEO 07 — مجمع نيقية (الإمبراطور والحكيم).mp4",
+        "granada_fall": "video-bg/VIDEO 08 — الأندلس (جمال يتلاشى).mp4",
+        "berlin_1933": "video-bg/VIDEO 10 — برلين 1933 (الكبر يصبح نظاماً).mp4",
+        "digital_space": "video-bg/VIDEO 12 — الفضاء الرقمي (المواجهة مع المهندس).mp4",
+        "intro": "video-bg/VIDEO 01 — الشاشة الرئيسية (Intro).mp4",
+        "andalus": "video-bg/andalus.mp4",
+        "desert": "video-bg/desert.mp4",
+        "egypt_nile_temple": "video-bg/egypt-nile-temple.mp4",
+        "karblaa": "video-bg/karblaa.mp4"
+      }
+    },
+    "backgrounds": {
+      "description": "Static background images",
+      "assets": {
+        "osiris_cosmic": "osiris_cosmic.jpg",
+        "corporate_lab": "corporate_lab.jpg",
+        "yahya_apartment": "yahya_apartment.jpg",
+        "white_space": "white_space.jpg",
+        "osiris_interface": "osiris_interface.jpg",
+        "nicaea_council": "nicaea_council.jpg",
+        "berlin_1933": "berlin_1933.jpg",
+        "granada_fall": "granada_fall.jpg",
+        "qabil_habil_altar": "qabil_habil_altar.jpg",
+        "qabil_habil_aftermath": "qabil_habil_aftermath.jpg",
+        "pharaoh_temple": "pharaoh_temple.jpg",
+        "cambodia_1975": "cambodia_1975.jpg"
+      }
+    },
+    "music": {
+      "description": "Background music tracks",
+      "assets": {
+        "main_theme": "music-tracks/TRACK 01 — الثيم الرئيسي للرواية.mp3",
+        "intro_narration": "music-tracks/TRACK 02.m4a"
+      }
+    },
+    "voices": {
+      "description": "Voice narration files",
+      "assets": {
+        "yahya_monologue": "voices/VOICE 01 — المرافعة الافتتاحية (الأيقونية الكبرى).wav"
+      }
+    },
+    "audio": {
+      "description": "Audio files (alias for music)",
+      "assets": {
+        "main_theme": "music-tracks/TRACK 01 — الثيم الرئيسي للرواية.mp3",
+        "intro_narration": "music-tracks/TRACK 02.m4a",
+        "yahya_monologue": "voices/VOICE 01 — المرافعة الافتتاحية (الأيقونية الكبرى).wav",
+        "videoBg": "video-bg/VIDEO 01 — الشاشة الرئيسية (Intro).mp4",
+        "character": "characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg",
+        "neferhotep": "characters/RAMSIS.jpg"
+      }
+    },
+    "projectMedia": {
+      "description": "Project media files",
+      "assets": {
+        "video": "video.mp4"
+      }
+    }
+  }
+}

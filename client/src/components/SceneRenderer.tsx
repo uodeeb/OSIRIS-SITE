@@ -26,7 +26,7 @@ export const SceneRenderer = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className={`relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden ${className}`}
+      className={`relative w-screen h-dvh overflow-hidden flex flex-col items-center justify-center ${className}`}
     >
       {/* Background Layer */}
       {backgroundImage && (

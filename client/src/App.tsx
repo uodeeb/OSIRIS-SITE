@@ -5,14 +5,31 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import EnhancedHome from "./pages/EnhancedHome";
 import { initAssetOverrides } from "@/lib/assetOverrides";
-import { MediaControllerProvider, useMediaController } from "./contexts/MediaControllerContext";
+import { MediaControllerProvider } from "./contexts/MediaControllerContext";
+import { useMediaState } from "./contexts/MediaStateContext";
+import { useMediaActions } from "./contexts/MediaActionsContext";
 import { GlobalMediaLayer } from "@/components/GlobalMediaLayer";
-import { PlayerSkeleton, ModelSkeleton } from "@/components/LoadingSkeletons";
+import { PlayerSkeleton, ModelSkeleton, PageSkeleton } from "@/components/LoadingSkeletons";
+import { useSmartPreloader } from "@/utils/preloading";
+import { usePerformanceMonitor } from "@/utils/performance";
 
+// Lazy load heavy components for code splitting
 const MainPlayer = lazy(() => import("@/components/MainPlayer"));
 const OsirisAIModel = lazy(() => import("./pages/OsirisAIModel"));
+const ComponentShowcase = lazy(() => import("./pages/ComponentShowcase"));
+const FullScript = lazy(() => import("./pages/FullScript"));
+const AssetDemoPage = lazy(() => import("./pages/AssetDemoPage"));
+const EnhancedHome = lazy(() => import("./pages/EnhancedHome"));
+
+// Lazy load part pages (these are large and only used for specific routes)
+const PartOne = lazy(() => import("./pages/PartOne"));
+const PartTwo = lazy(() => import("./pages/PartTwo"));
+const PartThree = lazy(() => import("./pages/PartThree"));
+const PartFour = lazy(() => import("./pages/PartFour"));
+const PartFive = lazy(() => import("./pages/PartFive"));
+const PartSix = lazy(() => import("./pages/PartSix"));
+const PartZero = lazy(() => import("./pages/PartZero"));
 
 function PlayRoute() {
   const params = new URLSearchParams(window.location.search);
@@ -27,13 +44,67 @@ function PlayRoute() {
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={EnhancedHome} />
+      <Route path="/">
+        <Suspense fallback={<PageSkeleton />}>
+          <EnhancedHome />
+        </Suspense>
+      </Route>
       <Route path="/model">
         <Suspense fallback={<ModelSkeleton />}>
           <OsirisAIModel />
         </Suspense>
       </Route>
       <Route path="/play" component={PlayRoute} />
+      <Route path="/showcase">
+        <Suspense fallback={<PageSkeleton />}>
+          <ComponentShowcase />
+        </Suspense>
+      </Route>
+      <Route path="/script">
+        <Suspense fallback={<PageSkeleton />}>
+          <FullScript />
+        </Suspense>
+      </Route>
+      <Route path="/demo">
+        <Suspense fallback={<PageSkeleton />}>
+          <AssetDemoPage />
+        </Suspense>
+      </Route>
+      <Route path="/part-0">
+        <Suspense fallback={<PageSkeleton />}>
+          <PartZero />
+        </Suspense>
+      </Route>
+      <Route path="/part-1">
+        <Suspense fallback={<PageSkeleton />}>
+          <PartOne />
+        </Suspense>
+      </Route>
+      <Route path="/part-2">
+        <Suspense fallback={<PageSkeleton />}>
+          <PartTwo />
+        </Suspense>
+      </Route>
+      <Route path="/part-3">
+        <Suspense fallback={<PageSkeleton />}>
+          <PartThree />
+        </Suspense>
+      </Route>
+      <Route path="/part-4">
+        <Suspense fallback={<PageSkeleton />}>
+          <PartFour />
+        </Suspense>
+      </Route>
+      <Route path="/part-5">
+        <Suspense fallback={<PageSkeleton />}>
+          <PartFive />
+        </Suspense>
+      </Route>
+      <Route path="/part-6">
+        <Suspense fallback={<PageSkeleton />}>
+          <PartSix />
+        </Suspense>
+      </Route>
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
@@ -41,8 +112,28 @@ function Router() {
 }
 
 function AppContent() {
-  const { state: mediaState } = useMediaController();
+  const mediaState = useMediaState();
+  const preloader = useSmartPreloader();
+  const performanceMonitor = usePerformanceMonitor();
   const isArabic = mediaState.uiLang === "ar";
+
+  useEffect(() => {
+    // Start performance monitoring
+    performanceMonitor.startRuntimeMonitoring();
+    
+    // Preload critical assets on idle
+    const criticalAssets = [
+      '/audio/ambient.mp3',
+      '/images/hero-bg.jpg'
+    ];
+    
+    preloader.preloadOnIdle(criticalAssets);
+    
+    // Cleanup on unmount
+    return () => {
+      performanceMonitor.cleanup();
+    };
+  }, [preloader, performanceMonitor]);
 
   return (
     <div dir={isArabic ? "rtl" : "ltr"}>

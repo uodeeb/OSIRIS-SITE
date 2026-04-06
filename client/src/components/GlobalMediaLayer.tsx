@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef } from "react";
-import styles from "./GlobalMediaLayer.module.css";
 import { OSIRIS_EFFECTS, getOsirisMediaUrl } from "@/lib/osirisEffects";
 import { useBandwidthStrategy } from "@/lib/mediaStrategy";
-import { useMediaController } from "@/contexts/MediaControllerContext";
+import { useMediaState } from "@/contexts/MediaStateContext";
+import { useMediaActions } from "@/contexts/MediaActionsContext";
 
 function withAlpha(hex: string, alpha: number) {
   const h = hex.replace("#", "").trim();
@@ -19,7 +19,8 @@ interface GlobalMediaLayerProps {
 
 export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerProps) {
   const { allowVideo } = useBandwidthStrategy();
-  const { state, registerMedia, setPrimaryAudioElement, setPrimaryAudioSources, setPrimaryAudioVolume } = useMediaController();
+  const state = useMediaState();
+  const { registerMedia, setPrimaryAudioElement, setPrimaryAudioSources, setPrimaryAudioVolume } = useMediaActions();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -67,7 +68,10 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
   }
   return (
     <div
-      className={`fixed inset-0 z-0 overflow-hidden bg-black pointer-events-none ${styles.mediaAccent}`}
+      className="fixed inset-0 z-0 overflow-hidden bg-black pointer-events-none"
+      style={{
+        '--media-accent': accentHex
+      } as React.CSSProperties}
       aria-hidden="true"
     >
       {allowVideo ? (
@@ -79,13 +83,19 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
           loop
           playsInline
           preload="metadata"
-          className={`absolute inset-0 h-full w-full object-cover ${styles.mediaVideo}`}
+          className={`absolute inset-0 h-full w-full object-cover`}
+          style={{
+            filter: 'brightness(0.55) saturate(1.08) contrast(1.12)'
+          }}
         />
       ) : (
         <img
           src={posterSrc}
           alt=""
-          className={`absolute inset-0 h-full w-full object-cover ${styles.mediaImage}`}
+          className={`absolute inset-0 h-full w-full object-cover`}
+          style={{
+            filter: 'brightness(0.55) saturate(1.08) contrast(1.12)'
+          }}
         />
       )}
 
@@ -94,10 +104,18 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
       ) : null}
 
       <div
-        className={`absolute inset-0 ${styles.mediaRadial}`}
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(circle at 35% 30%, #c9a96e38 0%, rgba(0,0,0,0.86) 58%, rgba(0,0,0,0.98) 100%)'
+        }}
       />
       <div
-        className={`absolute inset-0 ${styles.mediaPattern}`}
+        className="absolute inset-0"
+        style={{
+          background: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0) 2px, rgba(0,0,0,0) 6px)',
+          mixBlendMode: 'screen',
+          opacity: 0.12
+        }}
       />
     </div>
   );

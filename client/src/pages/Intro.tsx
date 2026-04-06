@@ -3,11 +3,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useLocation } from "wouter";
 import { OSIRIS_EFFECTS, getOsirisMediaUrl } from "@/lib/osirisEffects";
 import { useBandwidthStrategy } from "@/lib/mediaStrategy";
-import { useMediaController } from "@/contexts/MediaControllerContext";
+import { useMediaState } from "@/contexts/MediaStateContext";
+import { useMediaActions } from "@/contexts/MediaActionsContext";
 
 export default function Intro() {
   const [, setLocation] = useLocation();
-  const { state: mediaState, play, pause } = useMediaController();
+  const mediaState = useMediaState();
+  const { play, pause } = useMediaActions();
   const { uiLang } = mediaState;
   const { allowVideo } = useBandwidthStrategy();
   const [trailerIdx, setTrailerIdx] = useState(0);

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { useMediaController } from "@/contexts/MediaControllerContext";
+import { useMediaState } from "@/contexts/MediaStateContext";
+import { useMediaActions } from "@/contexts/MediaActionsContext";
 
 function withAlpha(hex: string, alpha: number) {
   const h = hex.replace("#", "").trim();
@@ -12,7 +13,8 @@ function withAlpha(hex: string, alpha: number) {
 }
 
 export function MediaTransportBar() {
-  const { state, toggle, seekToMs, pause } = useMediaController();
+  const state = useMediaState();
+  const { toggle, seekToMs, pause } = useMediaActions();
 
   const accent = state.accentColor || "#c9a96e";
   const glow = useMemo(() => `0 0 28px ${withAlpha(accent, 0.22)}`, [accent]);

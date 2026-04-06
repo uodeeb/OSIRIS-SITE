@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Clock, Sparkles } from "lucide-react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export interface ChapterItem {
   id: string;
@@ -33,16 +34,20 @@ export default function ExpandableChapters({
 }: ExpandableChaptersProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  
+  // Disable autoPlay for users with motion sensitivity
+  const effectiveAutoPlay = autoPlay && !shouldReduceMotion;
 
   useEffect(() => {
-    if (!autoPlay || isHovering) return;
+    if (!effectiveAutoPlay || isHovering) return;
 
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % chapters.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [autoPlay, chapters.length, isHovering]);
+  }, [effectiveAutoPlay, chapters.length, isHovering]);
 
   const handleHover = (index: number) => {
     setActiveIndex(index);
@@ -65,10 +70,28 @@ export default function ExpandableChapters({
             onMouseEnter={() => handleHover(index)}
             onMouseLeave={handleLeave}
             onClick={() => onSelect(chapter)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onSelect(chapter);
+              }
+              if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                setActiveIndex((prev) => Math.min(prev + 1, chapters.length - 1));
+              }
+              if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                setActiveIndex((prev) => Math.max(prev - 1, 0));
+              }
+            }}
+            aria-expanded={isActive}
+            aria-label={`Chapter ${chapter.number}: ${isArabic ? chapter.arabicTitle : chapter.title}`}
             animate={{ 
               flex: isActive ? 4 : 1,
             }}
-            transition={{ 
+            transition={shouldReduceMotion ? { duration: 0 } : { 
               duration: 0.6, 
               ease: [0.25, 0.46, 0.45, 0.94] 
             }}
@@ -106,7 +129,7 @@ export default function ExpandableChapters({
                     ? `inset 0 0 0 1px ${chapter.accentColor}50, 0 0 40px ${chapter.accentColor}15`
                     : "inset 0 0 0 1px rgba(255,255,255,0.05)"
                 }}
-                transition={{ duration: 0.4 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.4 }}
               />
             </div>
 
@@ -121,7 +144,7 @@ export default function ExpandableChapters({
                     scale: isActive ? 1 : 0.9,
                     opacity: 1 
                   }}
-                  transition={{ duration: 0.3 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.3 }}
                 >
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold"
@@ -145,7 +168,7 @@ export default function ExpandableChapters({
                       initial={{ opacity: 0, scale: 0.5 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.5 }}
-                      transition={{ duration: 0.3, delay: 0.1 }}
+                      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.3, delay: 0.1 }}
                       className="text-2xl"
                     >
                       {chapter.icon}
@@ -161,7 +184,7 @@ export default function ExpandableChapters({
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.4, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.4, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
                     className="space-y-3"
                   >
                     {/* Title */}
@@ -195,7 +218,7 @@ export default function ExpandableChapters({
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.4, delay: 0.25 }}
+                    transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.4, delay: 0.25 }}
                     className={`flex items-center justify-between pt-4 border-t ${isArabic ? "flex-row-reverse" : ""}`}
                     style={{ borderColor: "rgba(255,255,255,0.1)" }}
                   >
@@ -215,7 +238,7 @@ export default function ExpandableChapters({
                         color: "#0a0a0f",
                         boxShadow: `0 4px 20px ${chapter.accentColor}40`,
                       }}
-                      whileHover={{ 
+                      whileHover={shouldReduceMotion ? {} : { 
                         scale: 1.05,
                         boxShadow: `0 6px 30px ${chapter.accentColor}60`,
                       }}
@@ -243,20 +266,22 @@ export default function ExpandableChapters({
                       {isArabic ? `الفصل ${chapter.number}` : `CHAPTER ${chapter.number}`}
                     </span>
                     
-                    {/* Glow indicator */}
-                    <motion.div
-                      className="w-1 h-8 rounded-full"
-                      style={{ background: chapter.accentColor }}
-                      animate={{ 
-                        opacity: [0.3, 0.6, 0.3],
-                        scaleY: [0.8, 1, 0.8],
-                      }}
-                      transition={{ 
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    />
+                    {/* Glow indicator - hidden for reduced motion */}
+                    {!shouldReduceMotion && (
+                      <motion.div
+                        className="w-1 h-8 rounded-full"
+                        style={{ background: chapter.accentColor }}
+                        animate={{ 
+                          opacity: [0.3, 0.6, 0.3],
+                          scaleY: [0.8, 1, 0.8],
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -268,7 +293,7 @@ export default function ExpandableChapters({
               style={{ background: chapter.accentColor }}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: isActive ? 1 : 0 }}
-              transition={{ duration: 0.4, delay: isActive ? 0.2 : 0 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.4, delay: isActive ? 0.2 : 0 }}
             />
           </motion.div>
         );

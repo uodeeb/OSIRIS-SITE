@@ -4,7 +4,8 @@ import { useLocation } from "wouter";
 import { ASSET_URLS } from "@/lib/assetUrls";
 import { AudioConsentModal } from "@/components/AudioConsentModal";
 import { ChapterLaunchModal, type ChapterMeta } from "@/components/ChapterLaunchModal";
-import { useMediaController } from "@/contexts/MediaControllerContext";
+import { useMediaState } from "@/contexts/MediaStateContext";
+import { useMediaActions } from "@/contexts/MediaActionsContext";
 import { OSIRIS_EFFECTS, getOsirisMediaUrl } from "@/lib/osirisEffects";
 import { useBandwidthStrategy } from "@/lib/mediaStrategy";
 import osirisFavicon from "@/LOGO/new-logo/favicon-black-0.25.png";
@@ -125,7 +126,8 @@ const openLaunch = (c: ChapterMeta, setSelected: React.Dispatch<React.SetStateAc
 
 export default function EnhancedHome() {
   const [, setLocation] = useLocation();
-  const { state: mediaState, play, pause, setAccentColor, setDurationMs, setUiLang } = useMediaController();
+  const mediaState = useMediaState();
+  const { play, pause, setAccentColor, setDurationMs, setUiLang } = useMediaActions();
   const { uiLang } = mediaState;
   const [launchOpen, setLaunchOpen] = useState(false);
   const [selected, setSelected] = useState<ChapterMeta | null>(null);

@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export function PlayerSkeleton() {
+  const shouldReduceMotion = useReducedMotion();
+  
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-black select-none">
+    <div className="relative w-screen h-dvh overflow-hidden bg-black select-none">
       {/* Background skeleton */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-gray-900" />
       
@@ -11,18 +14,18 @@ export function PlayerSkeleton() {
         className="absolute inset-0 flex items-center justify-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
       >
         <div className="flex flex-col items-center gap-4">
           <motion.div 
             className="w-16 h-16 rounded-full border-4 border-amber-600/30 border-t-amber-500"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            animate={shouldReduceMotion ? {} : { rotate: 360 }}
+            transition={{ duration: 1, repeat: shouldReduceMotion ? 0 : Infinity, ease: "linear" }}
           />
           <motion.p 
             className="text-amber-500/70 font-mono text-sm tracking-wider"
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            animate={shouldReduceMotion ? {} : { opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 1.5, repeat: shouldReduceMotion ? 0 : Infinity }}
           >
             Loading Experience...
           </motion.p>
@@ -48,7 +51,7 @@ export function PlayerSkeleton() {
 
 export function ModelSkeleton() {
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
+    <div className="min-h-dvh bg-black flex items-center justify-center">
       <motion.div 
         className="flex flex-col items-center gap-4"
         initial={{ opacity: 0 }}
@@ -67,7 +70,7 @@ export function ModelSkeleton() {
 
 export function PageSkeleton() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-black to-gray-950">
+    <div className="min-h-dvh bg-gradient-to-b from-gray-950 via-black to-gray-950">
       <div className="container mx-auto px-4 py-8">
         <div className="h-16 bg-white/5 rounded-lg mb-8 animate-pulse" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -4,8 +4,8 @@
  */
 
 import { motion, AnimatePresence } from 'framer-motion';
-import styles from '../MainPlayer.module.css';
 import type { DialogueDisplayProps } from '../types';
+import styles from '../MainPlayer.module.css';
 
 export function DialogueDisplay({
   dialogue,

@@ -1,0 +1,1642 @@
+{
+  "timestamp": "2026-04-06T18:52:40.095Z",
+  "totalReferences": 116,
+  "grouped": {
+    "audio": [
+      {
+        "file": "client\\src\\components\\CinematicExperienceSystem.tsx",
+        "line": 373,
+        "type": "audio",
+        "key": "main_theme",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 507,
+        "type": "audio",
+        "key": "main_theme",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 508,
+        "type": "audio",
+        "key": "main_theme",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 1658,
+        "type": "audio",
+        "key": "main_theme",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 1659,
+        "type": "audio",
+        "key": "main_theme",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\assetUrls.ts",
+        "line": 8,
+        "type": "audio",
+        "key": "videoBg.intro",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\assetUrls.ts",
+        "line": 37,
+        "type": "audio",
+        "key": "videoBg.intro",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partFour.ts",
+        "line": 145,
+        "type": "audio",
+        "key": "yahya_monologue",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partZero.ts",
+        "line": 111,
+        "type": "audio",
+        "key": "intro_narration",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\staticAssets.ts",
+        "line": 15,
+        "type": "audio",
+        "key": "character.neferhotep",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartFive.tsx",
+        "line": 228,
+        "type": "audio",
+        "key": "intro_narration",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartFour.tsx",
+        "line": 236,
+        "type": "audio",
+        "key": "intro_narration",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartOne.tsx",
+        "line": 235,
+        "type": "audio",
+        "key": "intro_narration",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartSix.tsx",
+        "line": 230,
+        "type": "audio",
+        "key": "intro_narration",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartTemplate.tsx",
+        "line": 35,
+        "type": "audio",
+        "key": "intro_narration",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartThree.tsx",
+        "line": 213,
+        "type": "audio",
+        "key": "intro_narration",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartTwo.tsx",
+        "line": 222,
+        "type": "audio",
+        "key": "intro_narration",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartZero.tsx",
+        "line": 50,
+        "type": "audio",
+        "key": "intro_narration",
+        "currentUrl": "TBD"
+      }
+    ],
+    "characters": [
+      {
+        "file": "client\\src\\components\\EnhancedCinematicPlayer.tsx",
+        "line": 151,
+        "type": "characters",
+        "key": "ramses",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\EnhancedCinematicPlayer.tsx",
+        "line": 196,
+        "type": "characters",
+        "key": "constantine",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\EnhancedCinematicPlayer.tsx",
+        "line": 219,
+        "type": "characters",
+        "key": "abu_abdullah",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\EnhancedCinematicPlayer.tsx",
+        "line": 242,
+        "type": "characters",
+        "key": "yahya_main",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 75,
+        "type": "characters",
+        "key": "narrator",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 83,
+        "type": "characters",
+        "key": "yahya",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 91,
+        "type": "characters",
+        "key": "laila",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 99,
+        "type": "characters",
+        "key": "tarek",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 107,
+        "type": "characters",
+        "key": "first_engineer",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 115,
+        "type": "characters",
+        "key": "arius",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 123,
+        "type": "characters",
+        "key": "athanasius",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 131,
+        "type": "characters",
+        "key": "samiri",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 139,
+        "type": "characters",
+        "key": "constantine",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 147,
+        "type": "characters",
+        "key": "yahya_breakdown",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 155,
+        "type": "characters",
+        "key": "yahya_confront",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 163,
+        "type": "characters",
+        "key": "tarek_ghost",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 171,
+        "type": "characters",
+        "key": "tarek_dream",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 179,
+        "type": "characters",
+        "key": "laila_faith",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 187,
+        "type": "characters",
+        "key": "laila_witness",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 195,
+        "type": "characters",
+        "key": "first_engineer_2",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 203,
+        "type": "characters",
+        "key": "first_engineer_exposed",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 211,
+        "type": "characters",
+        "key": "first_engineer_confront",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 219,
+        "type": "characters",
+        "key": "yahya_dying",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 227,
+        "type": "characters",
+        "key": "laila_crying",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 235,
+        "type": "characters",
+        "key": "samiri_calf",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 243,
+        "type": "characters",
+        "key": "yahya",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 251,
+        "type": "characters",
+        "key": "laila",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 259,
+        "type": "characters",
+        "key": "tarek",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 267,
+        "type": "characters",
+        "key": "first_engineer",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 275,
+        "type": "characters",
+        "key": "arius",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 283,
+        "type": "characters",
+        "key": "athanasius",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 291,
+        "type": "characters",
+        "key": "samiri",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 299,
+        "type": "characters",
+        "key": "constantine",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 307,
+        "type": "characters",
+        "key": "narrator",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 315,
+        "type": "characters",
+        "key": "narrator",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\components\\MainPlayer.tsx",
+        "line": 337,
+        "type": "characters",
+        "key": "narrator",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\staticAssets.ts",
+        "line": 11,
+        "type": "characters",
+        "key": "neferhotep",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartTemplate.tsx",
+        "line": 66,
+        "type": "characters",
+        "key": "yahya_main",
+        "currentUrl": "TBD"
+      }
+    ],
+    "videoBg": [
+      {
+        "file": "client\\src\\lib\\scenes\\partFive.ts",
+        "line": 11,
+        "type": "videoBg",
+        "key": "nicaea",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partFour.ts",
+        "line": 11,
+        "type": "videoBg",
+        "key": "sinai_desert",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partFour.ts",
+        "line": 89,
+        "type": "videoBg",
+        "key": "molten_gold",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partOne.ts",
+        "line": 157,
+        "type": "videoBg",
+        "key": "tarek_rooftop",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partSeven.ts",
+        "line": 11,
+        "type": "videoBg",
+        "key": "cosmic_opening",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partSeven.ts",
+        "line": 55,
+        "type": "videoBg",
+        "key": "digital_space",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partSix.ts",
+        "line": 11,
+        "type": "videoBg",
+        "key": "berlin_1933",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partSix.ts",
+        "line": 66,
+        "type": "videoBg",
+        "key": "digital_space",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partZero.ts",
+        "line": 11,
+        "type": "videoBg",
+        "key": "yahya_room",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partZero.ts",
+        "line": 107,
+        "type": "videoBg",
+        "key": "cosmic_opening",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\transition.ts",
+        "line": 11,
+        "type": "videoBg",
+        "key": "cosmic_opening",
+        "currentUrl": "TBD"
+      }
+    ],
+    "backgrounds": [
+      {
+        "file": "client\\src\\lib\\scenes\\partFive.ts",
+        "line": 12,
+        "type": "backgrounds",
+        "key": "nicaea_council",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partFive.ts",
+        "line": 78,
+        "type": "backgrounds",
+        "key": "nicaea_council",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partFour.ts",
+        "line": 144,
+        "type": "backgrounds",
+        "key": "corporate_lab",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partFour.ts",
+        "line": 216,
+        "type": "backgrounds",
+        "key": "white_space",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partOne.ts",
+        "line": 11,
+        "type": "backgrounds",
+        "key": "corporate_lab",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partOne.ts",
+        "line": 61,
+        "type": "backgrounds",
+        "key": "corporate_lab",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partOne.ts",
+        "line": 115,
+        "type": "backgrounds",
+        "key": "yahya_apartment",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partOne.ts",
+        "line": 158,
+        "type": "backgrounds",
+        "key": "white_space",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partSeven.ts",
+        "line": 56,
+        "type": "backgrounds",
+        "key": "osiris_interface",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partSeven.ts",
+        "line": 116,
+        "type": "backgrounds",
+        "key": "white_space",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partSix.ts",
+        "line": 12,
+        "type": "backgrounds",
+        "key": "berlin_1933",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partSix.ts",
+        "line": 67,
+        "type": "backgrounds",
+        "key": "osiris_interface",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partThree.ts",
+        "line": 11,
+        "type": "backgrounds",
+        "key": "osiris_cosmic",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partThree.ts",
+        "line": 93,
+        "type": "backgrounds",
+        "key": "osiris_cosmic",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partThree.ts",
+        "line": 165,
+        "type": "backgrounds",
+        "key": "osiris_cosmic",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partTwo.ts",
+        "line": 11,
+        "type": "backgrounds",
+        "key": "yahya_apartment",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partTwo.ts",
+        "line": 98,
+        "type": "backgrounds",
+        "key": "osiris_interface",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\lib\\scenes\\partZero.ts",
+        "line": 110,
+        "type": "backgrounds",
+        "key": "osiris_interface",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\EnhancedHome.tsx",
+        "line": 127,
+        "type": "backgrounds",
+        "key": "osiris_cosmic",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\EnhancedHome.tsx",
+        "line": 140,
+        "type": "backgrounds",
+        "key": "corporate_lab",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\EnhancedHome.tsx",
+        "line": 153,
+        "type": "backgrounds",
+        "key": "qabil_habil_altar",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\EnhancedHome.tsx",
+        "line": 166,
+        "type": "backgrounds",
+        "key": "nicaea_council",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\EnhancedHome.tsx",
+        "line": 179,
+        "type": "backgrounds",
+        "key": "granada_fall",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\EnhancedHome.tsx",
+        "line": 192,
+        "type": "backgrounds",
+        "key": "qabil_habil_aftermath",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\EnhancedHome.tsx",
+        "line": 205,
+        "type": "backgrounds",
+        "key": "osiris_interface",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\Home.tsx",
+        "line": 12,
+        "type": "backgrounds",
+        "key": "osiris_cosmic",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\Home.tsx",
+        "line": 13,
+        "type": "backgrounds",
+        "key": "corporate_lab",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\Home.tsx",
+        "line": 14,
+        "type": "backgrounds",
+        "key": "qabil_habil_altar",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\Home.tsx",
+        "line": 15,
+        "type": "backgrounds",
+        "key": "nicaea_council",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\Home.tsx",
+        "line": 16,
+        "type": "backgrounds",
+        "key": "granada_fall",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\Home.tsx",
+        "line": 17,
+        "type": "backgrounds",
+        "key": "qabil_habil_aftermath",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\Home.tsx",
+        "line": 18,
+        "type": "backgrounds",
+        "key": "osiris_interface",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\HomeFix.tsx",
+        "line": 149,
+        "type": "backgrounds",
+        "key": "osiris_cosmic",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\HomeFix.tsx",
+        "line": 163,
+        "type": "backgrounds",
+        "key": "berlin_1933",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\HomeFix.tsx",
+        "line": 177,
+        "type": "backgrounds",
+        "key": "berlin_1933",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\HomeFix.tsx",
+        "line": 191,
+        "type": "backgrounds",
+        "key": "cambodia_1975",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\HomeFix.tsx",
+        "line": 205,
+        "type": "backgrounds",
+        "key": "cambodia_1975",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\HomeFix.tsx",
+        "line": 219,
+        "type": "backgrounds",
+        "key": "berlin_1933",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\HomeFix.tsx",
+        "line": 233,
+        "type": "backgrounds",
+        "key": "yahya_apartment",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\HomeFix.tsx",
+        "line": 247,
+        "type": "backgrounds",
+        "key": "yahya_apartment",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartFive.tsx",
+        "line": 227,
+        "type": "backgrounds",
+        "key": "berlin_1933",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartFour.tsx",
+        "line": 235,
+        "type": "backgrounds",
+        "key": "granada_fall",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartOne.tsx",
+        "line": 234,
+        "type": "backgrounds",
+        "key": "qabil_habil_altar",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartSix.tsx",
+        "line": 229,
+        "type": "backgrounds",
+        "key": "corporate_lab",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartTemplate.tsx",
+        "line": 34,
+        "type": "backgrounds",
+        "key": "osiris_cosmic",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartThree.tsx",
+        "line": 212,
+        "type": "backgrounds",
+        "key": "nicaea_council",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartTwo.tsx",
+        "line": 221,
+        "type": "backgrounds",
+        "key": "pharaoh_temple",
+        "currentUrl": "TBD"
+      },
+      {
+        "file": "client\\src\\pages\\PartZero.tsx",
+        "line": 49,
+        "type": "backgrounds",
+        "key": "osiris_cosmic",
+        "currentUrl": "TBD"
+      }
+    ],
+    "projectMedia": [
+      {
+        "file": "client\\src\\pages\\Home.tsx",
+        "line": 118,
+        "type": "projectMedia",
+        "key": "video",
+        "currentUrl": "TBD"
+      }
+    ]
+  },
+  "allReferences": [
+    {
+      "file": "client\\src\\components\\CinematicExperienceSystem.tsx",
+      "line": 373,
+      "type": "audio",
+      "key": "main_theme",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\EnhancedCinematicPlayer.tsx",
+      "line": 151,
+      "type": "characters",
+      "key": "ramses",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\EnhancedCinematicPlayer.tsx",
+      "line": 196,
+      "type": "characters",
+      "key": "constantine",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\EnhancedCinematicPlayer.tsx",
+      "line": 219,
+      "type": "characters",
+      "key": "abu_abdullah",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\EnhancedCinematicPlayer.tsx",
+      "line": 242,
+      "type": "characters",
+      "key": "yahya_main",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 75,
+      "type": "characters",
+      "key": "narrator",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 83,
+      "type": "characters",
+      "key": "yahya",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 91,
+      "type": "characters",
+      "key": "laila",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 99,
+      "type": "characters",
+      "key": "tarek",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 107,
+      "type": "characters",
+      "key": "first_engineer",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 115,
+      "type": "characters",
+      "key": "arius",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 123,
+      "type": "characters",
+      "key": "athanasius",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 131,
+      "type": "characters",
+      "key": "samiri",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 139,
+      "type": "characters",
+      "key": "constantine",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 147,
+      "type": "characters",
+      "key": "yahya_breakdown",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 155,
+      "type": "characters",
+      "key": "yahya_confront",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 163,
+      "type": "characters",
+      "key": "tarek_ghost",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 171,
+      "type": "characters",
+      "key": "tarek_dream",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 179,
+      "type": "characters",
+      "key": "laila_faith",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 187,
+      "type": "characters",
+      "key": "laila_witness",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 195,
+      "type": "characters",
+      "key": "first_engineer_2",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 203,
+      "type": "characters",
+      "key": "first_engineer_exposed",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 211,
+      "type": "characters",
+      "key": "first_engineer_confront",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 219,
+      "type": "characters",
+      "key": "yahya_dying",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 227,
+      "type": "characters",
+      "key": "laila_crying",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 235,
+      "type": "characters",
+      "key": "samiri_calf",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 243,
+      "type": "characters",
+      "key": "yahya",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 251,
+      "type": "characters",
+      "key": "laila",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 259,
+      "type": "characters",
+      "key": "tarek",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 267,
+      "type": "characters",
+      "key": "first_engineer",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 275,
+      "type": "characters",
+      "key": "arius",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 283,
+      "type": "characters",
+      "key": "athanasius",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 291,
+      "type": "characters",
+      "key": "samiri",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 299,
+      "type": "characters",
+      "key": "constantine",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 307,
+      "type": "characters",
+      "key": "narrator",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 315,
+      "type": "characters",
+      "key": "narrator",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 337,
+      "type": "characters",
+      "key": "narrator",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 507,
+      "type": "audio",
+      "key": "main_theme",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 508,
+      "type": "audio",
+      "key": "main_theme",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 1658,
+      "type": "audio",
+      "key": "main_theme",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\components\\MainPlayer.tsx",
+      "line": 1659,
+      "type": "audio",
+      "key": "main_theme",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\assetUrls.ts",
+      "line": 8,
+      "type": "audio",
+      "key": "videoBg.intro",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\assetUrls.ts",
+      "line": 37,
+      "type": "audio",
+      "key": "videoBg.intro",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partFive.ts",
+      "line": 11,
+      "type": "videoBg",
+      "key": "nicaea",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partFive.ts",
+      "line": 12,
+      "type": "backgrounds",
+      "key": "nicaea_council",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partFive.ts",
+      "line": 78,
+      "type": "backgrounds",
+      "key": "nicaea_council",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partFour.ts",
+      "line": 11,
+      "type": "videoBg",
+      "key": "sinai_desert",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partFour.ts",
+      "line": 89,
+      "type": "videoBg",
+      "key": "molten_gold",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partFour.ts",
+      "line": 144,
+      "type": "backgrounds",
+      "key": "corporate_lab",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partFour.ts",
+      "line": 145,
+      "type": "audio",
+      "key": "yahya_monologue",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partFour.ts",
+      "line": 216,
+      "type": "backgrounds",
+      "key": "white_space",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partOne.ts",
+      "line": 11,
+      "type": "backgrounds",
+      "key": "corporate_lab",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partOne.ts",
+      "line": 61,
+      "type": "backgrounds",
+      "key": "corporate_lab",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partOne.ts",
+      "line": 115,
+      "type": "backgrounds",
+      "key": "yahya_apartment",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partOne.ts",
+      "line": 157,
+      "type": "videoBg",
+      "key": "tarek_rooftop",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partOne.ts",
+      "line": 158,
+      "type": "backgrounds",
+      "key": "white_space",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partSeven.ts",
+      "line": 11,
+      "type": "videoBg",
+      "key": "cosmic_opening",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partSeven.ts",
+      "line": 55,
+      "type": "videoBg",
+      "key": "digital_space",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partSeven.ts",
+      "line": 56,
+      "type": "backgrounds",
+      "key": "osiris_interface",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partSeven.ts",
+      "line": 116,
+      "type": "backgrounds",
+      "key": "white_space",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partSix.ts",
+      "line": 11,
+      "type": "videoBg",
+      "key": "berlin_1933",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partSix.ts",
+      "line": 12,
+      "type": "backgrounds",
+      "key": "berlin_1933",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partSix.ts",
+      "line": 66,
+      "type": "videoBg",
+      "key": "digital_space",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partSix.ts",
+      "line": 67,
+      "type": "backgrounds",
+      "key": "osiris_interface",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partThree.ts",
+      "line": 11,
+      "type": "backgrounds",
+      "key": "osiris_cosmic",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partThree.ts",
+      "line": 93,
+      "type": "backgrounds",
+      "key": "osiris_cosmic",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partThree.ts",
+      "line": 165,
+      "type": "backgrounds",
+      "key": "osiris_cosmic",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partTwo.ts",
+      "line": 11,
+      "type": "backgrounds",
+      "key": "yahya_apartment",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partTwo.ts",
+      "line": 98,
+      "type": "backgrounds",
+      "key": "osiris_interface",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partZero.ts",
+      "line": 11,
+      "type": "videoBg",
+      "key": "yahya_room",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partZero.ts",
+      "line": 107,
+      "type": "videoBg",
+      "key": "cosmic_opening",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partZero.ts",
+      "line": 110,
+      "type": "backgrounds",
+      "key": "osiris_interface",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\partZero.ts",
+      "line": 111,
+      "type": "audio",
+      "key": "intro_narration",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\scenes\\transition.ts",
+      "line": 11,
+      "type": "videoBg",
+      "key": "cosmic_opening",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\staticAssets.ts",
+      "line": 11,
+      "type": "characters",
+      "key": "neferhotep",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\lib\\staticAssets.ts",
+      "line": 15,
+      "type": "audio",
+      "key": "character.neferhotep",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\EnhancedHome.tsx",
+      "line": 127,
+      "type": "backgrounds",
+      "key": "osiris_cosmic",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\EnhancedHome.tsx",
+      "line": 140,
+      "type": "backgrounds",
+      "key": "corporate_lab",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\EnhancedHome.tsx",
+      "line": 153,
+      "type": "backgrounds",
+      "key": "qabil_habil_altar",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\EnhancedHome.tsx",
+      "line": 166,
+      "type": "backgrounds",
+      "key": "nicaea_council",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\EnhancedHome.tsx",
+      "line": 179,
+      "type": "backgrounds",
+      "key": "granada_fall",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\EnhancedHome.tsx",
+      "line": 192,
+      "type": "backgrounds",
+      "key": "qabil_habil_aftermath",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\EnhancedHome.tsx",
+      "line": 205,
+      "type": "backgrounds",
+      "key": "osiris_interface",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\Home.tsx",
+      "line": 12,
+      "type": "backgrounds",
+      "key": "osiris_cosmic",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\Home.tsx",
+      "line": 13,
+      "type": "backgrounds",
+      "key": "corporate_lab",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\Home.tsx",
+      "line": 14,
+      "type": "backgrounds",
+      "key": "qabil_habil_altar",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\Home.tsx",
+      "line": 15,
+      "type": "backgrounds",
+      "key": "nicaea_council",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\Home.tsx",
+      "line": 16,
+      "type": "backgrounds",
+      "key": "granada_fall",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\Home.tsx",
+      "line": 17,
+      "type": "backgrounds",
+      "key": "qabil_habil_aftermath",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\Home.tsx",
+      "line": 18,
+      "type": "backgrounds",
+      "key": "osiris_interface",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\Home.tsx",
+      "line": 118,
+      "type": "projectMedia",
+      "key": "video",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\HomeFix.tsx",
+      "line": 149,
+      "type": "backgrounds",
+      "key": "osiris_cosmic",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\HomeFix.tsx",
+      "line": 163,
+      "type": "backgrounds",
+      "key": "berlin_1933",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\HomeFix.tsx",
+      "line": 177,
+      "type": "backgrounds",
+      "key": "berlin_1933",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\HomeFix.tsx",
+      "line": 191,
+      "type": "backgrounds",
+      "key": "cambodia_1975",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\HomeFix.tsx",
+      "line": 205,
+      "type": "backgrounds",
+      "key": "cambodia_1975",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\HomeFix.tsx",
+      "line": 219,
+      "type": "backgrounds",
+      "key": "berlin_1933",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\HomeFix.tsx",
+      "line": 233,
+      "type": "backgrounds",
+      "key": "yahya_apartment",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\HomeFix.tsx",
+      "line": 247,
+      "type": "backgrounds",
+      "key": "yahya_apartment",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartFive.tsx",
+      "line": 227,
+      "type": "backgrounds",
+      "key": "berlin_1933",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartFive.tsx",
+      "line": 228,
+      "type": "audio",
+      "key": "intro_narration",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartFour.tsx",
+      "line": 235,
+      "type": "backgrounds",
+      "key": "granada_fall",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartFour.tsx",
+      "line": 236,
+      "type": "audio",
+      "key": "intro_narration",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartOne.tsx",
+      "line": 234,
+      "type": "backgrounds",
+      "key": "qabil_habil_altar",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartOne.tsx",
+      "line": 235,
+      "type": "audio",
+      "key": "intro_narration",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartSix.tsx",
+      "line": 229,
+      "type": "backgrounds",
+      "key": "corporate_lab",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartSix.tsx",
+      "line": 230,
+      "type": "audio",
+      "key": "intro_narration",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartTemplate.tsx",
+      "line": 34,
+      "type": "backgrounds",
+      "key": "osiris_cosmic",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartTemplate.tsx",
+      "line": 35,
+      "type": "audio",
+      "key": "intro_narration",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartTemplate.tsx",
+      "line": 66,
+      "type": "characters",
+      "key": "yahya_main",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartThree.tsx",
+      "line": 212,
+      "type": "backgrounds",
+      "key": "nicaea_council",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartThree.tsx",
+      "line": 213,
+      "type": "audio",
+      "key": "intro_narration",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartTwo.tsx",
+      "line": 221,
+      "type": "backgrounds",
+      "key": "pharaoh_temple",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartTwo.tsx",
+      "line": 222,
+      "type": "audio",
+      "key": "intro_narration",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartZero.tsx",
+      "line": 49,
+      "type": "backgrounds",
+      "key": "osiris_cosmic",
+      "currentUrl": "TBD"
+    },
+    {
+      "file": "client\\src\\pages\\PartZero.tsx",
+      "line": 50,
+      "type": "audio",
+      "key": "intro_narration",
+      "currentUrl": "TBD"
+    }
+  ]
+}

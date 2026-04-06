@@ -1,0 +1,1075 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-04-06T18:29:44.532Z",
+  "totalAssets": 106,
+  "assets": {
+    "ui.RAMSIS": {
+      "key": "ui.RAMSIS",
+      "category": "ui",
+      "filename": "RAMSIS.jpg",
+      "extension": ".jpg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\RAMSIS.jpg",
+      "publicPath": "/assets/ui/characters/RAMSIS.jpg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.RAMSIS01": {
+      "key": "ui.RAMSIS01",
+      "category": "ui",
+      "filename": "RAMSIS01.jpg",
+      "extension": ".jpg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\RAMSIS01.jpg",
+      "publicPath": "/assets/ui/characters/RAMSIS01.jpg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.آريوس": {
+      "key": "ui.آريوس",
+      "category": "ui",
+      "filename": "آريوس.jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\آريوس.jpeg",
+      "publicPath": "/assets/ui/characters/آريوس.jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.أثناسيوس": {
+      "key": "ui.أثناسيوس",
+      "category": "ui",
+      "filename": "أثناسيوس.jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\أثناسيوس.jpeg",
+      "publicPath": "/assets/ui/characters/أثناسيوس.jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.الراوي الكوني-التجسيد البصري (Visual Representation)": {
+      "key": "ui.الراوي الكوني-التجسيد البصري (Visual Representation)",
+      "category": "ui",
+      "filename": "الراوي الكوني-التجسيد البصري (Visual Representation).png",
+      "extension": ".png",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\الراوي الكوني-التجسيد البصري (Visual Representation).png",
+      "publicPath": "/assets/ui/characters/الراوي الكوني-التجسيد البصري (Visual Representation).png",
+      "mimeType": "image/png"
+    },
+    "ui.السامري-اصورة صناعة العجل (The Golden Calf Scene)": {
+      "key": "ui.السامري-اصورة صناعة العجل (The Golden Calf Scene)",
+      "category": "ui",
+      "filename": "السامري-اصورة صناعة العجل (The Golden Calf Scene).png",
+      "extension": ".png",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\السامري-اصورة صناعة العجل (The Golden Calf Scene).png",
+      "publicPath": "/assets/ui/characters/السامري-اصورة صناعة العجل (The Golden Calf Scene).png",
+      "mimeType": "image/png"
+    },
+    "ui.السامري-الصورة الأساسية (Portrait)": {
+      "key": "ui.السامري-الصورة الأساسية (Portrait)",
+      "category": "ui",
+      "filename": "السامري-الصورة الأساسية (Portrait).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\السامري-الصورة الأساسية (Portrait).jpeg",
+      "publicPath": "/assets/ui/characters/السامري-الصورة الأساسية (Portrait).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.المهندس الأول-الصورة الأساسية (Portrait)": {
+      "key": "ui.المهندس الأول-الصورة الأساسية (Portrait)",
+      "category": "ui",
+      "filename": "المهندس الأول-الصورة الأساسية (Portrait).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\المهندس الأول-الصورة الأساسية (Portrait).jpeg",
+      "publicPath": "/assets/ui/characters/المهندس الأول-الصورة الأساسية (Portrait).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.المهندس الأول-الصورة الأساسية (Portrait)02": {
+      "key": "ui.المهندس الأول-الصورة الأساسية (Portrait)02",
+      "category": "ui",
+      "filename": "المهندس الأول-الصورة الأساسية (Portrait)02.jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\المهندس الأول-الصورة الأساسية (Portrait)02.jpeg",
+      "publicPath": "/assets/ui/characters/المهندس الأول-الصورة الأساسية (Portrait)02.jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.المهندس الأول-صورة الانكشاف (Exposed — Final Scene)": {
+      "key": "ui.المهندس الأول-صورة الانكشاف (Exposed — Final Scene)",
+      "category": "ui",
+      "filename": "المهندس الأول-صورة الانكشاف (Exposed — Final Scene).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\المهندس الأول-صورة الانكشاف (Exposed — Final Scene).jpeg",
+      "publicPath": "/assets/ui/characters/المهندس الأول-صورة الانكشاف (Exposed — Final Scene).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.المهندس الأول-صورة المواجهة (Confrontation)": {
+      "key": "ui.المهندس الأول-صورة المواجهة (Confrontation)",
+      "category": "ui",
+      "filename": "المهندس الأول-صورة المواجهة (Confrontation).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\المهندس الأول-صورة المواجهة (Confrontation).jpeg",
+      "publicPath": "/assets/ui/characters/المهندس الأول-صورة المواجهة (Confrontation).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.طارق الراشد-الصورة الأساسية (Portrait)": {
+      "key": "ui.طارق الراشد-الصورة الأساسية (Portrait)",
+      "category": "ui",
+      "filename": "طارق الراشد-الصورة الأساسية (Portrait).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\طارق الراشد-الصورة الأساسية (Portrait).jpeg",
+      "publicPath": "/assets/ui/characters/طارق الراشد-الصورة الأساسية (Portrait).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.طارق الراشد-صورة التسجيل (Recording — Ghost Image)": {
+      "key": "ui.طارق الراشد-صورة التسجيل (Recording — Ghost Image)",
+      "category": "ui",
+      "filename": "طارق الراشد-صورة التسجيل (Recording — Ghost Image).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\طارق الراشد-صورة التسجيل (Recording — Ghost Image).jpeg",
+      "publicPath": "/assets/ui/characters/طارق الراشد-صورة التسجيل (Recording — Ghost Image).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.طارق الراشد-صورة الحلم (Dream Sequence)": {
+      "key": "ui.طارق الراشد-صورة الحلم (Dream Sequence)",
+      "category": "ui",
+      "filename": "طارق الراشد-صورة الحلم (Dream Sequence).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\طارق الراشد-صورة الحلم (Dream Sequence).jpeg",
+      "publicPath": "/assets/ui/characters/طارق الراشد-صورة الحلم (Dream Sequence).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.قسطنطين-الصورة الأساسية (Portrait)": {
+      "key": "ui.قسطنطين-الصورة الأساسية (Portrait)",
+      "category": "ui",
+      "filename": "قسطنطين-الصورة الأساسية (Portrait).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\قسطنطين-الصورة الأساسية (Portrait).jpeg",
+      "publicPath": "/assets/ui/characters/قسطنطين-الصورة الأساسية (Portrait).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.ليلى حسن-صورة الإيمان (Faith Portrait)": {
+      "key": "ui.ليلى حسن-صورة الإيمان (Faith Portrait)",
+      "category": "ui",
+      "filename": "ليلى حسن-صورة الإيمان (Faith Portrait).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\ليلى حسن-صورة الإيمان (Faith Portrait).jpeg",
+      "publicPath": "/assets/ui/characters/ليلى حسن-صورة الإيمان (Faith Portrait).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.ليلى حسن-صورة الشاهدة (Witness Scene — Final Chapter)": {
+      "key": "ui.ليلى حسن-صورة الشاهدة (Witness Scene — Final Chapter)",
+      "category": "ui",
+      "filename": "ليلى حسن-صورة الشاهدة (Witness Scene — Final Chapter).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\ليلى حسن-صورة الشاهدة (Witness Scene — Final Chapter).jpeg",
+      "publicPath": "/assets/ui/characters/ليلى حسن-صورة الشاهدة (Witness Scene — Final Chapter).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.ليلى حسنالصورة الأساسية (Portrait)": {
+      "key": "ui.ليلى حسنالصورة الأساسية (Portrait)",
+      "category": "ui",
+      "filename": "ليلى حسنالصورة الأساسية (Portrait).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\ليلى حسنالصورة الأساسية (Portrait).jpeg",
+      "publicPath": "/assets/ui/characters/ليلى حسنالصورة الأساسية (Portrait).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.يحيى الراشد-الصورة الأساسية (Portrait)": {
+      "key": "ui.يحيى الراشد-الصورة الأساسية (Portrait)",
+      "category": "ui",
+      "filename": "يحيى الراشد-الصورة الأساسية (Portrait).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\يحيى الراشد-الصورة الأساسية (Portrait).jpeg",
+      "publicPath": "/assets/ui/characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.يحيى الراشد-صورة الانهيار (Breakdown Scene)": {
+      "key": "ui.يحيى الراشد-صورة الانهيار (Breakdown Scene)",
+      "category": "ui",
+      "filename": "يحيى الراشد-صورة الانهيار (Breakdown Scene).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\يحيى الراشد-صورة الانهيار (Breakdown Scene).jpeg",
+      "publicPath": "/assets/ui/characters/يحيى الراشد-صورة الانهيار (Breakdown Scene).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.يحيى الراشد-صورة المواجهة (Confrontation Scene)": {
+      "key": "ui.يحيى الراشد-صورة المواجهة (Confrontation Scene)",
+      "category": "ui",
+      "filename": "يحيى الراشد-صورة المواجهة (Confrontation Scene).jpeg",
+      "extension": ".jpeg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\characters\\يحيى الراشد-صورة المواجهة (Confrontation Scene).jpeg",
+      "publicPath": "/assets/ui/characters/يحيى الراشد-صورة المواجهة (Confrontation Scene).jpeg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.01": {
+      "key": "ui.01",
+      "category": "ui",
+      "filename": "01.jpg",
+      "extension": ".jpg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\01.jpg",
+      "publicPath": "/assets/ui/images/01.jpg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.02": {
+      "key": "ui.02",
+      "category": "ui",
+      "filename": "02.jpg",
+      "extension": ".jpg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\02.jpg",
+      "publicPath": "/assets/ui/images/02.jpg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.03": {
+      "key": "ui.03",
+      "category": "ui",
+      "filename": "03.jpg",
+      "extension": ".jpg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\03.jpg",
+      "publicPath": "/assets/ui/images/03.jpg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.04": {
+      "key": "ui.04",
+      "category": "ui",
+      "filename": "04.jpg",
+      "extension": ".jpg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\04.jpg",
+      "publicPath": "/assets/ui/images/04.jpg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.05": {
+      "key": "ui.05",
+      "category": "ui",
+      "filename": "05.jpg",
+      "extension": ".jpg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\05.jpg",
+      "publicPath": "/assets/ui/images/05.jpg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.06": {
+      "key": "ui.06",
+      "category": "ui",
+      "filename": "06.jpg",
+      "extension": ".jpg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\06.jpg",
+      "publicPath": "/assets/ui/images/06.jpg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.07": {
+      "key": "ui.07",
+      "category": "ui",
+      "filename": "07.jpg",
+      "extension": ".jpg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\07.jpg",
+      "publicPath": "/assets/ui/images/07.jpg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.EGYPT-NILE-TEMPLE02": {
+      "key": "ui.EGYPT-NILE-TEMPLE02",
+      "category": "ui",
+      "filename": "EGYPT-NILE-TEMPLE02.jpg",
+      "extension": ".jpg",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\EGYPT-NILE-TEMPLE02.jpg",
+      "publicPath": "/assets/ui/images/EGYPT-NILE-TEMPLE02.jpg",
+      "mimeType": "image/jpeg"
+    },
+    "ui.logo-new-flow01": {
+      "key": "ui.logo-new-flow01",
+      "category": "ui",
+      "filename": "logo-new-flow01.png",
+      "extension": ".png",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\logo-new-flow01.png",
+      "publicPath": "/assets/ui/images/logo-new-flow01.png",
+      "mimeType": "image/png"
+    },
+    "ui.logo-new-flow01_upscayl_1x_digital-art-4x": {
+      "key": "ui.logo-new-flow01_upscayl_1x_digital-art-4x",
+      "category": "ui",
+      "filename": "logo-new-flow01_upscayl_1x_digital-art-4x.png",
+      "extension": ".png",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\logo-new-flow01_upscayl_1x_digital-art-4x.png",
+      "publicPath": "/assets/ui/images/logo-new-flow01_upscayl_1x_digital-art-4x.png",
+      "mimeType": "image/png"
+    },
+    "ui.logo-new-flow02": {
+      "key": "ui.logo-new-flow02",
+      "category": "ui",
+      "filename": "logo-new-flow02.png",
+      "extension": ".png",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\logo-new-flow02.png",
+      "publicPath": "/assets/ui/images/logo-new-flow02.png",
+      "mimeType": "image/png"
+    },
+    "ui.logo-new-flow02_upscayl_1x_digital-art-4x": {
+      "key": "ui.logo-new-flow02_upscayl_1x_digital-art-4x",
+      "category": "ui",
+      "filename": "logo-new-flow02_upscayl_1x_digital-art-4x.png",
+      "extension": ".png",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\images\\logo-new-flow02_upscayl_1x_digital-art-4x.png",
+      "publicPath": "/assets/ui/images/logo-new-flow02_upscayl_1x_digital-art-4x.png",
+      "mimeType": "image/png"
+    },
+    "ui.OSIRIS_CINEMATIC_MASTER": {
+      "key": "ui.OSIRIS_CINEMATIC_MASTER",
+      "category": "ui",
+      "filename": "OSIRIS_CINEMATIC_MASTER.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\master\\OSIRIS_CINEMATIC_MASTER.mp4",
+      "publicPath": "/assets/ui/master/OSIRIS_CINEMATIC_MASTER.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.OSIRIS_CINEMATIC_MASTER_CUES": {
+      "key": "ui.OSIRIS_CINEMATIC_MASTER_CUES",
+      "category": "ui",
+      "filename": "OSIRIS_CINEMATIC_MASTER_CUES.json",
+      "extension": ".json",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\master\\OSIRIS_CINEMATIC_MASTER_CUES.json",
+      "publicPath": "/assets/ui/master/OSIRIS_CINEMATIC_MASTER_CUES.json",
+      "mimeType": "application/json"
+    },
+    "ui.TRACK 01 — الثيم الرئيسي للرواية": {
+      "key": "ui.TRACK 01 — الثيم الرئيسي للرواية",
+      "category": "ui",
+      "filename": "TRACK 01 — الثيم الرئيسي للرواية.mp3",
+      "extension": ".mp3",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\music-tracks\\TRACK 01 — الثيم الرئيسي للرواية.mp3",
+      "publicPath": "/assets/ui/music-tracks/TRACK 01 — الثيم الرئيسي للرواية.mp3",
+      "mimeType": "audio/mpeg"
+    },
+    "ui.TRACK 01": {
+      "key": "ui.TRACK 01",
+      "category": "ui",
+      "filename": "TRACK 01.mp3",
+      "extension": ".mp3",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\music-tracks\\TRACK 01.mp3",
+      "publicPath": "/assets/ui/music-tracks/TRACK 01.mp3",
+      "mimeType": "audio/mpeg"
+    },
+    "ui.TRACK 03": {
+      "key": "ui.TRACK 03",
+      "category": "ui",
+      "filename": "TRACK 03.mp3",
+      "extension": ".mp3",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\music-tracks\\TRACK 03.mp3",
+      "publicPath": "/assets/ui/music-tracks/TRACK 03.mp3",
+      "mimeType": "audio/mpeg"
+    },
+    "ui.TRACK 04": {
+      "key": "ui.TRACK 04",
+      "category": "ui",
+      "filename": "TRACK 04.mp3",
+      "extension": ".mp3",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\music-tracks\\TRACK 04.mp3",
+      "publicPath": "/assets/ui/music-tracks/TRACK 04.mp3",
+      "mimeType": "audio/mpeg"
+    },
+    "ui.TRACK-01": {
+      "key": "ui.TRACK-01",
+      "category": "ui",
+      "filename": "TRACK-01.mp3",
+      "extension": ".mp3",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\music-tracks\\TRACK-01.mp3",
+      "publicPath": "/assets/ui/music-tracks/TRACK-01.mp3",
+      "mimeType": "audio/mpeg"
+    },
+    "ui.overrides": {
+      "key": "ui.overrides",
+      "category": "ui",
+      "filename": "overrides.json",
+      "extension": ".json",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\overrides.json",
+      "publicPath": "/assets/ui/overrides.json",
+      "mimeType": "application/json"
+    },
+    "ui.andalus": {
+      "key": "ui.andalus",
+      "category": "ui",
+      "filename": "andalus.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\andalus.mp4",
+      "publicPath": "/assets/ui/video-bg/andalus.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.Clean_modern_logo_animation": {
+      "key": "ui.Clean_modern_logo_animation",
+      "category": "ui",
+      "filename": "Clean_modern_logo_animation.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\Clean_modern_logo_animation.mp4",
+      "publicPath": "/assets/ui/video-bg/Clean_modern_logo_animation.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.desert": {
+      "key": "ui.desert",
+      "category": "ui",
+      "filename": "desert.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\desert.mp4",
+      "publicPath": "/assets/ui/video-bg/desert.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.egypt-nile-temple": {
+      "key": "ui.egypt-nile-temple",
+      "category": "ui",
+      "filename": "egypt-nile-temple.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\egypt-nile-temple.mp4",
+      "publicPath": "/assets/ui/video-bg/egypt-nile-temple.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.karblaa": {
+      "key": "ui.karblaa",
+      "category": "ui",
+      "filename": "karblaa.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\karblaa.mp4",
+      "publicPath": "/assets/ui/video-bg/karblaa.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.Egyptian_falcon_eye_202603301359": {
+      "key": "ui.Egyptian_falcon_eye_202603301359",
+      "category": "ui",
+      "filename": "Egyptian_falcon_eye_202603301359.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\osiris-vid-bg\\Egyptian_falcon_eye_202603301359.mp4",
+      "publicPath": "/assets/ui/video-bg\\osiris-vid-bg/Egyptian_falcon_eye_202603301359.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.Falcon_hologram_data_202603301414": {
+      "key": "ui.Falcon_hologram_data_202603301414",
+      "category": "ui",
+      "filename": "Falcon_hologram_data_202603301414.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\osiris-vid-bg\\Falcon_hologram_data_202603301414.mp4",
+      "publicPath": "/assets/ui/video-bg\\osiris-vid-bg/Falcon_hologram_data_202603301414.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.Medium_wide_shot_of_the_osiris_falcon_logo_re": {
+      "key": "ui.Medium_wide_shot_of_the_osiris_falcon_logo_re",
+      "category": "ui",
+      "filename": "Medium_wide_shot_of_the_osiris_falcon_logo_re.gif",
+      "extension": ".gif",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\osiris-vid-bg\\Medium_wide_shot_of_the_osiris_falcon_logo_re.gif",
+      "publicPath": "/assets/ui/video-bg\\osiris-vid-bg/Medium_wide_shot_of_the_osiris_falcon_logo_re.gif",
+      "mimeType": "image/gif"
+    },
+    "ui.Neural_network_forms_202603301407": {
+      "key": "ui.Neural_network_forms_202603301407",
+      "category": "ui",
+      "filename": "Neural_network_forms_202603301407.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\osiris-vid-bg\\Neural_network_forms_202603301407.mp4",
+      "publicPath": "/assets/ui/video-bg\\osiris-vid-bg/Neural_network_forms_202603301407.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.OSIRIS_falcon_hologram_202603301403": {
+      "key": "ui.OSIRIS_falcon_hologram_202603301403",
+      "category": "ui",
+      "filename": "OSIRIS_falcon_hologram_202603301403.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\osiris-vid-bg\\OSIRIS_falcon_hologram_202603301403.mp4",
+      "publicPath": "/assets/ui/video-bg\\osiris-vid-bg/OSIRIS_falcon_hologram_202603301403.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.OSIRIS_falcon_logo_202603301401": {
+      "key": "ui.OSIRIS_falcon_logo_202603301401",
+      "category": "ui",
+      "filename": "OSIRIS_falcon_logo_202603301401.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\osiris-vid-bg\\OSIRIS_falcon_logo_202603301401.mp4",
+      "publicPath": "/assets/ui/video-bg\\osiris-vid-bg/OSIRIS_falcon_logo_202603301401.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.Slow_orbit_osiris_falcon_hologram_floating_i": {
+      "key": "ui.Slow_orbit_osiris_falcon_hologram_floating_i",
+      "category": "ui",
+      "filename": "Slow_orbit_osiris_falcon_hologram_floating_i.gif",
+      "extension": ".gif",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\osiris-vid-bg\\Slow_orbit_osiris_falcon_hologram_floating_i.gif",
+      "publicPath": "/assets/ui/video-bg\\osiris-vid-bg/Slow_orbit_osiris_falcon_hologram_floating_i.gif",
+      "mimeType": "image/gif"
+    },
+    "ui._asset_specs": {
+      "key": "ui._asset_specs",
+      "category": "ui",
+      "filename": "_asset_specs.json",
+      "extension": ".json",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\osiris-vid-bg\\_asset_specs.json",
+      "publicPath": "/assets/ui/video-bg\\osiris-vid-bg/_asset_specs.json",
+      "mimeType": "application/json"
+    },
+    "ui.VIDEO 01 — الشاشة الرئيسية (Intro)": {
+      "key": "ui.VIDEO 01 — الشاشة الرئيسية (Intro)",
+      "category": "ui",
+      "filename": "VIDEO 01 — الشاشة الرئيسية (Intro).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 01 — الشاشة الرئيسية (Intro).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 01 — الشاشة الرئيسية (Intro).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 02 — غرفة يحيى (المشهد الافتتاحي)": {
+      "key": "ui.VIDEO 02 — غرفة يحيى (المشهد الافتتاحي)",
+      "category": "ui",
+      "filename": "VIDEO 02 — غرفة يحيى (المشهد الافتتاحي).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 02 — غرفة يحيى (المشهد الافتتاحي).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 02 — غرفة يحيى (المشهد الافتتاحي).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 03 — الفضاء الكوني (المرافعة الافتتاحية)": {
+      "key": "ui.VIDEO 03 — الفضاء الكوني (المرافعة الافتتاحية)",
+      "category": "ui",
+      "filename": "VIDEO 03 — الفضاء الكوني (المرافعة الافتتاحية).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 03 — الفضاء الكوني (المرافعة الافتتاحية).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 03 — الفضاء الكوني (المرافعة الافتتاحية).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 04 — سطح المبنى (وداع طارق)": {
+      "key": "ui.VIDEO 04 — سطح المبنى (وداع طارق)",
+      "category": "ui",
+      "filename": "VIDEO 04 — سطح المبنى (وداع طارق).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 04 — سطح المبنى (وداع طارق).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 04 — سطح المبنى (وداع طارق).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 05 — صحراء سيناء (العجل الذهبي)": {
+      "key": "ui.VIDEO 05 — صحراء سيناء (العجل الذهبي)",
+      "category": "ui",
+      "filename": "VIDEO 05 — صحراء سيناء (العجل الذهبي).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 05 — صحراء سيناء (العجل الذهبي).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 05 — صحراء سيناء (العجل الذهبي).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 06 — صهر الذهب (هندسة الحشود)": {
+      "key": "ui.VIDEO 06 — صهر الذهب (هندسة الحشود)",
+      "category": "ui",
+      "filename": "VIDEO 06 — صهر الذهب (هندسة الحشود).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 06 — صهر الذهب (هندسة الحشود).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 06 — صهر الذهب (هندسة الحشود).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 07 — مجمع نيقية (الإمبراطور والحكيم)": {
+      "key": "ui.VIDEO 07 — مجمع نيقية (الإمبراطور والحكيم)",
+      "category": "ui",
+      "filename": "VIDEO 07 — مجمع نيقية (الإمبراطور والحكيم).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 07 — مجمع نيقية (الإمبراطور والحكيم).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 07 — مجمع نيقية (الإمبراطور والحكيم).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 08 — الأندلس (جمال يتلاشى)": {
+      "key": "ui.VIDEO 08 — الأندلس (جمال يتلاشى)",
+      "category": "ui",
+      "filename": "VIDEO 08 — الأندلس (جمال يتلاشى).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 08 — الأندلس (جمال يتلاشى).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 08 — الأندلس (جمال يتلاشى).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 09 — دموع أبو عبد الله (زفرة العربي الأخيرة)": {
+      "key": "ui.VIDEO 09 — دموع أبو عبد الله (زفرة العربي الأخيرة)",
+      "category": "ui",
+      "filename": "VIDEO 09 — دموع أبو عبد الله (زفرة العربي الأخيرة).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 09 — دموع أبو عبد الله (زفرة العربي الأخيرة).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 09 — دموع أبو عبد الله (زفرة العربي الأخيرة).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 10 — برلين 1933 (الكبر يصبح نظاماً)": {
+      "key": "ui.VIDEO 10 — برلين 1933 (الكبر يصبح نظاماً)",
+      "category": "ui",
+      "filename": "VIDEO 10 — برلين 1933 (الكبر يصبح نظاماً).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 10 — برلين 1933 (الكبر يصبح نظاماً).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 10 — برلين 1933 (الكبر يصبح نظاماً).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 11 — كربلاء (الحق الأعزل)": {
+      "key": "ui.VIDEO 11 — كربلاء (الحق الأعزل)",
+      "category": "ui",
+      "filename": "VIDEO 11 — كربلاء (الحق الأعزل).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 11 — كربلاء (الحق الأعزل).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 11 — كربلاء (الحق الأعزل).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 12 — الفضاء الرقمي (المواجهة مع المهندس)": {
+      "key": "ui.VIDEO 12 — الفضاء الرقمي (المواجهة مع المهندس)",
+      "category": "ui",
+      "filename": "VIDEO 12 — الفضاء الرقمي (المواجهة مع المهندس).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 12 — الفضاء الرقمي (المواجهة مع المهندس).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 12 — الفضاء الرقمي (المواجهة مع المهندس).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.VIDEO 13 — ضغطة Enter (التضحية النهائية)": {
+      "key": "ui.VIDEO 13 — ضغطة Enter (التضحية النهائية)",
+      "category": "ui",
+      "filename": "VIDEO 13 — ضغطة Enter (التضحية النهائية).mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\VIDEO 13 — ضغطة Enter (التضحية النهائية).mp4",
+      "publicPath": "/assets/ui/video-bg/VIDEO 13 — ضغطة Enter (التضحية النهائية).mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.yehya-office-vid": {
+      "key": "ui.yehya-office-vid",
+      "category": "ui",
+      "filename": "yehya-office-vid.mp4",
+      "extension": ".mp4",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\video-bg\\yehya-office-vid.mp4",
+      "publicPath": "/assets/ui/video-bg/yehya-office-vid.mp4",
+      "mimeType": "video/mp4"
+    },
+    "ui.main-devil": {
+      "key": "ui.main-devil",
+      "category": "ui",
+      "filename": "main-devil.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\new-voices\\main-devil.wav",
+      "publicPath": "/assets/ui/voices\\new-voices/main-devil.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE01": {
+      "key": "ui.VOICE01",
+      "category": "ui",
+      "filename": "VOICE01.mp3",
+      "extension": ".mp3",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\new-voices\\VOICE01.mp3",
+      "publicPath": "/assets/ui/voices\\new-voices/VOICE01.mp3",
+      "mimeType": "audio/mpeg"
+    },
+    "ui.VOICE02": {
+      "key": "ui.VOICE02",
+      "category": "ui",
+      "filename": "VOICE02.mp3",
+      "extension": ".mp3",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\new-voices\\VOICE02.mp3",
+      "publicPath": "/assets/ui/voices\\new-voices/VOICE02.mp3",
+      "mimeType": "audio/mpeg"
+    },
+    "ui.VOICE07": {
+      "key": "ui.VOICE07",
+      "category": "ui",
+      "filename": "VOICE07.mp3",
+      "extension": ".mp3",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\new-voices\\VOICE07.mp3",
+      "publicPath": "/assets/ui/voices\\new-voices/VOICE07.mp3",
+      "mimeType": "audio/mpeg"
+    },
+    "ui.VOICE 01 — المرافعة الافتتاحية (الأيقونية الكبرى)": {
+      "key": "ui.VOICE 01 — المرافعة الافتتاحية (الأيقونية الكبرى)",
+      "category": "ui",
+      "filename": "VOICE 01 — المرافعة الافتتاحية (الأيقونية الكبرى).wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 01 — المرافعة الافتتاحية (الأيقونية الكبرى).wav",
+      "publicPath": "/assets/ui/voices/VOICE 01 — المرافعة الافتتاحية (الأيقونية الكبرى).wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 02 — قسم إبليس (الشيفرة المصدرية)": {
+      "key": "ui.VOICE 02 — قسم إبليس (الشيفرة المصدرية)",
+      "category": "ui",
+      "filename": "VOICE 02 — قسم إبليس (الشيفرة المصدرية).wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 02 — قسم إبليس (الشيفرة المصدرية).wav",
+      "publicPath": "/assets/ui/voices/VOICE 02 — قسم إبليس (الشيفرة المصدرية).wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 03 — رسالة طارق الأولى (صوت الأخ الميت)": {
+      "key": "ui.VOICE 03 — رسالة طارق الأولى (صوت الأخ الميت)",
+      "category": "ui",
+      "filename": "VOICE 03 — رسالة طارق الأولى (صوت الأخ الميت).wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 03 — رسالة طارق الأولى (صوت الأخ الميت).wav",
+      "publicPath": "/assets/ui/voices/VOICE 03 — رسالة طارق الأولى (صوت الأخ الميت).wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 04 — وداع طارق على السطح": {
+      "key": "ui.VOICE 04 — وداع طارق على السطح",
+      "category": "ui",
+      "filename": "VOICE 04 — وداع طارق على السطح.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 04 — وداع طارق على السطح.wav",
+      "publicPath": "/assets/ui/voices/VOICE 04 — وداع طارق على السطح.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 05 — إدراك يحيى (الخوارزمية والشيطان)": {
+      "key": "ui.VOICE 05 — إدراك يحيى (الخوارزمية والشيطان)",
+      "category": "ui",
+      "filename": "VOICE 05 — إدراك يحيى (الخوارزمية والشيطان).wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 05 — إدراك يحيى (الخوارزمية والشيطان).wav",
+      "publicPath": "/assets/ui/voices/VOICE 05 — إدراك يحيى (الخوارزمية والشيطان).wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 06 — أم أبو عبد الله (الجملة التاريخية)": {
+      "key": "ui.VOICE 06 — أم أبو عبد الله (الجملة التاريخية)",
+      "category": "ui",
+      "filename": "VOICE 06 — أم أبو عبد الله (الجملة التاريخية).wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 06 — أم أبو عبد الله (الجملة التاريخية).wav",
+      "publicPath": "/assets/ui/voices/VOICE 06 — أم أبو عبد الله (الجملة التاريخية).wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 07 — صوت إبليس يعلق على الأندلس": {
+      "key": "ui.VOICE 07 — صوت إبليس يعلق على الأندلس",
+      "category": "ui",
+      "filename": "VOICE 07 — صوت إبليس يعلق على الأندلس.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 07 — صوت إبليس يعلق على الأندلس.wav",
+      "publicPath": "/assets/ui/voices/VOICE 07 — صوت إبليس يعلق على الأندلس.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 08 — الحسين في كربلاء": {
+      "key": "ui.VOICE 08 — الحسين في كربلاء",
+      "category": "ui",
+      "filename": "VOICE 08 — الحسين في كربلاء.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 08 — الحسين في كربلاء.wav",
+      "publicPath": "/assets/ui/voices/VOICE 08 — الحسين في كربلاء.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 09 — طارق في الحلم (الوداع الأخير)": {
+      "key": "ui.VOICE 09 — طارق في الحلم (الوداع الأخير)",
+      "category": "ui",
+      "filename": "VOICE 09 — طارق في الحلم (الوداع الأخير).wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 09 — طارق في الحلم (الوداع الأخير).wav",
+      "publicPath": "/assets/ui/voices/VOICE 09 — طارق في الحلم (الوداع الأخير).wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 10 — قرار يحيى (الجملة الأخيرة قبل الضغط)": {
+      "key": "ui.VOICE 10 — قرار يحيى (الجملة الأخيرة قبل الضغط)",
+      "category": "ui",
+      "filename": "VOICE 10 — قرار يحيى (الجملة الأخيرة قبل الضغط).wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 10 — قرار يحيى (الجملة الأخيرة قبل الضغط).wav",
+      "publicPath": "/assets/ui/voices/VOICE 10 — قرار يحيى (الجملة الأخيرة قبل الضغط).wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 11 — إغلاق الملف (الراوي الكوني)": {
+      "key": "ui.VOICE 11 — إغلاق الملف (الراوي الكوني)",
+      "category": "ui",
+      "filename": "VOICE 11 — إغلاق الملف (الراوي الكوني).wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 11 — إغلاق الملف (الراوي الكوني).wav",
+      "publicPath": "/assets/ui/voices/VOICE 11 — إغلاق الملف (الراوي الكوني).wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 12 — يحيى يموت (آخر كلماته لليلى)": {
+      "key": "ui.VOICE 12 — يحيى يموت (آخر كلماته لليلى)",
+      "category": "ui",
+      "filename": "VOICE 12 — يحيى يموت (آخر كلماته لليلى).wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 12 — يحيى يموت (آخر كلماته لليلى).wav",
+      "publicPath": "/assets/ui/voices/VOICE 12 — يحيى يموت (آخر كلماته لليلى).wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 13 — ليلى تفسر الحسين": {
+      "key": "ui.VOICE 13 — ليلى تفسر الحسين",
+      "category": "ui",
+      "filename": "VOICE 13 — ليلى تفسر الحسين.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 13 — ليلى تفسر الحسين.wav",
+      "publicPath": "/assets/ui/voices/VOICE 13 — ليلى تفسر الحسين.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 14 — المهندس الأول يعرض على يحيى": {
+      "key": "ui.VOICE 14 — المهندس الأول يعرض على يحيى",
+      "category": "ui",
+      "filename": "VOICE 14 — المهندس الأول يعرض على يحيى.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 14 — المهندس الأول يعرض على يحيى.wav",
+      "publicPath": "/assets/ui/voices/VOICE 14 — المهندس الأول يعرض على يحيى.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 15 — ليلى تكشف جرحها (ألم الطفولة)": {
+      "key": "ui.VOICE 15 — ليلى تكشف جرحها (ألم الطفولة)",
+      "category": "ui",
+      "filename": "VOICE 15 — ليلى تكشف جرحها (ألم الطفولة).wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 15 — ليلى تكشف جرحها (ألم الطفولة).wav",
+      "publicPath": "/assets/ui/voices/VOICE 15 — ليلى تكشف جرحها (ألم الطفولة).wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE 16 — طارق يربط نيقية بالحاضر": {
+      "key": "ui.VOICE 16 — طارق يربط نيقية بالحاضر",
+      "category": "ui",
+      "filename": "VOICE 16 — طارق يربط نيقية بالحاضر.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE 16 — طارق يربط نيقية بالحاضر.wav",
+      "publicPath": "/assets/ui/voices/VOICE 16 — طارق يربط نيقية بالحاضر.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-01": {
+      "key": "ui.VOICE-01",
+      "category": "ui",
+      "filename": "VOICE-01.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-01.wav",
+      "publicPath": "/assets/ui/voices/VOICE-01.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-02": {
+      "key": "ui.VOICE-02",
+      "category": "ui",
+      "filename": "VOICE-02.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-02.wav",
+      "publicPath": "/assets/ui/voices/VOICE-02.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-03": {
+      "key": "ui.VOICE-03",
+      "category": "ui",
+      "filename": "VOICE-03.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-03.wav",
+      "publicPath": "/assets/ui/voices/VOICE-03.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-04": {
+      "key": "ui.VOICE-04",
+      "category": "ui",
+      "filename": "VOICE-04.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-04.wav",
+      "publicPath": "/assets/ui/voices/VOICE-04.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-05": {
+      "key": "ui.VOICE-05",
+      "category": "ui",
+      "filename": "VOICE-05.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-05.wav",
+      "publicPath": "/assets/ui/voices/VOICE-05.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-06": {
+      "key": "ui.VOICE-06",
+      "category": "ui",
+      "filename": "VOICE-06.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-06.wav",
+      "publicPath": "/assets/ui/voices/VOICE-06.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-07": {
+      "key": "ui.VOICE-07",
+      "category": "ui",
+      "filename": "VOICE-07.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-07.wav",
+      "publicPath": "/assets/ui/voices/VOICE-07.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-08": {
+      "key": "ui.VOICE-08",
+      "category": "ui",
+      "filename": "VOICE-08.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-08.wav",
+      "publicPath": "/assets/ui/voices/VOICE-08.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-09": {
+      "key": "ui.VOICE-09",
+      "category": "ui",
+      "filename": "VOICE-09.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-09.wav",
+      "publicPath": "/assets/ui/voices/VOICE-09.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-10": {
+      "key": "ui.VOICE-10",
+      "category": "ui",
+      "filename": "VOICE-10.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-10.wav",
+      "publicPath": "/assets/ui/voices/VOICE-10.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-11": {
+      "key": "ui.VOICE-11",
+      "category": "ui",
+      "filename": "VOICE-11.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-11.wav",
+      "publicPath": "/assets/ui/voices/VOICE-11.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-12": {
+      "key": "ui.VOICE-12",
+      "category": "ui",
+      "filename": "VOICE-12.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-12.wav",
+      "publicPath": "/assets/ui/voices/VOICE-12.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-13": {
+      "key": "ui.VOICE-13",
+      "category": "ui",
+      "filename": "VOICE-13.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-13.wav",
+      "publicPath": "/assets/ui/voices/VOICE-13.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-14": {
+      "key": "ui.VOICE-14",
+      "category": "ui",
+      "filename": "VOICE-14.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-14.wav",
+      "publicPath": "/assets/ui/voices/VOICE-14.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-15": {
+      "key": "ui.VOICE-15",
+      "category": "ui",
+      "filename": "VOICE-15.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-15.wav",
+      "publicPath": "/assets/ui/voices/VOICE-15.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-16": {
+      "key": "ui.VOICE-16",
+      "category": "ui",
+      "filename": "VOICE-16.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-16.wav",
+      "publicPath": "/assets/ui/voices/VOICE-16.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-17": {
+      "key": "ui.VOICE-17",
+      "category": "ui",
+      "filename": "VOICE-17.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-17.wav",
+      "publicPath": "/assets/ui/voices/VOICE-17.wav",
+      "mimeType": "audio/wav"
+    },
+    "ui.VOICE-18": {
+      "key": "ui.VOICE-18",
+      "category": "ui",
+      "filename": "VOICE-18.wav",
+      "extension": ".wav",
+      "localPath": "E:\\Books-library2025\\mofsedon-novel\\generated-assets\\voices\\VOICE-18.wav",
+      "publicPath": "/assets/ui/voices/VOICE-18.wav",
+      "mimeType": "audio/wav"
+    }
+  },
+  "categories": {
+    "character": [],
+    "background": [],
+    "audio": [],
+    "document": [],
+    "ui": [
+      "ui.RAMSIS",
+      "ui.RAMSIS01",
+      "ui.آريوس",
+      "ui.أثناسيوس",
+      "ui.الراوي الكوني-التجسيد البصري (Visual Representation)",
+      "ui.السامري-اصورة صناعة العجل (The Golden Calf Scene)",
+      "ui.السامري-الصورة الأساسية (Portrait)",
+      "ui.المهندس الأول-الصورة الأساسية (Portrait)",
+      "ui.المهندس الأول-الصورة الأساسية (Portrait)02",
+      "ui.المهندس الأول-صورة الانكشاف (Exposed — Final Scene)",
+      "ui.المهندس الأول-صورة المواجهة (Confrontation)",
+      "ui.طارق الراشد-الصورة الأساسية (Portrait)",
+      "ui.طارق الراشد-صورة التسجيل (Recording — Ghost Image)",
+      "ui.طارق الراشد-صورة الحلم (Dream Sequence)",
+      "ui.قسطنطين-الصورة الأساسية (Portrait)",
+      "ui.ليلى حسن-صورة الإيمان (Faith Portrait)",
+      "ui.ليلى حسن-صورة الشاهدة (Witness Scene — Final Chapter)",
+      "ui.ليلى حسنالصورة الأساسية (Portrait)",
+      "ui.يحيى الراشد-الصورة الأساسية (Portrait)",
+      "ui.يحيى الراشد-صورة الانهيار (Breakdown Scene)",
+      "ui.يحيى الراشد-صورة المواجهة (Confrontation Scene)",
+      "ui.01",
+      "ui.02",
+      "ui.03",
+      "ui.04",
+      "ui.05",
+      "ui.06",
+      "ui.07",
+      "ui.EGYPT-NILE-TEMPLE02",
+      "ui.logo-new-flow01",
+      "ui.logo-new-flow01_upscayl_1x_digital-art-4x",
+      "ui.logo-new-flow02",
+      "ui.logo-new-flow02_upscayl_1x_digital-art-4x",
+      "ui.OSIRIS_CINEMATIC_MASTER",
+      "ui.OSIRIS_CINEMATIC_MASTER_CUES",
+      "ui.TRACK 01 — الثيم الرئيسي للرواية",
+      "ui.TRACK 01",
+      "ui.TRACK 03",
+      "ui.TRACK 04",
+      "ui.TRACK-01",
+      "ui.overrides",
+      "ui.andalus",
+      "ui.Clean_modern_logo_animation",
+      "ui.desert",
+      "ui.egypt-nile-temple",
+      "ui.karblaa",
+      "ui.Egyptian_falcon_eye_202603301359",
+      "ui.Falcon_hologram_data_202603301414",
+      "ui.Medium_wide_shot_of_the_osiris_falcon_logo_re",
+      "ui.Neural_network_forms_202603301407",
+      "ui.OSIRIS_falcon_hologram_202603301403",
+      "ui.OSIRIS_falcon_logo_202603301401",
+      "ui.Slow_orbit_osiris_falcon_hologram_floating_i",
+      "ui._asset_specs",
+      "ui.VIDEO 01 — الشاشة الرئيسية (Intro)",
+      "ui.VIDEO 02 — غرفة يحيى (المشهد الافتتاحي)",
+      "ui.VIDEO 03 — الفضاء الكوني (المرافعة الافتتاحية)",
+      "ui.VIDEO 04 — سطح المبنى (وداع طارق)",
+      "ui.VIDEO 05 — صحراء سيناء (العجل الذهبي)",
+      "ui.VIDEO 06 — صهر الذهب (هندسة الحشود)",
+      "ui.VIDEO 07 — مجمع نيقية (الإمبراطور والحكيم)",
+      "ui.VIDEO 08 — الأندلس (جمال يتلاشى)",
+      "ui.VIDEO 09 — دموع أبو عبد الله (زفرة العربي الأخيرة)",
+      "ui.VIDEO 10 — برلين 1933 (الكبر يصبح نظاماً)",
+      "ui.VIDEO 11 — كربلاء (الحق الأعزل)",
+      "ui.VIDEO 12 — الفضاء الرقمي (المواجهة مع المهندس)",
+      "ui.VIDEO 13 — ضغطة Enter (التضحية النهائية)",
+      "ui.yehya-office-vid",
+      "ui.main-devil",
+      "ui.VOICE01",
+      "ui.VOICE02",
+      "ui.VOICE07",
+      "ui.VOICE 01 — المرافعة الافتتاحية (الأيقونية الكبرى)",
+      "ui.VOICE 02 — قسم إبليس (الشيفرة المصدرية)",
+      "ui.VOICE 03 — رسالة طارق الأولى (صوت الأخ الميت)",
+      "ui.VOICE 04 — وداع طارق على السطح",
+      "ui.VOICE 05 — إدراك يحيى (الخوارزمية والشيطان)",
+      "ui.VOICE 06 — أم أبو عبد الله (الجملة التاريخية)",
+      "ui.VOICE 07 — صوت إبليس يعلق على الأندلس",
+      "ui.VOICE 08 — الحسين في كربلاء",
+      "ui.VOICE 09 — طارق في الحلم (الوداع الأخير)",
+      "ui.VOICE 10 — قرار يحيى (الجملة الأخيرة قبل الضغط)",
+      "ui.VOICE 11 — إغلاق الملف (الراوي الكوني)",
+      "ui.VOICE 12 — يحيى يموت (آخر كلماته لليلى)",
+      "ui.VOICE 13 — ليلى تفسر الحسين",
+      "ui.VOICE 14 — المهندس الأول يعرض على يحيى",
+      "ui.VOICE 15 — ليلى تكشف جرحها (ألم الطفولة)",
+      "ui.VOICE 16 — طارق يربط نيقية بالحاضر",
+      "ui.VOICE-01",
+      "ui.VOICE-02",
+      "ui.VOICE-03",
+      "ui.VOICE-04",
+      "ui.VOICE-05",
+      "ui.VOICE-06",
+      "ui.VOICE-07",
+      "ui.VOICE-08",
+      "ui.VOICE-09",
+      "ui.VOICE-10",
+      "ui.VOICE-11",
+      "ui.VOICE-12",
+      "ui.VOICE-13",
+      "ui.VOICE-14",
+      "ui.VOICE-15",
+      "ui.VOICE-16",
+      "ui.VOICE-17",
+      "ui.VOICE-18"
+    ]
+  }
+}

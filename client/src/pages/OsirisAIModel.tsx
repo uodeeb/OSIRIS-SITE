@@ -79,7 +79,7 @@ export default function OsirisAIModel() {
   const isArabic = uiLang === 'ar';
 
   return (
-    <div className="min-h-screen bg-black text-white" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className="min-h-dvh bg-black text-white" dir={isArabic ? 'rtl' : 'ltr'}>
       {/* Header */}
       <motion.header 
         initial={{ opacity: 0, y: -20 }}

@@ -11,21 +11,37 @@
  * - Keyboard: Space/Enter = next, Backspace = prev dialogue, Escape = home
  */
 
-import { useEffect, useMemo, useRef, useState, useCallback, type CSSProperties } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback, memo, type CSSProperties } from 'react';
 import styles from './MainPlayer.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
 import { PART_LABELS, SCENES as ALL_SCENES, type DialogueLine, type Scene, type SceneChoice } from '@/lib/sceneSystem';
 import { ASSET_URLS } from '@/lib/assetUrls';
 import { getAssetOverride } from '@/lib/assetOverrides';
+import { customStyles, choicePanelStyles, endSceneStyles, buttonStyles } from '@/lib/styleUtils';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "@/lib/osirisEffects";
 import { loadCanonicalDialogueMap } from '@/lib/canonicalScript.ts'; // Netlify fix: explicit .ts extension required
 import { CinematicStage } from '@/components/CinematicStage';
 import { OsirisEffectLayer } from "@/components/OsirisEffectLayer";
 import { GlobalMediaLayer } from "@/components/GlobalMediaLayer";
-import { useMediaController } from "@/contexts/MediaControllerContext";
+import { useMediaState } from "@/contexts/MediaStateContext";
+import { useMediaActions } from "@/contexts/MediaActionsContext";
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import osirisLogo from '@/LOGO/new-logo/favicon-black-0.25.png';
+
+// Hoisted regex patterns for performance (Rule 7.9)
+const CHARACTER_REGEX_PATTERNS = {
+  yahya: /قال يحيى|أجاب يحيى|همس يحيى|صرخ يحيى|رد يحيى|يحيى/i,
+  laila: /قالت ليلى|أجابت ليلى|همست ليلى|صرخت ليلى|ليلى/i,
+  tarek: /قال طارق|أجاب طارق|همس طارق|صوت طارق|تسجيل طارق|طارق/i,
+  engineer: /قال المهندس الأول|أجاب المهندس الأول|المهندس الأول|المهندس/i,
+  arius: /قال آريوس|آريوس/i,
+  athanasius: /قال أثناسيوس|أثناسيوس/i,
+  constantine: /قال قسطنطين|قسطنطين/i,
+  samiri: /السامري|العجل/i,
+  calf: /عجل/i,
+} as const;
 
 // Helper function to normalize URLs
 function normalize(url: string): string {
@@ -767,8 +783,8 @@ function AudioControl({
 
 export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerProps) {
   const [, setLocation] = useLocation();
+  const globalMediaState = useMediaState();
   const {
-    state: globalMediaState,
     play: globalPlay,
     setAccentColor,
     setPrimaryAudioMuted,
@@ -776,7 +792,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     setPrimaryAudioVolume,
     registerMedia,
     setDurationMs,
-  } = useMediaController();
+  } = useMediaActions();
   const canonicalMode = useMemo(() => {
     if (typeof window === 'undefined') return false;
     const params = new URLSearchParams(window.location.search);
@@ -896,26 +912,26 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const timelineCharacterKey = SCENE_CHARACTER_TIMELINE[currentSceneId];
   const rawDialogueCharacterKey = currentDialogue?.character || '';
   const dialogueTextForCharacter = `${currentDialogue?.text || ''} ${currentDialogue?.arabicText || ''}`;
-  const resolveCharacterKey = (rawKey: string, text: string, sceneId: string) => {
-    if (/قال يحيى|أجاب يحيى|همس يحيى|صرخ يحيى|رد يحيى/i.test(text)) return sceneId === 'four-5-2-analyst-tears' ? 'yahya_breakdown' : 'yahya';
-    if (/قالت ليلى|أجابت ليلى|همست ليلى|صرخت ليلى/i.test(text)) return sceneId === 'seven-12-1-truth-leak' ? 'laila_witness' : 'laila';
-    if (/قال طارق|أجاب طارق|همس طارق|صوت طارق|تسجيل طارق/i.test(text)) return sceneId === 'four-5-1-tarek-message' ? 'tarek_ghost' : 'tarek';
-    if (/قال المهندس الأول|أجاب المهندس الأول|المهندس الأول/i.test(text)) return sceneId === 'six-8d-2-final-update' ? 'first_engineer_exposed' : 'first_engineer';
-    if (/قال آريوس|آريوس/i.test(text)) return 'arius';
-    if (/قال أثناسيوس|أثناسيوس/i.test(text)) return 'athanasius';
-    if (/قال قسطنطين|قسطنطين/i.test(text)) return 'constantine';
-    if (/السامري|العجل/i.test(text)) return /عجل/i.test(text) ? 'samiri_calf' : 'samiri';
+  const resolveCharacterKey = useCallback((rawKey: string, text: string, sceneId: string) => {
+    if (CHARACTER_REGEX_PATTERNS.yahya.test(text)) return sceneId === 'four-5-2-analyst-tears' ? 'yahya_breakdown' : 'yahya';
+    if (CHARACTER_REGEX_PATTERNS.laila.test(text)) return sceneId === 'seven-12-1-truth-leak' ? 'laila_witness' : 'laila';
+    if (CHARACTER_REGEX_PATTERNS.tarek.test(text)) return sceneId === 'four-5-1-tarek-message' ? 'tarek_ghost' : 'tarek';
+    if (CHARACTER_REGEX_PATTERNS.engineer.test(text)) return sceneId === 'six-8d-2-final-update' ? 'first_engineer_exposed' : 'first_engineer';
+    if (CHARACTER_REGEX_PATTERNS.arius.test(text)) return 'arius';
+    if (CHARACTER_REGEX_PATTERNS.athanasius.test(text)) return 'athanasius';
+    if (CHARACTER_REGEX_PATTERNS.constantine.test(text)) return 'constantine';
+    if (CHARACTER_REGEX_PATTERNS.samiri.test(text)) return CHARACTER_REGEX_PATTERNS.calf.test(text) ? 'samiri_calf' : 'samiri';
     if (rawKey && rawKey in CHARACTER_MAP && rawKey !== 'Narrator') return rawKey;
-    if (/يحيى/i.test(text)) return sceneId === 'four-5-2-analyst-tears' ? 'yahya_breakdown' : 'yahya';
-    if (/ليلى/i.test(text)) return sceneId === 'seven-12-1-truth-leak' ? 'laila_witness' : 'laila';
-    if (/طارق/i.test(text)) return sceneId === 'four-5-1-tarek-message' ? 'tarek_ghost' : 'tarek';
-    if (/المهندس/i.test(text)) return sceneId === 'six-8d-2-final-update' ? 'first_engineer_exposed' : 'first_engineer';
-    if (/آريوس/i.test(text)) return 'arius';
-    if (/أثناسيوس/i.test(text)) return 'athanasius';
-    if (/قسطنطين/i.test(text)) return 'constantine';
-    if (/السامري|العجل/i.test(text)) return /عجل/i.test(text) ? 'samiri_calf' : 'samiri';
+    if (CHARACTER_REGEX_PATTERNS.yahya.test(text)) return sceneId === 'four-5-2-analyst-tears' ? 'yahya_breakdown' : 'yahya';
+    if (CHARACTER_REGEX_PATTERNS.laila.test(text)) return sceneId === 'seven-12-1-truth-leak' ? 'laila_witness' : 'laila';
+    if (CHARACTER_REGEX_PATTERNS.tarek.test(text)) return sceneId === 'four-5-1-tarek-message' ? 'tarek_ghost' : 'tarek';
+    if (CHARACTER_REGEX_PATTERNS.engineer.test(text)) return sceneId === 'six-8d-2-final-update' ? 'first_engineer_exposed' : 'first_engineer';
+    if (CHARACTER_REGEX_PATTERNS.arius.test(text)) return 'arius';
+    if (CHARACTER_REGEX_PATTERNS.athanasius.test(text)) return 'athanasius';
+    if (CHARACTER_REGEX_PATTERNS.constantine.test(text)) return 'constantine';
+    if (CHARACTER_REGEX_PATTERNS.samiri.test(text)) return CHARACTER_REGEX_PATTERNS.calf.test(text) ? 'samiri_calf' : 'samiri';
     return rawKey;
-  };
+  }, []);
   const dialogueCharacterKey = resolveCharacterKey(rawDialogueCharacterKey, dialogueTextForCharacter, currentSceneId);
   const preferredCharacterKey = dialogueCharacterKey in CHARACTER_MAP
     ? dialogueCharacterKey
@@ -2060,7 +2076,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   // ─── Scene not found ──────────────────────────────────────────────────────────
   if (!currentScene) {
     return (
-      <div className="w-screen h-screen bg-black flex items-center justify-center">
+      <div className="w-screen h-dvh bg-black flex items-center justify-center">
         <div className="text-center text-white">
           <p className="text-2xl mb-4 font-mono text-amber-400">Scene not found: {currentSceneId}</p>
           <button
@@ -2112,7 +2128,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   return (
     <motion.div
       data-testid="scene-container"
-      className="relative w-screen h-screen overflow-hidden bg-black select-none font-novel"
+      className="relative w-screen h-dvh overflow-hidden bg-black select-none font-novel"
       onClick={handleAdvance}
       animate={fxShake ? { x: [0, -4, 3, -2, 2, 0], y: [0, 2, -2, 3, -1, 0] } : { x: 0, y: 0 }}
       transition={{ duration: 0.45, ease: "easeInOut" }}
@@ -3013,4 +3029,4 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   );
 }
 
-export default MainPlayer;
+export default memo(MainPlayer);
