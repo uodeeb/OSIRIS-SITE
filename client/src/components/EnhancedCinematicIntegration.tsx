@@ -19,28 +19,28 @@ import { useSettings } from '@/hooks/useSettings';
  */
 const MUSIC_ASSET_URLS = {
   // Avoid using TRACK-01 as a background track for global mute compatibility
-  'main-theme': '/generated-assets/music-tracks/TRACK-02.m4a',
-  'courtroom-cosmic': '/generated-assets/music-tracks/TRACK 02.m4a',
-  'iblis-theme': '/generated-assets/music-tracks/TRACK 03.mp3',
-  'tariq-tragedy': '/generated-assets/music-tracks/TRACK-04.m4a',
-  'golden-calf-desert': '/generated-assets/music-tracks/TRACK-05.m4a',
-  'nicaea-byzantine': '/generated-assets/music-tracks/TRACK-06.m4a',
-  'andalus-elegy': '/generated-assets/music-tracks/TRACK-07.m4a',
-  'totalitarian-horror': '/generated-assets/music-tracks/TRACK-08.m4a',
-  'karbala-spiritual': '/generated-assets/music-tracks/TRACK-09.m4a',
-  'digital-confrontation': '/generated-assets/music-tracks/TRACK-10.m4a',
-  'bittersweet-resolution': '/generated-assets/music-tracks/TRACK-11.m4a',
-  'action-escape': '/generated-assets/music-tracks/TRACK-12.m4a',
-  'dream-before-battle': '/generated-assets/music-tracks/TRACK-13.m4a',
-  'credits-finale': '/generated-assets/music-tracks/TRACK-14.m4a'
+  'main-theme': '/assets/music-tracks/TRACK-02.m4a',
+  'courtroom-cosmic': '/assets/music-tracks/TRACK 02.m4a',
+  'iblis-theme': '/assets/music-tracks/TRACK 03.mp3',
+  'tariq-tragedy': '/assets/music-tracks/TRACK-04.m4a',
+  'golden-calf-desert': '/assets/music-tracks/TRACK-05.m4a',
+  'nicaea-byzantine': '/assets/music-tracks/TRACK-06.m4a',
+  'andalus-elegy': '/assets/music-tracks/TRACK-07.m4a',
+  'totalitarian-horror': '/assets/music-tracks/TRACK-08.m4a',
+  'karbala-spiritual': '/assets/music-tracks/TRACK-09.m4a',
+  'digital-confrontation': '/assets/music-tracks/TRACK-10.m4a',
+  'bittersweet-resolution': '/assets/music-tracks/TRACK-11.m4a',
+  'action-escape': '/assets/music-tracks/TRACK-12.m4a',
+  'dream-before-battle': '/assets/music-tracks/TRACK-13.m4a',
+  'credits-finale': '/assets/music-tracks/TRACK-14.m4a'
 };
 
 /**
- * Voice Asset URLs - Maps to generated-assets/voices folder
+ * Voice Asset URLs - Maps to assets/voices folder
  */
 const VOICE_ASSET_URLS = {
-  'opening-statement': '/generated-assets/voices/VOICE-01.wav',
-  'iblis-oath': '/generated-assets/voices/VOICE-02.wav'
+  'opening-statement': '/assets/voices/VOICE-01.wav',
+  'iblis-oath': '/assets/voices/VOICE-02.wav'
 };
 
 /**

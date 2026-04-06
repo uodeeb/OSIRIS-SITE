@@ -189,24 +189,24 @@ function getFallbackAssetUrl(key: string): string | undefined {
 function getFallbackAssetsByKind(kind: string) {
   const allFallbacks = {
     video: [
-      { key: 'videoBg.yahya_room', url: '/generated-assets/video-bg/yehya-office-vid.mp4', mime: 'video/mp4' },
-      { key: 'videoBg.sinai_desert', url: '/generated-assets/video-bg/desert.mp4', mime: 'video/mp4' },
-      { key: 'videoBg.andalusia', url: '/generated-assets/video-bg/andalus.mp4', mime: 'video/mp4' },
+      { key: 'videoBg.yahya_room', url: '/assets/video-bg/yehya-office-vid.mp4', mime: 'video/mp4' },
+      { key: 'videoBg.sinai_desert', url: '/assets/video-bg/desert.mp4', mime: 'video/mp4' },
+      { key: 'videoBg.andalusia', url: '/assets/video-bg/andalus.mp4', mime: 'video/mp4' },
     ],
     character: [
-      { key: 'character.narrator', url: '/generated-assets/characters/الراوي الكوني-التجسيد البصري (Visual Representation).png', mime: 'image/png' },
-      { key: 'character.yahya', url: '/generated-assets/characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
-      { key: 'character.laila', url: '/generated-assets/characters/ليلى حسنالصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
-      { key: 'character.tarek', url: '/generated-assets/characters/طارق الراشد-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
-      { key: 'character.first_engineer', url: '/generated-assets/characters/المهندس الأول-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
-      { key: 'character.arius', url: '/generated-assets/characters/آريوس.jpeg', mime: 'image/jpeg' },
-      { key: 'character.athanasius', url: '/generated-assets/characters/أثناسيوس.jpeg', mime: 'image/jpeg' },
-      { key: 'character.samiri', url: '/generated-assets/characters/السامري-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
-      { key: 'character.constantine', url: '/generated-assets/characters/قسطنطين-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
-      { key: 'character.ramses', url: '/generated-assets/characters/RAMSIS.jpg', mime: 'image/jpeg' },
+      { key: 'character.narrator', url: '/assets/ui/characters/الراوي الكوني-التجسيد البصري (Visual Representation).png', mime: 'image/png' },
+      { key: 'character.yahya', url: '/assets/ui/characters/يحيى الراشد-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
+      { key: 'character.laila', url: '/assets/ui/characters/ليلى حسنالصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
+      { key: 'character.tarek', url: '/assets/ui/characters/طارق الراشد-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
+      { key: 'character.first_engineer', url: '/assets/ui/characters/المهندس الأول-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
+      { key: 'character.arius', url: '/assets/ui/characters/آريوس.jpeg', mime: 'image/jpeg' },
+      { key: 'character.athanasius', url: '/assets/ui/characters/أثناسيوس.jpeg', mime: 'image/jpeg' },
+      { key: 'character.samiri', url: '/assets/ui/characters/السامري-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
+      { key: 'character.constantine', url: '/assets/ui/characters/قسطنطين-الصورة الأساسية (Portrait).jpeg', mime: 'image/jpeg' },
+      { key: 'character.ramses', url: '/assets/ui/characters/RAMSIS.jpg', mime: 'image/jpeg' },
     ],
     audio: [
-      { key: 'audio.main_theme', url: '/generated-assets/music-tracks/TRACK-01.mp3', mime: 'audio/mpeg' },
+      { key: 'audio.main_theme', url: '/assets/music-tracks/TRACK-01.mp3', mime: 'audio/mpeg' },
     ],
   };
   

@@ -1689,7 +1689,7 @@ export class MusicIntegrationEngine {
 
     try {
       // Load the audio file
-      const audioPath = `/generated-assets/music-tracks/${track.filename}`;
+      const audioPath = `/assets/music-tracks/${track.filename}`;
       const response = await fetch(audioPath);
       if (!response.ok) {
         console.warn(`Failed to load audio file: ${audioPath}`);
@@ -1921,7 +1921,7 @@ export function getMusicPath(trackId: string): string {
   if (!track) {
     throw new Error(`Music track not found: ${trackId}`);
   }
-  return `/generated-assets/music-tracks/${track.filename}`;
+  return `/assets/music-tracks/${track.filename}`;
 }
 
 export function getSceneMusic(sceneId: string): SceneMusicMapping | null {
