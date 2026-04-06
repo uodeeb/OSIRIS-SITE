@@ -5,6 +5,11 @@ type AssetRow = {
   url: string;
 };
 
+// Enhanced logging for debugging
+const DEBUG = typeof window !== 'undefined' && (window.location.search.includes('debug=assets') || localStorage.getItem('debug_assets') === 'true');
+const log = (...args: any[]) => DEBUG && console.log('[AssetProxy]', ...args);
+const error = (...args: any[]) => console.error('[AssetProxy]', ...args);
+
 let overrides: Record<string, string> = {};
 let overridesLoaded = false;
 let initPromise: Promise<void> | null = null;
@@ -14,14 +19,29 @@ export function setAssetOverrides(next: Record<string, string>) {
 }
 
 export function getAssetOverride(key: string): string | undefined {
-  // Lazy initialization: only load overrides when first accessed (async-defer-await best practice)
+  // If overrides not loaded, trigger lazy initialization
   if (!overridesLoaded && !initPromise) {
+    log('Starting lazy load for key:', key);
     // Start loading in background but don't block
-    initPromise = initAssetOverrides({ timeoutMs: 2000 }).catch(() => {
-      // Silently fail, will use fallback
+    initPromise = initAssetOverrides({ timeoutMs: 3000 }).catch((err) => {
+      error('Failed to load overrides:', err);
+      // Don't reset initPromise on error - prevent infinite retry loops
     });
   }
-  return overrides[key];
+  
+  // If loading is in progress, check if we have any early data
+  if (initPromise && !overridesLoaded) {
+    // Return undefined to trigger fallback behavior in proxy
+    log('Overrides still loading, returning undefined for:', key);
+  }
+  
+  const override = overrides[key];
+  if (override) {
+    log('Found override:', key, '->', override.substring(0, 50) + '...');
+  } else {
+    log('No override found for:', key, 'Available keys:', Object.keys(overrides).slice(0, 5));
+  }
+  return override;
 }
 
 const proxyCache = new WeakMap<object, any>();
@@ -35,8 +55,9 @@ export function createAssetProxy<T extends object>(target: T, path: string[] = [
     'characters': 'character',
     'backgrounds': 'background',
     'documents': 'document',
-    'videoBgs': 'videoBg',  // Just in case
-    'audios': 'audio',      // Just in case
+    'videoBgs': 'videoBg',
+    'audios': 'audio',
+    'sceneBg': 'sceneBg',
   };
 
   const proxy = new Proxy(target as any, {
@@ -53,8 +74,21 @@ export function createAssetProxy<T extends object>(target: T, path: string[] = [
         const dbKey = parts.join('.');
         const override = getAssetOverride(dbKey);
         if (override) {
+          log('Proxy intercepted:', key, '->', dbKey, '->', override.substring(0, 50) + '...');
           return override;
         }
+        log('No override for:', key, '(dbKey:', dbKey, ')');
+        
+        // IMPORTANT: Check if this looks like an asset key (has dot notation)
+        // If so, try to construct a direct tRPC URL that will work
+        if (dbKey.includes('.') && !value.startsWith('http') && !value.startsWith('/')) {
+          // Return a functional tRPC URL that will resolve on the server
+          const fallbackUrl = `/api/trpc/media.getAsset?input=${encodeURIComponent(btoa(JSON.stringify({json:{key: dbKey},meta:{}})))}`;
+          log('Returning tRPC fallback for:', dbKey);
+          return fallbackUrl;
+        }
+        
+        // Return the raw value if it's already a URL or path
         return value;
       }
       if (value && typeof value === "object") {
@@ -65,6 +99,7 @@ export function createAssetProxy<T extends object>(target: T, path: string[] = [
   });
 
   proxyCache.set(target, proxy);
+  console.log('[AssetProxy] Created proxy for path:', path);
   return proxy as T;
 }
 
@@ -98,39 +133,68 @@ async function tryLoadLocalOverrides(controller?: AbortController) {
   if (Object.keys(next).length) setAssetOverrides(next);
 }
 
-export async function initAssetOverrides(opts?: { timeoutMs?: number }) {
-  // If already loaded or loading, return the existing promise
-  if (overridesLoaded) return;
-  if (initPromise) return initPromise;
+export async function initAssetOverrides(opts?: { timeoutMs?: number; eager?: boolean }) {
+  // If already loaded, return immediately
+  if (overridesLoaded) {
+    log('Overrides already loaded, skipping');
+    return;
+  }
+  
+  // If loading is already in progress, wait for it
+  if (initPromise) {
+    log('Overrides loading in progress, waiting...');
+    return initPromise;
+  }
 
-  const timeoutMs = opts?.timeoutMs ?? 800;
+  const timeoutMs = opts?.timeoutMs ?? 5000;
   const controller = timeoutMs > 0 ? new AbortController() : undefined;
   const timer =
     controller && timeoutMs > 0
-      ? setTimeout(() => controller.abort(), timeoutMs)
+      ? setTimeout(() => {
+          error('Asset override loading timed out after', timeoutMs, 'ms');
+          controller.abort();
+        }, timeoutMs)
       : undefined;
 
   initPromise = (async () => {
     try {
+      log('Starting asset override initialization...');
+      
+      // Try local overrides first (fastest)
+      await tryLoadLocalOverrides(controller);
+      if (Object.keys(overrides).length > 0) {
+        log('Loaded', Object.keys(overrides).length, 'assets from local overrides');
+        overridesLoaded = true;
+        return;
+      }
+      
       // Use proper superjson format like apiCall does
       const input = btoa(superjson.stringify({}));
+      log('Fetching assets from API...');
+      
       const res = await fetch(`/api/trpc/system.assets?input=${encodeURIComponent(input)}`, {
         credentials: "include",
         signal: controller?.signal,
       });
+      
       if (!res.ok) {
-        await tryLoadLocalOverrides(controller);
+        error('API request failed:', res.status, res.statusText);
         return;
       }
-      const json = await res.json().catch(() => null);
+      
+      const json = await res.json().catch((err) => {
+        error('Failed to parse API response:', err);
+        return null;
+      });
+      
       if (!json) {
-        await tryLoadLocalOverrides(controller);
+        error('Empty API response');
         return;
       }
 
       const assets = extractAssetsFromTrpcResponse(json);
       if (!assets.length) {
-        await tryLoadLocalOverrides(controller);
+        error('No assets found in API response');
         return;
       }
 
@@ -141,13 +205,21 @@ export async function initAssetOverrides(opts?: { timeoutMs?: number }) {
         if (typeof a.url !== "string") continue;
         next[a.key] = a.url;
       }
-      if (Object.keys(next).length) setAssetOverrides(next);
-      overridesLoaded = true;
+      
+      if (Object.keys(next).length) {
+        log('Loaded', Object.keys(next).length, 'assets from database');
+        log('Sample assets:', Object.entries(next).slice(0, 3).map(([k, v]) => `${k}: ${(v as string).substring(0, 50)}...`));
+        setAssetOverrides(next);
+        overridesLoaded = true;
+      } else {
+        error('No valid assets found in database response');
+      }
     } catch (e) {
-      await tryLoadLocalOverrides(controller);
+      error('Failed to initialize asset overrides:', e);
     } finally {
       if (timer) clearTimeout(timer);
-      initPromise = null;
+      // Don't reset initPromise on error - prevents infinite retry loops
+      // initPromise = null;
     }
   })();
 

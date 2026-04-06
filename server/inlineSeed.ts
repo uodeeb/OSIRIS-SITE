@@ -20,8 +20,11 @@ async function inlineSeed() {
     return;
   }
 
+  console.log("📡 Connecting to database...");
   const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  console.log("✅ Pool created");
   const db = drizzle(pool);
+  console.log("✅ Drizzle initialized");
 
   // Asset definitions (keys, kinds, mime types - URLs will be R2)
   const assetDefinitions = [
@@ -46,6 +49,27 @@ async function inlineSeed() {
     { key: "character.athanasius", kind: "character" as const, mime: "image/jpeg" },
     { key: "character.samiri", kind: "character" as const, mime: "image/jpeg" },
     { key: "character.constantine", kind: "character" as const, mime: "image/jpeg" },
+    
+    // Scene backgrounds
+    { key: "sceneBg.zero-1-1-summons", kind: "background" as const, mime: "image/jpeg" },
+    { key: "sceneBg.four-4-1-desert", kind: "background" as const, mime: "image/jpeg" },
+    { key: "sceneBg.four-4-2-crowd-engineering", kind: "background" as const, mime: "image/jpeg" },
+    
+    // Background assets (migrating from CloudFront to R2)
+    { key: "background.berlin_1933", kind: "background" as const, mime: "image/png" },
+    { key: "background.cambodia_1975", kind: "background" as const, mime: "image/png" },
+    { key: "background.corporate_lab", kind: "background" as const, mime: "image/png" },
+    { key: "background.granada_fall", kind: "background" as const, mime: "image/png" },
+    { key: "background.moscow_1937", kind: "background" as const, mime: "image/png" },
+    { key: "background.nicaea_council", kind: "background" as const, mime: "image/png" },
+    { key: "background.osiris_cosmic", kind: "background" as const, mime: "image/png" },
+    { key: "background.osiris_interface", kind: "background" as const, mime: "image/png" },
+    { key: "background.pharaoh_temple", kind: "background" as const, mime: "image/png" },
+    { key: "background.qabil_habil_aftermath", kind: "background" as const, mime: "image/png" },
+    { key: "background.qabil_habil_altar", kind: "background" as const, mime: "image/png" },
+    { key: "background.qabil_habil_rage", kind: "background" as const, mime: "image/png" },
+    { key: "background.white_space", kind: "background" as const, mime: "image/png" },
+    { key: "background.yahya_apartment", kind: "background" as const, mime: "image/png" },
     
     // Audio
     { key: "audio.main_theme", kind: "audio" as const, mime: "audio/mpeg" },

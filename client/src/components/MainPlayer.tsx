@@ -383,20 +383,68 @@ const TRACK_URL_CANDIDATES: Record<string, string[]> = {
     '/music/TRACK-01.m4a',
     '/music/TRACK%2001%20%E2%80%94%20%D8%A7%D9%84%D8%AB%D9%8A%D9%85%20%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%20%D9%84%D9%84%D8%B1%D9%88%D8%A7%D9%8A%D8%A9.mp3',
     '/music/TRACK%2001%20%E2%80%94%20%D8%A7%D9%84%D8%AB%D9%8A%D9%85%20%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%20%D9%84%D9%84%D8%B1%D9%88%D8%A7%D9%8A%D8%A9.m4a',
+    '/generated-assets/music-tracks/TRACK-01.mp3',
+    '/generated-assets/music-tracks/TRACK-01.m4a',
   ],
-  track02: ['/music/TRACK%2002.m4a', '/music/TRACK-02.m4a', '/music/TRACK-02.mp3', '/music/TRACK%2002%20%E2%80%94%20%D8%A7%D9%84%D8%AC%D8%B2%D8%A1%20%D8%A7%D9%84%D8%B5%D9%81%D8%B1-%D8%BA%D8%B1%D9%81%D8%A9%20%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%83%D9%85%D8%A9%20%D8%A7%D9%84%D9%83%D9%88%D9%86%D9%8A%D8%A9.m4a'],
-  track03: ['/music/TRACK-03.m4a', '/music/TRACK%2003.m4a', '/music/TRACK%2003.mp3', '/music/devil-voice-to-clone.m4a', '/music/devil-voice-to-clone.wav'],
-  track04: ['/music/TRACK-04.m4a', '/music/TRACK%2004.m4a', '/music/TRACK%2004.mp3'],
-  track05: ['/music/TRACK-05.m4a', '/music/TRACK%2005.m4a'],
-  track06: ['/music/TRACK-06.m4a', '/music/TRACK%2006.m4a'],
-  track07: ['/music/TRACK-07.m4a', '/music/TRACK%2007.m4a'],
-  track08: ['/music/TRACK-08.m4a', '/music/TRACK%2008.m4a'],
-  track09: ['/music/TRACK-09.m4a', '/music/TRACK%2009.m4a'],
-  track10: ['/music/TRACK-10.m4a', '/music/TRACK%2010.m4a'],
-  track11: ['/music/TRACK-11.m4a', '/music/TRACK%2011.m4a'],
-  track12: ['/music/TRACK-12.m4a', '/music/TRACK%2012.m4a'],
-  track13: ['/music/TRACK-13.m4a', '/music/TRACK%2013.m4a'],
-  track14: ['/music/TRACK-14.m4a', '/music/TRACK%2014.m4a', '/music/TRACK%2014.mp3', '/music/TRACK-01.mp3', '/music/TRACK%2011.m4a'],
+  track02: [
+    '/music/TRACK%2002.m4a', '/music/TRACK-02.m4a', '/music/TRACK-02.mp3',
+    '/music/TRACK%2002%20%E2%80%94%20%D8%A7%D9%84%D8%AC%D8%B2%D8%A1%20%D8%A7%D9%84%D8%B5%D9%81%D8%B1-%D8%BA%D8%B1%D9%81%D8%A9%20%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%83%D9%85%D8%A9%20%D8%A7%D9%84%D9%83%D9%88%D9%86%D9%8A%D8%A9.m4a',
+    '/generated-assets/music-tracks/TRACK-02.m4a',
+    '/generated-assets/music-tracks/TRACK-02.mp3',
+  ],
+  track03: [
+    '/music/TRACK-03.m4a', '/music/TRACK%2003.m4a', '/music/TRACK%2003.mp3',
+    '/music/devil-voice-to-clone.m4a', '/music/devil-voice-to-clone.wav',
+    '/generated-assets/music-tracks/TRACK-03.m4a',
+    '/generated-assets/music-tracks/TRACK-03.mp3',
+  ],
+  track04: [
+    '/music/TRACK-04.m4a', '/music/TRACK%2004.m4a', '/music/TRACK%2004.mp3',
+    '/generated-assets/music-tracks/TRACK-04.m4a',
+    '/generated-assets/music-tracks/TRACK-04.mp3',
+  ],
+  track05: [
+    '/music/TRACK-05.m4a', '/music/TRACK%2005.m4a',
+    '/generated-assets/music-tracks/TRACK-05.m4a',
+  ],
+  track06: [
+    '/music/TRACK-06.m4a', '/music/TRACK%2006.m4a',
+    '/generated-assets/music-tracks/TRACK-06.m4a',
+  ],
+  track07: [
+    '/music/TRACK-07.m4a', '/music/TRACK%2007.m4a',
+    '/generated-assets/music-tracks/TRACK-07.m4a',
+  ],
+  track08: [
+    '/music/TRACK-08.m4a', '/music/TRACK%2008.m4a',
+    '/generated-assets/music-tracks/TRACK-08.m4a',
+  ],
+  track09: [
+    '/music/TRACK-09.m4a', '/music/TRACK%2009.m4a',
+    '/generated-assets/music-tracks/TRACK-09.m4a',
+  ],
+  track10: [
+    '/music/TRACK-10.m4a', '/music/TRACK%2010.m4a',
+    '/generated-assets/music-tracks/TRACK-10.m4a',
+  ],
+  track11: [
+    '/music/TRACK-11.m4a', '/music/TRACK%2011.m4a',
+    '/generated-assets/music-tracks/TRACK-11.m4a',
+  ],
+  track12: [
+    '/music/TRACK-12.m4a', '/music/TRACK%2012.m4a',
+    '/generated-assets/music-tracks/TRACK-12.m4a',
+  ],
+  track13: [
+    '/music/TRACK-13.m4a', '/music/TRACK%2013.m4a',
+    '/generated-assets/music-tracks/TRACK-13.m4a',
+  ],
+  track14: [
+    '/music/TRACK-14.m4a', '/music/TRACK%2014.m4a', '/music/TRACK%2014.mp3',
+    '/music/TRACK-01.mp3', '/music/TRACK%2011.m4a',
+    '/generated-assets/music-tracks/TRACK-14.m4a',
+    '/generated-assets/music-tracks/TRACK-14.mp3',
+  ],
   track15: ['/generated-assets/songs+/ya-rab.m4a'],
 };
 
@@ -909,63 +957,73 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     return typeof cur === "string" ? cur : undefined;
   }, []);
 
-  // Resolve character image URL using the override system (same as videos)
+  // Resolve character image URL using direct asset key mapping
   const resolvedCharImageUrl = useMemo(() => {
     if (!currentCharConfig.imageUrl) return undefined;
     
-    // Extract character name from the config key reference
-    // currentCharConfig.imageUrl is like ASSET_URLS.characters.yahya
-    // We need to re-access through the proxy to get the resolved R2 URL
-    const charKey = dialogueCharacterKey || preferredCharacterKey || 'narrator';
-    const normalizedCharKey = charKey.toLowerCase().replace(/[^a-z0-9_]/g, '');
-    
-    // Map character keys to ASSET_URLS character names
-    const charNameMap: Record<string, string> = {
-      'narrator': 'narrator',
-      'yahya': 'yahya',
-      'yahya_breakdown': 'yahya_breakdown',
-      'yahya_confront': 'yahya_confront',
-      'yahya_dying': 'yahya_dying',
-      'yahya_main': 'yahya_main',
-      'laila': 'laila',
-      'laila_faith': 'laila_faith',
-      'laila_witness': 'laila_witness',
-      'laila_crying': 'laila_crying',
-      'tarek': 'tarek',
-      'tarek_ghost': 'tarek_ghost',
-      'tarek_dream': 'tarek_dream',
-      'first_engineer': 'first_engineer',
-      'first_engineer_2': 'first_engineer_2',
-      'first_engineer_confront': 'first_engineer_confront',
-      'first_engineer_exposed': 'first_engineer_exposed',
-      'arius': 'arius',
-      'athanasius': 'athanasius',
-      'samiri': 'samiri',
-      'samiri_calf': 'samiri_calf',
-      'constantine': 'constantine',
-      'ramses': 'ramses',
-      'abu_abdullah': 'abu_abdullah',
-      'dictator': 'dictator',
-      'hitler': 'narrator',
-      'iblis': 'narrator',
+    // Map character keys to direct asset keys for database lookup
+    const charAssetKeyMap: Record<string, string> = {
+      'narrator': 'character.narrator',
+      'yahya': 'character.yahya',
+      'yahya_breakdown': 'character.yahya_breakdown',
+      'yahya_confront': 'character.yahya_confront',
+      'yahya_dying': 'character.yahya_dying',
+      'yahya_main': 'character.yahya_main',
+      'laila': 'character.laila',
+      'laila_faith': 'character.laila_faith',
+      'laila_witness': 'character.laila_witness',
+      'laila_crying': 'character.laila_crying',
+      'tarek': 'character.tarek',
+      'tarek_ghost': 'character.tarek_ghost',
+      'tarek_dream': 'character.tarek_dream',
+      'first_engineer': 'character.first_engineer',
+      'first_engineer_2': 'character.first_engineer_2',
+      'first_engineer_confront': 'character.first_engineer_confront',
+      'first_engineer_exposed': 'character.first_engineer_exposed',
+      'arius': 'character.arius',
+      'athanasius': 'character.athanasius',
+      'samiri': 'character.samiri',
+      'samiri_calf': 'character.samiri_calf',
+      'constantine': 'character.constantine',
+      'ramses': 'character.ramses',
+      'abu_abdullah': 'character.abu_abdullah',
+      'dictator': 'character.dictator',
     };
     
-    const charName = charNameMap[normalizedCharKey] || normalizedCharKey;
+    // Get the character key from the current config
+    const charKey = preferredCharacterKey || 'narrator';
+    const normalizedCharKey = charKey.toLowerCase().replace(/[^a-z0-9_]/g, '');
+    const assetKey = charAssetKeyMap[normalizedCharKey];
     
-    // Re-access through ASSET_URLS proxy to get resolved R2 URL
-    const s3Url = (ASSET_URLS.characters as any)[charName];
-    if (s3Url && s3Url.startsWith('http')) {
-      return s3Url;
+    if (!assetKey) {
+      console.warn('[Character] No asset key mapping for character:', charKey);
+      // Fallback to the config's imageUrl if available
+      return currentCharConfig.imageUrl.startsWith('http') || currentCharConfig.imageUrl.startsWith('/')
+        ? currentCharConfig.imageUrl 
+        : undefined;
     }
     
-    // Fallback: try the original imageUrl if it's already a URL
-    if (currentCharConfig.imageUrl.startsWith('http')) {
+    // Try to get the override directly first
+    const override = getAssetOverride(assetKey);
+    if (override && override.startsWith('http')) {
+      return override;
+    }
+    
+    // Fallback to ASSET_URLS proxy resolution
+    const charName = normalizedCharKey;
+    const proxyUrl = (ASSET_URLS.characters as any)[charName];
+    if (proxyUrl && typeof proxyUrl === 'string' && proxyUrl.startsWith('http')) {
+      return proxyUrl;
+    }
+    
+    // Final fallback: use the config's imageUrl
+    if (currentCharConfig.imageUrl.startsWith('http') || currentCharConfig.imageUrl.startsWith('/')) {
       return currentCharConfig.imageUrl;
     }
     
-    // Last resort: resolve via resolveAsset
-    return resolveAsset(currentCharConfig.imageUrl);
-  }, [dialogueCharacterKey, preferredCharacterKey, currentCharConfig.imageUrl, resolveAsset]);
+    console.warn('[Character] Could not resolve image URL for:', charKey, 'assetKey:', assetKey);
+    return undefined;
+  }, [preferredCharacterKey, currentCharConfig.imageUrl]);
 
   const burstFx = useCallback((fx: { flash?: number; shake?: boolean; ui?: number }) => {
     fxTimersRef.current.forEach(t => clearTimeout(t));

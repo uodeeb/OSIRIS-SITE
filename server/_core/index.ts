@@ -90,13 +90,31 @@ async function startServer() {
             ? req.query.input[0] 
             : '';
         
-        if (inputStr) {
+        // Type guard to ensure inputStr is a string
+        const safeInputStr = typeof inputStr === 'string' ? inputStr : '';
+        
+        if (safeInputStr) {
+          console.log('[tRPC Middleware] Raw input:', safeInputStr.substring(0, 50));
           // Decode base64
-          const decoded = Buffer.from(inputStr, 'base64').toString('utf-8');
+          const decoded = Buffer.from(safeInputStr, 'base64').toString('utf-8');
+          console.log('[tRPC Middleware] Decoded:', decoded.substring(0, 50));
           const parsed = JSON.parse(decoded);
+          console.log('[tRPC Middleware] Parsed:', JSON.stringify(parsed).substring(0, 50));
           
-          // Store parsed input where tRPC expects it
+          // IMPORTANT: Modify req.url to replace base64 with decoded JSON
+          // tRPC reads from the URL, not req.query
+          const originalUrl = req.url || '';
+          const newInput = encodeURIComponent(JSON.stringify(parsed));
+          const newUrl = originalUrl.replace(
+            `input=${encodeURIComponent(safeInputStr)}`,
+            `input=${newInput}`
+          );
+          req.url = newUrl;
+          
+          // Also update req.query for consistency
           req.query.input = parsed;
+          
+          console.log('[tRPC Middleware] Modified URL:', req.url.substring(0, 100));
         }
       } catch (error) {
         console.error('[tRPC Middleware] Failed to parse input:', error);
