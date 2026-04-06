@@ -69,10 +69,28 @@ async function checkAssetsPresent(): Promise<CheckResult> {
     let missing = 0;
     let present = 0;
     
-    // Check if we're in Vercel environment (no generated-assets directory)
-    const isVercelEnvironment = !fs.existsSync(path.join(PROJECT_ROOT, 'generated-assets'));
+    // Check if we're in Vercel environment (multiple detection methods)
+    const isVercelEnv = process.env.VERCEL === '1' || process.env.VERCEL_ENV !== undefined;
+    const hasGeneratedAssets = fs.existsSync(path.join(PROJECT_ROOT, 'generated-assets'));
+    const isVercelEnvironment = isVercelEnv || !hasGeneratedAssets;
     
-    for (const [key, asset] of Object.entries(manifest.assets)) {
+    console.log(`🔍 Environment Detection:`);
+    console.log(`   VERCEL env: ${process.env.VERCEL || 'not set'}`);
+    console.log(`   VERCEL_ENV: ${process.env.VERCEL_ENV || 'not set'}`);
+    console.log(`   hasGeneratedAssets: ${hasGeneratedAssets}`);
+    console.log(`   isVercelEnvironment: ${isVercelEnvironment}`);
+    console.log(`   PROJECT_ROOT: ${PROJECT_ROOT}`);
+    console.log(`   Total assets to check: ${Object.keys(manifest.assets).length}`);
+    
+    // Show first few assets being checked for debugging
+    const assetEntries = Object.entries(manifest.assets);
+    console.log(`🔍 Sample asset checks:`);
+    assetEntries.slice(0, 3).forEach(([key, asset], index) => {
+      const publicAssetPath = path.join(DIST_DIR, (asset as any).publicPath);
+      console.log(`   ${index + 1}. ${key}: ${publicAssetPath}`);
+    });
+    
+    for (const [key, asset] of assetEntries) {
       // Check both possible locations: dist/public/assets (for Vite assets) and dist/assets (for copied assets)
       const publicAssetPath = path.join(DIST_DIR, (asset as any).publicPath);
       // For copied assets, preserve the full path structure after /assets/
