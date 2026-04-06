@@ -116,21 +116,64 @@ function extractAssetsFromTrpcResponse(payload: any): AssetRow[] {
   return Array.isArray(assets) ? assets : [];
 }
 
-async function tryLoadLocalOverrides(controller?: AbortController) {
-  const res = await fetch(`/generated-assets/overrides.json`, {
-    credentials: "include",
-    signal: controller?.signal,
-  }).catch(() => null);
-  if (!res || !("ok" in res) || !res.ok) return;
-  const json = await res.json().catch(() => null);
-  if (!json || typeof json !== "object") return;
-  const next: Record<string, string> = {};
-  for (const [k, v] of Object.entries(json as Record<string, unknown>)) {
-    if (typeof k !== "string") continue;
-    if (typeof v !== "string") continue;
-    next[k] = v;
+async function tryLoadJsonConfig() {
+  try {
+    const res = await fetch('/assets.json', { 
+      cache: 'no-cache',
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!res.ok) {
+      log('assets.json not found, using empty config');
+      return [];
+    }
+    const data = await res.json();
+    if (data.assets && typeof data.assets === 'object') {
+      log('Loaded assets.json with', Object.keys(data.assets).length, 'assets');
+      return Object.entries(data.assets).map(([key, url]) => ({ key, url: url as string }));
+    }
+    return [];
+  } catch (err) {
+    error('Failed to load assets.json:', err);
+    return [];
   }
-  if (Object.keys(next).length) setAssetOverrides(next);
+}
+
+async function tryLoadTrpcOverrides(controller?: AbortController) {
+  try {
+    const input = btoa(superjson.stringify({}));
+    log('Fetching assets from API...');
+    
+    const res = await fetch(`/api/trpc/system.assets?input=${encodeURIComponent(input)}`, {
+      credentials: "include",
+      signal: controller?.signal,
+    });
+    
+    if (!res.ok) {
+      error('API request failed:', res.status, res.statusText);
+      return [];
+    }
+    
+    const json = await res.json().catch((err) => {
+      error('Failed to parse API response:', err);
+      return null;
+    });
+    
+    if (!json) {
+      error('Empty API response');
+      return [];
+    }
+
+    const assets = extractAssetsFromTrpcResponse(json);
+    if (!assets.length) {
+      error('No assets found in API response');
+      return [];
+    }
+
+    return assets;
+  } catch (err) {
+    error('Failed to load tRPC overrides:', err);
+    return [];
+  }
 }
 
 export async function initAssetOverrides(opts?: { timeoutMs?: number; eager?: boolean }) {
@@ -160,66 +203,28 @@ export async function initAssetOverrides(opts?: { timeoutMs?: number; eager?: bo
     try {
       log('Starting asset override initialization...');
       
-      // Try local overrides first (fastest)
-      await tryLoadLocalOverrides(controller);
-      if (Object.keys(overrides).length > 0) {
-        log('Loaded', Object.keys(overrides).length, 'assets from local overrides');
-        overridesLoaded = true;
-        return;
+      // Try loading from JSON config first (static, works on Vercel without DB)
+      const jsonAssets = await tryLoadJsonConfig();
+      for (const asset of jsonAssets) {
+        if (asset.key && asset.url) {
+          overrides[asset.key] = asset.url;
+        }
       }
       
-      // Use proper superjson format like apiCall does
-      const input = btoa(superjson.stringify({}));
-      log('Fetching assets from API...');
-      
-      const res = await fetch(`/api/trpc/system.assets?input=${encodeURIComponent(input)}`, {
-        credentials: "include",
-        signal: controller?.signal,
-      });
-      
-      if (!res.ok) {
-        error('API request failed:', res.status, res.statusText);
-        return;
+      // Try loading from tRPC/database (dynamic, overrides JSON if available)
+      const trpcAssets = await tryLoadTrpcOverrides(controller);
+      for (const asset of trpcAssets) {
+        if (asset.key && asset.url) {
+          overrides[asset.key] = asset.url;
+        }
       }
       
-      const json = await res.json().catch((err) => {
-        error('Failed to parse API response:', err);
-        return null;
-      });
-      
-      if (!json) {
-        error('Empty API response');
-        return;
-      }
-
-      const assets = extractAssetsFromTrpcResponse(json);
-      if (!assets.length) {
-        error('No assets found in API response');
-        return;
-      }
-
-      const next: Record<string, string> = {};
-      for (const a of assets) {
-        if (!a || typeof a !== "object") continue;
-        if (typeof a.key !== "string") continue;
-        if (typeof a.url !== "string") continue;
-        next[a.key] = a.url;
-      }
-      
-      if (Object.keys(next).length) {
-        log('Loaded', Object.keys(next).length, 'assets from database');
-        log('Sample assets:', Object.entries(next).slice(0, 3).map(([k, v]) => `${k}: ${(v as string).substring(0, 50)}...`));
-        setAssetOverrides(next);
-        overridesLoaded = true;
-      } else {
-        error('No valid assets found in database response');
-      }
+      overridesLoaded = true;
+      log('Asset overrides loaded:', Object.keys(overrides).length, 'assets');
     } catch (e) {
       error('Failed to initialize asset overrides:', e);
     } finally {
       if (timer) clearTimeout(timer);
-      // Don't reset initPromise on error - prevents infinite retry loops
-      // initPromise = null;
     }
   })();
 
