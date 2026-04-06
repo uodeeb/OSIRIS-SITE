@@ -178,6 +178,7 @@ scripts/
 !scripts/copyStaticMedia.mjs
 !scripts/verify-deployment-assets.ts
 !scripts/copy-assets-build.cjs
+!scripts/verify-build.ts
 
 # Python artifacts
 __pycache__/
