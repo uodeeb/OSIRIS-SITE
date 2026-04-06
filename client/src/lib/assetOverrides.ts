@@ -22,24 +22,19 @@ export function getAssetOverride(key: string): string | undefined {
   // If overrides not loaded, trigger lazy initialization
   if (!overridesLoaded && !initPromise) {
     log('Starting lazy load for key:', key);
-    // Start loading in background but don't block
-    initPromise = initAssetOverrides({ timeoutMs: 3000 }).catch((err) => {
+    // Start loading in background but don't block - use longer timeout
+    initPromise = initAssetOverrides({ timeoutMs: 10000 }).catch((err) => {
       error('Failed to load overrides:', err);
       // Don't reset initPromise on error - prevent infinite retry loops
     });
   }
   
-  // If loading is in progress, check if we have any early data
-  if (initPromise && !overridesLoaded) {
-    // Return undefined to trigger fallback behavior in proxy
-    log('Overrides still loading, returning undefined for:', key);
-  }
-  
+  // Return whatever we have (may be from JSON config loaded quickly)
   const override = overrides[key];
   if (override) {
     log('Found override:', key, '->', override.substring(0, 50) + '...');
   } else {
-    log('No override found for:', key, 'Available keys:', Object.keys(overrides).slice(0, 5));
+    log('No override found for:', key, 'Loaded:', overridesLoaded, 'Keys:', Object.keys(overrides).length);
   }
   return override;
 }
@@ -204,6 +199,7 @@ export async function initAssetOverrides(opts?: { timeoutMs?: number; eager?: bo
       log('Starting asset override initialization...');
       
       // Try loading from JSON config first (static, works on Vercel without DB)
+      // This should be fast and not affected by timeout
       const jsonAssets = await tryLoadJsonConfig();
       for (const asset of jsonAssets) {
         if (asset.key && asset.url) {
@@ -211,16 +207,25 @@ export async function initAssetOverrides(opts?: { timeoutMs?: number; eager?: bo
         }
       }
       
-      // Try loading from tRPC/database (dynamic, overrides JSON if available)
-      const trpcAssets = await tryLoadTrpcOverrides(controller);
-      for (const asset of trpcAssets) {
-        if (asset.key && asset.url) {
-          overrides[asset.key] = asset.url;
-        }
-      }
-      
+      // Mark as loaded immediately after JSON - tRPC is bonus
       overridesLoaded = true;
-      log('Asset overrides loaded:', Object.keys(overrides).length, 'assets');
+      log('JSON config loaded:', Object.keys(overrides).length, 'assets');
+      
+      // Try loading from tRPC/database in background (don't await, don't block)
+      // This allows assets to work immediately from JSON while DB loads in background
+      tryLoadTrpcOverrides(controller).then((trpcAssets) => {
+        if (trpcAssets.length > 0) {
+          for (const asset of trpcAssets) {
+            if (asset.key && asset.url) {
+              overrides[asset.key] = asset.url;
+            }
+          }
+          log('tRPC assets merged:', trpcAssets.length, 'assets');
+        }
+      }).catch((err) => {
+        log('tRPC load failed (expected on static hosts):', err);
+      });
+      
     } catch (e) {
       error('Failed to initialize asset overrides:', e);
     } finally {
