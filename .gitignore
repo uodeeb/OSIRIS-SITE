@@ -180,6 +180,7 @@ scripts/
 !scripts/copy-assets-build.cjs
 !scripts/verify-build.ts
 !scripts/map-assets.cjs
+!scripts/build-assets.ts
 
 # Python artifacts
 __pycache__/
