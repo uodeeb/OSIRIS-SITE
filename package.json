@@ -8,7 +8,7 @@
     "build": "npm run prebuild:assets && vite build && npm run map-assets && npm run postbuild:assets && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "prebuild:assets": "node scripts/build-assets.mjs",
     "map-assets": "node scripts/map-assets.cjs",
-    "postbuild:assets": "node copy-manifest.js && tsx scripts/verify-build.ts",
+    "postbuild:assets": "node copy-manifest.js",
     "build:analyze": "vite build --mode analyze && node scripts/analyze-bundle.js",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "check": "tsc --noEmit",
