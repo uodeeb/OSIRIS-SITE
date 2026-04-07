@@ -1,4 +1,3 @@
-#!/usr/bin/env tsx
 /**
  * Build Assets Script
  * 
@@ -21,7 +20,7 @@ const MANIFEST_PATH = path.join(ROOT_DIR, 'public', 'asset-manifest.json');
 const TYPES_PATH = path.join(ROOT_DIR, 'client', 'src', 'types', 'assets.d.ts');
 
 // Arabic to ASCII filename mapping
-const FILENAME_MAP: Record<string, string> = {
+const FILENAME_MAP = {
   // Characters
   'يحيى الراشد-الصورة الأساسية (Portrait).jpeg': 'yahya-portrait.jpeg',
   'يحيى الراشد-صورة الانهيار (Breakdown Scene).jpeg': 'yahya-breakdown.jpeg',
@@ -92,25 +91,10 @@ const FILENAME_MAP: Record<string, string> = {
   'TRACK-14.m4a': 'track-14-alt.m4a',
 };
 
-interface AssetEntry {
-  key: string;
-  path: string;
-  category: string;
-  mime: string;
-  originalName: string;
-  size?: number;
-}
 
-interface AssetManifest {
-  version: string;
-  generatedAt: string;
-  totalAssets: number;
-  assets: Record<string, AssetEntry>;
-}
-
-function getMimeType(filename: string): string {
+function getMimeType(filename) {
   const ext = path.extname(filename).toLowerCase();
-  const mimeMap: Record<string, string> = {
+  const mimeMap = {
     '.jpg': 'image/jpeg',
     '.jpeg': 'image/jpeg',
     '.png': 'image/png',
@@ -126,7 +110,7 @@ function getMimeType(filename: string): string {
   return mimeMap[ext] || 'application/octet-stream';
 }
 
-function normalizeFilename(originalName: string): string {
+function normalizeFilename(originalName) {
   // Check if we have a mapping for this file
   if (FILENAME_MAP[originalName]) {
     return FILENAME_MAP[originalName];
@@ -140,13 +124,13 @@ function normalizeFilename(originalName: string): string {
     .replace(/^-|-$/g, '');
 }
 
-function getAssetKey(category: string, normalizedName: string): string {
+function getAssetKey(category, normalizedName) {
   // Remove extension for the key
   const baseName = path.basename(normalizedName, path.extname(normalizedName));
   return `${category}.${baseName}`;
 }
 
-async function ensureDir(dir: string): Promise<void> {
+async function ensureDir(dir) {
   try {
     await fs.mkdir(dir, { recursive: true });
   } catch (error) {
@@ -154,22 +138,22 @@ async function ensureDir(dir: string): Promise<void> {
   }
 }
 
-async function copyFile(src: string, dest: string): Promise<void> {
+async function copyFile(src, dest) {
   await fs.copyFile(src, dest);
 }
 
-async function getFileSize(filePath: string): Promise<number> {
+async function getFileSize(filePath) {
   const stats = await fs.stat(filePath);
   return stats.size;
 }
 
-async function buildAssets(): Promise<void> {
+async function buildAssets() {
   console.log('🔨 Building assets...\n');
   
   // Ensure destination directory exists
   await ensureDir(DEST_DIR);
   
-  const assets: Record<string, AssetEntry> = {};
+  const assets = {};
   let totalCount = 0;
   
   // Process each category
@@ -218,12 +202,12 @@ async function buildAssets(): Promise<void> {
         }
       }
     } catch (error) {
-      console.warn(`  ⚠️  Skipping ${dir}: ${(error as Error).message}`);
+      console.warn(`  ⚠️  Skipping ${dir}: ${error.message}`);
     }
   }
   
   // Generate manifest
-  const manifest: AssetManifest = {
+  const manifest = {
     version: '1.0.0',
     generatedAt: new Date().toISOString(),
     totalAssets: totalCount,
