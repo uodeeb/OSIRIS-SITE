@@ -1,0 +1,279 @@
+# OSIRIS Asset System — Once and For All Fix
+
+**One-sentence summary:** Consolidate 3 competing asset systems into a single static asset architecture optimized for Vercel, eliminating API dependencies and path inconsistencies.
+
+---
+
+## Current State Analysis
+
+### Root Problems Identified
+
+1. **Three Competing Systems**
+   - `assetUrls.ts` — Dynamic tRPC-based loading with fallbacks (270+ lines)
+   - `assetOverrides.ts` — Proxy-based override system (200+ lines)
+   - `staticAssets.ts` — Static manifest system (100+ lines, incomplete)
+   - All three are imported across 38 files, creating confusion
+
+2. **Path Inconsistencies** (Just fixed in report_fix_01.md, but fragile)
+   - `/generated-assets/` — Source folder name
+   - `/assets/` — Vercel production path
+   - Mixed hardcoded paths across components
+   - 207 grep matches for ASSET_URLS variations
+
+3. **Manifest Mismatch**
+   - `assets-manifest.json` — 53 assets, flat structure
+   - `staticAssets.ts` — Expects different structure with `assets[key].publicPath`
+   - No single source of truth
+
+4. **Build Complexity**
+   - Multiple copy scripts (copy-assets.js, copy-manifest.js)
+   - Dockerfile for self-hosting
+   - netlify.toml + vercel.json confusion
+   - No unified build pipeline
+
+### Why This Blocks Future Work
+
+- **Every asset change requires 3+ file edits**
+- **API failures cause silent asset failures**
+- **Path mismatches cause 404s in production**
+- **New developers can't understand which system to use**
+
+---
+
+## tRPC System Analysis
+
+**tRPC is NOT just for assets** — it's the backbone for AI-powered features:
+
+| Router | Purpose | Keep/Remove |
+|--------|---------|-------------|
+| `mediaRouter` | Asset URLs from database | **REMOVE** (replaced by static) |
+| `systemRouter` | Health, debug, seeding, notifications | **KEEP** |
+| `auth` | User authentication | **KEEP** |
+| `voiceTranscription.ts` | AI voice-to-text | **KEEP** (not connected yet) |
+| `imageGeneration.ts` | AI image generation | **KEEP** |
+| `llm.ts` | LLM integration | **KEEP** |
+| `map.ts` | Story map/location features | **KEEP** |
+| `notification.ts` | Push notifications | **KEEP** |
+
+**Decision:** Only remove `mediaRouter.ts` endpoints. Keep tRPC infrastructure for AI features.
+
+---
+
+## Target Architecture
+
+### Decision: Pure Static on Vercel
+
+**Rationale:**
+- Assets are FINAL (53 files, won't change)
+- Vercel Edge Network = ~50ms asset delivery
+- No cold starts, no API latency
+- 100% uptime for assets
+- $0 cost vs $25+/month for Supabase+R2
+
+### System Diagram
+
+```
+Build Time:
+/generated-assets/ ──► Build Script ──► /public/assets/ ──► Vercel Edge
+                    (copy + validate + normalize)
+
+Runtime:
+Component ──► assets.ts ──► /assets/character/yahya.jpeg
+               (static lookup)
+```
+
+---
+
+## Implementation Plan
+
+### Phase 1: Asset Pipeline (Build-Time)
+
+**1.1 Unified Build Script**
+Create `scripts/build-assets.ts`:
+- Copy `/generated-assets/` → `/public/assets/`
+- **Normalize Arabic filenames to ASCII slugs**
+- Validate all 53 assets present
+- Generate `asset-manifest.json` with correct structure
+
+**1.2 Filename Normalization**
+| Original (Arabic) | Normalized (ASCII) |
+|-------------------|-------------------|
+| `يحيى الراشد-الصورة الأساسية.jpeg` | `yahya-portrait.jpeg` |
+| `يحيى الراشد-صورة الانهيار.jpeg` | `yahya-breakdown.jpeg` |
+| `ليلى حسن-الصورة الأساسية.jpeg` | `laila-portrait.jpeg` |
+| `طارق الراشد-الصورة الأساسية.jpeg` | `tarek-portrait.jpeg` |
+| `المهندس الأول-الصورة الأساسية.jpeg` | `first-engineer-portrait.jpeg` |
+| `الراوي الكوني-التجسيد البصري.png` | `narrator-visual.png` |
+
+**1.3 Manifest Schema**
+```json
+{
+  "version": "1.0.0",
+  "totalAssets": 53,
+  "generatedAt": "2026-04-07T10:00:00Z",
+  "assets": {
+    "character.yahya": {
+      "path": "/assets/characters/yahya-portrait.jpeg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "يحيى الراشد-الصورة الأساسية.jpeg"
+    },
+    "videoBg.intro": {
+      "path": "/assets/video-bg/intro.mp4", 
+      "category": "video",
+      "mime": "video/mp4"
+    }
+  }
+}
+```
+
+**1.4 Package.json Scripts**
+```json
+{
+  "prebuild": "tsx scripts/build-assets.ts",
+  "build": "vite build"
+}
+```
+
+### Phase 2: Runtime System (Client)
+
+**2.1 Single Asset Module**
+Replace 3 systems with `client/src/lib/assets.ts`:
+```typescript
+import manifest from '/asset-manifest.json';
+
+export function getAsset(key: string): string {
+  const asset = manifest.assets[key];
+  if (!asset) {
+    console.error(`[assets] Missing: ${key}`);
+    return '/assets/fallback.png';
+  }
+  return asset.path;
+}
+
+// Typed helpers
+export const character = (name: string) => getAsset(`character.${name}`);
+export const videoBg = (name: string) => getAsset(`videoBg.${name}`);
+export const audio = (name: string) => getAsset(`audio.${name}`);
+```
+
+**2.2 Type Safety**
+Generate TypeScript types from manifest:
+```typescript
+// Generated by build-assets.ts
+export type AssetKey = 
+  | 'character.yahya'
+  | 'character.laila'
+  | 'videoBg.intro'
+  // ... all 53 keys
+```
+
+### Phase 3: Migration
+
+**3.1 Deprecation**
+Add warnings to old systems:
+```typescript
+// assetUrls.ts, assetOverrides.ts, staticAssets.ts
+console.warn('[DEPRECATED] Use client/src/lib/assets.ts instead');
+```
+
+**3.2 Component Updates**
+Update 38 files to use new system:
+```typescript
+// BEFORE
+import { ASSET_URLS } from '@/lib/assetOverrides';
+<img src={ASSET_URLS.characters.yahya} />
+
+// AFTER  
+import { character } from '@/lib/assets';
+<img src={character('yahya')} />
+```
+
+### Phase 4: Server Cleanup
+
+**4.1 Remove Asset Endpoints**
+Delete `server/_core/mediaRouter.ts` entirely (asset serving only).
+
+**4.2 Update Routers**
+Remove from `server/routers.ts`:
+```typescript
+// REMOVE:
+media: mediaRouter,
+```
+
+**4.3 Keep Other tRPC**
+- `systemRouter` — health, debug, notifications
+- `auth` — authentication
+- Future AI routers (voice, image, LLM)
+
+### Phase 5: Validation & Cleanup
+
+**5.1 Build Verification**
+- All 53 assets copied
+- All Arabic filenames normalized
+- Manifest generated correctly
+- TypeScript types valid
+- No tRPC asset calls remain
+
+**5.2 Cleanup**
+- Remove `assetUrls.ts`, `assetOverrides.ts`, `staticAssets.ts`
+- Remove `mediaRouter.ts`
+- Clean database asset tables (optional)
+
+---
+
+## File Changes Summary
+
+| File | Action | Lines |
+|------|--------|-------|
+| `scripts/build-assets.ts` | Create | ~150 |
+| `client/src/lib/assets.ts` | Create | ~80 |
+| `client/src/types/assets.d.ts` | Create (generated) | ~60 |
+| `assets-manifest.json` | Update format | ~30 |
+| `client/src/lib/assetUrls.ts` | Deprecate → Delete | -270 |
+| `client/src/lib/assetOverrides.ts` | Deprecate → Delete | -200 |
+| `client/src/lib/staticAssets.ts` | Deprecate → Delete | -100 |
+| `server/_core/mediaRouter.ts` | Delete | -90 |
+| `server/routers.ts` | Remove media router | -2 |
+| `38 component files` | Update imports | ~80 changes |
+
+---
+
+## Success Criteria
+
+- [ ] Single `assets.ts` module used everywhere
+- [ ] All Arabic filenames normalized to ASCII
+- [ ] All 53 assets load in <100ms from Vercel Edge
+- [ ] Zero API calls for asset loading
+- [ ] Type-safe asset keys (autocomplete works)
+- [ ] Build fails if any asset is missing
+- [ ] No 404 errors in production
+- [ ] New developer can add asset in 1 step (drop file, run build)
+
+---
+
+## Rollback Plan
+
+If issues arise:
+1. Revert to `assetUrls.ts` (it has tRPC fallback)
+2. Restore database tables
+3. Re-enable tRPC media endpoints
+
+---
+
+## Timeline
+
+- Phase 1: 2 hours
+- Phase 2: 1 hour  
+- Phase 3: 2 hours
+- Phase 4: 1 hour
+- Phase 5: 1 hour
+- **Total: ~7 hours**
+
+---
+
+## Notes
+
+- **Arabic filenames:** Normalized to ASCII for better URL compatibility
+- **Asset categories:** Keep current 6 categories (character, videoBg, backgrounds, music, voices, audio)
+- **tRPC role:** AI features backbone — keep infrastructure, only remove asset endpoints

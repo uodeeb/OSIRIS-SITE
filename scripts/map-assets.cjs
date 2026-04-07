@@ -37,27 +37,17 @@ function main() {
       console.log('🌐 Detected Vercel environment - generated-assets not present');
     }
     
-    // Process each asset
+    // Process each asset - assets are already in public/assets by build-assets.ts
+    // This script verifies they're present
     Object.values(assets).forEach(asset => {
-      const { localPath, publicPath } = asset;
+      const { key, path: assetPath } = asset;
       
-      // Convert absolute Windows path to relative path
-      let sourceFile;
-      if (localPath.includes(':\\')) {
-        // Windows absolute path - extract relative part after drive letter
-        const pathParts = localPath.split('\\');
-        const mofsedonIndex = pathParts.findIndex(part => part === 'mofsedon-novel');
-        if (mofsedonIndex !== -1) {
-          sourceFile = pathParts.slice(mofsedonIndex + 1).join('/');
-        } else {
-          sourceFile = localPath.replace(/^[A-Z]:\\/i, '').replace(/\\/g, '/');
-        }
-      } else {
-        sourceFile = localPath;
-      }
+      // The asset path is like /assets/characters/xxx.jpg
+      // Check if it exists in public/
+      const sourceFile = path.join('public', assetPath.replace(/^\//, ''));
       
       // Determine target path in dist/public
-      const targetFile = path.join('dist/public', publicPath.replace(/^\//, ''));
+      const targetFile = path.join('dist/public', assetPath.replace(/^\//, ''));
       
       console.log(`🔍 Checking: ${sourceFile} → ${targetFile}`);
       
@@ -71,10 +61,10 @@ function main() {
         
         // Copy the file
         fs.copyFileSync(sourceFile, targetFile);
-        console.log(`✅ Copied: ${asset.key} → ${publicPath}`);
+        console.log(`✅ Copied: ${key} → ${assetPath}`);
         copiedCount++;
       } else {
-        console.warn(`⚠️ Source not found: ${sourceFile} (${asset.key})`);
+        console.warn(`⚠️ Source not found: ${sourceFile} (${key})`);
         skippedCount++;
       }
     });

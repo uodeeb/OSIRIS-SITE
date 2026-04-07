@@ -15,7 +15,12 @@
  * const url = getAssetUrl('character.neferhotep');
  */
 
-import type { AssetManifest, AssetEntry } from '@/types/asset-manifest';
+/**
+ * @deprecated This module is deprecated. Use client/src/lib/assets.ts instead.
+ * This incomplete static system is replaced by the full assets.ts implementation.
+ */
+
+import type { AssetManifest, AssetEntry, AssetKey } from '@/types/asset-manifest';
 
 // Global manifest cache
 let manifestCache: AssetManifest | null = null;

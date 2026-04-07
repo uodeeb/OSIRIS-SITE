@@ -86,30 +86,25 @@ async function checkAssetsPresent(): Promise<CheckResult> {
     const assetEntries = Object.entries(manifest.assets);
     console.log(`🔍 Sample asset checks:`);
     assetEntries.slice(0, 3).forEach(([key, asset], index) => {
-      const publicAssetPath = path.join(DIST_DIR, (asset as any).publicPath);
+      const publicAssetPath = path.join(DIST_DIR, (asset as any).path?.replace(/^\//, '') || '');
       console.log(`   ${index + 1}. ${key}: ${publicAssetPath}`);
     });
     
     for (const [key, asset] of assetEntries) {
       // Check both possible locations: dist/public/assets (for Vite assets) and dist/assets (for copied assets)
-      const publicAssetPath = path.join(DIST_DIR, (asset as any).publicPath);
-      // For copied assets, preserve the full path structure after /assets/
-      const assetPathParts = (asset as any).publicPath.split('/').filter((p: string) => p !== 'assets');
-      // Remove 'ui' from path since assets are directly in categories (characters, images, etc.)
-      const filteredPathParts = assetPathParts.filter((p: string) => p !== 'ui');
-      const altAssetPath = path.resolve(PROJECT_ROOT, 'dist', 'assets', ...filteredPathParts);
+      const assetPath = (asset as any).path;
+      if (!assetPath) {
+        missing++;
+        continue;
+      }
+      const publicAssetPath = path.join(DIST_DIR, assetPath.replace(/^\//, ''));
       
       let found = false;
       try {
         await fsPromises.access(publicAssetPath);
         found = true;
       } catch {
-        try {
-          await fsPromises.access(altAssetPath);
-          found = true;
-        } catch {
-          // Neither location has the file
-        }
+        // File not found at expected path
       }
       
       if (found) {

@@ -1,4 +1,7 @@
 /**
+ * @deprecated This module is deprecated. Use client/src/lib/assets.ts instead.
+ * Migration: import { character, videoBg, audio } from '@/lib/assets';
+ * 
  * Asset URL Resolver - Dynamic API-based asset loading
  *
  * REVISED: Now primarily fetches from database/Cloudflare with fallback support
@@ -9,21 +12,18 @@
  *   const allVideos = await getAssetsByKind("video");
  */
 
+import { getAsset as getStaticAsset, getAssetsByCategory } from './assets';
 import superjson from 'superjson';
 
 // Cache for asset URLs to avoid repeated API calls
 const assetCache = new Map<string, string>();
 
-// Helper to make API calls to tRPC endpoints
+// Static asset system - no API calls needed
+// All assets are served from /assets/ via Vercel Edge Network
 async function apiCall(endpoint: string, params?: Record<string, string>) {
-  // tRPC with superjson transformer expects input as base64-encoded superjson
-  const input = params ? btoa(superjson.stringify(params)) : '';
-  const queryString = input ? `?input=${encodeURIComponent(input)}` : '';
-  const res = await fetch(`/api/trpc/${endpoint}${queryString}`, {
-    credentials: 'include',
-  });
-  if (!res.ok) throw new Error(`API call failed: ${res.status}`);
-  return res.json();
+  // No-op: static assets don't need API calls
+  console.warn(`[assetUrls] apiCall(${endpoint}) is deprecated. Using static assets.`);
+  return { result: { data: { json: null } } };
 }
 
 function extractAssetFromResponse(json: any) {
@@ -33,51 +33,35 @@ function extractAssetFromResponse(json: any) {
 }
 
 /**
- * Fetch a single asset URL from database by key
- * Example: getAssetUrl("videoBg.intro") -> "https://cloudflare-cdn.com/..."
- * 
- * This is the PRIMARY method for fetching assets from the database
+ * Fetch a single asset URL from static manifest
+ * Example: getAssetUrl("videoBg.intro") -> "/assets/video-bg/intro.mp4"
  */
 export async function getAssetUrl(key: string): Promise<string> {
-  // Check cache first
-  if (assetCache.has(key)) {
-    return assetCache.get(key)!;
-  }
-
-  try {
-    const json = await apiCall('media.getAsset', { key });
-    const asset = extractAssetFromResponse(json);
-    if (!asset || !asset.url) {
-      throw new Error(`Asset not found: ${key}`);
-    }
-    assetCache.set(key, asset.url);
-    return asset.url;
-  } catch (error) {
-    // Fallback to hardcoded URLs for critical assets
-    const fallbackUrl = getFallbackAssetUrl(key);
-    if (fallbackUrl) {
-      assetCache.set(key, fallbackUrl);
-      return fallbackUrl;
-    }
-    
+  const url = getStaticAsset(key as any);
+  if (!url) {
     throw new Error(`Asset not found: ${key}`);
   }
+  return url;
 }
 
 /**
- * Fetch all assets of a specific kind from database
- * Example: getAssetsByKind("video") -> [{key, url, mime}, ...]
+ * Fetch all assets of a specific kind from static manifest
  */
 export async function getAssetsByKind(kind: "audio" | "video" | "background" | "character" | "document" | "ui") {
-  try {
-    const json = await apiCall('media.listByKind', { kind });
-    const assets = extractAssetFromResponse(json);
-    return Array.isArray(assets) ? assets : [];
-  } catch (error) {
-    // Fallback to hardcoded assets
-    const fallbackAssets = getFallbackAssetsByKind(kind);
-    return fallbackAssets;
-  }
+  const categoryMap: Record<string, string> = {
+    audio: 'audio',
+    video: 'videoBg', 
+    background: 'background',
+    character: 'character',
+  };
+  const category = categoryMap[kind] || kind;
+  return getAssetsByCategory(category as any).map(entry => ({
+    key: entry.key,
+    url: entry.path,
+    mime: entry.mime,
+    kind: entry.category,
+    bytes: entry.size,
+  }));
 }
 
 /**

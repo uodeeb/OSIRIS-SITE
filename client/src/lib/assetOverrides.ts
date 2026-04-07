@@ -1,3 +1,9 @@
+/**
+ * @deprecated This module is deprecated. Use client/src/lib/assets.ts instead.
+ * The proxy-based override system is replaced by static manifest loading.
+ */
+
+import { getAsset as getStaticAsset, ASSET_URLS as StaticASSET_URLS } from './assets';
 import superjson from 'superjson';
 
 type AssetRow = {
@@ -74,13 +80,11 @@ export function createAssetProxy<T extends object>(target: T, path: string[] = [
         }
         log('No override for:', key, '(dbKey:', dbKey, ')');
         
-        // IMPORTANT: Check if this looks like an asset key (has dot notation)
-        // If so, try to construct a direct tRPC URL that will work
-        if (dbKey.includes('.') && !value.startsWith('http') && !value.startsWith('/')) {
-          // Return a functional tRPC URL that will resolve on the server
-          const fallbackUrl = `/api/trpc/media.getAsset?input=${encodeURIComponent(btoa(JSON.stringify({json:{key: dbKey},meta:{}})))}`;
-          log('Returning tRPC fallback for:', dbKey);
-          return fallbackUrl;
+        // Try to resolve from static asset manifest
+        const staticUrl = getStaticAsset(dbKey as any);
+        if (staticUrl) {
+          log('Resolved from static manifest:', dbKey, '->', staticUrl);
+          return staticUrl;
         }
         
         // Return the raw value if it's already a URL or path
