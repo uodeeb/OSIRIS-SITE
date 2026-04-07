@@ -5,7 +5,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { initAssetOverrides } from "@/lib/assetOverrides";
+import { loadAssetManifest } from "@/lib/assets";
 import { MediaControllerProvider } from "./contexts/MediaControllerContext";
 import { useMediaState } from "./contexts/MediaStateContext";
 import { useMediaActions } from "./contexts/MediaActionsContext";
@@ -121,13 +121,13 @@ function AppContent() {
     // Start performance monitoring
     performanceMonitor.startRuntimeMonitoring();
     
-    // Preload critical assets on idle
-    const criticalAssets = [
-      '/audio/ambient.mp3',
-      '/images/hero-bg.jpg'
-    ];
+    // Preload critical assets on idle (only if they exist in manifest)
+    // Note: Assets are loaded via manifest system, see lib/assets.ts
+    const criticalAssets: string[] = [];
     
-    preloader.preloadOnIdle(criticalAssets);
+    if (criticalAssets.length > 0) {
+      preloader.preloadOnIdle(criticalAssets);
+    }
     
     // Cleanup on unmount
     return () => {
@@ -157,7 +157,10 @@ function AppContent() {
 
 function App() {
   useEffect(() => {
-    initAssetOverrides({ timeoutMs: 1200 }).catch(() => undefined);
+    // Initialize asset manifest on app startup
+    loadAssetManifest().catch((err) => {
+      console.warn('[App] Failed to load asset manifest:', err);
+    });
   }, []);
 
   return (

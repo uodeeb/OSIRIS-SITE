@@ -87,6 +87,56 @@ export function isManifestLoaded(): boolean {
   return manifestCache !== null;
 }
 
+// Key aliases for backward compatibility
+// Maps short keys used in code to full keys in manifest
+const KEY_ALIASES: Record<string, string> = {
+  // Character aliases
+  'character.yahya': 'character.yahya-portrait',
+  'character.yahya_main': 'character.yahya-portrait',
+  'character.yahya_dying': 'character.yahya-portrait',
+  'character.yahya_breakdown': 'character.yahya-breakdown',
+  'character.yahya_confront': 'character.yahya-confront',
+  'character.laila': 'character.laila-portrait',
+  'character.laila_crying': 'character.laila-faith',
+  'character.laila_faith': 'character.laila-faith',
+  'character.laila_witness': 'character.laila-witness',
+  'character.tarek': 'character.tarek-portrait',
+  'character.tarek_ghost': 'character.tarek-ghost',
+  'character.tarek_dream': 'character.tarek-dream',
+  'character.narrator': 'character.narrator-visual',
+  'character.first_engineer': 'character.first-engineer-portrait',
+  'character.first_engineer_2': 'character.first-engineer-portrait-02',
+  'character.first_engineer_confront': 'character.first-engineer-confront',
+  'character.first_engineer_exposed': 'character.first-engineer-exposed',
+  'character.arius': 'character.arius',
+  'character.athanasius': 'character.athanasius',
+  'character.samiri': 'character.samiri-portrait',
+  'character.samiri_calf': 'character.samiri-calf',
+  'character.constantine': 'character.constantine-portrait',
+  'character.ramses': 'character.ramses',
+  'character.abu_abdullah': 'character.tarek-portrait', // Alias
+  'character.dictator': 'character.first-engineer-portrait', // Alias
+  
+  // Video background aliases
+  'videoBg.yahya_room': 'videoBg.yahya-room',
+  'videoBg.yahya_office': 'videoBg.yehya-office-vid',
+  'videoBg.cosmic_opening': 'videoBg.cosmic-opening',
+  'videoBg.tarek_rooftop': 'videoBg.tarek-rooftop',
+  'videoBg.sinai_desert': 'videoBg.sinai-desert',
+  'videoBg.molten_gold': 'videoBg.molten-gold',
+  'videoBg.nicaea': 'videoBg.nicaea',
+  'videoBg.granada_fall': 'videoBg.granada-fall',
+  'videoBg.abu_abdullah_tears': 'videoBg.abu-abdullah-tears',
+  'videoBg.berlin_1933': 'videoBg.berlin-1933',
+  'videoBg.karbala': 'videoBg.karbala',
+  'videoBg.digital_space': 'videoBg.digital-space',
+  'videoBg.enter_key': 'videoBg.enter-key',
+  
+  // Audio aliases
+  'audio.main_theme': 'audio.main-theme',
+  'audio.intro_narration': 'audio.track-02',
+};
+
 /**
  * Get asset URL by key.
  * Returns the local public path for static serving.
@@ -101,9 +151,12 @@ export function getAsset(key: AssetKey | string): string {
     return '';
   }
   
-  const asset = manifestCache.assets[key];
+  // Try key alias first, then original key
+  const mappedKey = KEY_ALIASES[key] || key;
+  
+  const asset = manifestCache.assets[mappedKey];
   if (!asset) {
-    console.warn(`[assets] Asset not found: ${key}`);
+    console.warn(`[assets] Asset not found: ${key} (mapped: ${mappedKey})`);
     return '';
   }
   
@@ -115,7 +168,8 @@ export function getAsset(key: AssetKey | string): string {
  */
 export function getAssetEntry(key: AssetKey | string): AssetEntry | null {
   if (!manifestCache) return null;
-  return manifestCache.assets[key] || null;
+  const mappedKey = KEY_ALIASES[key] || key;
+  return manifestCache.assets[mappedKey] || null;
 }
 
 /**
