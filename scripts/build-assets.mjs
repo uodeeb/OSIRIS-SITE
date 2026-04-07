@@ -150,6 +150,15 @@ async function getFileSize(filePath) {
 async function buildAssets() {
   console.log('🔨 Building assets...\n');
   
+  // Check if source directory exists (skip in Vercel - assets already in git)
+  try {
+    await fs.access(SOURCE_DIR);
+  } catch {
+    console.log('⚠️  Source assets not found (expected in Vercel - assets committed to git)');
+    console.log('✅ Skipping asset build - using pre-built assets from git\n');
+    return;
+  }
+  
   // Ensure destination directory exists
   await ensureDir(DEST_DIR);
   
