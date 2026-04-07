@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "generated": "2026-04-06T18:52:40.095Z",
   "totalAssets": 53,
-  "baseUrl": "/generated-assets",
+  "baseUrl": "/assets",
   "categories": {
     "characters": {
       "description": "Character portraits and expressions",

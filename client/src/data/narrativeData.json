@@ -308,11 +308,11 @@
           "id": "two-mirror-scene",
           "title": "The Mirror of the Nile",
           "arabicTitle": "مرآة النيل",
-          "backgroundImage": "/generated-assets/images/EGYPT-NILE-TEMPLE02.jpg",
-          "backgroundVideo": "/generated-assets/video-bg/egypt-nile-temple.mp4",
+          "backgroundImage": "/assets/images/EGYPT-NILE-TEMPLE02.jpg",
+          "backgroundVideo": "/assets/video-bg/egypt-nile-temple.mp4",
           "characterImages": {
-            "Ramses": "/generated-assets/characters/RAMSIS.jpg",
-            "RamsesAlt": "/generated-assets/characters/RAMSIS01.jpg"
+            "Ramses": "/assets/characters/RAMSIS.jpg",
+            "RamsesAlt": "/assets/characters/RAMSIS01.jpg"
           },
           "dialogue": [
             {

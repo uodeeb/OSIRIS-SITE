@@ -520,15 +520,15 @@ type ImageCue = {
 };
 
 const SCENE_IMAGE_CUES: Partial<Record<string, ImageCue>> = {
-  'zero-1-1-summons': { src: '/generated-assets/images/01.jpg', points: [0], opacity: 0.2, blend: 'screen' },
-  'zero-1-2-prosecution': { src: '/generated-assets/characters/الراوي الكوني-التجسيد البصري (Visual Representation).png', points: [2], opacity: 0.35, blend: 'overlay' },
-  'four-4-1-desert': { src: '/generated-assets/images/02.jpg', points: [1], opacity: 0.24, blend: 'soft-light' },
-  'four-4-2-crowd-engineering': { src: '/generated-assets/images/03.jpg', points: [1], opacity: 0.24, blend: 'overlay' },
-  'six-8-1-andalusia': { src: '/generated-assets/images/04.jpg', points: [1], opacity: 0.22, blend: 'screen' },
-  'six-8-2-last-tears': { src: '/generated-assets/images/04.jpg', points: [0], opacity: 0.2, blend: 'screen' },
-  'seven-10-1-karbala': { src: '/generated-assets/images/05.jpg', points: [1], opacity: 0.28, blend: 'soft-light' },
-  'seven-12-1-truth-leak': { src: '/generated-assets/images/06.jpg', points: [1], opacity: 0.26, blend: 'overlay' },
-  'six-8d-1-attack': { src: '/generated-assets/images/07.jpg', points: [0], opacity: 0.26, blend: 'screen' },
+  'zero-1-1-summons': { src: '/assets/images/01.jpg', points: [0], opacity: 0.2, blend: 'screen' },
+  'zero-1-2-prosecution': { src: '/assets/ui/characters/الراوي الكوني-التجسيد البصري (Visual Representation).png', points: [2], opacity: 0.35, blend: 'overlay' },
+  'four-4-1-desert': { src: '/assets/images/02.jpg', points: [1], opacity: 0.24, blend: 'soft-light' },
+  'four-4-2-crowd-engineering': { src: '/assets/images/03.jpg', points: [1], opacity: 0.24, blend: 'overlay' },
+  'six-8-1-andalusia': { src: '/assets/images/04.jpg', points: [1], opacity: 0.22, blend: 'screen' },
+  'six-8-2-last-tears': { src: '/assets/images/04.jpg', points: [0], opacity: 0.2, blend: 'screen' },
+  'seven-10-1-karbala': { src: '/assets/images/05.jpg', points: [1], opacity: 0.28, blend: 'soft-light' },
+  'seven-12-1-truth-leak': { src: '/assets/images/06.jpg', points: [1], opacity: 0.26, blend: 'overlay' },
+  'six-8d-1-attack': { src: '/assets/images/07.jpg', points: [0], opacity: 0.26, blend: 'screen' },
 };
 
 function parseTrackFromDialogue(line?: string) {
@@ -622,20 +622,20 @@ function getVoiceCandidates(voiceNumber: number) {
   const padded = String(Math.max(1, Math.min(18, voiceNumber))).padStart(2, '0');
   return [
     // New high-quality voices (priority)
-    `/generated-assets/voices/new-voices/VOICE${padded}.mp3`,
-    `/generated-assets/voices/new-voices/VOICE${voiceNumber}.mp3`,
+    `/assets/voices/new-voices/VOICE${padded}.mp3`,
+    `/assets/voices/new-voices/VOICE${voiceNumber}.mp3`,
     // Legacy voices
     `/music/VOICE-${padded}.wav`,
-    `/generated-assets/voices/VOICE-${padded}.wav`,
+    `/assets/voices/VOICE-${padded}.wav`,
   ];
 }
 
 // Special voice for devil scenes
 function getDevilVoiceCandidates() {
   return [
-    '/generated-assets/voices/new-voices/main-devil.wav',
+    '/assets/voices/new-voices/main-devil.wav',
     '/music/main-devil.wav',
-    '/generated-assets/voices/main-devil.wav',
+    '/assets/voices/main-devil.wav',
   ];
 }
 
