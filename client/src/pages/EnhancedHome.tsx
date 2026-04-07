@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocation } from "wouter";
-import { ASSET_URLS } from "@/lib/assetUrls";
+import { getAsset } from "@/lib/assets";
 import { AudioConsentModal } from "@/components/AudioConsentModal";
 import { ChapterLaunchModal, type ChapterMeta } from "@/components/ChapterLaunchModal";
 import ExpandableChapters from "@/components/ExpandableChapters";
@@ -126,7 +126,7 @@ export default function EnhancedHome() {
         subtitle: "The trial begins outside time and space",
         arabicSubtitle: "تبدأ المحاكمة خارج الزمان والمكان",
         estMinutes: 14,
-        imageSrc: ASSET_URLS.backgrounds.osiris_cosmic,
+        imageSrc: getAsset('background.osiris_cosmic'),
         accentColor: "#c9a96e",
         sceneId: "zero-1-1-summons",
       },
@@ -139,7 +139,7 @@ export default function EnhancedHome() {
         subtitle: "The algorithm is written and the first patterns appear",
         arabicSubtitle: "يُكتب الخوارزم وتظهر الأنماط الأولى",
         estMinutes: 16,
-        imageSrc: ASSET_URLS.backgrounds.corporate_lab,
+        imageSrc: getAsset('background.corporate_lab'),
         accentColor: "#ef4444",
         sceneId: "one-1-5-1-promise",
       },
@@ -152,7 +152,7 @@ export default function EnhancedHome() {
         subtitle: "Building icons to fill the spiritual void",
         arabicSubtitle: "بناء الأيقونات لملء الفراغ الروحي",
         estMinutes: 18,
-        imageSrc: ASSET_URLS.backgrounds.qabil_habil_altar,
+        imageSrc: getAsset('background.qabil_habil_altar'),
         accentColor: "#d4af37",
         sceneId: "four-4-1-desert",
       },
@@ -165,7 +165,7 @@ export default function EnhancedHome() {
         subtitle: "When institutions weaponize the sacred",
         arabicSubtitle: "عندما تُسلّح المؤسسات المقدس",
         estMinutes: 16,
-        imageSrc: ASSET_URLS.backgrounds.nicaea_council,
+        imageSrc: getAsset('background.nicaea_council'),
         accentColor: "#3b82f6",
         sceneId: "five-6a-1-nicaea-debate",
       },
@@ -178,7 +178,7 @@ export default function EnhancedHome() {
         subtitle: "Arrogance becomes history and ideology",
         arabicSubtitle: "الكبرياء يصبح تاريخاً وأيديولوجيا",
         estMinutes: 18,
-        imageSrc: ASSET_URLS.backgrounds.granada_fall,
+        imageSrc: getAsset('background.granada_fall'),
         accentColor: "#22c55e",
         sceneId: "six-8-1-andalusia",
       },
@@ -191,7 +191,7 @@ export default function EnhancedHome() {
         subtitle: "The unarmed truth — the antivirus",
         arabicSubtitle: "الحقيقة العزلاء — مضاد الفيروس",
         estMinutes: 14,
-        imageSrc: ASSET_URLS.backgrounds.qabil_habil_aftermath,
+        imageSrc: getAsset('background.qabil_habil_aftermath'),
         accentColor: "#f97316",
         sceneId: "seven-10-1-karbala",
       },
@@ -204,7 +204,7 @@ export default function EnhancedHome() {
         subtitle: "The closing testimony",
         arabicSubtitle: "الشهادة الختامية",
         estMinutes: 12,
-        imageSrc: ASSET_URLS.backgrounds.osiris_interface,
+        imageSrc: getAsset('background.osiris_interface'),
         accentColor: "#8b5cf6",
         sceneId: "seven-12-1-truth-leak",
       },

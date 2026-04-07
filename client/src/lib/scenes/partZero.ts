@@ -1,4 +1,4 @@
-import { ASSET_URLS } from '../assetUrls';
+import { getAsset } from '../assets';
 import type { Scene } from '../sceneSystem';
 
 export const PART_ZERO: Record<string, Scene> = {
@@ -8,7 +8,7 @@ export const PART_ZERO: Record<string, Scene> = {
     title: 'The Summons',
     arabicTitle: 'الاستدعاء',
     part: 0,
-    backgroundVideo: ASSET_URLS.videoBg.yahya_room,
+    backgroundVideo: getAsset('videoBg.yahya_room'),
     backgroundVideoAudioDescEn: '/audio-descriptions/yahya_room-en.vtt',
     backgroundVideoAudioDescAr: '/audio-descriptions/yahya_room-ar.vtt',
     backgroundImage: 'sceneBg.zero-1-1-summons',
@@ -104,11 +104,11 @@ export const PART_ZERO: Record<string, Scene> = {
     title: 'The Opening Argument',
     arabicTitle: 'المرافعة الافتتاحية',
     part: 0,
-    backgroundVideo: ASSET_URLS.videoBg.cosmic_opening,
+    backgroundVideo: getAsset('videoBg.cosmic_opening'),
     visualEffect: "scanlines",
     ambientKeys: ["amb.vacuum", "amb.bass_drone_low"],
-    backgroundImage: ASSET_URLS.backgrounds.osiris_interface,
-    audioUrl: ASSET_URLS.audio.intro_narration,
+    backgroundImage: getAsset('background.osiris_interface'),
+    audioUrl: getAsset('audio.intro_narration'),
     dialogue: [
       {
         character: 'Narrator',

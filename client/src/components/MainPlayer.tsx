@@ -16,8 +16,7 @@ import styles from './MainPlayer.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
 import { PART_LABELS, SCENES as ALL_SCENES, type DialogueLine, type Scene, type SceneChoice } from '@/lib/sceneSystem';
-import { ASSET_URLS } from '@/lib/assetUrls';
-import { getAssetOverride } from '@/lib/assetOverrides';
+import { getAsset } from '@/lib/assets';
 import { customStyles, choicePanelStyles, endSceneStyles, buttonStyles } from '@/lib/styleUtils';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "@/lib/osirisEffects";
@@ -74,7 +73,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
-    imageUrl: ASSET_URLS.characters.narrator,
+    imageUrl: getAsset('character.narrator'),
   },
   yahya: {
     name: 'Yahya',
@@ -82,7 +81,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#fbbf24',
     glowColor: 'rgba(251,191,36,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.yahya,
+    imageUrl: getAsset('character.yahya'),
   },
   laila: {
     name: 'Laila',
@@ -90,7 +89,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f472b6',
     glowColor: 'rgba(244,114,182,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.laila,
+    imageUrl: getAsset('character.laila'),
   },
   tarek: {
     name: 'Tarek',
@@ -98,7 +97,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#60a5fa',
     glowColor: 'rgba(96,165,250,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.tarek,
+    imageUrl: getAsset('character.tarek'),
   },
   first_engineer: {
     name: 'First Engineer',
@@ -106,7 +105,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#ef4444',
     glowColor: 'rgba(239,68,68,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.first_engineer,
+    imageUrl: getAsset('character.first_engineer'),
   },
   arius: {
     name: 'Arius',
@@ -114,7 +113,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#a78bfa',
     glowColor: 'rgba(167,139,250,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.arius,
+    imageUrl: getAsset('character.arius'),
   },
   athanasius: {
     name: 'Athanasius',
@@ -122,7 +121,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#d4af37',
     glowColor: 'rgba(212,175,55,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.athanasius,
+    imageUrl: getAsset('character.athanasius'),
   },
   samiri: {
     name: 'Al-Samiri',
@@ -130,7 +129,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f59e0b',
     glowColor: 'rgba(245,158,11,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.samiri,
+    imageUrl: getAsset('character.samiri'),
   },
   constantine: {
     name: 'Constantine',
@@ -138,7 +137,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#3b82f6',
     glowColor: 'rgba(59,130,246,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.constantine,
+    imageUrl: getAsset('character.constantine'),
   },
   yahya_breakdown: {
     name: 'Yahya',
@@ -146,7 +145,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#ef4444',
     glowColor: 'rgba(239,68,68,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.yahya_breakdown,
+    imageUrl: getAsset('character.yahya_breakdown'),
   },
   yahya_confront: {
     name: 'Yahya',
@@ -154,7 +153,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#fbbf24',
     glowColor: 'rgba(251,191,36,0.4)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.yahya_confront,
+    imageUrl: getAsset('character.yahya_confront'),
   },
   tarek_ghost: {
     name: 'Tarek (Recording)',
@@ -162,7 +161,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#94a3b8',
     glowColor: 'rgba(148,163,184,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.tarek_ghost,
+    imageUrl: getAsset('character.tarek_ghost'),
   },
   tarek_dream: {
     name: 'Tarek (Dream)',
@@ -170,7 +169,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#818cf8',
     glowColor: 'rgba(129,140,248,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.tarek_dream,
+    imageUrl: getAsset('character.tarek_dream'),
   },
   laila_faith: {
     name: 'Laila',
@@ -178,7 +177,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f472b6',
     glowColor: 'rgba(244,114,182,0.4)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.laila_faith,
+    imageUrl: getAsset('character.laila_faith'),
   },
   laila_witness: {
     name: 'Laila (Witness)',
@@ -186,7 +185,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f472b6',
     glowColor: 'rgba(244,114,182,0.4)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.laila_witness,
+    imageUrl: getAsset('character.laila_witness'),
   },
   first_engineer_2: {
     name: 'First Engineer',
@@ -194,7 +193,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#ef4444',
     glowColor: 'rgba(239,68,68,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.first_engineer_2,
+    imageUrl: getAsset('character.first_engineer_2'),
   },
   first_engineer_exposed: {
     name: 'First Engineer (Exposed)',
@@ -202,7 +201,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#b91c1c',
     glowColor: 'rgba(185,28,28,0.4)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.first_engineer_exposed,
+    imageUrl: getAsset('character.first_engineer_exposed'),
   },
   first_engineer_confront: {
     name: 'First Engineer',
@@ -210,7 +209,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#dc2626',
     glowColor: 'rgba(220,38,38,0.4)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.first_engineer_confront,
+    imageUrl: getAsset('character.first_engineer_confront'),
   },
   yahya_dying: {
     name: 'Yahya (Dying)',
@@ -218,7 +217,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#991b1b',
     glowColor: 'rgba(153,27,27,0.5)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.yahya_dying,
+    imageUrl: getAsset('character.yahya_dying'),
   },
   laila_crying: {
     name: 'Laila (Crying)',
@@ -226,7 +225,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#be185d',
     glowColor: 'rgba(190,24,93,0.4)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.laila_crying,
+    imageUrl: getAsset('character.laila_crying'),
   },
   samiri_calf: {
     name: 'Al-Samiri',
@@ -234,7 +233,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f59e0b',
     glowColor: 'rgba(245,158,11,0.5)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.samiri_calf,
+    imageUrl: getAsset('character.samiri_calf'),
   },
   Yahya: {
     name: 'Yahya',
@@ -242,7 +241,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#fbbf24',
     glowColor: 'rgba(251,191,36,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.yahya,
+    imageUrl: getAsset('character.yahya'),
   },
   Laila: {
     name: 'Laila',
@@ -250,7 +249,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f472b6',
     glowColor: 'rgba(244,114,182,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.laila,
+    imageUrl: getAsset('character.laila'),
   },
   Tarek: {
     name: 'Tarek',
@@ -258,7 +257,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#60a5fa',
     glowColor: 'rgba(96,165,250,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.tarek,
+    imageUrl: getAsset('character.tarek'),
   },
   FirstEngineer: {
     name: 'First Engineer',
@@ -266,7 +265,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#ef4444',
     glowColor: 'rgba(239,68,68,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.first_engineer,
+    imageUrl: getAsset('character.first_engineer'),
   },
   Arius: {
     name: 'Arius',
@@ -274,7 +273,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#a78bfa',
     glowColor: 'rgba(167,139,250,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.arius,
+    imageUrl: getAsset('character.arius'),
   },
   Athanasius: {
     name: 'Athanasius',
@@ -282,7 +281,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#d4af37',
     glowColor: 'rgba(212,175,55,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.athanasius,
+    imageUrl: getAsset('character.athanasius'),
   },
   Samiri: {
     name: 'Al-Samiri',
@@ -290,7 +289,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f59e0b',
     glowColor: 'rgba(245,158,11,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.samiri,
+    imageUrl: getAsset('character.samiri'),
   },
   Constantine: {
     name: 'Constantine',
@@ -298,7 +297,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#3b82f6',
     glowColor: 'rgba(59,130,246,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.constantine,
+    imageUrl: getAsset('character.constantine'),
   },
   Ramses: {
     name: 'Narrator',
@@ -306,7 +305,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
-    imageUrl: ASSET_URLS.characters.narrator,
+    imageUrl: getAsset('character.narrator'),
   },
   Iblis: {
     name: 'Narrator',
@@ -314,7 +313,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
-    imageUrl: ASSET_URLS.characters.narrator,
+    imageUrl: getAsset('character.narrator'),
   },
   hitler: {
     name: 'Hitler',
@@ -336,7 +335,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#991b1b',
     glowColor: 'rgba(153,27,27,0.35)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.narrator,
+    imageUrl: getAsset('character.narrator'),
   },
 };
 
@@ -486,8 +485,8 @@ function getSceneMusicCandidates(sceneId: string, fallbackUrl?: string): string[
   if (fallbackUrl && !result.includes(fallbackUrl)) {
     result.push(fallbackUrl);
   }
-  if (!result.includes(ASSET_URLS.audio.main_theme)) {
-    result.push(ASSET_URLS.audio.main_theme);
+  if (!result.includes(getAsset('audio.main_theme'))) {
+    result.push(getAsset('audio.main_theme'));
   }
   return result;
 }
@@ -938,15 +937,10 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const resolveAsset = useCallback((keyOrUrl: string | undefined) => {
     if (!keyOrUrl) return undefined;
     if (keyOrUrl.includes("://") || keyOrUrl.startsWith("/")) return keyOrUrl;
-    const override = getAssetOverride(keyOrUrl);
-    if (override) return override;
-    const parts = keyOrUrl.split(".");
-    let cur: any = ASSET_URLS as any;
-    for (const p of parts) {
-      if (!cur || typeof cur !== "object") return undefined;
-      cur = cur[p];
-    }
-    return typeof cur === "string" ? cur : undefined;
+    // Use getAsset for lookup
+    const assetUrl = getAsset(keyOrUrl as any);
+    if (assetUrl) return assetUrl;
+    return undefined;
   }, []);
 
   // Resolve character image URL using direct asset key mapping
@@ -995,17 +989,10 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         : undefined;
     }
     
-    // Try to get the override directly first
-    const override = getAssetOverride(assetKey);
-    if (override && override.startsWith('http')) {
-      return override;
-    }
-    
-    // Fallback to ASSET_URLS proxy resolution
-    const charName = normalizedCharKey;
-    const proxyUrl = (ASSET_URLS.characters as any)[charName];
-    if (proxyUrl && typeof proxyUrl === 'string' && proxyUrl.startsWith('http')) {
-      return proxyUrl;
+    // Use getAsset for direct lookup
+    const directUrl = getAsset(assetKey as any);
+    if (directUrl && directUrl.startsWith('/assets/')) {
+      return directUrl;
     }
     
     // Final fallback: use the config's imageUrl
@@ -1633,8 +1620,8 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     if (sceneFallbackMusicUrl && !desiredSceneCandidates.includes(sceneFallbackMusicUrl)) {
       desiredSceneCandidates.push(sceneFallbackMusicUrl);
     }
-    if (!desiredSceneCandidates.includes(ASSET_URLS.audio.main_theme)) {
-      desiredSceneCandidates.push(ASSET_URLS.audio.main_theme);
+    if (!desiredSceneCandidates.includes(getAsset('audio.main_theme'))) {
+      desiredSceneCandidates.push(getAsset('audio.main_theme'));
     }
     return desiredSceneCandidates.map((u) => normalize(u));
   }, [currentScene?.musicKey, sceneTrackKey, resolveAsset]);

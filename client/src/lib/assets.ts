@@ -135,6 +135,30 @@ const KEY_ALIASES: Record<string, string> = {
   // Audio aliases
   'audio.main_theme': 'audio.main-theme',
   'audio.intro_narration': 'audio.track-02',
+  'audio.intro_narration_v1': 'audio.track-02',
+  'audio.yahya_monologue': 'audio.track-01',
+  'audio.tragic_sacrifice': 'audio.track-10',
+  'audio.cosmic_end': 'audio.track-11',
+  
+  // Video aliases
+  'video.logo_reveal': 'videoBg.intro',
+  'video.qabil_scene': 'videoBg.intro',
+  
+  // Background aliases (map old backgrounds to available background images)
+  'background.berlin_1933': 'background.01',
+  'background.cambodia_1975': 'background.02',
+  'background.corporate_lab': 'background.03',
+  'background.granada_fall': 'background.04',
+  'background.moscow_1937': 'background.05',
+  'background.nicaea_council': 'background.egypt-nile-temple02',
+  'background.osiris_cosmic': 'background.06',
+  'background.osiris_interface': 'background.07',
+  'background.pharaoh_temple': 'background.egypt-nile-temple02',
+  'background.qabil_habil_aftermath': 'background.01',
+  'background.qabil_habil_altar': 'background.02',
+  'background.qabil_habil_rage': 'background.03',
+  'background.white_space': 'background.logo-new-flow01',
+  'background.yahya_apartment': 'background.logo-new-flow02',
 };
 
 /**
