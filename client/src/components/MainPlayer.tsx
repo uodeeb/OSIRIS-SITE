@@ -395,69 +395,49 @@ const TONE_ACCENT: Record<string, string> = {
 
 const TRACK_URL_CANDIDATES: Record<string, string[]> = {
   track01: [
-    '/music/TRACK-01.mp3',
-    '/music/TRACK-01.m4a',
-    '/music/TRACK%2001%20%E2%80%94%20%D8%A7%D9%84%D8%AB%D9%8A%D9%85%20%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%20%D9%84%D9%84%D8%B1%D9%88%D8%A7%D9%8A%D8%A9.mp3',
-    '/music/TRACK%2001%20%E2%80%94%20%D8%A7%D9%84%D8%AB%D9%8A%D9%85%20%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%20%D9%84%D9%84%D8%B1%D9%88%D8%A7%D9%8A%D8%A9.m4a',
     '/assets/music-tracks/TRACK-01.mp3',
     '/assets/music-tracks/TRACK-01.m4a',
   ],
   track02: [
-    '/music/TRACK%2002.m4a', '/music/TRACK-02.m4a', '/music/TRACK-02.mp3',
-    '/music/TRACK%2002%20%E2%80%94%20%D8%A7%D9%84%D8%AC%D8%B2%D8%A1%20%D8%A7%D9%84%D8%B5%D9%81%D8%B1-%D8%BA%D8%B1%D9%81%D8%A9%20%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%83%D9%85%D8%A9%20%D8%A7%D9%84%D9%83%D9%88%D9%86%D9%8A%D8%A9.m4a',
     '/assets/music-tracks/TRACK-02.m4a',
     '/assets/music-tracks/TRACK-02.mp3',
   ],
   track03: [
-    '/music/TRACK-03.m4a', '/music/TRACK%2003.m4a', '/music/TRACK%2003.mp3',
-    '/music/devil-voice-to-clone.m4a', '/music/devil-voice-to-clone.wav',
     '/assets/music-tracks/TRACK-03.m4a',
     '/assets/music-tracks/TRACK-03.mp3',
   ],
   track04: [
-    '/music/TRACK-04.m4a', '/music/TRACK%2004.m4a', '/music/TRACK%2004.mp3',
     '/assets/music-tracks/TRACK-04.m4a',
     '/assets/music-tracks/TRACK-04.mp3',
   ],
   track05: [
-    '/music/TRACK-05.m4a', '/music/TRACK%2005.m4a',
     '/assets/music-tracks/TRACK-05.m4a',
   ],
   track06: [
-    '/music/TRACK-06.m4a', '/music/TRACK%2006.m4a',
     '/assets/music-tracks/TRACK-06.m4a',
   ],
   track07: [
-    '/music/TRACK-07.m4a', '/music/TRACK%2007.m4a',
     '/assets/music-tracks/TRACK-07.m4a',
   ],
   track08: [
-    '/music/TRACK-08.m4a', '/music/TRACK%2008.m4a',
     '/assets/music-tracks/TRACK-08.m4a',
   ],
   track09: [
-    '/music/TRACK-09.m4a', '/music/TRACK%2009.m4a',
     '/assets/music-tracks/TRACK-09.m4a',
   ],
   track10: [
-    '/music/TRACK-10.m4a', '/music/TRACK%2010.m4a',
     '/assets/music-tracks/TRACK-10.m4a',
   ],
   track11: [
-    '/music/TRACK-11.m4a', '/music/TRACK%2011.m4a',
     '/assets/music-tracks/TRACK-11.m4a',
   ],
   track12: [
-    '/music/TRACK-12.m4a', '/music/TRACK%2012.m4a',
     '/assets/music-tracks/TRACK-12.m4a',
   ],
   track13: [
-    '/music/TRACK-13.m4a', '/music/TRACK%2013.m4a',
     '/assets/music-tracks/TRACK-13.m4a',
   ],
   track14: [
-    '/music/TRACK-14.m4a', '/music/TRACK%2014.m4a', '/music/TRACK%2014.mp3',
-    '/music/TRACK-01.mp3', '/music/TRACK%2011.m4a',
     '/assets/music-tracks/TRACK-14.m4a',
     '/assets/music-tracks/TRACK-14.mp3',
   ],
@@ -521,7 +501,7 @@ type ImageCue = {
 
 const SCENE_IMAGE_CUES: Partial<Record<string, ImageCue>> = {
   'zero-1-1-summons': { src: '/assets/images/01.jpg', points: [0], opacity: 0.2, blend: 'screen' },
-  'zero-1-2-prosecution': { src: '/assets/ui/characters/الراوي الكوني-التجسيد البصري (Visual Representation).png', points: [2], opacity: 0.35, blend: 'overlay' },
+  'zero-1-2-prosecution': { src: '/assets/characters/narrator.png', points: [2], opacity: 0.35, blend: 'overlay' },
   'four-4-1-desert': { src: '/assets/images/02.jpg', points: [1], opacity: 0.24, blend: 'soft-light' },
   'four-4-2-crowd-engineering': { src: '/assets/images/03.jpg', points: [1], opacity: 0.24, blend: 'overlay' },
   'six-8-1-andalusia': { src: '/assets/images/04.jpg', points: [1], opacity: 0.22, blend: 'screen' },
@@ -621,11 +601,8 @@ const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFINITIONS.
 function getVoiceCandidates(voiceNumber: number) {
   const padded = String(Math.max(1, Math.min(18, voiceNumber))).padStart(2, '0');
   return [
-    // New high-quality voices (priority)
     `/assets/voices/new-voices/VOICE${padded}.mp3`,
     `/assets/voices/new-voices/VOICE${voiceNumber}.mp3`,
-    // Legacy voices
-    `/music/VOICE-${padded}.wav`,
     `/assets/voices/VOICE-${padded}.wav`,
   ];
 }
@@ -634,7 +611,6 @@ function getVoiceCandidates(voiceNumber: number) {
 function getDevilVoiceCandidates() {
   return [
     '/assets/voices/new-voices/main-devil.wav',
-    '/music/main-devil.wav',
     '/assets/voices/main-devil.wav',
   ];
 }

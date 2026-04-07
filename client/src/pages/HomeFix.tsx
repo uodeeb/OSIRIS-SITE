@@ -32,84 +32,56 @@ type TrailerLine = {
   ar: string;
   en: string;
   color: string;
-  captionSrcEn?: string;
-  captionSrcAr?: string;
-  audioDescSrcEn?: string;
-  audioDescSrcAr?: string;
 };
 
 const trailerLines: TrailerLine[] = [
   {
     id: 'osiris-opens',
-    src: '/videos/trailers/osiris-opens.mp4',
-    fallback: '/images/trailers/osiris-opens.jpg',
+    src: '/assets/video-bg/cosmic-opening.mp4',
+    fallback: '/assets/images/01.jpg',
     ar: 'الفتح العظيم',
     en: 'The Great Opening',
     color: '#c9a96e',
-    captionSrcEn: '/captions/en/osiris-opens.vtt',
-    captionSrcAr: '/captions/ar/osiris-opens.vtt',
-    audioDescSrcEn: '/audio/descriptions/en/osiris-opens.mp3',
-    audioDescSrcAr: '/audio/descriptions/ar/osiris-opens.mp3',
   },
   {
     id: 'cosmic-courtroom',
-    src: '/videos/trailers/cosmic-courtroom.mp4',
-    fallback: '/images/trailers/cosmic-courtroom.jpg',
+    src: '/assets/video-bg/nicaea.mp4',
+    fallback: '/assets/images/02.jpg',
     ar: 'غرفة المحاكمة الكونية',
     en: 'The Cosmic Courtroom',
     color: '#dc2626',
-    captionSrcEn: '/captions/en/cosmic-courtroom.vtt',
-    captionSrcAr: '/captions/ar/cosmic-courtroom.vtt',
-    audioDescSrcEn: '/audio/descriptions/en/cosmic-courtroom.mp3',
-    audioDescSrcAr: '/audio/descriptions/ar/cosmic-courtroom.mp3',
   },
   {
     id: 'pharaoh-enters',
-    src: '/videos/trailers/pharaoh-enters.mp4',
-    fallback: '/images/trailers/pharaoh-enters.jpg',
+    src: '/assets/video-bg/egypt-nile-temple.mp4',
+    fallback: '/assets/images/03.jpg',
     ar: 'دخول الفرعون',
     en: 'Pharaoh Enters',
     color: '#9333ea',
-    captionSrcEn: '/captions/en/pharaoh-enters.vtt',
-    captionSrcAr: '/captions/ar/pharaoh-enters.vtt',
-    audioDescSrcEn: '/audio/descriptions/en/pharaoh-enters.mp3',
-    audioDescSrcAr: '/audio/descriptions/ar/pharaoh-enters.mp3',
   },
   {
     id: 'nicaea-council',
-    src: '/videos/trailers/nicaea-council.mp4',
-    fallback: '/images/trailers/nicaea-council.jpg',
+    src: '/assets/video-bg/nicaea.mp4',
+    fallback: '/assets/images/04.jpg',
     ar: 'مجمع نيقية',
     en: 'Council of Nicaea',
     color: '#22c55e',
-    captionSrcEn: '/captions/en/nicaea-council.vtt',
-    captionSrcAr: '/captions/ar/nicaea-council.vtt',
-    audioDescSrcEn: '/audio/descriptions/en/nicaea-council.mp3',
-    audioDescSrcAr: '/audio/descriptions/ar/nicaea-council.mp3',
   },
   {
     id: 'andalus-falls',
-    src: '/videos/trailers/andalus-falls.mp4',
-    fallback: '/images/trailers/andalus-falls.jpg',
+    src: '/assets/video-bg/granada-fall.mp4',
+    fallback: '/assets/images/05.jpg',
     ar: 'سقوط الأندلس',
     en: 'Fall of Andalus',
     color: '#e74c3c',
-    captionSrcEn: '/captions/en/andalus-falls.vtt',
-    captionSrcAr: '/captions/ar/andalus-falls.vtt',
-    audioDescSrcEn: '/audio/descriptions/en/andalus-falls.mp3',
-    audioDescSrcAr: '/audio/descriptions/ar/andalus-falls.mp3',
   },
   {
     id: 'digital-age',
-    src: '/videos/trailers/digital-age.mp4',
-    fallback: '/images/trailers/digital-age.jpg',
+    src: '/assets/video-bg/digital-space.mp4',
+    fallback: '/assets/images/06.jpg',
     ar: 'العصر الرقمي',
     en: 'The Digital Age',
     color: '#3b82f6',
-    captionSrcEn: '/captions/en/digital-age.vtt',
-    captionSrcAr: '/captions/ar/digital-age.vtt',
-    audioDescSrcEn: '/audio/descriptions/en/digital-age.mp3',
-    audioDescSrcAr: '/audio/descriptions/ar/digital-age.mp3',
   },
 ];
 
