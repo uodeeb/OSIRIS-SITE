@@ -159,13 +159,13 @@ const KEY_ALIASES: Record<string, string> = {
   'voice.yahya_understands_samiri': 'voice.voice-17',
   'voice.final_words_reader': 'voice.voice-18',
   
-  // Audio aliases
+  // Audio aliases - match manifest keys (TRACK-XX uppercase)
   'audio.main_theme': 'audio.main-theme',
-  'audio.intro_narration': 'audio.track-02',
-  'audio.intro_narration_v1': 'audio.track-02',
-  'audio.yahya_monologue': 'audio.track-01',
-  'audio.tragic_sacrifice': 'audio.track-10',
-  'audio.cosmic_end': 'audio.track-11',
+  'audio.intro_narration': 'audio.TRACK-02',
+  'audio.intro_narration_v1': 'audio.TRACK-02',
+  'audio.yahya_monologue': 'audio.TRACK-01',
+  'audio.tragic_sacrifice': 'audio.TRACK-10',
+  'audio.cosmic_end': 'audio.TRACK-11',
   
   // Video aliases
   'video.logo_reveal': 'videoBg.intro',
@@ -191,11 +191,24 @@ const KEY_ALIASES: Record<string, string> = {
   'sceneBg.zero-1-1-summons': 'background.yehia-room',
   'sceneBg.zero-1-2-prosecution': 'background.sun-and-desert',
   
-  // Ambient aliases
-  'sfx.ping': 'amb.ping',
-  'sfx.door_clang': 'amb.door_clang',
-  'sfx.cannon_fire': 'amb.cannon_fire',
-  'sfx.cups_clink': 'amb.cups_clink',
+  // Ambient aliases - map short names to full manifest keys
+  'amb.rain': 'ambient.amb.rain',
+  'amb.device_hum': 'ambient.amb.device_hum',
+  'amb.server_room': 'ambient.amb.server_room',
+  'amb.low_hum': 'ambient.amb.low_hum',
+  'amb.vacuum': 'ambient.amb.vacuum',
+  'amb.sirens_distant': 'ambient.amb.sirens_distant',
+  'amb.running_steps': 'ambient.amb.running_steps',
+  'amb.war_march': 'ambient.amb.war_march',
+  'amb.heartbeat_fast': 'ambient.amb.heartbeat_fast',
+  'amb.drums_hypnosis': 'ambient.amb.drums_hypnosis',
+  'amb.bass_drone_low': 'ambient.amb.bass_drone_low',
+  'amb.cafe_murmur': 'ambient.amb.cafe_murmur',
+  'amb.server_hum': 'ambient.amb.server_hum',
+  'sfx.ping': 'ambient.sfx.ping',
+  'sfx.door_clang': 'ambient.sfx.door_clang',
+  'sfx.cannon_fire': 'ambient.sfx.cannon_fire',
+  'sfx.cups_clink': 'ambient.sfx.cups_clink',
 };
 
 /**
