@@ -117,7 +117,7 @@ const KEY_ALIASES: Record<string, string> = {
   'character.abu_abdullah': 'character.tarek-portrait', // Alias
   'character.dictator': 'character.first-engineer-portrait', // Alias
   
-  // Video background aliases
+  // Video background aliases - all 19 videos mapped
   'videoBg.yahya_room': 'videoBg.yahya-room',
   'videoBg.yahya_office': 'videoBg.yehya-office-vid',
   'videoBg.cosmic_opening': 'videoBg.cosmic-opening',
@@ -129,8 +129,35 @@ const KEY_ALIASES: Record<string, string> = {
   'videoBg.abu_abdullah_tears': 'videoBg.abu-abdullah-tears',
   'videoBg.berlin_1933': 'videoBg.berlin-1933',
   'videoBg.karbala': 'videoBg.karbala',
+  'videoBg.karblaa': 'videoBg.karblaa',
   'videoBg.digital_space': 'videoBg.digital-space',
   'videoBg.enter_key': 'videoBg.enter-key',
+  'videoBg.andalus': 'videoBg.andalus',
+  'videoBg.desert': 'videoBg.desert',
+  'videoBg.egypt_nile_temple': 'videoBg.egypt-nile-temple',
+  'videoBg.intro': 'videoBg.intro',
+  'videoBg.clean_modern_logo': 'videoBg.clean-modern-logo-animation',
+  'videoBg.tarek_office': 'videoBg.tarek-office-vid',
+  
+  // Voice aliases - all 18 voices mapped
+  'voice.opening_prosecution': 'voice.voice-01',
+  'voice.iblis_oath': 'voice.voice-02',
+  'voice.tarek_first_message': 'voice.voice-03',
+  'voice.tarek_farewell': 'voice.voice-04',
+  'voice.yahya_realization': 'voice.voice-05',
+  'voice.mother_boabdil': 'voice.voice-06',
+  'voice.iblis_on_andalus': 'voice.voice-07',
+  'voice.hussein_karbala': 'voice.voice-08',
+  'voice.tarek_dream': 'voice.voice-09',
+  'voice.yahya_final_choice': 'voice.voice-10',
+  'voice.closing_file': 'voice.voice-11',
+  'voice.yahya_dies': 'voice.voice-12',
+  'voice.laila_explains_hussein': 'voice.voice-13',
+  'voice.engineer_tempts': 'voice.voice-14',
+  'voice.laila_childhood': 'voice.voice-15',
+  'voice.tarek_nicaea_link': 'voice.voice-16',
+  'voice.yahya_understands_samiri': 'voice.voice-17',
+  'voice.final_words_reader': 'voice.voice-18',
   
   // Audio aliases
   'audio.main_theme': 'audio.main-theme',
