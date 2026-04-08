@@ -147,23 +147,84 @@ async function getFileSize(filePath) {
   return stats.size;
 }
 
-async function buildAssets() {
-  console.log('🔨 Building assets...\n');
-  
-  // Check if source directory exists (skip in Vercel - assets already in git)
-  try {
-    await fs.access(SOURCE_DIR);
-  } catch {
-    console.log('⚠️  Source assets not found (expected in Vercel - assets committed to git)');
-    console.log('✅ Skipping asset build - using pre-built assets from git\n');
-    return;
-  }
-  
-  // Ensure destination directory exists
-  await ensureDir(DEST_DIR);
+async function scanExistingAssets() {
+  console.log('� Scanning existing assets in public/assets/...\n');
   
   const assets = {};
   let totalCount = 0;
+  
+  // Category mapping for existing assets
+  const categories = [
+    { dir: 'characters', category: 'character' },
+    { dir: 'video-bg', category: 'videoBg' },
+    { dir: 'music-tracks', category: 'audio' },
+    { dir: 'voices', category: 'voice' },
+    { dir: 'images', category: 'background' },
+  ];
+  
+  for (const { dir, category } of categories) {
+    const assetPath = path.join(DEST_DIR, dir);
+    
+    try {
+      const files = await fs.readdir(assetPath);
+      
+      for (const file of files) {
+        const filePath = path.join(assetPath, file);
+        const stat = await fs.stat(filePath);
+        
+        if (stat.isFile()) {
+          const key = getAssetKey(category, file);
+          const size = stat.size;
+          
+          assets[key] = {
+            key,
+            path: `/assets/${dir}/${file}`,
+            category,
+            mime: getMimeType(file),
+            originalName: file,
+            size,
+          };
+          
+          totalCount++;
+          console.log(`  ✅ ${key}`);
+        }
+      }
+    } catch (error) {
+      console.warn(`  ⚠️  Skipping ${dir}: ${error.message}`);
+    }
+  }
+  
+  return { assets, totalCount };
+}
+
+async function buildAssets() {
+  console.log('🔨 Building assets...\n');
+  
+  // Check if source directory exists
+  let sourceExists = true;
+  try {
+    await fs.access(SOURCE_DIR);
+  } catch {
+    sourceExists = false;
+  }
+  
+  let assets = {};
+  let totalCount = 0;
+  
+  if (!sourceExists) {
+    console.log('⚠️  Source assets not found (expected in Vercel - assets committed to git)');
+    console.log('🔍 Generating manifest from existing public/assets/...\n');
+    
+    const scanResult = await scanExistingAssets();
+    assets = scanResult.assets;
+    totalCount = scanResult.totalCount;
+  } else {
+  
+    // Ensure destination directory exists
+    await ensureDir(DEST_DIR);
+    
+    assets = {};
+    totalCount = 0;
   
   // Process each category
   const categories = [
@@ -213,6 +274,8 @@ async function buildAssets() {
     } catch (error) {
       console.warn(`  ⚠️  Skipping ${dir}: ${error.message}`);
     }
+  }
+  
   }
   
   // Generate manifest
