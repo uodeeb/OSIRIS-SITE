@@ -13,7 +13,7 @@
 // Type Definitions (inline to avoid circular dependencies during migration)
 // ============================================================================
 
-export type AssetCategory = 'character' | 'background' | 'videoBg' | 'audio' | 'voice' | 'document' | 'ui';
+export type AssetCategory = 'character' | 'background' | 'videoBg' | 'audio' | 'voice' | 'ambient' | 'document' | 'ui';
 
 export interface AssetEntry {
   key: string;
@@ -144,21 +144,31 @@ const KEY_ALIASES: Record<string, string> = {
   'video.logo_reveal': 'videoBg.intro',
   'video.qabil_scene': 'videoBg.intro',
   
-  // Background aliases (map old backgrounds to available background images)
-  'background.berlin_1933': 'background.01',
-  'background.cambodia_1975': 'background.02',
-  'background.corporate_lab': 'background.03',
-  'background.granada_fall': 'background.04',
-  'background.moscow_1937': 'background.05',
+  // Background aliases (map scene backgrounds to descriptive image names)
+  'background.berlin_1933': 'background.yehia-room',
+  'background.cambodia_1975': 'background.logo-new-flow01',
+  'background.corporate_lab': 'background.fire-worship',
+  'background.granada_fall': 'background.logo-new-flow01',
+  'background.moscow_1937': 'background.sun-and-desert',
   'background.nicaea_council': 'background.egypt-nile-temple02',
-  'background.osiris_cosmic': 'background.06',
-  'background.osiris_interface': 'background.07',
+  'background.osiris_cosmic': 'background.cosmic-bg',
+  'background.osiris_interface': 'background.sun-and-desert',
   'background.pharaoh_temple': 'background.egypt-nile-temple02',
-  'background.qabil_habil_aftermath': 'background.01',
-  'background.qabil_habil_altar': 'background.02',
-  'background.qabil_habil_rage': 'background.03',
+  'background.qabil_habil_aftermath': 'background.yehia-room',
+  'background.qabil_habil_altar': 'background.logo-new-flow01',
+  'background.qabil_habil_rage': 'background.fire-worship',
   'background.white_space': 'background.logo-new-flow01',
   'background.yahya_apartment': 'background.logo-new-flow02',
+  
+  // Scene background mappings (for scene-specific backgrounds)
+  'sceneBg.zero-1-1-summons': 'background.yehia-room',
+  'sceneBg.zero-1-2-prosecution': 'background.sun-and-desert',
+  
+  // Ambient aliases
+  'sfx.ping': 'amb.ping',
+  'sfx.door_clang': 'amb.door_clang',
+  'sfx.cannon_fire': 'amb.cannon_fire',
+  'sfx.cups_clink': 'amb.cups_clink',
 };
 
 /**
@@ -279,6 +289,14 @@ export function voice(name: string): string {
   return getAsset(`voice.${name}` as AssetKey);
 }
 
+/**
+ * Get ambient sound effect URL
+ * @example ambient('rain') // "/assets/amb/amb.rain.mp3"
+ */
+export function ambient(name: string): string {
+  return getAsset(`ambient.${name}` as AssetKey);
+}
+
 // ============================================================================
 // Legacy compatibility (for gradual migration)
 // ============================================================================
@@ -298,6 +316,12 @@ export const ASSET_URLS = {
   },
   get audio() {
     return createCategoryProxy('audio');
+  },
+  get ambient() {
+    return createCategoryProxy('ambient');
+  },
+  get voice() {
+    return createCategoryProxy('voice');
   },
   get projectMedia() {
     return {
@@ -335,5 +359,6 @@ export default {
   background,
   audio,
   voice,
+  ambient,
   ASSET_URLS,
 };

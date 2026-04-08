@@ -1,30 +1,14 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-08T17:13:47.403Z",
-  "totalAssets": 114,
+  "generatedAt": "2026-04-08T23:19:31.547Z",
+  "totalAssets": 102,
   "assets": {
-    "character.ramses": {
-      "key": "character.ramses",
-      "path": "/assets/characters/ramses.jpg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "RAMSIS.jpg",
-      "size": 1056771
-    },
-    "character.ramses-01": {
-      "key": "character.ramses-01",
-      "path": "/assets/characters/ramses-01.jpg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "RAMSIS01.jpg",
-      "size": 988618
-    },
     "character.arius": {
       "key": "character.arius",
       "path": "/assets/characters/arius.jpeg",
       "category": "character",
       "mime": "image/jpeg",
-      "originalName": "آريوس.jpeg",
+      "originalName": "arius.jpeg",
       "size": 845737
     },
     "character.athanasius": {
@@ -32,23 +16,103 @@
       "path": "/assets/characters/athanasius.jpeg",
       "category": "character",
       "mime": "image/jpeg",
-      "originalName": "أثناسيوس.jpeg",
+      "originalName": "athanasius.jpeg",
       "size": 764474
+    },
+    "character.constantine-portrait": {
+      "key": "character.constantine-portrait",
+      "path": "/assets/characters/constantine-portrait.jpeg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "constantine-portrait.jpeg",
+      "size": 922071
+    },
+    "character.first-engineer-confront": {
+      "key": "character.first-engineer-confront",
+      "path": "/assets/characters/first-engineer-confront.jpeg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "first-engineer-confront.jpeg",
+      "size": 765567
+    },
+    "character.first-engineer-exposed": {
+      "key": "character.first-engineer-exposed",
+      "path": "/assets/characters/first-engineer-exposed.jpeg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "first-engineer-exposed.jpeg",
+      "size": 833072
+    },
+    "character.first-engineer-portrait-02": {
+      "key": "character.first-engineer-portrait-02",
+      "path": "/assets/characters/first-engineer-portrait-02.jpeg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "first-engineer-portrait-02.jpeg",
+      "size": 756820
+    },
+    "character.first-engineer-portrait": {
+      "key": "character.first-engineer-portrait",
+      "path": "/assets/characters/first-engineer-portrait.jpeg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "first-engineer-portrait.jpeg",
+      "size": 639369
+    },
+    "character.laila-faith": {
+      "key": "character.laila-faith",
+      "path": "/assets/characters/laila-faith.jpeg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "laila-faith.jpeg",
+      "size": 680699
+    },
+    "character.laila-portrait": {
+      "key": "character.laila-portrait",
+      "path": "/assets/characters/laila-portrait.jpeg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "laila-portrait.jpeg",
+      "size": 775871
+    },
+    "character.laila-witness": {
+      "key": "character.laila-witness",
+      "path": "/assets/characters/laila-witness.jpeg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "laila-witness.jpeg",
+      "size": 635032
     },
     "character.narrator-visual": {
       "key": "character.narrator-visual",
       "path": "/assets/characters/narrator-visual.png",
       "category": "character",
       "mime": "image/png",
-      "originalName": "الراوي الكوني-التجسيد البصري (Visual Representation).png",
+      "originalName": "narrator-visual.png",
       "size": 2772739
+    },
+    "character.ramses-01": {
+      "key": "character.ramses-01",
+      "path": "/assets/characters/ramses-01.jpg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "ramses-01.jpg",
+      "size": 988618
+    },
+    "character.ramses": {
+      "key": "character.ramses",
+      "path": "/assets/characters/ramses.jpg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "ramses.jpg",
+      "size": 1056771
     },
     "character.samiri-calf": {
       "key": "character.samiri-calf",
       "path": "/assets/characters/samiri-calf.png",
       "category": "character",
       "mime": "image/png",
-      "originalName": "السامري-اصورة صناعة العجل (The Golden Calf Scene).png",
+      "originalName": "samiri-calf.png",
       "size": 2844303
     },
     "character.samiri-portrait": {
@@ -56,111 +120,39 @@
       "path": "/assets/characters/samiri-portrait.jpeg",
       "category": "character",
       "mime": "image/jpeg",
-      "originalName": "السامري-الصورة الأساسية (Portrait).jpeg",
+      "originalName": "samiri-portrait.jpeg",
       "size": 773915
-    },
-    "character.first-engineer-portrait": {
-      "key": "character.first-engineer-portrait",
-      "path": "/assets/characters/first-engineer-portrait.jpeg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "المهندس الأول-الصورة الأساسية (Portrait).jpeg",
-      "size": 639369
-    },
-    "character.first-engineer-portrait-02": {
-      "key": "character.first-engineer-portrait-02",
-      "path": "/assets/characters/first-engineer-portrait-02.jpeg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "المهندس الأول-الصورة الأساسية (Portrait)02.jpeg",
-      "size": 756820
-    },
-    "character.first-engineer-exposed": {
-      "key": "character.first-engineer-exposed",
-      "path": "/assets/characters/first-engineer-exposed.jpeg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "المهندس الأول-صورة الانكشاف (Exposed — Final Scene).jpeg",
-      "size": 833072
-    },
-    "character.first-engineer-confront": {
-      "key": "character.first-engineer-confront",
-      "path": "/assets/characters/first-engineer-confront.jpeg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "المهندس الأول-صورة المواجهة (Confrontation).jpeg",
-      "size": 765567
-    },
-    "character.tarek-portrait": {
-      "key": "character.tarek-portrait",
-      "path": "/assets/characters/tarek-portrait.jpeg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "طارق الراشد-الصورة الأساسية (Portrait).jpeg",
-      "size": 803175
-    },
-    "character.tarek-ghost": {
-      "key": "character.tarek-ghost",
-      "path": "/assets/characters/tarek-ghost.jpeg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "طارق الراشد-صورة التسجيل (Recording — Ghost Image).jpeg",
-      "size": 765487
     },
     "character.tarek-dream": {
       "key": "character.tarek-dream",
       "path": "/assets/characters/tarek-dream.jpeg",
       "category": "character",
       "mime": "image/jpeg",
-      "originalName": "طارق الراشد-صورة الحلم (Dream Sequence).jpeg",
+      "originalName": "tarek-dream.jpeg",
       "size": 361377
     },
-    "character.constantine-portrait": {
-      "key": "character.constantine-portrait",
-      "path": "/assets/characters/constantine-portrait.jpeg",
+    "character.tarek-ghost": {
+      "key": "character.tarek-ghost",
+      "path": "/assets/characters/tarek-ghost.jpeg",
       "category": "character",
       "mime": "image/jpeg",
-      "originalName": "قسطنطين-الصورة الأساسية (Portrait).jpeg",
-      "size": 922071
+      "originalName": "tarek-ghost.jpeg",
+      "size": 765487
     },
-    "character.laila-faith": {
-      "key": "character.laila-faith",
-      "path": "/assets/characters/laila-faith.jpeg",
+    "character.tarek-portrait": {
+      "key": "character.tarek-portrait",
+      "path": "/assets/characters/tarek-portrait.jpeg",
       "category": "character",
       "mime": "image/jpeg",
-      "originalName": "ليلى حسن-صورة الإيمان (Faith Portrait).jpeg",
-      "size": 680699
-    },
-    "character.laila-witness": {
-      "key": "character.laila-witness",
-      "path": "/assets/characters/laila-witness.jpeg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "ليلى حسن-صورة الشاهدة (Witness Scene — Final Chapter).jpeg",
-      "size": 635032
-    },
-    "character.laila-portrait": {
-      "key": "character.laila-portrait",
-      "path": "/assets/characters/laila-portrait.jpeg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "ليلى حسنالصورة الأساسية (Portrait).jpeg",
-      "size": 775871
-    },
-    "character.yahya-portrait": {
-      "key": "character.yahya-portrait",
-      "path": "/assets/characters/yahya-portrait.jpeg",
-      "category": "character",
-      "mime": "image/jpeg",
-      "originalName": "يحيى الراشد-الصورة الأساسية (Portrait).jpeg",
-      "size": 777688
+      "originalName": "tarek-portrait.jpeg",
+      "size": 803175
     },
     "character.yahya-breakdown": {
       "key": "character.yahya-breakdown",
       "path": "/assets/characters/yahya-breakdown.jpeg",
       "category": "character",
       "mime": "image/jpeg",
-      "originalName": "يحيى الراشد-صورة الانهيار (Breakdown Scene).jpeg",
+      "originalName": "yahya-breakdown.jpeg",
       "size": 718495
     },
     "character.yahya-confront": {
@@ -168,8 +160,24 @@
       "path": "/assets/characters/yahya-confront.jpeg",
       "category": "character",
       "mime": "image/jpeg",
-      "originalName": "يحيى الراشد-صورة المواجهة (Confrontation Scene).jpeg",
+      "originalName": "yahya-confront.jpeg",
       "size": 561087
+    },
+    "character.yahya-portrait": {
+      "key": "character.yahya-portrait",
+      "path": "/assets/characters/yahya-portrait.jpeg",
+      "category": "character",
+      "mime": "image/jpeg",
+      "originalName": "yahya-portrait.jpeg",
+      "size": 777688
+    },
+    "videoBg.abu-abdullah-tears": {
+      "key": "videoBg.abu-abdullah-tears",
+      "path": "/assets/video-bg/abu-abdullah-tears.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "abu-abdullah-tears.mp4",
+      "size": 2928743
     },
     "videoBg.andalus": {
       "key": "videoBg.andalus",
@@ -179,13 +187,29 @@
       "originalName": "andalus.mp4",
       "size": 7383292
     },
+    "videoBg.berlin-1933": {
+      "key": "videoBg.berlin-1933",
+      "path": "/assets/video-bg/berlin-1933.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "berlin-1933.mp4",
+      "size": 7123159
+    },
     "videoBg.clean-modern-logo-animation": {
       "key": "videoBg.clean-modern-logo-animation",
       "path": "/assets/video-bg/clean-modern-logo-animation.mp4",
       "category": "videoBg",
       "mime": "video/mp4",
-      "originalName": "Clean_modern_logo_animation.mp4",
+      "originalName": "clean-modern-logo-animation.mp4",
       "size": 1873724
+    },
+    "videoBg.cosmic-opening": {
+      "key": "videoBg.cosmic-opening",
+      "path": "/assets/video-bg/cosmic-opening.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "cosmic-opening.mp4",
+      "size": 971947
     },
     "videoBg.desert": {
       "key": "videoBg.desert",
@@ -195,6 +219,14 @@
       "originalName": "desert.mp4",
       "size": 5924884
     },
+    "videoBg.digital-space": {
+      "key": "videoBg.digital-space",
+      "path": "/assets/video-bg/digital-space.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "digital-space.mp4",
+      "size": 1885669
+    },
     "videoBg.egypt-nile-temple": {
       "key": "videoBg.egypt-nile-temple",
       "path": "/assets/video-bg/egypt-nile-temple.mp4",
@@ -202,6 +234,38 @@
       "mime": "video/mp4",
       "originalName": "egypt-nile-temple.mp4",
       "size": 35047615
+    },
+    "videoBg.enter-key": {
+      "key": "videoBg.enter-key",
+      "path": "/assets/video-bg/enter-key.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "enter-key.mp4",
+      "size": 7814125
+    },
+    "videoBg.granada-fall": {
+      "key": "videoBg.granada-fall",
+      "path": "/assets/video-bg/granada-fall.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "granada-fall.mp4",
+      "size": 8789555
+    },
+    "videoBg.intro": {
+      "key": "videoBg.intro",
+      "path": "/assets/video-bg/intro.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "intro.mp4",
+      "size": 9957119
+    },
+    "videoBg.karbala": {
+      "key": "videoBg.karbala",
+      "path": "/assets/video-bg/karbala.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "karbala.mp4",
+      "size": 2029370
     },
     "videoBg.karblaa": {
       "key": "videoBg.karblaa",
@@ -211,52 +275,12 @@
       "originalName": "karblaa.mp4",
       "size": 6242604
     },
-    "videoBg.intro": {
-      "key": "videoBg.intro",
-      "path": "/assets/video-bg/intro.mp4",
-      "category": "videoBg",
-      "mime": "video/mp4",
-      "originalName": "VIDEO 01 — الشاشة الرئيسية (Intro).mp4",
-      "size": 9957119
-    },
-    "videoBg.yahya-room": {
-      "key": "videoBg.yahya-room",
-      "path": "/assets/video-bg/yahya-room.mp4",
-      "category": "videoBg",
-      "mime": "video/mp4",
-      "originalName": "VIDEO 02 — غرفة يحيى (المشهد الافتتاحي).mp4",
-      "size": 7323904
-    },
-    "videoBg.cosmic-opening": {
-      "key": "videoBg.cosmic-opening",
-      "path": "/assets/video-bg/cosmic-opening.mp4",
-      "category": "videoBg",
-      "mime": "video/mp4",
-      "originalName": "VIDEO 03 — الفضاء الكوني (المرافعة الافتتاحية).mp4",
-      "size": 971947
-    },
-    "videoBg.tarek-rooftop": {
-      "key": "videoBg.tarek-rooftop",
-      "path": "/assets/video-bg/tarek-rooftop.mp4",
-      "category": "videoBg",
-      "mime": "video/mp4",
-      "originalName": "VIDEO 04 — سطح المبنى (وداع طارق).mp4",
-      "size": 5211554
-    },
-    "videoBg.sinai-desert": {
-      "key": "videoBg.sinai-desert",
-      "path": "/assets/video-bg/sinai-desert.mp4",
-      "category": "videoBg",
-      "mime": "video/mp4",
-      "originalName": "VIDEO 05 — صحراء سيناء (العجل الذهبي).mp4",
-      "size": 3147122
-    },
     "videoBg.molten-gold": {
       "key": "videoBg.molten-gold",
       "path": "/assets/video-bg/molten-gold.mp4",
       "category": "videoBg",
       "mime": "video/mp4",
-      "originalName": "VIDEO 06 — صهر الذهب (هندسة الحشود).mp4",
+      "originalName": "molten-gold.mp4",
       "size": 4863629
     },
     "videoBg.nicaea": {
@@ -264,439 +288,175 @@
       "path": "/assets/video-bg/nicaea.mp4",
       "category": "videoBg",
       "mime": "video/mp4",
-      "originalName": "VIDEO 07 — مجمع نيقية (الإمبراطور والحكيم).mp4",
+      "originalName": "nicaea.mp4",
       "size": 3256235
     },
-    "videoBg.granada-fall": {
-      "key": "videoBg.granada-fall",
-      "path": "/assets/video-bg/granada-fall.mp4",
+    "videoBg.sinai-desert": {
+      "key": "videoBg.sinai-desert",
+      "path": "/assets/video-bg/sinai-desert.mp4",
       "category": "videoBg",
       "mime": "video/mp4",
-      "originalName": "VIDEO 08 — الأندلس (جمال يتلاشى).mp4",
-      "size": 8789555
+      "originalName": "sinai-desert.mp4",
+      "size": 3147122
     },
-    "videoBg.abu-abdullah-tears": {
-      "key": "videoBg.abu-abdullah-tears",
-      "path": "/assets/video-bg/abu-abdullah-tears.mp4",
+    "videoBg.tarek-office-vid": {
+      "key": "videoBg.tarek-office-vid",
+      "path": "/assets/video-bg/tarek-office-vid.mp4",
       "category": "videoBg",
       "mime": "video/mp4",
-      "originalName": "VIDEO 09 — دموع أبو عبد الله (زفرة العربي الأخيرة).mp4",
-      "size": 2928743
-    },
-    "videoBg.berlin-1933": {
-      "key": "videoBg.berlin-1933",
-      "path": "/assets/video-bg/berlin-1933.mp4",
-      "category": "videoBg",
-      "mime": "video/mp4",
-      "originalName": "VIDEO 10 — برلين 1933 (الكبر يصبح نظاماً).mp4",
-      "size": 7123159
-    },
-    "videoBg.karbala": {
-      "key": "videoBg.karbala",
-      "path": "/assets/video-bg/karbala.mp4",
-      "category": "videoBg",
-      "mime": "video/mp4",
-      "originalName": "VIDEO 11 — كربلاء (الحق الأعزل).mp4",
-      "size": 2029370
-    },
-    "videoBg.digital-space": {
-      "key": "videoBg.digital-space",
-      "path": "/assets/video-bg/digital-space.mp4",
-      "category": "videoBg",
-      "mime": "video/mp4",
-      "originalName": "VIDEO 12 — الفضاء الرقمي (المواجهة مع المهندس).mp4",
-      "size": 1885669
-    },
-    "videoBg.enter-key": {
-      "key": "videoBg.enter-key",
-      "path": "/assets/video-bg/enter-key.mp4",
-      "category": "videoBg",
-      "mime": "video/mp4",
-      "originalName": "VIDEO 13 — ضغطة Enter (التضحية النهائية).mp4",
-      "size": 7814125
-    },
-    "videoBg.yehya-office-vid": {
-      "key": "videoBg.yehya-office-vid",
-      "path": "/assets/video-bg/yehya-office-vid.mp4",
-      "category": "videoBg",
-      "mime": "video/mp4",
-      "originalName": "yehya-office-vid.mp4",
+      "originalName": "tarek-office-vid.mp4",
       "size": 1868920
     },
-    "audio.main-theme": {
-      "key": "audio.main-theme",
-      "path": "/assets/music-tracks/main-theme.mp3",
-      "category": "audio",
-      "mime": "audio/mpeg",
-      "originalName": "TRACK 01 — الثيم الرئيسي للرواية.mp3",
-      "size": 5875499
+    "videoBg.tarek-rooftop": {
+      "key": "videoBg.tarek-rooftop",
+      "path": "/assets/video-bg/tarek-rooftop.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "tarek-rooftop.mp4",
+      "size": 5211554
     },
-    "audio.track-01-alt": {
-      "key": "audio.track-01-alt",
-      "path": "/assets/music-tracks/track-01-alt.mp3",
-      "category": "audio",
-      "mime": "audio/mpeg",
-      "originalName": "TRACK 01.mp3",
-      "size": 5875499
+    "videoBg.yahya-room": {
+      "key": "videoBg.yahya-room",
+      "path": "/assets/video-bg/yahya-room.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "yahya-room.mp4",
+      "size": 7323904
     },
-    "audio.track-02": {
-      "key": "audio.track-02",
-      "path": "/assets/music-tracks/track-02.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 02.m4a",
-      "size": 976689
-    },
-    "audio.track-03": {
-      "key": "audio.track-03",
-      "path": "/assets/music-tracks/track-03.mp3",
-      "category": "audio",
-      "mime": "audio/mpeg",
-      "originalName": "TRACK 03.mp3",
-      "size": 5875499
-    },
-    "audio.track-04": {
-      "key": "audio.track-04",
-      "path": "/assets/music-tracks/track-04.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 04.m4a",
-      "size": 7817441
-    },
-    "audio.track-04-mp3": {
-      "key": "audio.track-04-mp3",
-      "path": "/assets/music-tracks/track-04-mp3.mp3",
-      "category": "audio",
-      "mime": "audio/mpeg",
-      "originalName": "TRACK 04.mp3",
-      "size": 5875499
-    },
-    "audio.track-05": {
-      "key": "audio.track-05",
-      "path": "/assets/music-tracks/track-05.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 05.m4a",
-      "size": 4489865
-    },
-    "audio.track-06": {
-      "key": "audio.track-06",
-      "path": "/assets/music-tracks/track-06.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 06.m4a",
-      "size": 5737041
-    },
-    "audio.track-07": {
-      "key": "audio.track-07",
-      "path": "/assets/music-tracks/track-07.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 07.m4a",
-      "size": 5503142
-    },
-    "audio.track-08": {
-      "key": "audio.track-08",
-      "path": "/assets/music-tracks/track-08.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 08.m4a",
-      "size": 3280687
-    },
-    "audio.track-09": {
-      "key": "audio.track-09",
-      "path": "/assets/music-tracks/track-09.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 09.m4a",
-      "size": 6419023
-    },
-    "audio.track-10": {
-      "key": "audio.track-10",
-      "path": "/assets/music-tracks/track-10.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 10.m4a",
-      "size": 4796391
-    },
-    "audio.track-11": {
-      "key": "audio.track-11",
-      "path": "/assets/music-tracks/track-11.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 11.m4a",
-      "size": 3019643
-    },
-    "audio.track-12": {
-      "key": "audio.track-12",
-      "path": "/assets/music-tracks/track-12.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 12.m4a",
-      "size": 3521417
-    },
-    "audio.track-13": {
-      "key": "audio.track-13",
-      "path": "/assets/music-tracks/track-13.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 13.m4a",
-      "size": 4712593
-    },
-    "audio.track-14": {
-      "key": "audio.track-14",
-      "path": "/assets/music-tracks/track-14.m4a",
-      "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK 14.m4a",
-      "size": 4712593
-    },
-    "audio.track-01": {
-      "key": "audio.track-01",
-      "path": "/assets/music-tracks/track-01.mp3",
+    "audio.TRACK-01": {
+      "key": "audio.TRACK-01",
+      "path": "/assets/music-tracks/TRACK-01.mp3",
       "category": "audio",
       "mime": "audio/mpeg",
       "originalName": "TRACK-01.mp3",
-      "size": 5875499
+      "size": 11750751
     },
-    "audio.track-04-alt": {
-      "key": "audio.track-04-alt",
-      "path": "/assets/music-tracks/track-04-alt.m4a",
+    "audio.TRACK-02": {
+      "key": "audio.TRACK-02",
+      "path": "/assets/music-tracks/TRACK-02.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-04.m4a",
-      "size": 7817441
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-02.mp3",
+      "size": 1922859
     },
-    "audio.track-05-alt": {
-      "key": "audio.track-05-alt",
-      "path": "/assets/music-tracks/track-05-alt.m4a",
+    "audio.TRACK-03": {
+      "key": "audio.TRACK-03",
+      "path": "/assets/music-tracks/TRACK-03.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-05.m4a",
-      "size": 4489865
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-03.mp3",
+      "size": 961553
     },
-    "audio.track-06-alt": {
-      "key": "audio.track-06-alt",
-      "path": "/assets/music-tracks/track-06-alt.m4a",
+    "audio.TRACK-04": {
+      "key": "audio.TRACK-04",
+      "path": "/assets/music-tracks/TRACK-04.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-06.m4a",
-      "size": 5737041
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-04.mp3",
+      "size": 13948381
     },
-    "audio.track-07-alt": {
-      "key": "audio.track-07-alt",
-      "path": "/assets/music-tracks/track-07-alt.m4a",
+    "audio.TRACK-05": {
+      "key": "audio.TRACK-05",
+      "path": "/assets/music-tracks/TRACK-05.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-07.m4a",
-      "size": 5503142
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-05.mp3",
+      "size": 8471443
     },
-    "audio.track-08-alt": {
-      "key": "audio.track-08-alt",
-      "path": "/assets/music-tracks/track-08-alt.m4a",
+    "audio.TRACK-06": {
+      "key": "audio.TRACK-06",
+      "path": "/assets/music-tracks/TRACK-06.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-08.m4a",
-      "size": 3280687
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-06.mp3",
+      "size": 10735946
     },
-    "audio.track-09-alt": {
-      "key": "audio.track-09-alt",
-      "path": "/assets/music-tracks/track-09-alt.m4a",
+    "audio.TRACK-07": {
+      "key": "audio.TRACK-07",
+      "path": "/assets/music-tracks/TRACK-07.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-09.m4a",
-      "size": 6419023
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-07.mp3",
+      "size": 9441109
     },
-    "audio.track-10-alt": {
-      "key": "audio.track-10-alt",
-      "path": "/assets/music-tracks/track-10-alt.m4a",
+    "audio.TRACK-08": {
+      "key": "audio.TRACK-08",
+      "path": "/assets/music-tracks/TRACK-08.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-10.m4a",
-      "size": 4796391
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-08.mp3",
+      "size": 6353226
     },
-    "audio.track-11-alt": {
-      "key": "audio.track-11-alt",
-      "path": "/assets/music-tracks/track-11-alt.m4a",
+    "audio.TRACK-09": {
+      "key": "audio.TRACK-09",
+      "path": "/assets/music-tracks/TRACK-09.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-11.m4a",
-      "size": 3019643
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-09.mp3",
+      "size": 12162859
     },
-    "audio.track-12-alt": {
-      "key": "audio.track-12-alt",
-      "path": "/assets/music-tracks/track-12-alt.m4a",
+    "audio.TRACK-10": {
+      "key": "audio.TRACK-10",
+      "path": "/assets/music-tracks/TRACK-10.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-12.m4a",
-      "size": 3521417
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-10.mp3",
+      "size": 9378415
     },
-    "audio.track-13-alt": {
-      "key": "audio.track-13-alt",
-      "path": "/assets/music-tracks/track-13-alt.m4a",
+    "audio.TRACK-11": {
+      "key": "audio.TRACK-11",
+      "path": "/assets/music-tracks/TRACK-11.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-13.m4a",
-      "size": 4712593
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-11.mp3",
+      "size": 5564119
     },
-    "audio.track-14-alt": {
-      "key": "audio.track-14-alt",
-      "path": "/assets/music-tracks/track-14-alt.m4a",
+    "audio.TRACK-12": {
+      "key": "audio.TRACK-12",
+      "path": "/assets/music-tracks/TRACK-12.mp3",
       "category": "audio",
-      "mime": "audio/mp4",
-      "originalName": "TRACK-14.m4a",
-      "size": 4712593
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-12.mp3",
+      "size": 7004407
     },
-    "voice.voice-01-": {
-      "key": "voice.voice-01-",
-      "path": "/assets/voices/voice-01-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 01 — المرافعة الافتتاحية (الأيقونية الكبرى).wav",
-      "size": 6204200
+    "audio.TRACK-13": {
+      "key": "audio.TRACK-13",
+      "path": "/assets/music-tracks/TRACK-13.mp3",
+      "category": "audio",
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-13.mp3",
+      "size": 8479803
     },
-    "voice.voice-02-": {
-      "key": "voice.voice-02-",
-      "path": "/assets/voices/voice-02-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 02 — قسم إبليس (الشيفرة المصدرية).wav",
-      "size": 7544840
-    },
-    "voice.voice-03-": {
-      "key": "voice.voice-03-",
-      "path": "/assets/voices/voice-03-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 03 — رسالة طارق الأولى (صوت الأخ الميت).wav",
-      "size": 4305892
-    },
-    "voice.voice-04-": {
-      "key": "voice.voice-04-",
-      "path": "/assets/voices/voice-04-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 04 — وداع طارق على السطح.wav",
-      "size": 2324422
-    },
-    "voice.voice-05-": {
-      "key": "voice.voice-05-",
-      "path": "/assets/voices/voice-05-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 05 — إدراك يحيى (الخوارزمية والشيطان).wav",
-      "size": 1671650
-    },
-    "voice.voice-06-": {
-      "key": "voice.voice-06-",
-      "path": "/assets/voices/voice-06-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 06 — أم أبو عبد الله (الجملة التاريخية).wav",
-      "size": 723172
-    },
-    "voice.voice-07-": {
-      "key": "voice.voice-07-",
-      "path": "/assets/voices/voice-07-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 07 — صوت إبليس يعلق على الأندلس.wav",
-      "size": 2266952
-    },
-    "voice.voice-08-": {
-      "key": "voice.voice-08-",
-      "path": "/assets/voices/voice-08-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 08 — الحسين في كربلاء.wav",
-      "size": 2374338
-    },
-    "voice.voice-09-": {
-      "key": "voice.voice-09-",
-      "path": "/assets/voices/voice-09-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 09 — طارق في الحلم (الوداع الأخير).wav",
-      "size": 2589402
-    },
-    "voice.voice-10-": {
-      "key": "voice.voice-10-",
-      "path": "/assets/voices/voice-10-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 10 — قرار يحيى (الجملة الأخيرة قبل الضغط).wav",
-      "size": 1698538
-    },
-    "voice.voice-11-": {
-      "key": "voice.voice-11-",
-      "path": "/assets/voices/voice-11-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 11 — إغلاق الملف (الراوي الكوني).wav",
-      "size": 4440278
-    },
-    "voice.voice-12-": {
-      "key": "voice.voice-12-",
-      "path": "/assets/voices/voice-12-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 12 — يحيى يموت (آخر كلماته لليلى).wav",
-      "size": 2183412
-    },
-    "voice.voice-13-": {
-      "key": "voice.voice-13-",
-      "path": "/assets/voices/voice-13-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 13 — ليلى تفسر الحسين.wav",
-      "size": 2458816
-    },
-    "voice.voice-14-": {
-      "key": "voice.voice-14-",
-      "path": "/assets/voices/voice-14-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 14 — المهندس الأول يعرض على يحيى.wav",
-      "size": 3361238
-    },
-    "voice.voice-15-": {
-      "key": "voice.voice-15-",
-      "path": "/assets/voices/voice-15-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 15 — ليلى تكشف جرحها (ألم الطفولة).wav",
-      "size": 3560922
-    },
-    "voice.voice-16-": {
-      "key": "voice.voice-16-",
-      "path": "/assets/voices/voice-16-.wav",
-      "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE 16 — طارق يربط نيقية بالحاضر.wav",
-      "size": 3845070
+    "audio.TRACK-14": {
+      "key": "audio.TRACK-14",
+      "path": "/assets/music-tracks/TRACK-14.mp3",
+      "category": "audio",
+      "mime": "audio/mpeg",
+      "originalName": "TRACK-14.mp3",
+      "size": 8479803
     },
     "voice.voice-01": {
       "key": "voice.voice-01",
-      "path": "/assets/voices/voice-01.wav",
+      "path": "/assets/voices/voice-01.mp3",
       "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE-01.wav",
-      "size": 6204200
+      "mime": "audio/mpeg",
+      "originalName": "voice-01.mp3",
+      "size": 494400
     },
     "voice.voice-02": {
       "key": "voice.voice-02",
-      "path": "/assets/voices/voice-02.wav",
+      "path": "/assets/voices/voice-02.mp3",
       "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE-02.wav",
-      "size": 7544840
+      "mime": "audio/mpeg",
+      "originalName": "voice-02.mp3",
+      "size": 1315200
     },
     "voice.voice-03": {
       "key": "voice.voice-03",
       "path": "/assets/voices/voice-03.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-03.wav",
+      "originalName": "voice-03.wav",
       "size": 4305892
     },
     "voice.voice-04": {
@@ -704,7 +464,7 @@
       "path": "/assets/voices/voice-04.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-04.wav",
+      "originalName": "voice-04.wav",
       "size": 2324422
     },
     "voice.voice-05": {
@@ -712,7 +472,7 @@
       "path": "/assets/voices/voice-05.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-05.wav",
+      "originalName": "voice-05.wav",
       "size": 1671650
     },
     "voice.voice-06": {
@@ -720,23 +480,23 @@
       "path": "/assets/voices/voice-06.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-06.wav",
+      "originalName": "voice-06.wav",
       "size": 723172
     },
     "voice.voice-07": {
       "key": "voice.voice-07",
-      "path": "/assets/voices/voice-07.wav",
+      "path": "/assets/voices/voice-07.mp3",
       "category": "voice",
-      "mime": "audio/wav",
-      "originalName": "VOICE-07.wav",
-      "size": 2266952
+      "mime": "audio/mpeg",
+      "originalName": "voice-07.mp3",
+      "size": 294240
     },
     "voice.voice-08": {
       "key": "voice.voice-08",
       "path": "/assets/voices/voice-08.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-08.wav",
+      "originalName": "voice-08.wav",
       "size": 2374338
     },
     "voice.voice-09": {
@@ -744,7 +504,7 @@
       "path": "/assets/voices/voice-09.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-09.wav",
+      "originalName": "voice-09.wav",
       "size": 2589402
     },
     "voice.voice-10": {
@@ -752,7 +512,7 @@
       "path": "/assets/voices/voice-10.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-10.wav",
+      "originalName": "voice-10.wav",
       "size": 1698538
     },
     "voice.voice-11": {
@@ -760,7 +520,7 @@
       "path": "/assets/voices/voice-11.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-11.wav",
+      "originalName": "voice-11.wav",
       "size": 4440278
     },
     "voice.voice-12": {
@@ -768,7 +528,7 @@
       "path": "/assets/voices/voice-12.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-12.wav",
+      "originalName": "voice-12.wav",
       "size": 2183412
     },
     "voice.voice-13": {
@@ -776,7 +536,7 @@
       "path": "/assets/voices/voice-13.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-13.wav",
+      "originalName": "voice-13.wav",
       "size": 2458816
     },
     "voice.voice-14": {
@@ -784,7 +544,7 @@
       "path": "/assets/voices/voice-14.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-14.wav",
+      "originalName": "voice-14.wav",
       "size": 3361238
     },
     "voice.voice-15": {
@@ -792,7 +552,7 @@
       "path": "/assets/voices/voice-15.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-15.wav",
+      "originalName": "voice-15.wav",
       "size": 3560922
     },
     "voice.voice-16": {
@@ -800,7 +560,7 @@
       "path": "/assets/voices/voice-16.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-16.wav",
+      "originalName": "voice-16.wav",
       "size": 3845070
     },
     "voice.voice-17": {
@@ -808,7 +568,7 @@
       "path": "/assets/voices/voice-17.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-17.wav",
+      "originalName": "voice-17.wav",
       "size": 4440278
     },
     "voice.voice-18": {
@@ -816,72 +576,64 @@
       "path": "/assets/voices/voice-18.wav",
       "category": "voice",
       "mime": "audio/wav",
-      "originalName": "VOICE-18.wav",
+      "originalName": "voice-18.wav",
       "size": 2183412
     },
-    "background.01": {
-      "key": "background.01",
-      "path": "/assets/images/01.jpg",
+    "background.cosmic-bg": {
+      "key": "background.cosmic-bg",
+      "path": "/assets/images/cosmic-bg.jpg",
       "category": "background",
       "mime": "image/jpeg",
-      "originalName": "01.jpg",
-      "size": 229691
-    },
-    "background.02": {
-      "key": "background.02",
-      "path": "/assets/images/02.jpg",
-      "category": "background",
-      "mime": "image/jpeg",
-      "originalName": "02.jpg",
-      "size": 171152
-    },
-    "background.03": {
-      "key": "background.03",
-      "path": "/assets/images/03.jpg",
-      "category": "background",
-      "mime": "image/jpeg",
-      "originalName": "03.jpg",
-      "size": 207560
-    },
-    "background.04": {
-      "key": "background.04",
-      "path": "/assets/images/04.jpg",
-      "category": "background",
-      "mime": "image/jpeg",
-      "originalName": "04.jpg",
-      "size": 241965
-    },
-    "background.05": {
-      "key": "background.05",
-      "path": "/assets/images/05.jpg",
-      "category": "background",
-      "mime": "image/jpeg",
-      "originalName": "05.jpg",
-      "size": 205520
-    },
-    "background.06": {
-      "key": "background.06",
-      "path": "/assets/images/06.jpg",
-      "category": "background",
-      "mime": "image/jpeg",
-      "originalName": "06.jpg",
+      "originalName": "cosmic-bg.jpg",
       "size": 483466
     },
-    "background.07": {
-      "key": "background.07",
-      "path": "/assets/images/07.jpg",
+    "background.dessert": {
+      "key": "background.dessert",
+      "path": "/assets/images/dessert.jpg",
       "category": "background",
       "mime": "image/jpeg",
-      "originalName": "07.jpg",
-      "size": 219799
+      "originalName": "dessert.jpg",
+      "size": 171152
     },
     "background.egypt-nile-temple02": {
       "key": "background.egypt-nile-temple02",
       "path": "/assets/images/egypt-nile-temple02.jpg",
       "category": "background",
       "mime": "image/jpeg",
-      "originalName": "EGYPT-NILE-TEMPLE02.jpg",
+      "originalName": "egypt-nile-temple02.jpg",
       "size": 1076865
+    },
+    "background.explode-basement": {
+      "key": "background.explode-basement",
+      "path": "/assets/images/explode-basement.jpg",
+      "category": "background",
+      "mime": "image/jpeg",
+      "originalName": "explode-basement.jpg",
+      "size": 219799
+    },
+    "background.fire-worship": {
+      "key": "background.fire-worship",
+      "path": "/assets/images/fire-worship.jpg",
+      "category": "background",
+      "mime": "image/jpeg",
+      "originalName": "fire-worship.jpg",
+      "size": 207560
+    },
+    "background.hamara-palace": {
+      "key": "background.hamara-palace",
+      "path": "/assets/images/hamara-palace.jpg",
+      "category": "background",
+      "mime": "image/jpeg",
+      "originalName": "hamara-palace.jpg",
+      "size": 241965
+    },
+    "background.logo-new-flow01-upscayl-1x-digital-art-4x": {
+      "key": "background.logo-new-flow01-upscayl-1x-digital-art-4x",
+      "path": "/assets/images/logo-new-flow01-upscayl-1x-digital-art-4x.png",
+      "category": "background",
+      "mime": "image/png",
+      "originalName": "logo-new-flow01-upscayl-1x-digital-art-4x.png",
+      "size": 750224
     },
     "background.logo-new-flow01": {
       "key": "background.logo-new-flow01",
@@ -891,13 +643,13 @@
       "originalName": "logo-new-flow01.png",
       "size": 1439843
     },
-    "background.logo-new-flow01-upscayl-1x-digital-art-4x": {
-      "key": "background.logo-new-flow01-upscayl-1x-digital-art-4x",
-      "path": "/assets/images/logo-new-flow01-upscayl-1x-digital-art-4x.png",
+    "background.logo-new-flow02-upscayl-1x-digital-art-4x": {
+      "key": "background.logo-new-flow02-upscayl-1x-digital-art-4x",
+      "path": "/assets/images/logo-new-flow02-upscayl-1x-digital-art-4x.png",
       "category": "background",
       "mime": "image/png",
-      "originalName": "logo-new-flow01_upscayl_1x_digital-art-4x.png",
-      "size": 750224
+      "originalName": "logo-new-flow02-upscayl-1x-digital-art-4x.png",
+      "size": 1103479
     },
     "background.logo-new-flow02": {
       "key": "background.logo-new-flow02",
@@ -907,13 +659,165 @@
       "originalName": "logo-new-flow02.png",
       "size": 1488733
     },
-    "background.logo-new-flow02-upscayl-1x-digital-art-4x": {
-      "key": "background.logo-new-flow02-upscayl-1x-digital-art-4x",
-      "path": "/assets/images/logo-new-flow02-upscayl-1x-digital-art-4x.png",
+    "background.sun-and-desert": {
+      "key": "background.sun-and-desert",
+      "path": "/assets/images/sun-and-desert.jpg",
       "category": "background",
-      "mime": "image/png",
-      "originalName": "logo-new-flow02_upscayl_1x_digital-art-4x.png",
-      "size": 1103479
+      "mime": "image/jpeg",
+      "originalName": "sun-and-desert.jpg",
+      "size": 205520
+    },
+    "background.yehia-room": {
+      "key": "background.yehia-room",
+      "path": "/assets/images/yehia-room.jpg",
+      "category": "background",
+      "mime": "image/jpeg",
+      "originalName": "yehia-room.jpg",
+      "size": 229691
+    },
+    "ambient.amb.bass_drone_low": {
+      "key": "ambient.amb.bass_drone_low",
+      "path": "/assets/ambient/amb.bass_drone_low.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.bass_drone_low.mp3",
+      "size": 1731693
+    },
+    "ambient.amb.cafe_murmur": {
+      "key": "ambient.amb.cafe_murmur",
+      "path": "/assets/ambient/amb.cafe_murmur.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.cafe_murmur.mp3",
+      "size": 3215613
+    },
+    "ambient.amb.device_hum": {
+      "key": "ambient.amb.device_hum",
+      "path": "/assets/ambient/amb.device_hum.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.device_hum.mp3",
+      "size": 3579405
+    },
+    "ambient.amb.drums_hypnosis": {
+      "key": "ambient.amb.drums_hypnosis",
+      "path": "/assets/ambient/amb.drums_hypnosis.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.drums_hypnosis.mp3",
+      "size": 117717
+    },
+    "ambient.amb.heartbeat_fast": {
+      "key": "ambient.amb.heartbeat_fast",
+      "path": "/assets/ambient/amb.heartbeat_fast.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.heartbeat_fast.mp3",
+      "size": 275685
+    },
+    "ambient.amb.low_hum": {
+      "key": "ambient.amb.low_hum",
+      "path": "/assets/ambient/amb.low_hum.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.low_hum.mp3",
+      "size": 2363469
+    },
+    "ambient.amb.rain": {
+      "key": "ambient.amb.rain",
+      "path": "/assets/ambient/amb.rain.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.rain.mp3",
+      "size": 3145677
+    },
+    "ambient.amb.running_steps": {
+      "key": "ambient.amb.running_steps",
+      "path": "/assets/ambient/amb.running_steps.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.running_steps.mp3",
+      "size": 173500
+    },
+    "ambient.amb.server_hum": {
+      "key": "ambient.amb.server_hum",
+      "path": "/assets/ambient/amb.server_hum.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.server_hum.mp3",
+      "size": 3925197
+    },
+    "ambient.amb.server_room": {
+      "key": "ambient.amb.server_room",
+      "path": "/assets/ambient/amb.server_room.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.server_room.mp3",
+      "size": 3925197
+    },
+    "ambient.amb.sirens_distant": {
+      "key": "ambient.amb.sirens_distant",
+      "path": "/assets/ambient/amb.sirens_distant.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.sirens_distant.mp3",
+      "size": 190293
+    },
+    "ambient.amb.vacuum": {
+      "key": "ambient.amb.vacuum",
+      "path": "/assets/ambient/amb.vacuum.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.vacuum.mp3",
+      "size": 2806493
+    },
+    "ambient.amb.war_march": {
+      "key": "ambient.amb.war_march",
+      "path": "/assets/ambient/amb.war_march.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "amb.war_march.mp3",
+      "size": 499737
+    },
+    "ambient.music.cafe_jazz": {
+      "key": "ambient.music.cafe_jazz",
+      "path": "/assets/ambient/music.cafe_jazz.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "music.cafe_jazz.mp3",
+      "size": 1081293
+    },
+    "ambient.sfx.cannon_fire": {
+      "key": "ambient.sfx.cannon_fire",
+      "path": "/assets/ambient/sfx.cannon_fire.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "sfx.cannon_fire.mp3",
+      "size": 68973
+    },
+    "ambient.sfx.cups_clink": {
+      "key": "ambient.sfx.cups_clink",
+      "path": "/assets/ambient/sfx.cups_clink.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "sfx.cups_clink.mp3",
+      "size": 166701
+    },
+    "ambient.sfx.door_clang": {
+      "key": "ambient.sfx.door_clang",
+      "path": "/assets/ambient/sfx.door_clang.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "sfx.door_clang.mp3",
+      "size": 17786
+    },
+    "ambient.sfx.ping": {
+      "key": "ambient.sfx.ping",
+      "path": "/assets/ambient/sfx.ping.mp3",
+      "category": "ambient",
+      "mime": "audio/mpeg",
+      "originalName": "sfx.ping.mp3",
+      "size": 54741
     }
   }
 }

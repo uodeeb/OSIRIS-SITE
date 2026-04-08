@@ -1,4 +1,4 @@
-import { getAsset } from '../assets';
+import { getAsset, background } from '../assets';
 import type { Scene } from '../sceneSystem';
 
 export const PART_ZERO: Record<string, Scene> = {
@@ -11,7 +11,7 @@ export const PART_ZERO: Record<string, Scene> = {
     backgroundVideo: getAsset('videoBg.yahya_room'),
     backgroundVideoAudioDescEn: '/audio-descriptions/yahya_room-en.vtt',
     backgroundVideoAudioDescAr: '/audio-descriptions/yahya_room-ar.vtt',
-    backgroundImage: 'sceneBg.zero-1-1-summons',
+    backgroundImage: background('yahya_apartment'),
     visualEffect: "scanlines",
     musicKey: "audio.main_theme",
     ambientKeys: ["amb.rain", "amb.device_hum"],

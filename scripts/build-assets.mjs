@@ -160,6 +160,7 @@ async function scanExistingAssets() {
     { dir: 'music-tracks', category: 'audio' },
     { dir: 'voices', category: 'voice' },
     { dir: 'images', category: 'background' },
+    { dir: 'ambient', category: 'ambient' },
   ];
   
   for (const { dir, category } of categories) {
@@ -228,6 +229,7 @@ async function buildAssets() {
         { dir: 'music-tracks', category: 'audio' },
         { dir: 'video-bg', category: 'video' },
         { dir: 'voices', category: 'audio' },
+        { dir: 'ambient', category: 'ambient' },
       ];
       
       for (const { dir, category } of categories) {
