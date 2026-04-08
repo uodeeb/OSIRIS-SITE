@@ -200,82 +200,75 @@ async function scanExistingAssets() {
 async function buildAssets() {
   console.log('🔨 Building assets...\n');
   
-  // Check if source directory exists
-  let sourceExists = true;
-  try {
-    await fs.access(SOURCE_DIR);
-  } catch {
-    sourceExists = false;
-  }
-  
   let assets = {};
   let totalCount = 0;
   
-  if (!sourceExists) {
-    console.log('⚠️  Source assets not found (expected in Vercel - assets committed to git)');
-    console.log('🔍 Generating manifest from existing public/assets/...\n');
-    
-    const scanResult = await scanExistingAssets();
-    assets = scanResult.assets;
-    totalCount = scanResult.totalCount;
-  } else {
+  // FIRST: Try to scan existing assets in public/assets/ (Vercel build)
+  console.log('🔍 Scanning existing assets in public/assets/...\n');
+  const existingResult = await scanExistingAssets();
+  assets = existingResult.assets;
+  totalCount = existingResult.totalCount;
   
-    // Ensure destination directory exists
-    await ensureDir(DEST_DIR);
+  // If no assets found in public/assets/, try to copy from generated-assets/
+  if (totalCount === 0) {
+    console.log('⚠️  No assets found in public/assets/');
+    console.log('📁 Checking generated-assets/ for source assets...\n');
     
-    assets = {};
-    totalCount = 0;
-  
-  // Process each category
-  const categories = [
-    { dir: 'characters', category: 'character' },
-    { dir: 'video-bg', category: 'videoBg' },
-    { dir: 'music-tracks', category: 'audio' },
-    { dir: 'voices', category: 'voice' },
-    { dir: 'images', category: 'background' },
-  ];
-  
-  for (const { dir, category } of categories) {
-    const sourcePath = path.join(SOURCE_DIR, dir);
-    const destPath = path.join(DEST_DIR, dir);
-    
+    let sourceExists = true;
     try {
-      await ensureDir(destPath);
-      const files = await fs.readdir(sourcePath);
+      await fs.access(SOURCE_DIR);
+    } catch {
+      sourceExists = false;
+    }
+    
+    if (sourceExists) {
+      const categories = [
+        { dir: 'characters', category: 'image' },
+        { dir: 'images', category: 'image' },
+        { dir: 'music-tracks', category: 'audio' },
+        { dir: 'video-bg', category: 'video' },
+        { dir: 'voices', category: 'audio' },
+      ];
       
-      for (const file of files) {
-        const srcFile = path.join(sourcePath, file);
-        const stat = await fs.stat(srcFile);
+      for (const { dir, category } of categories) {
+        const sourcePath = path.join(SOURCE_DIR, dir);
+        const destPath = path.join(DEST_DIR, dir);
         
-        if (stat.isFile()) {
-          const normalizedName = normalizeFilename(file);
-          const destFile = path.join(destPath, normalizedName);
+        try {
+          await ensureDir(destPath);
+          const files = await fs.readdir(sourcePath);
           
-          // Copy file
-          await copyFile(srcFile, destFile);
+          for (const file of files) {
+            const srcFile = path.join(sourcePath, file);
+            const destFile = path.join(destPath, file);
+            const normalizedName = FILENAME_MAP[file] || file;
+            const key = path.parse(normalizedName).name;
+            
+            await fs.copyFile(srcFile, destFile);
+            
+            assets[key] = {
+              key,
+              path: `/assets/${dir}/${normalizedName}`,
+              category,
+              mime: getMimeType(file),
+              originalName: file,
+            };
+            
+            totalCount++;
+          }
           
-          // Add to manifest
-          const key = getAssetKey(category, normalizedName);
-          const size = await getFileSize(srcFile);
-          
-          assets[key] = {
-            key,
-            path: `/assets/${dir}/${normalizedName}`,
-            category,
-            mime: getMimeType(normalizedName),
-            originalName: file,
-            size,
-          };
-          
-          totalCount++;
-          console.log(`  ✅ ${category}.${path.basename(normalizedName, path.extname(normalizedName))}`);
+          console.log(`✅ Copied ${files.length} ${dir}`);
+        } catch (error) {
+          console.warn(`⚠️  Skipping ${dir}: ${error.message}`);
         }
       }
-    } catch (error) {
-      console.warn(`  ⚠️  Skipping ${dir}: ${error.message}`);
+      
+      console.log(`\n📊 Copied ${totalCount} assets`);
+    } else {
+      console.log('❌ Source assets not found in generated-assets/');
     }
-  }
-  
+  } else {
+    console.log(`\n📊 Found ${totalCount} existing assets in public/assets/`);
   }
   
   // Generate manifest
