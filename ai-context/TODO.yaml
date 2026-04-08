@@ -27,5 +27,28 @@ tasks:
       - "Eliminated need for /assets.json and /api/trpc/system.assets endpoints"
       - "Resolved long task issues by removing async asset loading"
       - "Build successful with 114 assets mapped and 0 TypeScript errors"
+  - id: 3
+    title: "Debug Vercel deployment - npm/pnpm compatibility"
+    priority: critical
+    status: completed
+    est_steps: 3
+    deps: []
+    tags: [deployment, vercel, build]
+    details:
+      - "Error: npm doesn't support link: protocol (pnpm-specific)"
+      - "Fixed: Changed vercel.json to use pnpm install instead of npm install"
+      - "Fixed: Created .npmrc to allow pnpm build scripts for tailwindcss and esbuild"
+      - "Fixed: build-assets.mjs to prioritize scanning public/assets over generated-assets"
+  - id: 4
+    title: "Debug and ensure all assets deploy correctly on Vercel"
+    priority: high
+    status: in_progress
+    est_steps: 3
+    deps: []
+    tags: [deployment, assets, 404]
+    details:
+      - "Local build verified - all 114 assets present in dist/public/assets/"
+      - "Issue: Vercel deployment may not be including asset subdirectories"
+      - "Next: Monitor Vercel deployment and test production asset loading"
 
-next_id: 3
+next_id: 5

@@ -71,3 +71,21 @@ logs:
     codemod: "scripts/migrate-assets-codemod.js"
     build_status: "success"
     ts_errors: 0
+  - timestamp: "2026-04-08T19:45:00Z"
+    task_id: "2"
+    step: "4.0"
+    change: "Deployed to production via GitHub push"
+    result: "success"
+    proof: "Git push to origin main successful - 43 files changed, Vercel deploy triggered"
+    commit_hash: "d729ba4"
+    files_changed: 43
+    insertions: 1738
+    deletions: 461
+  - timestamp: "2026-04-08T19:50:00Z"
+    task_id: "3"
+    step: "1.0"
+    change: "Fixed Vercel deployment - npm/pnpm compatibility"
+    result: "success"
+    proof: "Changed vercel.json installCommand to pnpm install to fix link: protocol error"
+    commit_hash: "5482282"
+    error_fixed: "npm error code EUNSUPPORTEDPROTOCOL - npm doesn't support link: protocol"

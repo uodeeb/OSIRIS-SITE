@@ -1,50 +1,25 @@
-task_id: 2
-title: "Complete asset system migration + fix production 404 errors"
-started: "2026-04-08T17:01:00Z"
-status: completed
+task_id: 4
+title: "Debug and ensure all assets deploy correctly on Vercel"
+started: "2026-04-08T21:44:00Z"
+status: in_progress
 plan:
   - step: 1
-    action: "Analyze production asset 404 errors and missing assets"
+    action: "Verify local build has all assets in dist/public/assets/"
     status: done
-    est_tokens: 150
-    result: "Identified 4 root causes: manifest 404, URL path mismatch, missing assets on server, API endpoints 404"
-    proof: "Console errors + manifest analysis complete"
+    est_tokens: 100
+    result: "Local build verified - 114 assets present in all subdirectories"
+    proof: "characters/, images/, music-tracks/, video-bg/, voices/ all populated"
   - step: 2
-    action: "Fix video background assets (digital-space.mp4, cosmic-opening.mp4)"
-    status: done
-    est_tokens: 200
-    result: "Fixed serveStatic function to use correct dist/public path in production"
-    proof: "Build successful, 114 assets mapped, manifest copied to dist/public/"
+    action: "Check Vercel build output and deployment configuration"
+    status: pending
+    est_tokens: 100
+    result: "Need to verify Vercel is including asset directories in deployment"
+    proof: "vercel.json outputDirectory is dist/public - should include assets/"
   - step: 3
-    action: "Migrate 38 files from assetUrls to new assets system"
-    status: done
-    est_tokens: 300
-    result: "Successfully migrated all 38 files using codemod + manual fixes"
-    proof: "npm run check passes with 0 errors"
-  - step: 4
-    action: "Fix character portrait assets (yahya, laila, tarek)"
-    status: done
-    est_tokens: 200
-    result: "Character assets migrated via codemod - MainPlayer/characters.ts updated"
-    proof: "Characters now use character() function from assets.ts"
-  - step: 5
-    action: "Fix audio assets (main_theme, intro_narration)"
-    status: done
+    action: "Test production site and identify any remaining 404 errors"
+    status: pending
     est_tokens: 150
-    result: "Audio assets migrated via codemod - scene files updated"
-    proof: "Audio now uses audio() function from assets.ts"
-  - step: 6
-    action: "Fix /assets.json and /api/trpc/system.assets endpoints"
-    status: done
-    est_tokens: 200
-    result: "No longer needed - new asset system uses static manifest"
-    proof: "Asset manifest served from /asset-manifest.json via serveStatic"
-  - step: 7
-    action: "Optimize performance and resolve jQuery SVG errors"
-    status: done
-    est_tokens: 150
-    result: "Skipped - jQuery errors are non-critical, performance optimized via static assets"
-    proof: "Build successful, long task issues resolved by removing async asset loading"
+    result: "Pending Vercel deployment verification"
+    proof: "Check www.osirisnovel.online asset loading in browser dev tools"
 
-total_tokens_used: 1450
-completed: "2026-04-08T18:30:00Z"
+total_tokens_used: 100
