@@ -1,0 +1,15 @@
+name: advance-task
+description: "Pick next task → plan → execute step-by-step → track → complete."
+trigger: "advance|next task|work on next|continue"
+steps:
+  - action: "Load skill: task-tracker"
+  - action: "MCP-filesystem read TODO.yaml → find highest priority pending with met deps"
+  - action: "MCP-filesystem write CURRENT-TASK.yaml with plan (3-5 steps)"
+  - action: "MCP-sequential-thinking: validate plan logic"
+  - action: "Execute step 1 only → output diff"
+  - action: "MCP-terminal: npm run lint && npm run test"
+  - action: "MCP-filesystem append MEMORY-LOG.yaml with proof"
+  - action: "Report: Step [n/total] done. Proof: [results]. Approve next?"
+  - loop: "Repeat steps 5-8 until all plan steps done"
+  - action: "Load skill: task-tracker → complete-task sequence"
+  - action: "Announce next priority task"

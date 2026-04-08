@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { CinemaMode } from '@/components/CinemaMode';
 import { InteractiveChoice, Choice } from '@/components/InteractiveChoice';
 import { useLocation } from 'wouter';
-import { ASSET_URLS } from '@/lib/assetUrls';
+import { background, character, videoBg, audio } from '@/lib/assets';
 
 export default function PartZero() {
   const [phase, setPhase] = useState<'intro' | 'case-file' | 'opening'>('intro');
@@ -46,8 +46,8 @@ export default function PartZero() {
 
   return (
     <CinemaMode
-      backgroundImage={ASSET_URLS.backgrounds.osiris_cosmic}
-      audioUrl={ASSET_URLS.audio.intro_narration}
+      backgroundImage={background('osiris_cosmic')}
+      audioUrl={audio('intro_narration')}
       autoPlayAudio={true}
     >
       {phase === 'intro' && (

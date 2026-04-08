@@ -1,4 +1,4 @@
-import { ASSET_URLS } from '../assetUrls';
+import { background, character, videoBg, audio } from '../assets';
 import type { Scene } from '../sceneSystem';
 
 export const PART_TWO: Record<string, Scene> = {
@@ -8,7 +8,7 @@ export const PART_TWO: Record<string, Scene> = {
     title: 'Escape and Meeting',
     arabicTitle: 'الهروب واللقاء',
     part: 1,
-    backgroundImage: ASSET_URLS.backgrounds.yahya_apartment,
+    backgroundImage: background('yahya_apartment'),
     visualEffect: "cctv",
     ambientKeys: ["amb.sirens_distant", "amb.running_steps"],
     enterSfxKeys: ["sfx.door_clang"],
@@ -95,7 +95,7 @@ export const PART_TWO: Record<string, Scene> = {
     title: 'Launching OSIRIS',
     arabicTitle: 'تشغيل أوزيريس',
     part: 1,
-    backgroundImage: ASSET_URLS.backgrounds.osiris_interface,
+    backgroundImage: background('osiris_interface'),
     visualEffect: "scanlines",
     ambientKeys: ["amb.server_room"],
     dialogue: [

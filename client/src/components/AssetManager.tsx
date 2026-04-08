@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { getAssetUrl, getAssetsByKind, getAllAssets } from '@/lib/assetUrls';
+import { loadAssetManifest, getAllAssets, getAssetsByCategory, getAsset } from '@/lib/assets';
 import type { AssetEntry } from '@/lib/assets';
 
 interface AssetManagerProps {
@@ -40,7 +40,7 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
           }));
         } else if (kind) {
           // Load assets by kind from manifest
-          loadedAssets = getAssetsByKind(kind);
+          loadedAssets = getAssetsByCategory(kind);
         }
 
         setAssets(loadedAssets);
@@ -60,7 +60,7 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
   // Test individual asset loading
   const testAsset = async (key: string) => {
     try {
-      const url = await getAssetUrl(key);
+      const url = getAsset(key);
       console.log(`[AssetManager] Test loaded ${key}:`, url);
       alert(`Asset loaded successfully: ${key}\nURL: ${url.substring(0, 100)}...`);
     } catch (err) {

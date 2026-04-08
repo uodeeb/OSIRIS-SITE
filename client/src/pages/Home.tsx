@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
-import { ASSET_URLS } from '@/lib/assetUrls';
+import { background, character, videoBg, audio } from '@/lib/assets';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { OSIRIS_EFFECTS, getOsirisMediaUrl } from '@/lib/osirisEffects';
 import osirisLogo from '@/LOGO/new-logo/new-logo-trans-osiris@10x.png';
@@ -9,13 +9,13 @@ import osirisFavicon from '@/LOGO/new-logo/favicon-black-0.25.png';
 import osirisFalcon from '@/LOGO/new-logo/logo-falcon.png';
 
 const PARTS = [
-  { number: '0', en: 'The Cosmic Courtroom', ar: 'غرفة المحاكمة الكونية', description: 'The trial begins outside time and space', bg: ASSET_URLS.backgrounds.osiris_cosmic, color: '#c9a96e', sceneId: 'zero-1-1-summons' },
-  { number: 'I', en: 'The First Crime (Source Code)', ar: 'الجريمة الأولى', description: 'The algorithm is written and the first patterns appear', bg: ASSET_URLS.backgrounds.corporate_lab, color: '#ef4444', sceneId: 'one-1-5-1-promise' },
-  { number: 'II', en: 'The Golden Calf', ar: 'العجل الذهبي', description: 'Building icons to fill the spiritual void', bg: ASSET_URLS.backgrounds.qabil_habil_altar, color: '#d4af37', sceneId: 'four-4-1-desert' },
-  { number: 'III', en: 'The Council of Nicaea', ar: 'مجمع نيقية', description: 'When institutions weaponize the sacred', bg: ASSET_URLS.backgrounds.nicaea_council, color: '#3b82f6', sceneId: 'five-6a-1-nicaea-debate' },
-  { number: 'IV', en: 'Andalusia & 20th Century', ar: 'الأندلس والقرن العشرون', description: 'Arrogance becomes history and ideology', bg: ASSET_URLS.backgrounds.granada_fall, color: '#22c55e', sceneId: 'six-8-1-andalusia' },
-  { number: 'V', en: 'Karbala', ar: 'كربلاء', description: 'The unarmed truth — the antivirus', bg: ASSET_URLS.backgrounds.qabil_habil_aftermath, color: '#f97316', sceneId: 'seven-10-1-karbala' },
-  { number: 'VI', en: 'Witnesses for the Defense', ar: 'شهود الدفاع', description: 'The closing testimony', bg: ASSET_URLS.backgrounds.osiris_interface, color: '#8b5cf6', sceneId: 'seven-12-1-truth-leak' },
+  { number: '0', en: 'The Cosmic Courtroom', ar: 'غرفة المحاكمة الكونية', description: 'The trial begins outside time and space', bg: background('osiris_cosmic'), color: '#c9a96e', sceneId: 'zero-1-1-summons' },
+  { number: 'I', en: 'The First Crime (Source Code)', ar: 'الجريمة الأولى', description: 'The algorithm is written and the first patterns appear', bg: background('corporate_lab'), color: '#ef4444', sceneId: 'one-1-5-1-promise' },
+  { number: 'II', en: 'The Golden Calf', ar: 'العجل الذهبي', description: 'Building icons to fill the spiritual void', bg: background('qabil_habil_altar'), color: '#d4af37', sceneId: 'four-4-1-desert' },
+  { number: 'III', en: 'The Council of Nicaea', ar: 'مجمع نيقية', description: 'When institutions weaponize the sacred', bg: background('nicaea_council'), color: '#3b82f6', sceneId: 'five-6a-1-nicaea-debate' },
+  { number: 'IV', en: 'Andalusia & 20th Century', ar: 'الأندلس والقرن العشرون', description: 'Arrogance becomes history and ideology', bg: background('granada_fall'), color: '#22c55e', sceneId: 'six-8-1-andalusia' },
+  { number: 'V', en: 'Karbala', ar: 'كربلاء', description: 'The unarmed truth — the antivirus', bg: background('qabil_habil_aftermath'), color: '#f97316', sceneId: 'seven-10-1-karbala' },
+  { number: 'VI', en: 'Witnesses for the Defense', ar: 'شهود الدفاع', description: 'The closing testimony', bg: background('osiris_interface'), color: '#8b5cf6', sceneId: 'seven-12-1-truth-leak' },
 ];
 
 export default function Home() {
@@ -115,7 +115,7 @@ export default function Home() {
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
-        src={ASSET_URLS.projectMedia.video.generated_yehya_office}
+        src={videoBg('generated_yehya_office')}
         autoPlay
         loop
         muted

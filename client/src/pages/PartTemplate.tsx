@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { CinemaMode } from '@/components/CinemaMode';
 import { InteractiveChoice, Choice } from '@/components/InteractiveChoice';
 import { useLocation } from 'wouter';
-import { ASSET_URLS } from '@/lib/assetUrls';
+import { background, character, videoBg, audio } from '@/lib/assets';
 
 /**
  * Template for cinema-mode part pages
@@ -31,8 +31,8 @@ export default function PartTemplate() {
 
   return (
     <CinemaMode
-      backgroundImage={ASSET_URLS.backgrounds.osiris_cosmic}
-      audioUrl={ASSET_URLS.audio.intro_narration}
+      backgroundImage={background('osiris_cosmic')}
+      audioUrl={audio('intro_narration')}
       autoPlayAudio={true}
     >
       <motion.div
@@ -63,7 +63,7 @@ export default function PartTemplate() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
-            src={ASSET_URLS.characters.yahya_main}
+            src={character('yahya_main')}
             alt="Character"
             className="mx-auto max-w-xs h-auto"
           />

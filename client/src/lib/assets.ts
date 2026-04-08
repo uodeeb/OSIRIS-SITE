@@ -208,6 +208,14 @@ export function getAssetsByCategory(category: string): AssetEntry[] {
 }
 
 /**
+ * Get all assets from manifest
+ */
+export function getAllAssets(): AssetEntry[] {
+  if (!manifestCache) return [];
+  return Object.values(manifestCache.assets);
+}
+
+/**
  * Preload an image asset
  */
 export function preloadImage(url: string): Promise<void> {
@@ -291,6 +299,16 @@ export const ASSET_URLS = {
   get audio() {
     return createCategoryProxy('audio');
   },
+  get projectMedia() {
+    return {
+      get video() {
+        return createCategoryProxy('video');
+      },
+      get images() {
+        return createCategoryProxy('image');
+      }
+    };
+  }
 };
 
 function createCategoryProxy(category: string) {

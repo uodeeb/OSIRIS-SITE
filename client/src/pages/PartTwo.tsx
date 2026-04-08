@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { CinemaMode } from '@/components/CinemaMode';
 import { InteractiveChoice, Choice } from '@/components/InteractiveChoice';
 import { useLocation } from 'wouter';
-import { ASSET_URLS } from '@/lib/assetUrls';
+import { background, character, videoBg, audio } from '@/lib/assets';
 
 type ChapterId = 'intro' | 'ramses-mirror' | 'mysterious-priest' | 'divine-claim' | 'moses-confrontation';
 
@@ -218,8 +218,8 @@ export default function PartTwo() {
 
   return (
     <CinemaMode
-      backgroundImage={ASSET_URLS.backgrounds.pharaoh_temple}
-      audioUrl={ASSET_URLS.audio.intro_narration}
+      backgroundImage={background('pharaoh_temple')}
+      audioUrl={audio('intro_narration')}
       autoPlayAudio={true}
     >
       <motion.div

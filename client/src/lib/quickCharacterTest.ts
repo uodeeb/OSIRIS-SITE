@@ -5,7 +5,7 @@
  * after the database fix.
  */
 
-import { getAssetUrl } from '@/lib/assetUrls';
+import { getAsset } from '@/lib/assets';
 import CharacterAssetVerification from './characterVerification';
 
 // Auto-run quick test if this file is executed directly
@@ -36,7 +36,7 @@ async function runQuickCharacterTest(): Promise<void> {
       console.log(`\n🔍 Testing ${characterKey}...`);
       
       // Test database loading
-      const url = await getAssetUrl(characterKey);
+      const url = getAsset(characterKey);
       console.log(`✅ Database: ${url.substring(0, 80)}...`);
       
       // Test file accessibility

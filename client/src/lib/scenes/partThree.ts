@@ -1,4 +1,4 @@
-import { ASSET_URLS } from '../assetUrls';
+import { background, character, videoBg, audio } from '../assets';
 import type { Scene } from '../sceneSystem';
 
 export const PART_THREE: Record<string, Scene> = {
@@ -8,7 +8,7 @@ export const PART_THREE: Record<string, Scene> = {
     title: 'The Moment of Creation and Refusal',
     arabicTitle: 'لحظة الخلق والرفض',
     part: 1,
-    backgroundImage: ASSET_URLS.backgrounds.osiris_cosmic,
+    backgroundImage: background('osiris_cosmic'),
     ambientKeys: ["amb.bass_drone_low"],
     dialogue: [
       {
@@ -90,7 +90,7 @@ export const PART_THREE: Record<string, Scene> = {
     title: 'Devil Tongue Song',
     arabicTitle: 'نشيد لسان الشيطان',
     part: 1,
-    backgroundImage: ASSET_URLS.backgrounds.osiris_cosmic,
+    backgroundImage: background('osiris_cosmic'),
     visualEffect: "scanlines",
     ambientKeys: ["amb.low_hum", "amb.bass_drone_low"],
     dialogue: [
@@ -162,7 +162,7 @@ export const PART_THREE: Record<string, Scene> = {
     title: 'Designing the Virus',
     arabicTitle: 'تصميم الفيروس',
     part: 1,
-    backgroundImage: ASSET_URLS.backgrounds.osiris_cosmic,
+    backgroundImage: background('osiris_cosmic'),
     visualEffect: "scanlines",
     ambientKeys: ["amb.bass_drone_low"],
     dialogue: [

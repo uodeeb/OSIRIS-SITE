@@ -10,7 +10,7 @@
  * - Maintained backward compatibility during transition
  */
 
-import { getAssetUrl } from '@/lib/assetUrls';
+import { character } from '@/lib/assets';
 import type { CharacterConfig, CharacterState, CharacterEmotion } from './types';
 
 // Character configuration with async image loading
@@ -222,8 +222,8 @@ export async function getCharacterImageUrl(characterKey: string): Promise<string
     const decoded = JSON.parse(atob(input));
     const assetKey = decoded.json.key;
     
-    // Load the actual asset URL from database
-    return await getAssetUrl(assetKey);
+    // Load the actual asset URL from new assets system
+    return character(assetKey);
   } catch (error) {
     console.error(`[CharacterMap] Failed to load character image for ${characterKey}:`, error);
     throw new Error(`Character image loading failed: ${characterKey}`);

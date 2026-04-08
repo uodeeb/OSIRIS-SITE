@@ -9,7 +9,7 @@ const chunk1 = `import { useEffect, useMemo, useRef, useState, useCallback, type
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
 import { PART_LABELS, SCENES as ALL_SCENES, type DialogueLine, type Scene, type SceneChoice } from '@/lib/sceneSystem';
-import { ASSET_URLS } from '@/lib/assetUrls';
+import { background, character, videoBg, audio } from '@/lib/assets';
 import { getAssetOverride } from '@/lib/assetOverrides';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "@/lib/osirisEffects";
@@ -135,13 +135,13 @@ const chunk2 = `
     try { return new URL(url, window.location.href).href; } catch { return url; }
   }, []);
 
-  const normalizedBaseCandidates = useMemo(() => [normalize(ASSET_URLS.audio.main_theme)], [normalize]);
+  const normalizedBaseCandidates = useMemo(() => [normalize(audio('main_theme'))], [normalize]);
   const sceneTrackKey = scriptTrackOverride ?? 'track01';
   const isSceneUsingBedOnly = sceneTrackKey === 'track01';
 
   const normalizedSceneCandidates = useMemo(() => {
     const musicUrl = resolveAsset(currentScene?.musicKey);
-    return musicUrl ? [normalize(musicUrl)] : [normalize(ASSET_URLS.audio.main_theme)];
+    return musicUrl ? [normalize(musicUrl)] : [normalize(audio('main_theme'))];
   }, [currentScene?.musicKey, normalize, resolveAsset]);
 
   const handleAdvance = useCallback(() => {

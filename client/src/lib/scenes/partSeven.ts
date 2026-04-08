@@ -1,4 +1,4 @@
-import { ASSET_URLS } from '../assetUrls';
+import { background, character, videoBg, audio } from '../assets';
 import type { Scene } from '../sceneSystem';
 
 export const TRANSITION: Record<string, Scene> = {
@@ -8,7 +8,7 @@ export const TRANSITION: Record<string, Scene> = {
     title: 'Entering the Simulation',
     arabicTitle: 'دخول المحاكاة',
     part: 0,
-    backgroundVideo: ASSET_URLS.videoBg.cosmic_opening,
+    backgroundVideo: videoBg('cosmic_opening'),
     visualEffect: "scanlines",
     ambientKeys: ["amb.server_room", "amb.low_hum"],
     dialogue: [
@@ -52,8 +52,8 @@ export const PART_SEVEN: Record<string, Scene> = {
     title: 'The Final Confrontation',
     arabicTitle: 'المواجهة النهائية',
     part: 4,
-    backgroundVideo: ASSET_URLS.videoBg.digital_space,
-    backgroundImage: ASSET_URLS.backgrounds.osiris_interface,
+    backgroundVideo: videoBg('digital_space'),
+    backgroundImage: background('osiris_interface'),
     visualEffect: "glitch",
     ambientKeys: ["amb.bass_drone_low"],
     dialogue: [
@@ -113,7 +113,7 @@ export const PART_SEVEN: Record<string, Scene> = {
     title: 'The End',
     arabicTitle: 'النهاية',
     part: 4,
-    backgroundImage: ASSET_URLS.backgrounds.white_space,
+    backgroundImage: background('white_space'),
     ambientKeys: ["amb.vacuum"],
     dialogue: [
       {

@@ -1,4 +1,4 @@
-import { ASSET_URLS } from '../assetUrls';
+import { background, character, videoBg, audio } from '../assets';
 import type { Scene } from '../sceneSystem';
 
 export const PART_FOUR: Record<string, Scene> = {
@@ -8,7 +8,7 @@ export const PART_FOUR: Record<string, Scene> = {
     title: 'The Void of the Desert',
     arabicTitle: 'فراغ الصحراء',
     part: 2,
-    backgroundVideo: ASSET_URLS.videoBg.sinai_desert,
+    backgroundVideo: videoBg('sinai_desert'),
     backgroundImage: 'sceneBg.four-4-1-desert',
     ambientKeys: ["amb.desert_wind", "amb.crowd_murmur"],
     dialogue: [
@@ -86,7 +86,7 @@ export const PART_FOUR: Record<string, Scene> = {
     title: 'Engineering the Crowds',
     arabicTitle: 'هندسة الحشود',
     part: 2,
-    backgroundVideo: ASSET_URLS.videoBg.molten_gold,
+    backgroundVideo: videoBg('molten_gold'),
     backgroundImage: 'sceneBg.four-4-2-crowd-engineering',
     ambientKeys: ["amb.metal_melt", "amb.drums_hypnosis"],
     enterSfxKeys: ["sfx.calf_low"],
@@ -141,8 +141,8 @@ export const PART_FOUR: Record<string, Scene> = {
     title: 'A Message from the Past',
     arabicTitle: 'رسالة من الماضي',
     part: 2,
-    backgroundImage: ASSET_URLS.backgrounds.corporate_lab,
-    audioUrl: ASSET_URLS.audio.yahya_monologue,
+    backgroundImage: background('corporate_lab'),
+    audioUrl: audio('yahya_monologue'),
     ambientKeys: ["amb.server_room", "music.sad_background"],
     dialogue: [
       {
@@ -213,7 +213,7 @@ export const PART_FOUR: Record<string, Scene> = {
     title: 'The Tears of the Analyst',
     arabicTitle: 'دموع المحلل',
     part: 2,
-    backgroundImage: ASSET_URLS.backgrounds.white_space,
+    backgroundImage: background('white_space'),
     ambientKeys: ["amb.server_room"],
     dialogue: [
       {

@@ -4,7 +4,7 @@ import { CinemaMode } from '@/components/CinemaMode';
 import { InteractiveChoice, Choice } from '@/components/InteractiveChoice';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { useLocation } from 'wouter';
-import { ASSET_URLS } from '@/lib/assetUrls';
+import { background, character, videoBg, audio } from '@/lib/assets';
 
 type ChapterId = 'qabil-habil-intro' | 'qabil-habil-scene' | 'qabil-habil-aftermath' | 'iblis-plan-intro' | 'iblis-plan-six-axes';
 
@@ -231,8 +231,8 @@ export default function PartOne() {
 
   return (
     <CinemaMode
-      backgroundImage={ASSET_URLS.backgrounds.qabil_habil_altar}
-      audioUrl={ASSET_URLS.audio.intro_narration}
+      backgroundImage={background('qabil_habil_altar')}
+      audioUrl={audio('intro_narration')}
       autoPlayAudio={true}
     >
       <motion.div

@@ -12,3 +12,20 @@ tasks:
       - "Added missing getAssetUrls to assetUrls.ts shim"
       - "Added video/documents/ui categories to ASSET_URLS"
       - "Build successful with 114 assets mapped"
+  - id: 2
+    title: "Complete asset system migration + fix production 404 errors"
+    priority: critical
+    status: completed
+    est_steps: 7
+    deps: []
+    tags: [bugfix, production, performance]
+    details:
+      - "Analyzed production 404 errors - identified 4 root causes"
+      - "Fixed serveStatic function to use correct dist/public path"
+      - "Migrated all 38 files from assetUrls to new assets system via codemod"
+      - "Fixed character, background, audio, video assets with new asset functions"
+      - "Eliminated need for /assets.json and /api/trpc/system.assets endpoints"
+      - "Resolved long task issues by removing async asset loading"
+      - "Build successful with 114 assets mapped and 0 TypeScript errors"
+
+next_id: 3

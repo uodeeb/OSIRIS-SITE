@@ -1,4 +1,4 @@
-import { ASSET_URLS } from '../assetUrls';
+import { background, videoBg } from '../assets';
 import type { Scene } from '../sceneSystem';
 
 export const PART_ONE: Record<string, Scene> = {
@@ -8,7 +8,7 @@ export const PART_ONE: Record<string, Scene> = {
     title: 'The False Promise',
     arabicTitle: 'الوعد الكاذب',
     part: 1,
-    backgroundImage: ASSET_URLS.backgrounds.corporate_lab,
+    backgroundImage: background('corporate_lab'),
     visualEffect: "glitch",
     musicKey: "music.cafe_jazz",
     ambientKeys: ["amb.cafe_murmur", "sfx.cups_clink"],
@@ -58,7 +58,7 @@ export const PART_ONE: Record<string, Scene> = {
     title: 'The Bitter Truth',
     arabicTitle: 'الحقيقة المرة',
     part: 1,
-    backgroundImage: ASSET_URLS.backgrounds.corporate_lab,
+    backgroundImage: background('corporate_lab'),
     visualEffect: "scanlines",
     ambientKeys: ["amb.server_hum", "amb.heartbeat_fast"],
     dialogue: [
@@ -112,7 +112,7 @@ export const PART_ONE: Record<string, Scene> = {
     title: 'No Escape',
     arabicTitle: 'لا مفر',
     part: 1,
-    backgroundImage: ASSET_URLS.backgrounds.yahya_apartment,
+    backgroundImage: background('yahya_apartment'),
     visualEffect: "cctv",
     ambientKeys: ["amb.phone_ring", "amb.footsteps_outside"],
     dialogue: [
@@ -154,8 +154,8 @@ export const PART_ONE: Record<string, Scene> = {
     title: 'The Final Sacrifice',
     arabicTitle: 'التضحية الأخيرة',
     part: 1,
-    backgroundVideo: ASSET_URLS.videoBg.tarek_rooftop,
-    backgroundImage: ASSET_URLS.backgrounds.white_space,
+    backgroundVideo: videoBg('tarek_rooftop'),
+    backgroundImage: background('osiris_cosmic'),
     musicKey: "music.rooftop_cello_piano",
     ambientKeys: ["amb.wind_strong"],
     dialogue: [

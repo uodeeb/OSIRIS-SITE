@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocation } from "wouter";
-import { ASSET_URLS } from "@/lib/assetUrls";
+import { background, character, videoBg, audio } from '@/lib/assets';
 import { AudioConsentModal } from "@/components/AudioConsentModal";
 import { ChapterLaunchModal, type ChapterMeta } from "@/components/ChapterLaunchModal";
 import { useMediaState } from "@/contexts/MediaStateContext";
@@ -120,7 +120,7 @@ export default function EnhancedHome() {
       subtitle: 'Trial outside time and space',
       description: 'The trial begins outside time and space',
       accentColor: '#c9a96e',
-      imageSrc: ASSET_URLS.backgrounds.osiris_cosmic,
+      imageSrc: background('osiris_cosmic'),
       sceneId: 'zero-1-1-summons',
       estMinutes: 12
     },
@@ -134,7 +134,7 @@ export default function EnhancedHome() {
       subtitle: 'A crime that echoes through millennia',
       description: 'Qabil commits the first recorded murder',
       accentColor: '#dc2626',
-      imageSrc: ASSET_URLS.backgrounds.berlin_1933,
+      imageSrc: background('berlin_1933'),
       sceneId: 'one-1-qabil-intro',
       estMinutes: 15
     },
@@ -148,7 +148,7 @@ export default function EnhancedHome() {
       subtitle: 'Divine authority challenged',
       description: 'Constantine confronts the power of empire',
       accentColor: '#9333ea',
-      imageSrc: ASSET_URLS.backgrounds.berlin_1933,
+      imageSrc: background('berlin_1933'),
       sceneId: 'two-1-council',
       estMinutes: 18
     },
@@ -162,7 +162,7 @@ export default function EnhancedHome() {
       subtitle: 'Where faith meets reason',
       description: 'The council that shaped Christian doctrine',
       accentColor: '#22c55e',
-      imageSrc: ASSET_URLS.backgrounds.cambodia_1975,
+      imageSrc: background('cambodia_1975'),
       sceneId: 'three-1-decree',
       estMinutes: 14
     },
@@ -176,7 +176,7 @@ export default function EnhancedHome() {
       subtitle: 'Light in darkness',
       description: 'Golden age of knowledge and culture',
       accentColor: '#e74c3c',
-      imageSrc: ASSET_URLS.backgrounds.cambodia_1975,
+      imageSrc: background('cambodia_1975'),
       sceneId: 'four-1-cordoba',
       estMinutes: 16
     },
@@ -190,7 +190,7 @@ export default function EnhancedHome() {
       subtitle: 'When history accelerates',
       description: 'From Hitler to algorithms',
       accentColor: '#3b82f6',
-      imageSrc: ASSET_URLS.backgrounds.berlin_1933,
+      imageSrc: background('berlin_1933'),
       sceneId: 'five-1-hitler',
       estMinutes: 20
     },
@@ -204,7 +204,7 @@ export default function EnhancedHome() {
       subtitle: 'When code becomes conviction',
       description: 'From Facebook leaks to AI justice',
       accentColor: '#8b5cf6',
-      imageSrc: ASSET_URLS.backgrounds.yahya_apartment,
+      imageSrc: background('yahya_apartment'),
       sceneId: 'six-1-facebook',
       estMinutes: 18
     },
@@ -218,7 +218,7 @@ export default function EnhancedHome() {
       subtitle: 'Voices from the past',
       description: 'When history speaks for itself',
       accentColor: '#f59e0b',
-      imageSrc: ASSET_URLS.backgrounds.yahya_apartment,
+      imageSrc: background('yahya_apartment'),
       sceneId: 'seven-1-witnesses',
       estMinutes: 22
     }

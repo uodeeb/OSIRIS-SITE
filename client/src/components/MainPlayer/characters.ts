@@ -5,7 +5,7 @@
  * instead of hardcoded ASSET_URLS.
  */
 
-import { getAssetUrl } from '@/lib/assetUrls';
+import { character } from '@/lib/assets';
 import type { CharacterConfig, CharacterState, CharacterEmotion } from './types';
 
 export const CHARACTER_MAP: Record<string, CharacterConfig> = {
@@ -238,8 +238,8 @@ export async function resolveCharacterImageUrl(characterKey: string): Promise<st
     const decoded = JSON.parse(atob(input));
     const assetKey = decoded.json.key;
     
-    // Load the actual asset URL from database
-    return await getAssetUrl(assetKey);
+    // Load actual asset URL from new assets system
+    return character(assetKey);
   } catch (error) {
     console.error(`[CharacterMap] Failed to resolve character image for ${characterKey}:`, error);
     throw new Error(`Character image resolution failed: ${characterKey}`);

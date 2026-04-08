@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { CinemaMode } from '@/components/CinemaMode';
 import { InteractiveChoice, Choice } from '@/components/InteractiveChoice';
 import { useLocation } from 'wouter';
-import { ASSET_URLS } from '@/lib/assetUrls';
+import { background, character, videoBg, audio } from '@/lib/assets';
 
 type ChapterId = 'intro' | 'facebook' | 'algorithm' | 'digital-pride' | 'reflection';
 
@@ -226,8 +226,8 @@ export default function PartSix() {
 
   return (
     <CinemaMode
-      backgroundImage={ASSET_URLS.backgrounds.corporate_lab}
-      audioUrl={ASSET_URLS.audio.intro_narration}
+      backgroundImage={background('corporate_lab')}
+      audioUrl={audio('intro_narration')}
       autoPlayAudio={true}
     >
       <motion.div

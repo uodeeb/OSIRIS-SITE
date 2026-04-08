@@ -1,4 +1,4 @@
-import { ASSET_URLS } from '../assetUrls';
+import { background, character, videoBg, audio } from '../assets';
 import type { Scene } from '../sceneSystem';
 
 export const PART_SIX: Record<string, Scene> = {
@@ -8,8 +8,8 @@ export const PART_SIX: Record<string, Scene> = {
     title: 'Modern Warfare',
     arabicTitle: 'الحرب الحديثة',
     part: 4,
-    backgroundVideo: ASSET_URLS.videoBg.berlin_1933,
-    backgroundImage: ASSET_URLS.backgrounds.berlin_1933,
+    backgroundVideo: videoBg('berlin_1933'),
+    backgroundImage: background('berlin_1933'),
     ambientKeys: ["amb.war_march", "amb.drums_hypnosis"],
     enterSfxKeys: ["sfx.cannon_fire"],
     dialogue: [
@@ -63,8 +63,8 @@ export const PART_SIX: Record<string, Scene> = {
     title: 'The Digital Cage',
     arabicTitle: 'السجن الرقمي',
     part: 4,
-    backgroundVideo: ASSET_URLS.videoBg.digital_space,
-    backgroundImage: ASSET_URLS.backgrounds.osiris_interface,
+    backgroundVideo: videoBg('digital_space'),
+    backgroundImage: background('osiris_interface'),
     visualEffect: "scanlines",
     ambientKeys: ["amb.server_room"],
     dialogue: [

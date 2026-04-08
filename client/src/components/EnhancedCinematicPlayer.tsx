@@ -11,7 +11,7 @@ import { CinematicRenderer } from '@/components/CinematicRenderer';
 import { CinematicCompositionEngine, CinematicComposition } from '@/lib/cinematicCompositionEngine';
 import { Scene, DialogueLine } from '@/lib/sceneSystem';
 import { useRTL } from '@/hooks/useRTL';
-import { ASSET_URLS } from '@/lib/assetUrls';
+import { background, character, videoBg, audio } from '@/lib/assets';
 
 // Enhanced character configurations with cultural depth
 interface EnhancedCharacterConfig {
@@ -148,7 +148,7 @@ const ENHANCED_CHARACTER_MAP: Record<string, EnhancedCharacterConfig> = {
     color: '#d4af37',
     glowColor: 'rgba(212,175,55,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.ramses,
+    imageUrl: character('ramses'),
     culturalSignificance: 'Ancient Egyptian pharaoh, symbol of absolute power',
     historicalContext: 'Ramses II, the great builder and warrior',
     voiceProfile: {
@@ -193,7 +193,7 @@ const ENHANCED_CHARACTER_MAP: Record<string, EnhancedCharacterConfig> = {
     color: '#3b82f6',
     glowColor: 'rgba(59,130,246,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.constantine,
+    imageUrl: character('constantine'),
     culturalSignificance: 'Roman Emperor who institutionalized Christianity',
     historicalContext: 'Constantine the Great, who called the Council of Nicaea',
     voiceProfile: {
@@ -216,7 +216,7 @@ const ENHANCED_CHARACTER_MAP: Record<string, EnhancedCharacterConfig> = {
     color: '#f59e0b',
     glowColor: 'rgba(245,158,11,0.3)',
     position: 'right',
-    imageUrl: ASSET_URLS.characters.abu_abdullah,
+    imageUrl: character('abu_abdullah'),
     culturalSignificance: 'Last Muslim king of Granada, symbol of loss and exile',
     historicalContext: 'Boabdil, who surrendered Granada to Ferdinand and Isabella',
     voiceProfile: {
@@ -239,7 +239,7 @@ const ENHANCED_CHARACTER_MAP: Record<string, EnhancedCharacterConfig> = {
     color: '#34d399',
     glowColor: 'rgba(52,211,153,0.3)',
     position: 'left',
-    imageUrl: ASSET_URLS.characters.yahya_main,
+    imageUrl: character('yahya_main'),
     culturalSignificance: 'Modern Arab intellectual, seeker of truth in digital age',
     historicalContext: 'Contemporary data analyst confronting historical patterns',
     voiceProfile: {

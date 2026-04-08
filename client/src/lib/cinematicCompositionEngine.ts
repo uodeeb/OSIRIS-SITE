@@ -4,7 +4,7 @@
  * into immersive Arabic cinematic experiences using DB-first approach
  */
 
-import { ASSET_URLS } from '@/lib/assetUrls';
+import { background, character, videoBg, audio } from '@/lib/assets';
 import { assetManager } from '@/lib/assetManager';
 import { Scene, DialogueLine } from '@/lib/sceneSystem';
 

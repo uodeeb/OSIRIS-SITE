@@ -11,7 +11,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
-import { ASSET_URLS } from '@/lib/assetUrls';
+import { background, character, videoBg, audio } from '@/lib/assets';
 import { getAssetOverride } from '@/lib/assetOverrides';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { Scene, DialogueLine, ArabicCulturalContext } from '@/lib/sceneSystem';
@@ -370,7 +370,7 @@ export class CinematicCompositionEngine {
       audioProfile.backgroundMusic = {
         id: `music-${scene.id}`,
         type: 'audio',
-        url: getAssetOverride(scene.musicKey) || ASSET_URLS.audio.main_theme,
+        url: getAssetOverride(scene.musicKey) || audio('main_theme'),
         culturalContext,
         emotionalTone: emotionalContext,
         priority: 1,

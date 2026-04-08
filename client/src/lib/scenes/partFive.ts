@@ -1,4 +1,4 @@
-import { ASSET_URLS } from '../assetUrls';
+import { background, character, videoBg, audio } from '../assets';
 import type { Scene } from '../sceneSystem';
 
 export const PART_FIVE: Record<string, Scene> = {
@@ -8,8 +8,8 @@ export const PART_FIVE: Record<string, Scene> = {
     title: 'Nicaea: The Debate',
     arabicTitle: 'نيقية: الجدال',
     part: 3,
-    backgroundVideo: ASSET_URLS.videoBg.nicaea,
-    backgroundImage: ASSET_URLS.backgrounds.nicaea_council,
+    backgroundVideo: videoBg('nicaea'),
+    backgroundImage: background('nicaea_council'),
     ambientKeys: ["amb.church_reverb", "amb.crowd_whisper"],
     enterSfxKeys: ["sfx.gavel_strike"],
     dialogue: [
@@ -75,7 +75,7 @@ export const PART_FIVE: Record<string, Scene> = {
     title: 'The Political Decision',
     arabicTitle: 'القرار السياسي',
     part: 3,
-    backgroundImage: ASSET_URLS.backgrounds.nicaea_council,
+    backgroundImage: background('nicaea_council'),
     visualEffect: "scanlines",
     ambientKeys: ["amb.church_reverb"],
     dialogue: [
