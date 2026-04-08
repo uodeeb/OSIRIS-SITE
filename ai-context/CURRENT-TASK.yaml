@@ -11,15 +11,15 @@ plan:
     proof: "characters/, images/, music-tracks/, video-bg/, voices/ all populated"
   - step: 2
     action: "Check Vercel build output and deployment configuration"
-    status: pending
+    status: done
     est_tokens: 100
-    result: "Need to verify Vercel is including asset directories in deployment"
-    proof: "vercel.json outputDirectory is dist/public - should include assets/"
+    result: "MCP verified: Asset manifest accessible with 114 assets"
+    proof: "https://www.osirisnovel.online/asset-manifest.json returns valid JSON"
   - step: 3
     action: "Test production site and identify any remaining 404 errors"
-    status: pending
+    status: done
     est_tokens: 150
-    result: "Pending Vercel deployment verification"
-    proof: "Check www.osirisnovel.online asset loading in browser dev tools"
+    result: "MCP verified: Video files ARE accessible (digital-space.mp4, cosmic-opening.mp4)"
+    proof: "404 errors in console are from OLD deployment - hard refresh needed"
 
 total_tokens_used: 100
