@@ -1,17 +1,21 @@
-task_id: 6
+task_id: "6"
 title: "Comprehensive Asset System Audit and Fix"
 description: |
-  Complete audit of all assets vs code references. Created master inventory document
-  identifying all mismatches, missing files, and required fixes.
+  User polished all assets - added ambient folder (18 files), renamed music to UPPERCASE,
+  cleaned voice duplicates, renamed images to descriptive names. 
   
-  Critical Issues Found:
-  - 10+ ambient audio keys referenced but NO FILES exist
-  - 8+ scene background keys not in manifest
-  - Audio case mismatches (code: TRACK-01, files: track-01)
-  - Voice path mismatches (code: new-voices/VOICE01.mp3, actual: voices/voice-01.wav)
-  - Manifest loading race condition
+  RESOLVED:
+  - Ambient audio: 18 files added
+  - Music case: All UPPERCASE now
+  - Voice duplicates: Removed
+  - Image names: Descriptive now
   
-  Deliverable: ASSET_INVENTORY_MASTER.md for user review
+  REMAINING:
+  - Update KEY_ALIASES in assets.ts (backgrounds map to old numbered files)
+  - Add ambient category to manifest generation
+  - Handle sceneBg.* keys
+  
+  Deliverable: Updated ASSET_INVENTORY_MASTER.md with post-polish status
 status: in_progress
 plan:
   - step: 1
@@ -22,25 +26,30 @@ plan:
     proof: "114 actual assets cataloged, 25+ issues identified"
   - step: 2
     action: "User reviews ASSET_INVENTORY_MASTER.md and confirms decisions"
-    status: pending
+    status: done
     est_tokens: 50
-    result: "Waiting for user confirmation on fix approach"
-    proof: "Document location: /ASSET_INVENTORY_MASTER.md"
+    result: "User polished all assets instead - much better approach!"
+    proof: "User added ambient/, cleaned voices, renamed images, uppercase music"
   - step: 3
-    action: "Implement fixes based on user decisions"
+    action: "Update master inventory with polished assets and identify mapping cleanup"
+    status: done
+    est_tokens: 150
+    result: "Updated ASSET_INVENTORY_MASTER.md with all polished assets"
+    proof: "104 assets organized: 18 ambient, 21 characters, 12 images, 14 tracks, 19 videos, 18 voices"
+  - step: 4
+    action: "Implement mapping cleanup: background aliases, ambient support, sceneBg"
     status: pending
-    est_tokens: 300
-    result: "Pending user confirmation"
-    proof: "Will fix: ambient audio, case mismatches, voice paths, race condition"
+    est_tokens: 200
+    result: "Ready to implement - need user confirmation"
+    proof: "See PART 3 in ASSET_INVENTORY_MASTER.md for exact changes needed"
 
-total_tokens_used: 200
+total_tokens_used: 400
 
 blockers: []
 
 notes: |
-  - Created comprehensive master document at ASSET_INVENTORY_MASTER.md
-  - User needs to review and confirm approach for:
-    1. Ambient audio: Add real files or silent placeholders?
-    2. Case mismatches: Rename files or fix code?
-    3. Clean up old documentation files?
-  - All asset inventory complete - ready for implementation phase
+  - User has done excellent asset organization work!
+  - All files are now in place - only code mapping needs updating
+  - Key file to modify: client/src/lib/assets.ts (KEY_ALIASES)
+  - Also need: build-assets.mjs to include ambient category
+  - Ready to implement when user confirms

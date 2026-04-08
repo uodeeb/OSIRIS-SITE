@@ -1,21 +1,43 @@
 # OSIRIS Asset Inventory - Master Document
 > **One Source of Truth for Asset Mapping**
-> Generated: 2026-04-08
-> Status: REVIEW REQUIRED
+> Generated: 2026-04-09 (Updated after polish)
+> Status: ✅ ASSETS POLISHED - MAPPING CLEANUP NEEDED
 
 ---
 
 ## EXECUTIVE SUMMARY
 
-### Critical Issues Found
-| Issue Type | Count | Impact |
-|------------|-------|--------|
-| **Missing ambient audio files** | 10+ | Console errors, missing atmosphere |
-| **Missing scene background images** | 8+ | `sceneBg.*` keys not in manifest |
-| **Case mismatches in audio** | All tracks | Code uses `TRACK-01`, files are `track-01` |
-| **Wrong voice paths** | Multiple | Code: `new-voices/VOICE01.mp3`, Actual: `voices/voice-01.wav` |
-| **Missing narrator.png** | 1 | Code uses `narrator.png`, actual: `narrator-visual.png` |
-| **Manifest loading race condition** | 1 | Components use assets before manifest loads |
+### ✅ RESOLVED - User Asset Polish Complete
+| Issue Type | Status | Notes |
+|------------|--------|-------|
+| **Ambient audio files** | ✅ FIXED | 18 files added to `ambient/` folder |
+| **Music track case** | ✅ FIXED | All tracks renamed to UPPERCASE (TRACK-01.mp3) |
+| **Voice file duplicates** | ✅ FIXED | Duplicates removed, now 18 clean files |
+| **Image names** | ✅ RENAMED | Descriptive names (cosmic-bg.jpg, etc.) |
+
+### 🔧 REMAINING - Mapping Cleanup Required
+| Issue Type | Status | Action Needed |
+|------------|--------|---------------|
+| **Background aliases outdated** | 🔴 | Update `KEY_ALIASES` in `assets.ts` - maps to old `01.jpg` style |
+| **Scene background keys** | 🔴 | Add `sceneBg.*` keys to manifest or aliases |
+| **Songs folder** | 🟡 | New `songs/` folder with `ya-rab.m4a` - needs mapping |
+| **Manifest race condition** | 🟡 | Consider preloading in App.tsx |
+
+---
+
+## ASSET SUMMARY (Post-Polish)
+
+| Folder | Count | Status |
+|--------|-------|--------|
+| `ambient/` | 18 | ✅ NEW - All ambient/sfx/music files |
+| `characters/` | 21 | ✅ OK |
+| `images/` | 12 | ✅ RENAMED - Descriptive names |
+| `music-tracks/` | 14 | ✅ CLEANED - Uppercase, no duplicates |
+| `songs/` | 2 | 🆕 NEW - `ya-rab.m4a` + lyrics |
+| `video-bg/` | 19 | ✅ OK |
+| `voices/` | 18 | ✅ CLEANED - No duplicates, mixed mp3/wav |
+
+**Total: 104 assets (polished and organized)**
 
 ---
 
@@ -50,57 +72,47 @@
 
 ---
 
-### 1.2 Background Images (12 files)
-| Filename | Mapped Key | Status |
-|----------|------------|--------|
-| `01.jpg` | `background.01` | ✅ OK |
-| `02.jpg` | `background.02` | ✅ OK |
-| `03.jpg` | `background.03` | ✅ OK |
-| `04.jpg` | `background.04` | ✅ OK |
-| `05.jpg` | `background.05` | ✅ OK |
-| `06.jpg` | `background.06` | ✅ OK |
-| `07.jpg` | `background.07` | ✅ OK |
-| `egypt-nile-temple02.jpg` | `background.egypt-nile-temple02` | ✅ OK |
-| `logo-new-flow01.png` | `background.logo-new-flow01` | ✅ OK |
-| `logo-new-flow02.png` | `background.logo-new-flow02` | ✅ OK |
+### 1.2 Background Images (12 files) - RENAMED
+| Filename | Old Name | Suggested Key Mapping |
+|----------|----------|----------------------|
+| `cosmic-bg.jpg` | `06.jpg` | `background.cosmic-bg` / `background.osiris_cosmic` |
+| `dessert.jpg` | `02.jpg` | `background.dessert` / `background.cambodia_1975` |
+| `explode-basement.jpg` | `04.jpg` | `background.explode-basement` / `background.granada_fall` |
+| `fire-worship.jpg` | `03.jpg` | `background.fire-worship` / `background.corporate_lab` |
+| `hamara-palace.jpg` | `05.jpg` | `background.hamara-palace` / `background.moscow_1937` |
+| `sun-and-desert.jpg` | `07.jpg` | `background.sun-and-desert` / `background.osiris_interface` |
+| `yehia-room.jpg` | `01.jpg` | `background.yehia-room` / `background.berlin_1933` |
+| `egypt-nile-temple02.jpg` | - | `background.egypt-nile-temple02` |
+| `logo-new-flow01.png` | - | `background.logo-new-flow01` / `background.white_space` |
+| `logo-new-flow02.png` | - | `background.logo-new-flow02` / `background.yahya_apartment` |
 | `logo-new-flow01-upscayl-1x-digital-art-4x.png` | - | ⚠️ Unmapped |
 | `logo-new-flow02-upscayl-1x-digital-art-4x.png` | - | ⚠️ Unmapped |
 
+**⚠️ ACTION NEEDED:** Update `KEY_ALIASES` in `client/src/lib/assets.ts` (lines 147-162) to map to new descriptive filenames instead of old `01.jpg` style.
+
 ---
 
-### 1.3 Music Tracks (28 files)
-All files use **lowercase naming** (`track-01.mp3`), but code references **uppercase** (`TRACK-01.mp3`)
+### 1.3 Music Tracks (14 files) - CLEANED & UPPERCASE
+✅ **FIXED:** User renamed all tracks to UPPERCASE to match code references.
 
-| Filename | Manifest Key | Code Reference | Status |
-|----------|--------------|----------------|--------|
-| `main-theme.mp3` | `audio.main-theme` | - | ✅ OK |
-| `track-01.mp3` | `audio.track-01` | `TRACK-01.mp3` | ⚠️ CASE MISMATCH |
-| `track-01-alt.mp3` | `audio.track-01-alt` | - | ✅ OK |
-| `track-02.m4a` | `audio.track-02` | `TRACK-02.m4a` | ⚠️ CASE MISMATCH |
-| `track-03.mp3` | `audio.track-03` | - | ✅ OK |
-| `track-04.m4a` | `audio.track-04` | - | ✅ OK |
-| `track-04-alt.m4a` | `audio.track-04-alt` | - | ✅ OK |
-| `track-04-mp3.mp3` | `audio.track-04-mp3` | - | ✅ OK |
-| `track-05.m4a` | `audio.track-05` | - | ✅ OK |
-| `track-05-alt.m4a` | `audio.track-05-alt` | - | ✅ OK |
-| `track-06.m4a` | `audio.track-06` | - | ✅ OK |
-| `track-06-alt.m4a` | `audio.track-06-alt` | - | ✅ OK |
-| `track-07.m4a` | `audio.track-07` | - | ✅ OK |
-| `track-07-alt.m4a` | `audio.track-07-alt` | - | ✅ OK |
-| `track-08.m4a` | `audio.track-08` | - | ✅ OK |
-| `track-08-alt.m4a` | `audio.track-08-alt` | - | ✅ OK |
-| `track-09.m4a` | `audio.track-09` | - | ✅ OK |
-| `track-09-alt.m4a` | `audio.track-09-alt` | - | ✅ OK |
-| `track-10.m4a` | `audio.track-10` | - | ✅ OK |
-| `track-10-alt.m4a` | `audio.track-10-alt` | - | ✅ OK |
-| `track-11.m4a` | `audio.track-11` | - | ✅ OK |
-| `track-11-alt.m4a` | `audio.track-11-alt` | - | ✅ OK |
-| `track-12.m4a` | `audio.track-12` | - | ✅ OK |
-| `track-12-alt.m4a` | `audio.track-12-alt` | - | ✅ OK |
-| `track-13.m4a` | `audio.track-13` | - | ✅ OK |
-| `track-13-alt.m4a` | `audio.track-13-alt` | - | ✅ OK |
-| `track-14.m4a` | `audio.track-14` | - | ✅ OK |
-| `track-14-alt.m4a` | `audio.track-14-alt` | - | ✅ OK |
+| Filename | Manifest Key | Status |
+|----------|--------------|--------|
+| `TRACK-01.mp3` | `audio.TRACK-01` | ✅ OK |
+| `TRACK-02.mp3` | `audio.TRACK-02` | ✅ OK |
+| `TRACK-03.mp3` | `audio.TRACK-03` | ✅ OK |
+| `TRACK-04.mp3` | `audio.TRACK-04` | ✅ OK |
+| `TRACK-05.mp3` | `audio.TRACK-05` | ✅ OK |
+| `TRACK-06.mp3` | `audio.TRACK-06` | ✅ OK |
+| `TRACK-07.mp3` | `audio.TRACK-07` | ✅ OK |
+| `TRACK-08.mp3` | `audio.TRACK-08` | ✅ OK |
+| `TRACK-09.mp3` | `audio.TRACK-09` | ✅ OK |
+| `TRACK-10.mp3` | `audio.TRACK-10` | ✅ OK |
+| `TRACK-11.mp3` | `audio.TRACK-11` | ✅ OK |
+| `TRACK-12.mp3` | `audio.TRACK-12` | ✅ OK |
+| `TRACK-13.mp3` | `audio.TRACK-13` | ✅ OK |
+| `TRACK-14.mp3` | `audio.TRACK-14` | ✅ OK |
+
+**Note:** Code in `MainPlayer.tsx` uses `track01`, `track02` keys which map to these files via aliases or manifest.
 
 ---
 
@@ -129,29 +141,65 @@ All files use **lowercase naming** (`track-01.mp3`), but code references **upper
 
 ---
 
-### 1.5 Voice Files (18 files)
-| Filename | Status | Notes |
-|----------|--------|-------|
-| `voice-01-.wav` / `voice-01.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-02-.wav` / `voice-02.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-03-.wav` / `voice-03.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-04-.wav` / `voice-04.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-05-.wav` / `voice-05.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-06-.wav` / `voice-06.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-07-.wav` / `voice-07.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-08-.wav` / `voice-08.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-09-.wav` / `voice-09.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-10-.wav` / `voice-10.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-11-.wav` / `voice-11.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-12-.wav` / `voice-12.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-13-.wav` / `voice-13.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-14-.wav` / `voice-14.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-15-.wav` / `voice-15.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-16-.wav` / `voice-16.wav` | ⚠️ DUPLICATE | Two versions with/without trailing dash |
-| `voice-17.wav` | ✅ OK | Single version |
-| `voice-18.wav` | ✅ OK | Single version |
+### 1.5 Voice Files (18 files) - CLEANED
+✅ **FIXED:** Duplicates removed. Some converted to MP3.
 
-**⚠️ ISSUE:** Code references `new-voices/VOICE01.mp3` but actual files are `voices/voice-01.wav`
+| Filename | Format | Status |
+|----------|--------|--------|
+| `voice-01.mp3` | MP3 | ✅ Converted from WAV |
+| `voice-02.mp3` | MP3 | ✅ Converted from WAV |
+| `voice-03.wav` | WAV | ✅ OK |
+| `voice-04.wav` | WAV | ✅ OK |
+| `voice-05.wav` | WAV | ✅ OK |
+| `voice-06.wav` | WAV | ✅ OK |
+| `voice-07.mp3` | MP3 | ✅ Converted from WAV |
+| `voice-08.wav` | WAV | ✅ OK |
+| `voice-09.wav` | WAV | ✅ OK |
+| `voice-10.wav` | WAV | ✅ OK |
+| `voice-11.wav` | WAV | ✅ OK |
+| `voice-12.wav` | WAV | ✅ OK |
+| `voice-13.wav` | WAV | ✅ OK |
+| `voice-14.wav` | WAV | ✅ OK |
+| `voice-15.wav` | WAV | ✅ OK |
+| `voice-16.wav` | WAV | ✅ OK |
+| `voice-17.wav` | WAV | ✅ OK |
+| `voice-18.wav` | WAV | ✅ OK |
+
+**Note:** `voice-01` and `voice-02` now MP3, rest remain WAV. All duplicates removed.
+
+### 1.6 Ambient Audio (18 files) - ✅ NEW FOLDER
+All ambient, sfx, and music files organized in one place.
+
+| Filename | Type | Scene Usage |
+|----------|------|-------------|
+| `amb.bass_drone_low.mp3` | ambient | partZero.ts, partThree.ts, partSeven.ts |
+| `amb.cafe_murmur.mp3` | ambient | partOne.ts |
+| `amb.device_hum.mp3` | ambient | partZero.ts |
+| `amb.drums_hypnosis.mp3` | ambient | partSix.ts |
+| `amb.heartbeat_fast.mp3` | ambient | partOne.ts |
+| `amb.low_hum.mp3` | ambient | transition.ts, partThree.ts |
+| `amb.rain.mp3` | ambient | partZero.ts |
+| `amb.running_steps.mp3` | ambient | partTwo.ts |
+| `amb.server_hum.mp3` | ambient | partOne.ts |
+| `amb.server_room.mp3` | ambient | transition.ts, partTwo.ts, partSix.ts, partSeven.ts |
+| `amb.sirens_distant.mp3` | ambient | partTwo.ts |
+| `amb.vacuum.mp3` | ambient | partZero.ts, partSeven.ts |
+| `amb.war_march.mp3` | ambient | partSix.ts |
+| `music.cafe_jazz.mp3` | music | partOne.ts |
+| `sfx.cannon_fire.mp3` | sfx | partSix.ts |
+| `sfx.cups_clink.mp3` | sfx | partOne.ts |
+| `sfx.door_clang.mp3` | sfx | partTwo.ts |
+| `sfx.ping.mp3` | sfx | partZero.ts |
+
+---
+
+### 1.7 Songs (2 files) - 🆕 NEW FOLDER
+| Filename | Content |
+|----------|---------|
+| `ya-rab.m4a` | Audio track |
+| `ya-rab-lyrics.md` | Lyrics markdown |
+
+**Status:** Not yet mapped in asset system. Need to add key if used in scenes.
 
 ---
 
@@ -245,83 +293,90 @@ Code references wrong paths:
 
 ---
 
-## PART 3: REQUIRED ACTIONS
+## PART 3: MAPPING CLEANUP (Post-Polish)
 
-### Priority 1: Critical (Fix First)
+✅ **All asset files are now in place!** Only mapping updates needed.
 
-#### 3.1 Fix Audio Case Mismatches
-**Option A:** Rename files to uppercase (easiest)
-- Rename `track-01.mp3` → `TRACK-01.mp3`
-- Rename `track-02.m4a` → `TRACK-02.m4a`
+### Priority 1: Update Background Aliases
 
-**Option B:** Fix code to use lowercase
-- Update `MainPlayer.tsx` line 397: `TRACK-01.mp3` → `track-01.mp3`
-- Update `MainPlayer.tsx` line 401: `TRACK-02.m4a` → `track-02.m4a`
+**File:** `client/src/lib/assets.ts` lines 147-162
 
-#### 3.2 Fix Voice File Paths
-- Update code references from `new-voices/VOICE01.mp3` → `voices/voice-01.wav`
-- Update code references from `VOICE-01.wav` → `voice-01.wav`
-
-#### 3.3 Fix Manifest Loading Race Condition
-Add manifest preloading before app render:
+**Current (outdated):**
 ```typescript
-// In App.tsx or main.tsx
-await loadAssetManifest();
+'background.berlin_1933': 'background.01',        // ← old
+'background.corporate_lab': 'background.03',     // ← old
+'background.osiris_cosmic': 'background.06',       // ← old
+```
+
+**Update to new descriptive names:**
+```typescript
+'background.berlin_1933': 'background.yehia-room',         // was 01.jpg
+'background.cambodia_1975': 'background.dessert',          // was 02.jpg
+'background.corporate_lab': 'background.fire-worship',     // was 03.jpg
+'background.granada_fall': 'background.explode-basement',  // was 04.jpg
+'background.moscow_1937': 'background.hamara-palace',      // was 05.jpg
+'background.osiris_cosmic': 'background.cosmic-bg',        // was 06.jpg
+'background.osiris_interface': 'background.sun-and-desert', // was 07.jpg
 ```
 
 ---
 
-### Priority 2: Add Missing Assets
+### Priority 2: Add Ambient Asset Support
 
-#### 3.4 Create Ambient Audio Files
-Need to add these files to `public/assets/ambient/`:
-- `amb/server-room.mp3` (or .m4a)
-- `amb/low-hum.mp3`
-- `amb/rain.mp3`
-- `amb/device-hum.mp3`
-- `amb/vacuum.mp3`
-- `amb/bass-drone-low.mp3`
-- `amb/sirens-distant.mp3`
-- `amb/running-steps.mp3`
-- `amb/war-march.mp3`
-- `amb/drums-hypnosis.mp3`
-- `amb/cafe-murmur.mp3`
-- `amb/server-hum.mp3`
-- `amb/heartbeat-fast.mp3`
-- `sfx/ping.mp3`
-- `sfx/door-clang.mp3`
-- `sfx/cannon-fire.mp3`
-- `sfx/cups-clink.mp3`
-- `music/cafe-jazz.mp3`
+**Issue:** The `ambient/` folder is new. Need to:
+1. Add `ambient` to `AssetCategory` type in `assets.ts`
+2. Create helper function `ambient()` similar to `audio()`
+3. Add ambient keys to manifest generation in `build-assets.mjs`
 
-**RECOMMENDATION:** Create 1-2 second silent placeholder files if real audio not available.
-
-#### 3.5 Fix Scene Background Keys
-Either:
-- Add actual background images for `sceneBg.zero-1-1-summons`
-- OR update scenes to use existing backgrounds
+**New Categories to Add:**
+- `ambient.{name}` → `/assets/ambient/amb.{name}.mp3`
+- `sfx.{name}` → `/assets/ambient/sfx.{name}.mp3`
+- `music.{name}` → `/assets/ambient/music.{name}.mp3`
 
 ---
 
-### Priority 3: Cleanup
+### Priority 3: Add Scene Background Support
 
-#### 3.6 Consolidate Duplicate Voice Files
-Remove duplicate voice files with trailing dash:
-- Keep: `voice-01.wav`
-- Remove: `voice-01-.wav`
+**Issue:** Scenes use `sceneBg.zero-1-1-summons` pattern
 
-#### 3.7 Remove Old Documentation
-Consider removing conflicting doc files:
+**Solution Options:**
+- **A.** Add aliases in `KEY_ALIASES`: `'sceneBg.zero-1-1-summons': 'background.yehia-room'`
+- **B.** Update scenes to use `background()` helper instead of `sceneBg.*`
+
+**Affected scenes:**
+- `partZero.ts`: `sceneBg.zero-1-1-summons`
+- `partFour.ts`: `sceneBg.four-4-1-desert`, `sceneBg.four-4-2-crowd-engineering`
+
+---
+
+### Priority 4: Verify Songs Mapping
+
+**New:** `songs/ya-rab.m4a`
+
+**If used in scenes:**
+- Add to manifest generation
+- Add alias: `'song.ya_rab': 'songs/ya-rab.m4a'`
+
+---
+
+### Priority 5: Regenerate Manifest
+
+After all mapping updates:
+```bash
+npm run build
+```
+
+This will regenerate `asset-manifest.json` with all new ambient assets and updated keys.
+
+---
+
+### Optional: Documentation Cleanup
+
+Consider removing outdated docs:
 - `ASSET_MIGRATION_PROGRESS.md`
-- `ASSET_PRESENTATION_REVISION_REPORT.md`
 - `CHARACTER_ASSET_FIX_PLAN.md`
 - `FIX_ASSETS_INSTRUCTIONS.md`
-- `OSIRIS_ASSET_PROMPTS.md`
-- `OSIRIS_ASSET_PROMPT_GUIDE.md`
 - `ai-context/DEBUG_ASSET_404_DIAGNOSIS.md`
-- `docs/ASSET_SYSTEM.md`
-- `docs/ASSET_TROUBLESHOOTING.md`
-- `docs/GENERATED_ASSET_TIMELINE_MAPPING_PLAN.md`
 
 ---
 
