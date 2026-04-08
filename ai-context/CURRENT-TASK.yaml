@@ -1,0 +1,26 @@
+task_id: 1
+steps:
+  - id: 1.1
+    title: "Diagnose asset 404 errors"
+    status: done
+    proof: "DEBUG_ASSET_404_DIAGNOSIS.md created"
+  - id: 1.2
+    title: "Fix useAssetPreloader.ts broken import"
+    status: done
+    proof: "Replaced assetOverrides with assets.ts API"
+  - id: 1.3
+    title: "Fix AssetDebug.tsx old API calls"
+    status: done
+    proof: "Replaced tRPC calls with manifest-based debug"
+  - id: 1.4
+    title: "Fix AssetManager.tsx type errors"
+    status: done
+    proof: "Updated to use AssetEntry type from assets.ts"
+  - id: 1.5
+    title: "Fix assetUrls.ts shim missing exports"
+    status: done
+    proof: "Added getAssetUrls, video/documents/ui categories"
+  - id: 1.6
+    title: "Build and verify"
+    status: done
+    proof: "Build successful, 114 assets mapped"

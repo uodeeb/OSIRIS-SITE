@@ -1,0 +1,32 @@
+app_name: "OSIRIS Novel"
+description: "Interactive novel web application with cinematic experience"
+stack:
+  framework: react@19 + vite
+  ui: tailwind + shadcn
+  state: zustand@5
+  data: tanstack-query@5
+  schema: zod@3
+  server: express + trpc
+  database: drizzle + mysql
+  assets: static manifest + r2 backup
+skills:
+  - name: Vibe-Coder-2026
+    source: launch_skill.md
+    status: active
+  - name: Asset-System-Fix
+    source: .windsurf/plans/asset-system-once-and-for-all-e60f5e.md
+    status: phase_1_2_complete
+modules:
+  - asset_system:
+      deprecated: [assetUrls.ts, assetOverrides.ts, staticAssets.ts]
+      active: assets.ts
+      files_to_migrate: 38
+  - trpc_routers:
+      keep: [system, auth, voice, imageGeneration, llm, map, notification]
+      remove: [mediaRouter]
+context_files:
+  - README.md
+  - ASSET_SYSTEM_IMPLEMENTATION.md
+  - docs/ASSET_SYSTEM.md
+  - docs/ASSET_TROUBLESHOOTING.md
+  - .windsurf/plans/asset-system-once-and-for-all-e60f5e.md

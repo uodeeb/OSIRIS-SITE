@@ -12,8 +12,7 @@
  */
 
 import { useCallback, useRef, useState } from 'react';
-import { getAssetUrl, preloadAssets } from '@/lib/assetUrls';
-import { initAssetOverrides, getAssetOverride } from '@/lib/assetOverrides';
+import { getAsset, preloadAssets } from '@/lib/assets';
 
 // Critical assets that should be preloaded for each scene
 const SCENE_CRITICAL_ASSETS: Record<string, string[]> = {
@@ -104,15 +103,10 @@ export function useAssetPreloader(): UseAssetPreloaderResult {
     if (initStarted.current) return;
     initStarted.current = true;
     
-    try {
-      await initAssetOverrides({ timeoutMs: 5000 });
-      setOverridesReady(true);
-      console.log('[AssetPreloader] Overrides initialized successfully');
-    } catch (err) {
-      console.error('[AssetPreloader] Failed to initialize overrides:', err);
-      // Still mark as ready to prevent blocking
-      setOverridesReady(true);
-    }
+    // Asset manifest is loaded by App.tsx on startup
+    // This function is kept for API compatibility
+    setOverridesReady(true);
+    console.log('[AssetPreloader] Asset system ready (manifest loaded by App)');
   }, []);
 
   const preloadCharacter = useCallback(async (characterKey: string) => {
@@ -125,16 +119,15 @@ export function useAssetPreloader(): UseAssetPreloaderResult {
     }
 
     try {
-      // First try to get from override
-      const override = getAssetOverride(assetKey);
-      if (override) {
+      // Check if asset exists in manifest
+      const assetUrl = getAsset(assetKey);
+      if (assetUrl) {
         preloadedAssets.current.add(assetKey);
+        // Preload the image into browser cache
+        const img = new Image();
+        img.src = assetUrl;
         return;
       }
-
-      // Fall back to fetching from API
-      await getAssetUrl(assetKey);
-      preloadedAssets.current.add(assetKey);
     } catch (err) {
       console.warn('[AssetPreloader] Failed to preload character:', assetKey, err);
     }

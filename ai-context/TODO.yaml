@@ -1,0 +1,14 @@
+tasks:
+  - id: 1
+    title: "Debug asset 404 errors in production"
+    priority: high
+    status: completed
+    est_steps: 6
+    deps: []
+    details:
+      - "Fixed useAssetPreloader.ts missing assetOverrides import"
+      - "Fixed AssetDebug.tsx old API calls"
+      - "Fixed AssetManager.tsx type errors"
+      - "Added missing getAssetUrls to assetUrls.ts shim"
+      - "Added video/documents/ui categories to ASSET_URLS"
+      - "Build successful with 114 assets mapped"

@@ -7,14 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { getAssetUrl, getAssetsByKind, getAllAssets } from '@/lib/assetUrls';
-
-interface AssetInfo {
-  key: string;
-  kind: string;
-  url: string;
-  mime?: string;
-  bytes?: number;
-}
+import type { AssetEntry } from '@/lib/assets';
 
 interface AssetManagerProps {
   kind?: 'audio' | 'video' | 'background' | 'character' | 'document' | 'ui';
@@ -22,7 +15,7 @@ interface AssetManagerProps {
 }
 
 export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
-  const [assets, setAssets] = useState<AssetInfo[]>([]);
+  const [assets, setAssets] = useState<AssetEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,18 +25,26 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
         setLoading(true);
         setError(null);
 
-        let loadedAssets: AssetInfo[] = [];
+        let loadedAssets: AssetEntry[] = [];
 
         if (showAll) {
-          // Load all assets from database
-          loadedAssets = await getAllAssets();
+          // Load all assets from manifest
+          const allAssets = getAllAssets();
+          loadedAssets = Object.values(allAssets).map((a: any) => ({
+            key: a.key || a,
+            category: a.category || 'unknown',
+            path: a.path || a,
+            mime: a.mime || 'unknown',
+            originalName: a.originalName || '',
+            size: a.size,
+          }));
         } else if (kind) {
-          // Load assets by kind
-          loadedAssets = await getAssetsByKind(kind);
+          // Load assets by kind from manifest
+          loadedAssets = getAssetsByKind(kind);
         }
 
         setAssets(loadedAssets);
-        console.log(`[AssetManager] Loaded ${loadedAssets.length} assets from database`);
+        console.log(`[AssetManager] Loaded ${loadedAssets.length} assets from manifest`);
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Unknown error';
         setError(errorMessage);
@@ -70,7 +71,7 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
 
   if (loading) {
     return React.createElement('div', { style: { padding: '20px', textAlign: 'center' } }, [
-      React.createElement('div', null, 'Loading assets from database...')
+      React.createElement('div', null, 'Loading assets from manifest...')
     ]);
   }
 
@@ -78,7 +79,7 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
     return React.createElement('div', { style: { padding: '20px', color: 'red' } }, [
       React.createElement('h3', null, 'Asset Loading Error'),
       React.createElement('p', null, error),
-      React.createElement('p', null, 'This may indicate database connectivity issues or missing assets.')
+      React.createElement('p', null, 'Check that asset-manifest.json exists and is valid.')
     ]);
   }
 
@@ -91,7 +92,7 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
     ]),
     
     assets.length === 0 ? 
-      React.createElement('p', null, 'No assets found in database. Try seeding the database first.') :
+      React.createElement('p', null, 'No assets found. Run: npx tsx scripts/build-assets.ts') :
       React.createElement('div', { style: { display: 'grid', gap: '10px' } }, 
         assets.map((asset) => 
           React.createElement('div', {
@@ -117,7 +118,7 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
                     borderRadius: '4px',
                     fontSize: '12px'
                   } 
-                }, asset.kind),
+                }, asset.category),
                 asset.mime && React.createElement('span', { 
                   style: { marginLeft: '10px', color: '#666', fontSize: '12px' } 
                 }, asset.mime)
@@ -136,14 +137,14 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
             ]),
             
             React.createElement('div', { style: { marginTop: '10px', fontSize: '12px', color: '#666' } }, [
-              React.createElement('div', null, `URL: ${asset.url.substring(0, 100)}...`),
-              asset.bytes && React.createElement('div', null, `Size: ${(asset.bytes / 1024 / 1024).toFixed(2)} MB`)
+              React.createElement('div', null, `Path: ${asset.path.substring(0, 100)}...`),
+              asset.size && React.createElement('div', null, `Size: ${(asset.size / 1024 / 1024).toFixed(2)} MB`)
             ]),
 
             // Preview for images
             asset.mime?.startsWith('image/') && React.createElement('div', { style: { marginTop: '10px' } }, [
               React.createElement('img', {
-                src: asset.url,
+                src: asset.path,
                 alt: asset.key,
                 style: { 
                   maxWidth: '200px', 
@@ -153,7 +154,7 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
                   borderRadius: '4px'
                 },
                 onError: (e) => {
-                  console.error(`[AssetManager] Failed to load image:`, asset.url);
+                  console.error(`[AssetManager] Failed to load image:`, asset.path);
                   (e.target as HTMLImageElement).style.display = 'none';
                 },
                 onLoad: () => {
@@ -165,7 +166,7 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
             // Preview for audio
             asset.mime?.startsWith('audio/') && React.createElement('div', { style: { marginTop: '10px' } }, [
               React.createElement('audio', { controls: true, style: { width: '100%' } }, [
-                React.createElement('source', { src: asset.url, type: asset.mime }),
+                React.createElement('source', { src: asset.path, type: asset.mime }),
                 'Your browser does not support the audio element.'
               ])
             ]),
@@ -176,14 +177,14 @@ export function AssetManager({ kind, showAll = false }: AssetManagerProps) {
                 controls: true, 
                 style: { maxWidth: '300px', maxHeight: '200px' },
                 onError: (e) => {
-                  console.error(`[AssetManager] Failed to load video:`, asset.url);
+                  console.error(`[AssetManager] Failed to load video:`, asset.path);
                   (e.target as HTMLVideoElement).style.display = 'none';
                 },
                 onLoad: () => {
                   console.log(`[AssetManager] Successfully loaded video:`, asset.key);
                 }
               }, [
-                React.createElement('source', { src: asset.url, type: asset.mime }),
+                React.createElement('source', { src: asset.path, type: asset.mime }),
                 'Your browser does not support the video element.'
               ])
             ])

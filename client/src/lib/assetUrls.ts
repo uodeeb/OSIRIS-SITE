@@ -35,6 +35,10 @@ export const ASSET_URLS = {
   videoBg: createCategoryProxy('videoBg'),
   audio: createCategoryProxy('audio'),
   backgrounds: createCategoryProxy('background'),
+  // Legacy categories for backward compatibility
+  video: createCategoryProxy('videoBg'), // Alias to videoBg
+  documents: {} as Record<string, string>, // Empty - not used in static system
+  ui: {} as Record<string, string>, // Empty - not used in static system
   projectMedia: {
     audio: createCategoryProxy('audio'),
     video: createCategoryProxy('videoBg'),
@@ -47,6 +51,17 @@ export const ASSET_URLS = {
  */
 export function getAssetUrl(key: string): string {
   return getAsset(key as any) || '';
+}
+
+/**
+ * @deprecated Use `getAsset()` from '@/lib/assets' for each key instead
+ */
+export function getAssetUrls(keys: string[]): Record<string, string> {
+  const result: Record<string, string> = {};
+  for (const key of keys) {
+    result[key] = getAsset(key as any) || '';
+  }
+  return result;
 }
 
 /**
