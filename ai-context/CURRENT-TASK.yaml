@@ -1,25 +1,46 @@
-task_id: 4
-title: "Debug and ensure all assets deploy correctly on Vercel"
-started: "2026-04-08T21:44:00Z"
+task_id: 6
+title: "Comprehensive Asset System Audit and Fix"
+description: |
+  Complete audit of all assets vs code references. Created master inventory document
+  identifying all mismatches, missing files, and required fixes.
+  
+  Critical Issues Found:
+  - 10+ ambient audio keys referenced but NO FILES exist
+  - 8+ scene background keys not in manifest
+  - Audio case mismatches (code: TRACK-01, files: track-01)
+  - Voice path mismatches (code: new-voices/VOICE01.mp3, actual: voices/voice-01.wav)
+  - Manifest loading race condition
+  
+  Deliverable: ASSET_INVENTORY_MASTER.md for user review
 status: in_progress
 plan:
   - step: 1
-    action: "Verify local build has all assets in dist/public/assets/"
+    action: "Read all asset-related files and build comprehensive inventory"
     status: done
-    est_tokens: 100
-    result: "Local build verified - 114 assets present in all subdirectories"
-    proof: "characters/, images/, music-tracks/, video-bg/, voices/ all populated"
+    est_tokens: 200
+    result: "Created ASSET_INVENTORY_MASTER.md with complete mapping"
+    proof: "114 actual assets cataloged, 25+ issues identified"
   - step: 2
-    action: "Check Vercel build output and deployment configuration"
-    status: done
-    est_tokens: 100
-    result: "MCP verified: Asset manifest accessible with 114 assets"
-    proof: "https://www.osirisnovel.online/asset-manifest.json returns valid JSON"
+    action: "User reviews ASSET_INVENTORY_MASTER.md and confirms decisions"
+    status: pending
+    est_tokens: 50
+    result: "Waiting for user confirmation on fix approach"
+    proof: "Document location: /ASSET_INVENTORY_MASTER.md"
   - step: 3
-    action: "Test production site and identify any remaining 404 errors"
-    status: done
-    est_tokens: 150
-    result: "MCP verified: Video files ARE accessible (digital-space.mp4, cosmic-opening.mp4)"
-    proof: "404 errors in console are from OLD deployment - hard refresh needed"
+    action: "Implement fixes based on user decisions"
+    status: pending
+    est_tokens: 300
+    result: "Pending user confirmation"
+    proof: "Will fix: ambient audio, case mismatches, voice paths, race condition"
 
-total_tokens_used: 100
+total_tokens_used: 200
+
+blockers: []
+
+notes: |
+  - Created comprehensive master document at ASSET_INVENTORY_MASTER.md
+  - User needs to review and confirm approach for:
+    1. Ambient audio: Add real files or silent placeholders?
+    2. Case mismatches: Rename files or fix code?
+    3. Clean up old documentation files?
+  - All asset inventory complete - ready for implementation phase
