@@ -393,54 +393,21 @@ const TONE_ACCENT: Record<string, string> = {
 };
 
 const TRACK_URL_CANDIDATES: Record<string, string[]> = {
-  track01: [
-    '/assets/music-tracks/TRACK-01.mp3',
-    '/assets/music-tracks/TRACK-01.m4a',
-  ],
-  track02: [
-    '/assets/music-tracks/TRACK-02.m4a',
-    '/assets/music-tracks/TRACK-02.mp3',
-  ],
-  track03: [
-    '/assets/music-tracks/TRACK-03.m4a',
-    '/assets/music-tracks/TRACK-03.mp3',
-  ],
-  track04: [
-    '/assets/music-tracks/TRACK-04.m4a',
-    '/assets/music-tracks/TRACK-04.mp3',
-  ],
-  track05: [
-    '/assets/music-tracks/TRACK-05.m4a',
-  ],
-  track06: [
-    '/assets/music-tracks/TRACK-06.m4a',
-  ],
-  track07: [
-    '/assets/music-tracks/TRACK-07.m4a',
-  ],
-  track08: [
-    '/assets/music-tracks/TRACK-08.m4a',
-  ],
-  track09: [
-    '/assets/music-tracks/TRACK-09.m4a',
-  ],
-  track10: [
-    '/assets/music-tracks/TRACK-10.m4a',
-  ],
-  track11: [
-    '/assets/music-tracks/TRACK-11.m4a',
-  ],
-  track12: [
-    '/assets/music-tracks/TRACK-12.m4a',
-  ],
-  track13: [
-    '/assets/music-tracks/TRACK-13.m4a',
-  ],
-  track14: [
-    '/assets/music-tracks/TRACK-14.m4a',
-    '/assets/music-tracks/TRACK-14.mp3',
-  ],
-  track15: ['/assets/songs+/ya-rab.m4a'],
+  track01: ['/assets/music-tracks/TRACK-01.mp3'],
+  track02: ['/assets/music-tracks/TRACK-02.mp3'],
+  track03: ['/assets/music-tracks/TRACK-03.mp3'],
+  track04: ['/assets/music-tracks/TRACK-04.mp3'],
+  track05: ['/assets/music-tracks/TRACK-05.mp3'],
+  track06: ['/assets/music-tracks/TRACK-06.mp3'],
+  track07: ['/assets/music-tracks/TRACK-07.mp3'],
+  track08: ['/assets/music-tracks/TRACK-08.mp3'],
+  track09: ['/assets/music-tracks/TRACK-09.mp3'],
+  track10: ['/assets/music-tracks/TRACK-10.mp3'],
+  track11: ['/assets/music-tracks/TRACK-11.mp3'],
+  track12: ['/assets/music-tracks/TRACK-12.mp3'],
+  track13: ['/assets/music-tracks/TRACK-13.mp3'],
+  track14: ['/assets/music-tracks/TRACK-14.mp3'],
+  track15: ['/assets/songs/ya-rab.m4a'],
 };
 
 const SCENE_TRACK_SEQUENCE: Record<string, keyof typeof TRACK_URL_CANDIDATES> = {
