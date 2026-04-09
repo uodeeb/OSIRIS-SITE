@@ -467,7 +467,7 @@ type ImageCue = {
 
 const SCENE_IMAGE_CUES: Partial<Record<string, ImageCue>> = {
   'zero-1-1-summons': { src: '/assets/images/01.jpg', points: [0], opacity: 0.2, blend: 'screen' },
-  'zero-1-2-prosecution': { src: '/assets/characters/narrator.png', points: [2], opacity: 0.35, blend: 'overlay' },
+  'zero-1-2-prosecution': { src: '/assets/characters/narrator-visual.png', points: [2], opacity: 0.35, blend: 'overlay' },
   'four-4-1-desert': { src: '/assets/images/02.jpg', points: [1], opacity: 0.24, blend: 'soft-light' },
   'four-4-2-crowd-engineering': { src: '/assets/images/03.jpg', points: [1], opacity: 0.24, blend: 'overlay' },
   'six-8-1-andalusia': { src: '/assets/images/04.jpg', points: [1], opacity: 0.22, blend: 'screen' },
@@ -566,19 +566,14 @@ const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFINITIONS.
 
 function getVoiceCandidates(voiceNumber: number) {
   const padded = String(Math.max(1, Math.min(18, voiceNumber))).padStart(2, '0');
-  return [
-    `/assets/voices/new-voices/VOICE${padded}.mp3`,
-    `/assets/voices/new-voices/VOICE${voiceNumber}.mp3`,
-    `/assets/voices/VOICE-${padded}.wav`,
-  ];
+  // Voice 01-02 are mp3, 03-18 are wav
+  const ext = voiceNumber <= 2 ? 'mp3' : 'wav';
+  return [`/assets/voices/voice-${padded}.${ext}`];
 }
 
-// Special voice for devil scenes
+// Special voice for devil scenes - fallback to voice-07 (iblis)
 function getDevilVoiceCandidates() {
-  return [
-    '/assets/voices/new-voices/main-devil.wav',
-    '/assets/voices/main-devil.wav',
-  ];
+  return ['/assets/voices/voice-07.mp3'];
 }
 
 // ─── Particles ───────────────────────────────────────────────────────────────

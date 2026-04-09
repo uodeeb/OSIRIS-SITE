@@ -160,7 +160,7 @@ const KEY_ALIASES: Record<string, string> = {
   'voice.final_words_reader': 'voice.voice-18',
   
   // Audio aliases - match manifest keys (TRACK-XX uppercase)
-  'audio.main_theme': 'audio.main-theme',
+  'audio.main_theme': 'audio.TRACK-01',  // Map to first track
   'audio.intro_narration': 'audio.TRACK-02',
   'audio.intro_narration_v1': 'audio.TRACK-02',
   'audio.yahya_monologue': 'audio.TRACK-01',

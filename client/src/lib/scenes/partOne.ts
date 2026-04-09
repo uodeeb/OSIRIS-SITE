@@ -10,7 +10,7 @@ export const PART_ONE: Record<string, Scene> = {
     part: 1,
     backgroundImage: background('corporate_lab'),
     visualEffect: "glitch",
-    musicKey: "music.cafe_jazz",
+    musicKey: "ambient.music.cafe_jazz",
     ambientKeys: ["amb.cafe_murmur", "sfx.cups_clink"],
     dialogue: [
       {
