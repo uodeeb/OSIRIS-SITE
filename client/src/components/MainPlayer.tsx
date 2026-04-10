@@ -20,6 +20,7 @@ import { getAsset } from '@/lib/assets';
 import { customStyles, choicePanelStyles, endSceneStyles, buttonStyles } from '@/lib/styleUtils';
 import { useBandwidthStrategy } from '@/lib/mediaStrategy';
 import { detectOsirisEffectId, preloadOsirisEffects, type OsirisEffectId } from "@/lib/osirisEffects";
+import { checkVisualEffectTriggers, type VisualEffect } from "@/lib/visualEffects";
 import { loadCanonicalDialogueMap } from '@/lib/canonicalScript.ts'; // Netlify fix: explicit .ts extension required
 import { CinematicStage } from '@/components/CinematicStage';
 import { OsirisEffectLayer } from "@/components/OsirisEffectLayer";
@@ -659,15 +660,17 @@ function AudioControl({
         {isMuted ? (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-            <line x1="23" y1="9" x2="17" y2="15" /><line x1="17" y1="9" x2="23" y2="15" />
+            <line x1="23" y1="9" x2="17" y2="15" />
+            <line x1="17" y1="9" x2="23" y2="15" />
           </svg>
         ) : (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
           </svg>
         )}
-        <span className="text-[9px] font-arabic-ui tracking-wider">صوت</span>
+        <span className="text-[9px] font-arabic-ui tracking-wider hidden sm:inline">صوت</span>
       </button>
 
       <AnimatePresence>
@@ -784,6 +787,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const [isPlaying, setIsPlaying] = useState(false);
   const [scriptTrackOverride, setScriptTrackOverride] = useState<keyof typeof TRACK_URL_CANDIDATES | null>(null);
   const [activeImageCue, setActiveImageCue] = useState<{ src: string; opacity: number; blend: CSSProperties['mixBlendMode']; token: string } | null>(null);
+  const [activeVisualEffect, setActiveVisualEffect] = useState<VisualEffect | null>(null);
   const [techBoost, setTechBoost] = useState(0);
   const [voiceSyncLock, setVoiceSyncLock] = useState(false);
   const [activeVoiceNumber, setActiveVoiceNumber] = useState<number | null>(null);
@@ -1251,15 +1255,41 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const handleBackScene = useCallback(() => {
     if (!currentScene) return;
 
+    // Clear any running timers/effects immediately for responsiveness
+    if (typewriterRef.current) {
+      clearTimeout(typewriterRef.current);
+      typewriterRef.current = null;
+    }
+    
+    // Reset typing states immediately
+    setIsTyping(false);
+    setIsDialogueComplete(true);
+
     if (showChoices) {
       setShowChoices(false);
       const lastDialogueIndex = Math.max(0, dialogueLines.length - 1);
       setDialogueIndex(lastDialogueIndex);
+      // Restore text immediately without typing effect
+      const targetDialogue = dialogueLines[lastDialogueIndex];
+      if (targetDialogue) {
+        setDisplayedText(targetDialogue.text || '');
+        setDisplayedArabic(targetDialogue.arabicText || '');
+      }
       return;
     }
 
-    setDialogueIndex((prev) => Math.max(0, prev - 1));
-  }, [currentScene, showChoices, dialogueLines.length]);
+    // Go back one step
+    setDialogueIndex((prev) => {
+      const newIndex = Math.max(0, prev - 1);
+      // Pre-load the text immediately
+      const targetDialogue = dialogueLines[newIndex];
+      if (targetDialogue) {
+        setDisplayedText(targetDialogue.text || '');
+        setDisplayedArabic(targetDialogue.arabicText || '');
+      }
+      return newIndex;
+    });
+  }, [currentScene, showChoices, dialogueLines]);
 
   const handleChoice = useCallback((choice: SceneChoice) => {
     if (voiceSyncLock) return;
@@ -1550,6 +1580,26 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     }
     setScriptTrackOverride(parsed);
   }, [currentDialogue?.text, currentDialogue?.arabicText]);
+
+  // Visual Effect Trigger System - check dialogue for keywords
+  useEffect(() => {
+    if (!currentDialogue) {
+      setActiveVisualEffect(null);
+      return;
+    }
+    const fullText = `${currentDialogue.text || ''} ${currentDialogue.arabicText || ''}`;
+    const effect = checkVisualEffectTriggers(fullText);
+    if (effect) {
+      setActiveVisualEffect(effect);
+      // Auto-clear after duration
+      const timer = setTimeout(() => {
+        setActiveVisualEffect((current) => current?.id === effect.id ? null : current);
+      }, effect.duration);
+      return () => clearTimeout(timer);
+    } else {
+      setActiveVisualEffect(null);
+    }
+  }, [currentDialogue?.text, currentDialogue?.arabicText, currentSceneId, dialogueIndex]);
 
   useEffect(() => {
     const cue = SCENE_IMAGE_CUES[currentSceneId];
@@ -2126,6 +2176,48 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         </AnimatePresence>
       )}
 
+      {/* ── DIALOGUE-TRIGGERED VISUAL EFFECT OVERLAY ── */}
+      {activeVisualEffect && (
+        <AnimatePresence mode="wait">
+          <motion.video
+            key={activeVisualEffect.id}
+            src={activeVisualEffect.videoSrc}
+            autoPlay
+            muted
+            loop={false}
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            initial={{ opacity: 0, scale: activeVisualEffect.position === 'center' ? 0.9 : 1 }}
+            animate={{
+              opacity: activeVisualEffect.opacity,
+              scale: activeVisualEffect.position === 'corner'
+                ? [1, 1.02, 1]
+                : activeVisualEffect.position === 'center'
+                  ? [0.95, 1.05, 0.95]
+                  : 1
+            }}
+            exit={{ opacity: 0, scale: activeVisualEffect.position === 'center' ? 0.9 : 1 }}
+            transition={{
+              opacity: { duration: 0.8, ease: 'easeInOut' },
+              scale: { duration: activeVisualEffect.duration / 1000, ease: 'easeInOut' }
+            }}
+            style={{
+              mixBlendMode: activeVisualEffect.blendMode || 'screen',
+              zIndex: 15,
+              objectPosition: activeVisualEffect.position === 'corner' ? 'bottom right' : 'center',
+              filter: activeVisualEffect.id.includes('osiris') || activeVisualEffect.id.includes('hologram') || activeVisualEffect.id.includes('falcon')
+                ? 'blur(8px) brightness(1.2) saturate(1.3)' 
+                : 'none',
+              transform: activeVisualEffect.id.includes('osiris') || activeVisualEffect.id.includes('hologram') || activeVisualEffect.id.includes('falcon')
+                ? 'scale(1.15)'
+                : 'scale(1)',
+            }}
+            onError={() => setActiveVisualEffect(null)}
+            onEnded={() => setActiveVisualEffect(null)}
+          />
+        </AnimatePresence>
+      )}
+
       <motion.div
         className="absolute inset-0 pointer-events-none"
         animate={{ opacity: techBoost ? [0.06, 0.2, 0.08] : [0.02, 0.06, 0.03], x: techBoost ? [0, 2, -2, 0] : 0 }}
@@ -2294,25 +2386,25 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         {showCharacter && resolvedCharImageUrl && preferredCharacterKey !== 'Narrator' && (
           <motion.div
             key={dialogueCharacterKey + '-portrait-' + dialogueIndex}
-            className={`absolute bottom-44 sm:bottom-32 ${currentCharConfig.position === 'left' ? 'left-4 sm:left-6 md:left-14' : 'right-4 sm:right-6 md:right-14'} z-30 pointer-events-none`}
+            className={`absolute bottom-[52%] sm:bottom-[28%] md:bottom-[26%] ${currentCharConfig.position === 'left' ? 'left-1 sm:left-4 md:left-8 lg:left-14' : 'right-1 sm:right-4 md:right-8 lg:right-14'} z-10 pointer-events-none`}
             initial={{ opacity: 0, y: 40, scale: 0.88 }}
-            animate={{ opacity: 0.92, y: 0, scale: 1 }}
+            animate={{ opacity: 0.85, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 25, scale: 0.92 }}
             transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <div className="relative">
               <div
-                className={`absolute -inset-4 rounded-3xl blur-2xl opacity-25 ${styles.dynamicGlow}`}
+                className={`absolute -inset-2 sm:-inset-3 md:-inset-4 rounded-xl sm:rounded-2xl md:rounded-3xl blur-xl sm:blur-2xl opacity-20 sm:opacity-25 ${styles.dynamicGlow}`}
                 style={{ '--glow-color': currentCharConfig.glowColor } as React.CSSProperties}
               />
               <img
                 src={resolvedCharImageUrl}
                 alt={currentCharConfig.name}
-                className={`relative w-20 h-28 sm:w-28 sm:h-40 md:w-36 md:h-52 object-cover rounded-2xl ${styles.dynamicPortrait}`}
+                className={`relative w-12 h-16 sm:w-20 sm:h-28 md:w-28 md:h-40 lg:w-32 lg:h-48 object-cover rounded-lg sm:rounded-xl md:rounded-2xl ${styles.dynamicPortrait}`}
                 style={{
-                  '--portrait-shadow': `0 0 50px ${currentCharConfig.glowColor}, 0 20px 60px rgba(0,0,0,0.7)`,
-                  '--portrait-border': `1px solid ${currentCharConfig.color}25`,
-                  '--portrait-filter': 'brightness(0.85) contrast(1.05)'
+                  '--portrait-shadow': `0 0 30px ${currentCharConfig.glowColor}, 0 8px 24px rgba(0,0,0,0.6)`,
+                  '--portrait-border': `1px solid ${currentCharConfig.color}20`,
+                  '--portrait-filter': 'brightness(0.9) contrast(1.02)'
                 } as React.CSSProperties}
                 onError={(e) => { 
                   console.warn('[Character] Failed to load image:', resolvedCharImageUrl);
@@ -2320,11 +2412,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
                 }}
               />
               <div
-                className={`absolute bottom-0 left-0 right-0 h-16 rounded-b-2xl ${styles.dynamicGradientOverlay}`}
+                className={`absolute bottom-0 left-0 right-0 h-12 sm:h-16 rounded-b-xl sm:rounded-b-2xl ${styles.dynamicGradientOverlay}`}
                 style={{ '--gradient-overlay': 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' } as React.CSSProperties}
               />
               <div
-                className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[8px] font-mono tracking-wider whitespace-nowrap border"
+                className="absolute -bottom-2 sm:-bottom-3 left-1/2 -translate-x-1/2 px-2 sm:px-3 py-0.5 rounded-full text-[7px] sm:text-[8px] font-mono tracking-wider whitespace-nowrap border"
                 style={{
                   background: 'rgba(0,0,0,0.85)',
                   borderColor: `${currentCharConfig.color}40`,
@@ -2339,7 +2431,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       </AnimatePresence>
 
       {/* ── MAIN DIALOGUE AREA ── */}
-      <div className="absolute bottom-8 sm:bottom-12 left-0 right-0 z-20 px-3 sm:px-4 md:px-10 pb-4">
+      <div className="absolute bottom-4 sm:bottom-8 md:bottom-12 left-0 right-0 z-20 px-2 sm:px-4 md:px-6 lg:px-10 pb-2 sm:pb-4 max-h-[45%] overflow-hidden">
         <AnimatePresence mode="wait">
           {!showChoices && currentDialogue && (
             <motion.div
@@ -2383,7 +2475,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
               {/* Dialogue Box */}
               <div
                 data-testid="dialogue-box"
-                className={`relative rounded-2xl px-4 py-4 sm:px-7 sm:py-6 md:px-9 md:py-7 ${isArabic ? 'text-right' : ''} ${styles.dynamicDialogueBox}`}
+                className={`relative rounded-xl sm:rounded-2xl px-3 py-3 sm:px-5 sm:py-4 md:px-7 md:py-5 lg:px-9 lg:py-6 ${isArabic ? 'text-right' : ''} ${styles.dynamicDialogueBox}`}
                 dir={isArabic ? 'rtl' : 'ltr'}
                 style={{
                   '--dialogue-bg': currentScene.backgroundVideo ? 'rgba(0,0,0,0.56)' : 'rgba(0,0,0,0.66)',

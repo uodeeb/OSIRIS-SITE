@@ -126,7 +126,7 @@ export default function EnhancedHome() {
         subtitle: "The trial begins outside time and space",
         arabicSubtitle: "تبدأ المحاكمة خارج الزمان والمكان",
         estMinutes: 14,
-        imageSrc: getAsset('background.osiris_cosmic'),
+        imageSrc: '/generated-assets/images/01.jpg',
         accentColor: "#c9a96e",
         sceneId: "zero-1-1-summons",
       },
@@ -139,7 +139,7 @@ export default function EnhancedHome() {
         subtitle: "The algorithm is written and the first patterns appear",
         arabicSubtitle: "يُكتب الخوارزم وتظهر الأنماط الأولى",
         estMinutes: 16,
-        imageSrc: getAsset('background.corporate_lab'),
+        imageSrc: '/generated-assets/images/02.jpg',
         accentColor: "#ef4444",
         sceneId: "one-1-5-1-promise",
       },
@@ -152,7 +152,7 @@ export default function EnhancedHome() {
         subtitle: "Building icons to fill the spiritual void",
         arabicSubtitle: "بناء الأيقونات لملء الفراغ الروحي",
         estMinutes: 18,
-        imageSrc: getAsset('background.qabil_habil_altar'),
+        imageSrc: '/generated-assets/images/03.jpg',
         accentColor: "#d4af37",
         sceneId: "four-4-1-desert",
       },
@@ -165,7 +165,7 @@ export default function EnhancedHome() {
         subtitle: "When institutions weaponize the sacred",
         arabicSubtitle: "عندما تُسلّح المؤسسات المقدس",
         estMinutes: 16,
-        imageSrc: getAsset('background.nicaea_council'),
+        imageSrc: '/generated-assets/images/04.jpg',
         accentColor: "#3b82f6",
         sceneId: "five-6a-1-nicaea-debate",
       },
@@ -178,7 +178,7 @@ export default function EnhancedHome() {
         subtitle: "Arrogance becomes history and ideology",
         arabicSubtitle: "الكبرياء يصبح تاريخاً وأيديولوجيا",
         estMinutes: 18,
-        imageSrc: getAsset('background.granada_fall'),
+        imageSrc: '/generated-assets/images/05.jpg',
         accentColor: "#22c55e",
         sceneId: "six-8-1-andalusia",
       },
@@ -191,7 +191,7 @@ export default function EnhancedHome() {
         subtitle: "The unarmed truth — the antivirus",
         arabicSubtitle: "الحقيقة العزلاء — مضاد الفيروس",
         estMinutes: 14,
-        imageSrc: getAsset('background.qabil_habil_aftermath'),
+        imageSrc: '/generated-assets/images/06.jpg',
         accentColor: "#f97316",
         sceneId: "seven-10-1-karbala",
       },
@@ -204,7 +204,7 @@ export default function EnhancedHome() {
         subtitle: "The closing testimony",
         arabicSubtitle: "الشهادة الختامية",
         estMinutes: 12,
-        imageSrc: getAsset('background.osiris_interface'),
+        imageSrc: '/generated-assets/images/07.jpg',
         accentColor: "#8b5cf6",
         sceneId: "seven-12-1-truth-leak",
       },
@@ -364,7 +364,7 @@ export default function EnhancedHome() {
           >
             {/* Main Info Card */}
             <div
-              className="flex-1 flex flex-col rounded-2xl border p-5 overflow-hidden relative"
+              className="flex-1 flex flex-col rounded-2xl border p-4 sm:p-5 overflow-y-auto relative max-h-[50vh] lg:max-h-none scrollbar-thin scrollbar-thumb-amber-500/30 scrollbar-track-transparent"
               style={{
                 borderColor: "rgba(201,169,110,0.15)",
                 background: "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(10,10,15,0.8) 100%)",
@@ -425,10 +425,10 @@ export default function EnhancedHome() {
               </div>
 
               {/* CTA Buttons */}
-              <div className="mt-4 flex flex-col gap-2">
+              <div className="mt-4 flex flex-col gap-2 flex-shrink-0">
                 <motion.button
                   onClick={handleStartExperience}
-                  className="w-full py-3 rounded-xl text-sm font-semibold tracking-wider flex items-center justify-center gap-2"
+                  className="w-full py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold tracking-wider flex items-center justify-center gap-1.5 sm:gap-2"
                   style={{
                     background: "linear-gradient(135deg, rgba(201,169,110,0.95), rgba(201,169,110,0.7))",
                     boxShadow: "0 8px 32px rgba(201,169,110,0.25), inset 0 1px 0 rgba(255,255,255,0.2)",
@@ -437,13 +437,13 @@ export default function EnhancedHome() {
                   whileHover={{ scale: 1.02, boxShadow: "0 12px 40px rgba(201,169,110,0.35)" }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {isArabic ? "▶ ابدأ التجربة" : "▶ BEGIN THE TRIAL"}
-                  <ChevronRight className="w-4 h-4" />
+                  {isArabic ? "▶ ابدأ" : "▶ START"}
+                  <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </motion.button>
 
                 <motion.button
                   onClick={() => setLocation("/model")}
-                  className="w-full py-3 rounded-xl border text-sm text-white/80 hover:text-white transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2.5 sm:py-3 rounded-xl border text-xs sm:text-sm text-white/80 hover:text-white transition-colors flex items-center justify-center gap-1.5 sm:gap-2"
                   style={{
                     borderColor: "rgba(255,255,255,0.12)",
                     background: "rgba(0,0,0,0.3)",
@@ -451,7 +451,7 @@ export default function EnhancedHome() {
                   whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.05)" }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {isArabic ? "عن نموذج OSIRIS" : "About OSIRIS Model"}
+                  {isArabic ? "عن النموذج" : "About Model"}
                 </motion.button>
               </div>
             </div>
