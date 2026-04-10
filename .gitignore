@@ -181,6 +181,7 @@ scripts/
 !scripts/verify-build.ts
 !scripts/map-assets.cjs
 !scripts/build-assets.mjs
+!scripts/copy-manifest.js
 
 # Python artifacts
 __pycache__/
