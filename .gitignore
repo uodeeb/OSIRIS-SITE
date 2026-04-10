@@ -221,3 +221,6 @@ run-insert.js
 .netlify
 
 .vercel
+
+# Archived files (cleanup)
+_ARCHIVE/

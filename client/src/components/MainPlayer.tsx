@@ -2386,7 +2386,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
         {showCharacter && resolvedCharImageUrl && preferredCharacterKey !== 'Narrator' && (
           <motion.div
             key={dialogueCharacterKey + '-portrait-' + dialogueIndex}
-            className={`absolute bottom-[52%] sm:bottom-[28%] md:bottom-[26%] ${currentCharConfig.position === 'left' ? 'left-1 sm:left-4 md:left-8 lg:left-14' : 'right-1 sm:right-4 md:right-8 lg:right-14'} z-10 pointer-events-none`}
+            className={`absolute bottom-[48%] sm:bottom-[25%] md:bottom-[22%] ${currentCharConfig.position === 'left' ? 'left-1 sm:left-4 md:left-6 lg:left-12' : 'right-1 sm:right-4 md:right-6 lg:right-12'} z-10 pointer-events-none`}
             initial={{ opacity: 0, y: 40, scale: 0.88 }}
             animate={{ opacity: 0.85, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 25, scale: 0.92 }}
@@ -2394,15 +2394,15 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
           >
             <div className="relative">
               <div
-                className={`absolute -inset-2 sm:-inset-3 md:-inset-4 rounded-xl sm:rounded-2xl md:rounded-3xl blur-xl sm:blur-2xl opacity-20 sm:opacity-25 ${styles.dynamicGlow}`}
+                className={`absolute -inset-3 sm:-inset-4 md:-inset-6 rounded-2xl sm:rounded-3xl md:rounded-[2rem] blur-2xl sm:blur-3xl opacity-25 sm:opacity-30 ${styles.dynamicGlow}`}
                 style={{ '--glow-color': currentCharConfig.glowColor } as React.CSSProperties}
               />
               <img
                 src={resolvedCharImageUrl}
                 alt={currentCharConfig.name}
-                className={`relative w-12 h-16 sm:w-20 sm:h-28 md:w-28 md:h-40 lg:w-32 lg:h-48 object-cover rounded-lg sm:rounded-xl md:rounded-2xl ${styles.dynamicPortrait}`}
+                className={`relative w-20 h-28 sm:w-32 sm:h-44 md:w-44 md:h-60 lg:w-48 lg:h-72 object-cover rounded-xl sm:rounded-2xl md:rounded-3xl ${styles.dynamicPortrait}`}
                 style={{
-                  '--portrait-shadow': `0 0 30px ${currentCharConfig.glowColor}, 0 8px 24px rgba(0,0,0,0.6)`,
+                  '--portrait-shadow': `0 0 50px ${currentCharConfig.glowColor}, 0 12px 40px rgba(0,0,0,0.7)`,
                   '--portrait-border': `1px solid ${currentCharConfig.color}20`,
                   '--portrait-filter': 'brightness(0.9) contrast(1.02)'
                 } as React.CSSProperties}
