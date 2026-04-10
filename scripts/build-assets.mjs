@@ -242,11 +242,11 @@ async function buildAssets() {
           
           for (const file of files) {
             const srcFile = path.join(sourcePath, file);
-            const destFile = path.join(destPath, file);
             const normalizedName = FILENAME_MAP[file] || file;
             const key = path.parse(normalizedName).name;
+            const destFileNormalized = path.join(destPath, normalizedName);
             
-            await fs.copyFile(srcFile, destFile);
+            await fs.copyFile(srcFile, destFileNormalized);
             
             assets[key] = {
               key,

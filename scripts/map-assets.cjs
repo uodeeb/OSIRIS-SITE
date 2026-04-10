@@ -36,8 +36,8 @@ function main() {
       const { key, path: assetPath } = asset;
       
       // The asset path is like /assets/characters/xxx.jpg
-      // Check if it exists in public/
-      const sourceFile = path.join('public', assetPath.replace(/^\//, ''));
+      // Check if it exists in public/assets (normalized names)
+      const sourceFile = path.join('public/assets', assetPath.replace(/^\/assets\//, ''));
       
       // Determine target path in dist/public
       const targetFile = path.join('dist/public', assetPath.replace(/^\//, ''));
