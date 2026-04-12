@@ -468,7 +468,7 @@ type ImageCue = {
 };
 
 const SCENE_IMAGE_CUES: Partial<Record<string, ImageCue>> = {
-  'zero-1-1-summons': { src: '/assets/images/01.jpg', points: [0], opacity: 0.2, blend: 'screen' },
+  'zero-1-1-summons': { src: '/assets/images/yehia-room.jpg', points: [0], opacity: 0.2, blend: 'screen' },
   'zero-1-2-prosecution': { src: '/assets/characters/narrator-visual.png', points: [2], opacity: 0.35, blend: 'overlay' },
   'four-4-1-desert': { src: '/assets/images/02.jpg', points: [1], opacity: 0.24, blend: 'soft-light' },
   'four-4-2-crowd-engineering': { src: '/assets/images/03.jpg', points: [1], opacity: 0.24, blend: 'overlay' },

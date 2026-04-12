@@ -50,5 +50,20 @@ tasks:
       - "Local build verified - all 114 assets present in dist/public/assets/"
       - "Issue: Vercel deployment may not be including asset subdirectories"
       - "Next: Monitor Vercel deployment and test production asset loading"
+  - id: 5
+    title: "Debug dynamic import failure and MIME type errors"
+    priority: critical
+    status: in_progress
+    est_steps: 5
+    deps: []
+    tags: [bugfix, runtime, dev-server]
+    details:
+      - "Error: Refused to execute script from '__manus__/debug-collector.js' - MIME type 'text/html'"
+      - "Error: Failed to fetch dynamically imported module: MainPlayer.tsx"
+      - "Error: GET cache read failures for visualEffects.ts, canonicalScript.ts, CinematicStage.tsx"
+      - "Error: SVG path attribute error in jquery.js - malformed path data"
+      - "FIXED: Copied debug-collector.js to public/__manus__/ (vite publicDir mismatch)"
+      - "FIXED: Removed .ts extension from canonicalScript import in MainPlayer.tsx:24"
+      - "Next: Restart dev server and verify fixes, address remaining cache errors"
 
-next_id: 5
+next_id: 6

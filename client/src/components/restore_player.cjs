@@ -44,7 +44,7 @@ const SCENE_CHARACTER_TIMELINE: Record<string, string> = {
 };
 
 const SCENE_IMAGE_CUES: Record<string, { src: string; points: number[]; opacity?: number; blend?: string }> = {
-  'zero-1-1-summons': { src: '/generated-assets/images/01.jpg', points: [0], opacity: 0.2, blend: 'screen' },
+  'zero-1-1-summons': { src: '/assets/images/yehia-room.jpg', points: [0], opacity: 0.2, blend: 'screen' },
 };
 
 function parseTrackFromDialogue(line) {

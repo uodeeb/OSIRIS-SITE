@@ -38,7 +38,7 @@ const trailerLines: TrailerLine[] = [
   {
     id: 'osiris-opens',
     src: '/assets/video-bg/cosmic-opening.mp4',
-    fallback: '/assets/images/01.jpg',
+    fallback: '/assets/images/yehia-room.jpg',
     ar: 'الفتح العظيم',
     en: 'The Great Opening',
     color: '#c9a96e',
