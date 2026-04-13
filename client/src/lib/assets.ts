@@ -167,9 +167,14 @@ const KEY_ALIASES: Record<string, string> = {
   'audio.tragic_sacrifice': 'audio.TRACK-10',
   'audio.cosmic_end': 'audio.TRACK-11',
   
+  // Music aliases for scene music
+  'music.rooftop_cello_piano': 'audio.TRACK-01',
+  'music.cafe_jazz': 'ambient.music.cafe_jazz',
+  
   // Video aliases
   'video.logo_reveal': 'videoBg.intro',
   'video.qabil_scene': 'videoBg.intro',
+  'video.generated_yehya_office': 'videoBg.yahya-room',
   
   // Background aliases (map scene backgrounds to descriptive image names)
   'background.berlin_1933': 'background.yehia-room',
@@ -205,6 +210,9 @@ const KEY_ALIASES: Record<string, string> = {
   'amb.bass_drone_low': 'ambient.amb.bass_drone_low',
   'amb.cafe_murmur': 'ambient.amb.cafe_murmur',
   'amb.server_hum': 'ambient.amb.server_hum',
+  'amb.phone_ring': 'ambient.amb.server_hum',
+  'amb.footsteps_outside': 'ambient.amb.running_steps',
+  'amb.wind_strong': 'ambient.amb.vacuum',
   'sfx.ping': 'ambient.sfx.ping',
   'sfx.door_clang': 'ambient.sfx.door_clang',
   'sfx.cannon_fire': 'ambient.sfx.cannon_fire',
