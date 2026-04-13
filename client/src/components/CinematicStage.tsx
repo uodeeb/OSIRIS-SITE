@@ -67,7 +67,7 @@ export const CinematicStage = memo(function CinematicStage({
           }}
           onLoad={() => setBgLoaded(true)}
           onError={() => setBgLoaded(true)}
-          style={{ filter: mediaFilter, zIndex: 0 }}
+          style={{ filter: mediaFilter, zIndex: 0, willChange: 'transform, opacity' }}
           decoding="async"
           loading="eager"
         />
@@ -82,7 +82,7 @@ export const CinematicStage = memo(function CinematicStage({
             y: ["0%", "0.35%", "0%"],
           }}
           transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
-          style={{ zIndex: 1 }}
+          style={{ zIndex: 1, willChange: 'transform' }}
         >
           <video
             ref={videoRef}

@@ -167,7 +167,7 @@ export default defineConfig({
   build: {
     outDir: path.resolve(PROJECT_ROOT, "dist/public"),
     emptyOutDir: true,
-    chunkSizeWarningLimit: 1500, // ComponentShowcase is ~1200kB (lazy-loaded demo page)
+    chunkSizeWarningLimit: 500, // Alert if main chunks exceed 500KB (was 1500)
     rollupOptions: {
       output: {
         manualChunks: {

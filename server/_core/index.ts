@@ -10,6 +10,74 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 
+// ─── Rate Limiter (simple in-memory, no external deps) ───────────────────────
+interface RateLimitEntry {
+  count: number;
+  resetAt: number;
+}
+
+const rateLimitMap = new Map<string, RateLimitEntry>();
+
+function rateLimitMiddleware(windowMs: number, maxRequests: number) {
+  return (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const ip = req.ip || req.socket.remoteAddress || "unknown";
+    const now = Date.now();
+    let entry = rateLimitMap.get(ip);
+
+    if (!entry || now > entry.resetAt) {
+      entry = { count: 0, resetAt: now + windowMs };
+      rateLimitMap.set(ip, entry);
+    }
+
+    entry.count++;
+    res.setHeader("X-RateLimit-Limit", String(maxRequests));
+    res.setHeader("X-RateLimit-Remaining", String(Math.max(0, maxRequests - entry.count)));
+    res.setHeader("X-RateLimit-Reset", String(entry.resetAt));
+
+    if (entry.count > maxRequests) {
+      res.status(429).json({ error: "Too many requests. Please try again later." });
+      return;
+    }
+
+    next();
+  };
+}
+
+// Cleanup old rate limit entries every 5 minutes
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, entry] of rateLimitMap) {
+    if (now > entry.resetAt + 60_000) rateLimitMap.delete(key);
+  }
+}, 5 * 60_000);
+
+// ─── CORS Configuration ──────────────────────────────────────────────────────
+const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS?.split(",") || [
+  "https://osirisnovel.online",
+  "http://localhost:3000",
+  "http://localhost:5173",
+];
+
+function corsMiddleware(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Max-Age", "86400");
+  }
+
+  // Handle preflight
+  if (req.method === "OPTIONS") {
+    res.status(204).end();
+    return;
+  }
+
+  next();
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
     const server = net.createServer();
@@ -29,11 +97,14 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
   throw new Error(`No available port found starting from ${startPort}`);
 }
 
+// ─── Server Startup ──────────────────────────────────────────────────────────
 async function startServer() {
   const app = express();
   const server = createServer(app);
   const serverDir = path.dirname(fileURLToPath(import.meta.url));
+  const isProd = process.env.NODE_ENV === "production";
 
+  // Security headers
   app.use((req, res, next) => {
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("X-Frame-Options", "DENY");
@@ -42,21 +113,29 @@ async function startServer() {
     res.setHeader("X-DNS-Prefetch-Control", "off");
     res.setHeader("X-Download-Options", "noopen");
     res.setHeader("X-Permitted-Cross-Domain-Policies", "none");
+    // HSTS in all non-development modes
     if (process.env.NODE_ENV !== "development") {
       res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
     }
-    
-    // Log all requests to /api/trpc for debugging
-    if (req.path.startsWith('/api/trpc')) {
-      console.log(`[Express] ${req.method} ${req.path} - Query:`, req.query);
-      console.log(`[Express] Headers:`, req.headers);
-    }
-    
     next();
   });
 
+  // CORS
+  app.use(corsMiddleware);
+
+  // Rate limiting: 100 req/15min for general API, stricter for OAuth
+  app.use("/api/", rateLimitMiddleware(15 * 60 * 1000, 100));
+  app.use("/api/oauth/", rateLimitMiddleware(60 * 1000, 10));
+
   app.use(express.json({ limit: "10mb" }));
   app.use(express.urlencoded({ limit: "10mb", extended: true }));
+
+  // Health check endpoint (for Docker & monitoring)
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok", timestamp: new Date().toISOString(), uptime: process.uptime() });
+  });
+
+  // Static asset serving with dotfiles denied
   const generatedMusicPath = path.resolve(serverDir, "..", "..", "generated-assets", "music-tracks");
   const generatedVoicesPath = path.resolve(serverDir, "..", "..", "generated-assets", "voices");
   const legacyMusicPath = path.resolve(serverDir, "..", "..", "MUSIC-BG");
@@ -64,66 +143,58 @@ async function startServer() {
   const legacyVideoBgPath = path.resolve(serverDir, "..", "..", "video-bg");
   const scriptPath = path.resolve(serverDir, "..", "..", "script");
 
-  app.use("/music", express.static(generatedMusicPath));
-  app.use("/music", express.static(generatedVoicesPath));
-  app.use("/video-bg", express.static(generatedVideoBgPath));
+  const staticOpts = { dotfiles: "deny" as const, index: false };
+  app.use("/music", express.static(generatedMusicPath, staticOpts));
+  app.use("/music", express.static(generatedVoicesPath, staticOpts));
+  app.use("/video-bg", express.static(generatedVideoBgPath, staticOpts));
   if (process.env.NODE_ENV === "development") {
-    app.use("/music", express.static(legacyMusicPath));
-    app.use("/video-bg", express.static(legacyVideoBgPath));
+    app.use("/music", express.static(legacyMusicPath, staticOpts));
+    app.use("/video-bg", express.static(legacyVideoBgPath, staticOpts));
   }
-  app.use("/script", express.static(scriptPath));
+  app.use("/script", express.static(scriptPath, staticOpts));
   app.use(
     "/generated-assets",
-    express.static(path.resolve(serverDir, "..", "..", "generated-assets"))
+    express.static(path.resolve(serverDir, "..", "..", "generated-assets"), staticOpts)
   );
+
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
-  
-  // Custom middleware - handle tRPC GET request input parsing
+
+  // tRPC input parsing middleware (production-safe logging)
   app.use("/api/trpc", (req, res, next) => {
-    // For GET requests with input query param, decode base64 superjson
-    if (req.method === 'GET' && req.query.input) {
+    if (req.method === "GET" && req.query.input) {
       try {
-        const inputStr = typeof req.query.input === 'string' 
-          ? req.query.input 
-          : Array.isArray(req.query.input) 
-            ? req.query.input[0] 
-            : '';
-        
-        // Type guard to ensure inputStr is a string
-        const safeInputStr = typeof inputStr === 'string' ? inputStr : '';
-        
-        if (safeInputStr) {
-          console.log('[tRPC Middleware] Raw input:', safeInputStr.substring(0, 50));
-          // Decode base64
-          const decoded = Buffer.from(safeInputStr, 'base64').toString('utf-8');
-          console.log('[tRPC Middleware] Decoded:', decoded.substring(0, 50));
+        const inputStr = typeof req.query.input === "string"
+          ? req.query.input
+          : Array.isArray(req.query.input)
+            ? req.query.input[0]
+            : "";
+
+        if (typeof inputStr === "string" && inputStr) {
+          // Only log in development
+          if (!isProd) {
+            console.log("[tRPC] Raw input:", inputStr.substring(0, 50));
+          }
+          const decoded = Buffer.from(inputStr, "base64").toString("utf-8");
           const parsed = JSON.parse(decoded);
-          console.log('[tRPC Middleware] Parsed:', JSON.stringify(parsed).substring(0, 50));
-          
-          // IMPORTANT: Modify req.url to replace base64 with decoded JSON
-          // tRPC reads from the URL, not req.query
-          const originalUrl = req.url || '';
           const newInput = encodeURIComponent(JSON.stringify(parsed));
+          const originalUrl = req.url || "";
           const newUrl = originalUrl.replace(
-            `input=${encodeURIComponent(safeInputStr)}`,
+            `input=${encodeURIComponent(inputStr)}`,
             `input=${newInput}`
           );
           req.url = newUrl;
-          
-          // Also update req.query for consistency
           req.query.input = parsed;
-          
-          console.log('[tRPC Middleware] Modified URL:', req.url.substring(0, 100));
         }
       } catch (error) {
-        console.error('[tRPC Middleware] Failed to parse input:', error);
+        // Silently fail — malformed input should not break the request
+        if (!isProd) console.error("[tRPC] Failed to parse input:", error);
       }
     }
     next();
   });
-  
-  // tRPC API with GET support for asset fetching
+
+  // tRPC API
   app.use(
     "/api/trpc",
     createExpressMiddleware({
@@ -132,14 +203,17 @@ async function startServer() {
       allowBatching: true,
       allowMethodOverride: true,
       onError: ({ error, path, type }) => {
-        console.error(`[tRPC] ${type} ${path} - Error:`, error);
-        if (error.code === 'INTERNAL_SERVER_ERROR') {
-          console.error('[tRPC] Internal Server Error Details:', error.cause);
+        // Sanitized error logging — never log stack traces or internal details in production
+        if (isProd) {
+          console.error(`[tRPC] ${type} ${path} - ${error.code}`);
+        } else {
+          console.error(`[tRPC] ${type} ${path} - Error:`, error.message);
         }
       },
     })
   );
-  // development mode uses Vite, production mode uses static files
+
+  // Development vs production static serving
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {

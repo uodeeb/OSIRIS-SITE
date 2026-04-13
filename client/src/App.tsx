@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
-import ErrorBoundary from "./components/ErrorBoundary";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { loadAssetManifest } from "@/lib/assets";
 import { MediaControllerProvider } from "./contexts/MediaControllerContext";
@@ -36,7 +36,9 @@ function PlayRoute() {
   const sceneId = params.get('scene') || 'zero-1-1-summons';
   return (
     <Suspense fallback={<PlayerSkeleton />}>
-      <MainPlayer initialSceneId={sceneId} />
+      <ErrorBoundary>
+        <MainPlayer initialSceneId={sceneId} />
+      </ErrorBoundary>
     </Suspense>
   );
 }

@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-11T22:55:50.025Z",
-  "totalAssets": 102,
+  "generatedAt": "2026-04-13T23:35:14.466Z",
+  "totalAssets": 109,
   "assets": {
     "character.arius": {
       "key": "character.arius",
@@ -322,6 +322,62 @@
       "mime": "video/mp4",
       "originalName": "yahya-room.mp4",
       "size": 7323904
+    },
+    "videoBg.osiris.falcon-eye": {
+      "key": "videoBg.osiris.falcon-eye",
+      "path": "/assets/osiris-vid-bg/falcon-eye.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "falcon-eye.mp4",
+      "size": 3108621
+    },
+    "videoBg.osiris.falcon-hologram-data": {
+      "key": "videoBg.osiris.falcon-hologram-data",
+      "path": "/assets/osiris-vid-bg/falcon-hologram-data.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "falcon-hologram-data.mp4",
+      "size": 4896156
+    },
+    "videoBg.osiris.falcon-hologram-orbit": {
+      "key": "videoBg.osiris.falcon-hologram-orbit",
+      "path": "/assets/osiris-vid-bg/falcon-hologram-orbit.gif",
+      "category": "videoBg",
+      "mime": "image/gif",
+      "originalName": "falcon-hologram-orbit.gif",
+      "size": 9195968
+    },
+    "videoBg.osiris.falcon-hologram": {
+      "key": "videoBg.osiris.falcon-hologram",
+      "path": "/assets/osiris-vid-bg/falcon-hologram.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "falcon-hologram.mp4",
+      "size": 12146052
+    },
+    "videoBg.osiris.falcon-logo-reveal": {
+      "key": "videoBg.osiris.falcon-logo-reveal",
+      "path": "/assets/osiris-vid-bg/falcon-logo-reveal.gif",
+      "category": "videoBg",
+      "mime": "image/gif",
+      "originalName": "falcon-logo-reveal.gif",
+      "size": 7738706
+    },
+    "videoBg.osiris.falcon-logo": {
+      "key": "videoBg.osiris.falcon-logo",
+      "path": "/assets/osiris-vid-bg/falcon-logo.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "falcon-logo.mp4",
+      "size": 2466382
+    },
+    "videoBg.osiris.neural-network-forms": {
+      "key": "videoBg.osiris.neural-network-forms",
+      "path": "/assets/osiris-vid-bg/neural-network-forms.mp4",
+      "category": "videoBg",
+      "mime": "video/mp4",
+      "originalName": "neural-network-forms.mp4",
+      "size": 4702996
     },
     "audio.TRACK-01": {
       "key": "audio.TRACK-01",

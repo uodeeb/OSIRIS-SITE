@@ -1,27 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 
   <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>OSIRIS — المفسدون في الأرض</title>    
+      content="width=device-width, initial-scale=1.0" />
+    <title>OSIRIS — المفسدون في الأرض</title>
     <meta name="description" content="OSIRIS — رواية تفاعلية سينمائية عن الوعي والفساد والخوارزميات عبر خط زمني تاريخي." />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="OSIRIS — المفسدون في الأرض" />
     <meta property="og:description" content="تجربة رواية تفاعلية سينمائية متعددة الوسائط." />
     <meta property="og:url" content="https://osirisnovel.online/" />
-    <meta property="og:image" content="/src/LOGO/new-logo/new-logo-trans-osiris@10x.png" />
+    <meta property="og:image" content="/logo/new-logo/new-logo-trans-osiris@10x.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="OSIRIS — المفسدون في الأرض" />
     <meta name="twitter:description" content="تجربة رواية تفاعلية سينمائية متعددة الوسائط." />
-    <meta name="twitter:image" content="/src/LOGO/new-logo/new-logo-trans-osiris@10x.png" />
+    <meta name="twitter:image" content="/logo/new-logo/new-logo-trans-osiris@10x.png" />
     <link rel="canonical" href="https://osirisnovel.online/" />
-    <link rel="icon" type="image/png" sizes="250x250" href="/src/LOGO/new-logo/favicon-black-0.25.png" />
-    <link rel="icon" type="image/png" sizes="1000x1000" href="/src/LOGO/new-logo/favicon-bloack.png" />
-    <link rel="apple-touch-icon" sizes="1000x1000" href="/src/LOGO/new-logo/favicon-bloack.png" />
+    <link rel="icon" type="image/png" sizes="250x250" href="/logo/new-logo/favicon-black-0.25.png" />
+    <link rel="icon" type="image/png" sizes="1000x1000" href="/logo/new-logo/favicon-black.png" />
+    <link rel="apple-touch-icon" sizes="1000x1000" href="/logo/new-logo/favicon-black.png" />
+    <!-- CSP: restrict resource loading -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' blob: data:; media-src 'self' blob:; connect-src 'self' https://forge.butterfly-effect.dev; frame-ancestors 'none'; base-uri 'self';" />
     <!-- OSIRIS Design System: Cosmic Dark Theme + Arabic Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,37 +33,10 @@
 
   <body>
     <div id="root"></div>
+    <noscript>
+      <p style="color:#c9a96e;text-align:center;font-family:system-ui;padding:2rem;">This application requires JavaScript. Please enable JavaScript in your browser settings.</p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-      // Suppress jQuery SVG path errors temporarily
-      window.addEventListener('error', function(e) {
-        if (e.message && e.message.includes('Expected number') && e.message.includes('path attribute d')) {
-          console.warn('Suppressed jQuery SVG path error:', e.message);
-          e.preventDefault();
-          return false;
-        }
-      }, true);
-      
-      // Override jQuery error handler when jQuery loads
-      (function() {
-        const originalJQuery = window.jQuery;
-        Object.defineProperty(window, 'jQuery', {
-          get: function() { return originalJQuery; },
-          set: function(value) {
-            originalJQuery = value;
-            if (value && value.error) {
-              value.error = function(message) {
-                if (message && message.includes('Expected number') && message.includes('path attribute d')) {
-                  console.warn('Suppressed jQuery SVG path error:', message);
-                  return;
-                }
-                console.error('jQuery error:', message);
-              };
-            }
-          }
-        });
-      })();
-    </script>
   </body>
 
 </html>

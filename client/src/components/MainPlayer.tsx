@@ -57,6 +57,12 @@ interface MainPlayerProps {
   initialSceneId?: string;
 }
 
+/** Helper to resolve character image URL at render time (after manifest loads) */
+function resolveCharacterImage(key?: string): string {
+  if (!key) return '';
+  return getAsset(key);
+}
+
 // ─── Character Configuration ────────────────────────────────────────────────
 
 interface CharacterConfig {
@@ -64,7 +70,7 @@ interface CharacterConfig {
   arabicName: string;
   color: string;
   glowColor: string;
-  imageUrl?: string;
+  imageAssetKey?: string; // Asset key resolved lazily at render time
   position: 'left' | 'right' | 'center';
 }
 
@@ -75,7 +81,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
-    imageUrl: getAsset('character.narrator'),
+    imageAssetKey: 'character.narrator',
   },
   yahya: {
     name: 'Yahya',
@@ -83,7 +89,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#fbbf24',
     glowColor: 'rgba(251,191,36,0.3)',
     position: 'right',
-    imageUrl: getAsset('character.yahya'),
+    imageAssetKey: 'character.yahya',
   },
   laila: {
     name: 'Laila',
@@ -91,7 +97,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f472b6',
     glowColor: 'rgba(244,114,182,0.3)',
     position: 'right',
-    imageUrl: getAsset('character.laila'),
+    imageAssetKey: 'character.laila',
   },
   tarek: {
     name: 'Tarek',
@@ -99,7 +105,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#60a5fa',
     glowColor: 'rgba(96,165,250,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.tarek'),
+    imageAssetKey: 'character.tarek',
   },
   first_engineer: {
     name: 'First Engineer',
@@ -107,7 +113,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#ef4444',
     glowColor: 'rgba(239,68,68,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.first_engineer'),
+    imageAssetKey: 'character.first_engineer',
   },
   arius: {
     name: 'Arius',
@@ -115,7 +121,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#a78bfa',
     glowColor: 'rgba(167,139,250,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.arius'),
+    imageAssetKey: 'character.arius',
   },
   athanasius: {
     name: 'Athanasius',
@@ -123,7 +129,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#d4af37',
     glowColor: 'rgba(212,175,55,0.3)',
     position: 'right',
-    imageUrl: getAsset('character.athanasius'),
+    imageAssetKey: 'character.athanasius',
   },
   samiri: {
     name: 'Al-Samiri',
@@ -131,7 +137,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f59e0b',
     glowColor: 'rgba(245,158,11,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.samiri'),
+    imageAssetKey: 'character.samiri',
   },
   constantine: {
     name: 'Constantine',
@@ -139,7 +145,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#3b82f6',
     glowColor: 'rgba(59,130,246,0.3)',
     position: 'right',
-    imageUrl: getAsset('character.constantine'),
+    imageAssetKey: 'character.constantine',
   },
   yahya_breakdown: {
     name: 'Yahya',
@@ -147,7 +153,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#ef4444',
     glowColor: 'rgba(239,68,68,0.3)',
     position: 'right',
-    imageUrl: getAsset('character.yahya_breakdown'),
+    imageAssetKey: 'character.yahya_breakdown',
   },
   yahya_confront: {
     name: 'Yahya',
@@ -155,7 +161,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#fbbf24',
     glowColor: 'rgba(251,191,36,0.4)',
     position: 'right',
-    imageUrl: getAsset('character.yahya_confront'),
+    imageAssetKey: 'character.yahya_confront',
   },
   tarek_ghost: {
     name: 'Tarek (Recording)',
@@ -163,7 +169,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#94a3b8',
     glowColor: 'rgba(148,163,184,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.tarek_ghost'),
+    imageAssetKey: 'character.tarek_ghost',
   },
   tarek_dream: {
     name: 'Tarek (Dream)',
@@ -171,7 +177,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#818cf8',
     glowColor: 'rgba(129,140,248,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.tarek_dream'),
+    imageAssetKey: 'character.tarek_dream',
   },
   laila_faith: {
     name: 'Laila',
@@ -179,7 +185,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f472b6',
     glowColor: 'rgba(244,114,182,0.4)',
     position: 'right',
-    imageUrl: getAsset('character.laila_faith'),
+    imageAssetKey: 'character.laila_faith',
   },
   laila_witness: {
     name: 'Laila (Witness)',
@@ -187,7 +193,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f472b6',
     glowColor: 'rgba(244,114,182,0.4)',
     position: 'right',
-    imageUrl: getAsset('character.laila_witness'),
+    imageAssetKey: 'character.laila_witness',
   },
   first_engineer_2: {
     name: 'First Engineer',
@@ -195,7 +201,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#ef4444',
     glowColor: 'rgba(239,68,68,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.first_engineer_2'),
+    imageAssetKey: 'character.first_engineer_2',
   },
   first_engineer_exposed: {
     name: 'First Engineer (Exposed)',
@@ -203,7 +209,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#b91c1c',
     glowColor: 'rgba(185,28,28,0.4)',
     position: 'left',
-    imageUrl: getAsset('character.first_engineer_exposed'),
+    imageAssetKey: 'character.first_engineer_exposed',
   },
   first_engineer_confront: {
     name: 'First Engineer',
@@ -211,7 +217,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#dc2626',
     glowColor: 'rgba(220,38,38,0.4)',
     position: 'left',
-    imageUrl: getAsset('character.first_engineer_confront'),
+    imageAssetKey: 'character.first_engineer_confront',
   },
   yahya_dying: {
     name: 'Yahya (Dying)',
@@ -219,7 +225,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#991b1b',
     glowColor: 'rgba(153,27,27,0.5)',
     position: 'right',
-    imageUrl: getAsset('character.yahya_dying'),
+    imageAssetKey: 'character.yahya_dying',
   },
   laila_crying: {
     name: 'Laila (Crying)',
@@ -227,7 +233,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#be185d',
     glowColor: 'rgba(190,24,93,0.4)',
     position: 'right',
-    imageUrl: getAsset('character.laila_crying'),
+    imageAssetKey: 'character.laila_crying',
   },
   samiri_calf: {
     name: 'Al-Samiri',
@@ -235,7 +241,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f59e0b',
     glowColor: 'rgba(245,158,11,0.5)',
     position: 'left',
-    imageUrl: getAsset('character.samiri_calf'),
+    imageAssetKey: 'character.samiri_calf',
   },
   Yahya: {
     name: 'Yahya',
@@ -243,7 +249,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#fbbf24',
     glowColor: 'rgba(251,191,36,0.3)',
     position: 'right',
-    imageUrl: getAsset('character.yahya'),
+    imageAssetKey: 'character.yahya',
   },
   Laila: {
     name: 'Laila',
@@ -251,7 +257,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f472b6',
     glowColor: 'rgba(244,114,182,0.3)',
     position: 'right',
-    imageUrl: getAsset('character.laila'),
+    imageAssetKey: 'character.laila',
   },
   Tarek: {
     name: 'Tarek',
@@ -259,7 +265,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#60a5fa',
     glowColor: 'rgba(96,165,250,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.tarek'),
+    imageAssetKey: 'character.tarek',
   },
   FirstEngineer: {
     name: 'First Engineer',
@@ -267,7 +273,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#ef4444',
     glowColor: 'rgba(239,68,68,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.first_engineer'),
+    imageAssetKey: 'character.first_engineer',
   },
   Arius: {
     name: 'Arius',
@@ -275,7 +281,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#a78bfa',
     glowColor: 'rgba(167,139,250,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.arius'),
+    imageAssetKey: 'character.arius',
   },
   Athanasius: {
     name: 'Athanasius',
@@ -283,7 +289,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#d4af37',
     glowColor: 'rgba(212,175,55,0.3)',
     position: 'right',
-    imageUrl: getAsset('character.athanasius'),
+    imageAssetKey: 'character.athanasius',
   },
   Samiri: {
     name: 'Al-Samiri',
@@ -291,7 +297,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#f59e0b',
     glowColor: 'rgba(245,158,11,0.3)',
     position: 'left',
-    imageUrl: getAsset('character.samiri'),
+    imageAssetKey: 'character.samiri',
   },
   Constantine: {
     name: 'Constantine',
@@ -299,7 +305,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#3b82f6',
     glowColor: 'rgba(59,130,246,0.3)',
     position: 'right',
-    imageUrl: getAsset('character.constantine'),
+    imageAssetKey: 'character.constantine',
   },
   Ramses: {
     name: 'Narrator',
@@ -307,7 +313,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
-    imageUrl: getAsset('character.narrator'),
+    imageAssetKey: 'character.narrator',
   },
   Iblis: {
     name: 'Narrator',
@@ -315,7 +321,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
-    imageUrl: getAsset('character.narrator'),
+    imageAssetKey: 'character.narrator',
   },
   hitler: {
     name: 'Hitler',
@@ -337,7 +343,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#991b1b',
     glowColor: 'rgba(153,27,27,0.35)',
     position: 'left',
-    imageUrl: getAsset('character.narrator'),
+    imageAssetKey: 'character.narrator',
   },
 };
 
@@ -351,7 +357,7 @@ const SCENE_CHARACTER_TIMELINE: Record<string, string> = {
   'two-2-1-escape': 'yahya',
   'two-2-2-osiris-launch': 'first_engineer',
   'three-3-1-creation': 'yahya',
-  'three-3-1b-devil-song': 'Narrator',
+  'three-3-1b-devil-song': 'iblis',
   'three-3-2-virus-design': 'first_engineer',
   'four-4-1-desert': 'samiri',
   'four-4-2-crowd-engineering': 'samiri_calf',
@@ -581,37 +587,66 @@ function getDevilVoiceCandidates() {
 // ─── Particles ───────────────────────────────────────────────────────────────
 // ─── Particles ───────────────────────────────────────────────────────────────
 
-function Particles({ tone }: { tone: string }) {
+interface ParticleConfig {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  targetY: number;
+  opacity: number;
+  duration: number;
+  delay: number;
+}
+
+/** Generate stable particle positions — no Math.random() in render */
+function generateParticles(count: number): ParticleConfig[] {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 2.5 + 1,
+    targetY: -(Math.random() * 100 + 60),
+    opacity: Math.random() * 0.4 + 0.1,
+    duration: Math.random() * 8 + 6,
+    delay: Math.random() * 10,
+  }));
+}
+
+// Stable particle configs generated once at module load
+const PARTICLE_CONFIGS = generateParticles(10);
+
+const Particles = memo(function Particles({ tone }: { tone: string }) {
   const color = TONE_ACCENT[tone] || '#c9a96e';
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {Array.from({ length: 10 }).map((_, i) => (
+      {PARTICLE_CONFIGS.map((p) => (
         <motion.div
-          key={i}
+          key={p.id}
           className="absolute rounded-full"
           style={{
-            width: Math.random() * 2.5 + 1,
-            height: Math.random() * 2.5 + 1,
+            width: p.size,
+            height: p.size,
             background: color,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${p.x}%`,
+            top: `${p.y}%`,
             opacity: 0,
+            willChange: 'transform, opacity',
           }}
           animate={{
-            y: [0, -(Math.random() * 100 + 60)],
-            opacity: [0, Math.random() * 0.4 + 0.1, 0],
+            y: [0, p.targetY],
+            opacity: [0, p.opacity, 0],
           }}
           transition={{
-            duration: Math.random() * 8 + 6,
+            duration: p.duration,
             repeat: Infinity,
-            delay: Math.random() * 10,
+            delay: p.delay,
             ease: 'easeOut',
           }}
         />
       ))}
     </div>
   );
-}
+});
 
 // ─── Audio Control UI ─────────────────────────────────────────────────────────
 // Clean minimal 4-channel control: BG, Scene, Voice, SFX
@@ -687,7 +722,7 @@ function AudioControl({
             <div className="space-y-3 mb-4">
               {channels.map((ch) => (
                 <div key={ch.key} className="flex items-center gap-3">
-                  <span className="text-[8px] font-mono w-10 text-white/50">{ch.label}</span>
+                  <span className="text-[8px] font-mono w-10 text-white/70">{ch.label}</span>
                   <input
                     type="range"
                     min="0"
@@ -701,7 +736,7 @@ function AudioControl({
                     }}
                     aria-label={`${ch.label} Volume`}
                   />
-                  <span className="text-[8px] font-mono w-6 text-right text-white/40">{Math.round(ch.value * 100)}</span>
+                  <span className="text-[8px] font-mono w-6 text-right text-white/70">{Math.round(ch.value * 100)}</span>
                 </div>
               ))}
             </div>
@@ -722,11 +757,12 @@ function AudioControl({
 
 // ─── Main Player ─────────────────────────────────────────────────────────────
 
-export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerProps) {
+export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerProps) {
   const [, setLocation] = useLocation();
   const globalMediaState = useMediaState();
   const {
     play: globalPlay,
+    pause: globalPause,
     setAccentColor,
     setPrimaryAudioMuted,
     setPrimaryAudioSources,
@@ -757,6 +793,12 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
   // Language state — 'en' or 'ar'
   const [lang, setLang] = useState<'en' | 'ar'>('ar');
+
+  // Update html lang attribute when language changes
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  }, [lang]);
 
   // Scene state
   const [currentSceneId, setCurrentSceneId] = useState(initialSceneId);
@@ -791,6 +833,10 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   const [activeVisualEffect, setActiveVisualEffect] = useState<VisualEffect | null>(null);
   const [techBoost, setTechBoost] = useState(0);
   const [voiceSyncLock, setVoiceSyncLock] = useState(false);
+  const [devilSongLock, setDevilSongLock] = useState(false); // Interactivity lock during Devil Song
+  const [devilSongLyricsActive, setDevilSongLyricsActive] = useState(false); // Tracks when lyrics should start (after 38s intro)
+  const devilSongTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const devilSongAutoAdvanceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeVoiceNumber, setActiveVoiceNumber] = useState<number | null>(null);
   const [osirisEffectId, setOsirisEffectId] = useState<OsirisEffectId | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -912,7 +958,11 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
 
   // Resolve character image URL using direct asset key mapping
   const resolvedCharImageUrl = useMemo(() => {
-    if (!currentCharConfig.imageUrl) return undefined;
+    // First try: use the imageAssetKey from CHARACTER_MAP (resolved lazily)
+    const directUrl = resolveCharacterImage(currentCharConfig.imageAssetKey);
+    if (directUrl && directUrl.startsWith('/assets/')) {
+      return directUrl;
+    }
     
     // Map character keys to direct asset keys for database lookup
     const charAssetKeyMap: Record<string, string> = {
@@ -950,26 +1000,18 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     
     if (!assetKey) {
       console.warn('[Character] No asset key mapping for character:', charKey);
-      // Fallback to the config's imageUrl if available
-      return currentCharConfig.imageUrl.startsWith('http') || currentCharConfig.imageUrl.startsWith('/')
-        ? currentCharConfig.imageUrl 
-        : undefined;
+      return undefined;
     }
-    
+
     // Use getAsset for direct lookup
-    const directUrl = getAsset(assetKey as any);
-    if (directUrl && directUrl.startsWith('/assets/')) {
-      return directUrl;
+    const assetUrl = getAsset(assetKey as any);
+    if (assetUrl && assetUrl.startsWith('/assets/')) {
+      return assetUrl;
     }
-    
-    // Final fallback: use the config's imageUrl
-    if (currentCharConfig.imageUrl.startsWith('http') || currentCharConfig.imageUrl.startsWith('/')) {
-      return currentCharConfig.imageUrl;
-    }
-    
+
     console.warn('[Character] Could not resolve image URL for:', charKey, 'assetKey:', assetKey);
     return undefined;
-  }, [preferredCharacterKey, currentCharConfig.imageUrl]);
+  }, [preferredCharacterKey, currentCharConfig.imageAssetKey]);
 
   const burstFx = useCallback((fx: { flash?: number; shake?: boolean; ui?: number }) => {
     fxTimersRef.current.forEach(t => clearTimeout(t));
@@ -1123,8 +1165,14 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
     // Sync with global media controller
     if (newPlaying) {
       globalPlay();
+    } else {
+      globalPause();
+      // Also stop voice if playing
+      if (voiceRef.current) {
+        voiceRef.current.pause();
+      }
     }
-  }, [isPlaying, globalPlay]);
+  }, [isPlaying, globalPlay, globalPause]);
 
   const handleToggleMute = useCallback(() => {
     const newMuted = !isMuted;
@@ -1293,18 +1341,69 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   }, [currentScene, showChoices, dialogueLines]);
 
   const handleChoice = useCallback((choice: SceneChoice) => {
-    if (voiceSyncLock) return;
+    if (voiceSyncLock || devilSongLock) return;
     if (choice.nextSceneId) {
       goToScene(choice.nextSceneId);
     }
-  }, [goToScene, voiceSyncLock]);
+  }, [goToScene, voiceSyncLock, devilSongLock]);
+
+  // Devil Song scene interactivity lock + 38-second pre-lyrics delay
+  const devilSongLineDurations = [7600, 7400, 7600, 7600, 7800, 7400, 7600, 4200]; // Match dialogue line durations
+  useEffect(() => {
+    const isDevilSong = currentSceneId === 'three-3-1b-devil-song';
+
+    if (isDevilSong && globalMediaState.isPlaying && audioEnabled) {
+      // Activate interactivity lock
+      setDevilSongLock(true);
+      setDevilSongLyricsActive(false);
+
+      // 38-second pre-lyrics music delay before first dialogue line appears
+      devilSongTimerRef.current = setTimeout(() => {
+        setDevilSongLyricsActive(true);
+        // Auto-advance through all dialogue lines in sync with song
+        let lineIndex = 0;
+        const advanceNextLine = () => {
+          if (currentSceneId !== 'three-3-1b-devil-song') return;
+          lineIndex++;
+          if (lineIndex < devilSongLineDurations.length) {
+            advanceDialogue();
+            devilSongAutoAdvanceRef.current = setTimeout(advanceNextLine, devilSongLineDurations[lineIndex]);
+          }
+        };
+        devilSongAutoAdvanceRef.current = setTimeout(advanceNextLine, devilSongLineDurations[0]);
+      }, 38000);
+    } else if (!isDevilSong) {
+      // Clean up when leaving Devil Song scene
+      setDevilSongLock(false);
+      setDevilSongLyricsActive(false);
+      if (devilSongTimerRef.current) {
+        clearTimeout(devilSongTimerRef.current);
+        devilSongTimerRef.current = null;
+      }
+      if (devilSongAutoAdvanceRef.current) {
+        clearTimeout(devilSongAutoAdvanceRef.current);
+        devilSongAutoAdvanceRef.current = null;
+      }
+    }
+
+    return () => {
+      if (devilSongTimerRef.current) {
+        clearTimeout(devilSongTimerRef.current);
+        devilSongTimerRef.current = null;
+      }
+      if (devilSongAutoAdvanceRef.current) {
+        clearTimeout(devilSongAutoAdvanceRef.current);
+        devilSongAutoAdvanceRef.current = null;
+      }
+    };
+  }, [currentSceneId, globalMediaState.isPlaying, audioEnabled, advanceDialogue]);
 
   const handleAdvance = useCallback(() => {
     if (!audioEnabled) {
       enableAudio();
       return;
     }
-    if (showChoices || voiceSyncLock) return;
+    if (showChoices || voiceSyncLock || devilSongLock) return;
 
     if (isTyping) {
       if (isVoicedDialogue) return;
@@ -2104,7 +2203,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
   return (
     <motion.div
       data-testid="scene-container"
-      className="relative w-screen h-dvh overflow-hidden bg-black select-none font-novel"
+      className="relative w-screen h-dvh overflow-hidden bg-black font-novel"
       onClick={handleAdvance}
       animate={fxShake ? { x: [0, -4, 3, -2, 2, 0], y: [0, 2, -2, 3, -1, 0] } : { x: 0, y: 0 }}
       transition={{ duration: 0.45, ease: "easeInOut" }}
@@ -3045,6 +3144,7 @@ export function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerPr
       )}
     </motion.div>
   );
-}
+});
 
-export default memo(MainPlayer);
+export default MainPlayer;
+

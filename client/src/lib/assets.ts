@@ -175,6 +175,15 @@ const KEY_ALIASES: Record<string, string> = {
   'video.logo_reveal': 'videoBg.intro',
   'video.qabil_scene': 'videoBg.intro',
   'video.generated_yehya_office': 'videoBg.yahya-room',
+
+  // Osiris falcon hologram video aliases
+  'videoBg.falcon_eye': 'videoBg.osiris.falcon-eye',
+  'videoBg.falcon_hologram_data': 'videoBg.osiris.falcon-hologram-data',
+  'videoBg.neural_network': 'videoBg.osiris.neural-network-forms',
+  'videoBg.falcon_hologram': 'videoBg.osiris.falcon-hologram',
+  'videoBg.falcon_logo': 'videoBg.osiris.falcon-logo',
+  'videoBg.falcon_logo_reveal': 'videoBg.osiris.falcon-logo-reveal',
+  'videoBg.falcon_orbit': 'videoBg.osiris.falcon-hologram-orbit',
   
   // Background aliases (map scene backgrounds to descriptive image names)
   'background.berlin_1933': 'background.yehia-room',
@@ -206,6 +215,7 @@ const KEY_ALIASES: Record<string, string> = {
   'amb.running_steps': 'ambient.amb.running_steps',
   'amb.war_march': 'ambient.amb.war_march',
   'amb.heartbeat_fast': 'ambient.amb.heartbeat_fast',
+  'amb.heartbeat_slow': 'ambient.amb.heartbeat_fast',
   'amb.drums_hypnosis': 'ambient.amb.drums_hypnosis',
   'amb.bass_drone_low': 'ambient.amb.bass_drone_low',
   'amb.cafe_murmur': 'ambient.amb.cafe_murmur',
@@ -213,10 +223,38 @@ const KEY_ALIASES: Record<string, string> = {
   'amb.phone_ring': 'ambient.amb.server_hum',
   'amb.footsteps_outside': 'ambient.amb.running_steps',
   'amb.wind_strong': 'ambient.amb.vacuum',
+  // Missing ambient keys added for scene coverage
+  'amb.desert_wind': 'ambient.amb.vacuum',
+  'amb.crowd_murmur': 'ambient.amb.cafe_murmur',
+  'amb.metal_melt': 'ambient.amb.drums_hypnosis',
+  'amb.church_reverb': 'ambient.amb.low_hum',
+  'amb.crowd_whisper': 'ambient.amb.cafe_murmur',
+  'amb.city_night': 'ambient.amb.low_hum',
+  'amb.distant_whispers': 'ambient.amb.low_hum',
+  'amb.wind_soft': 'ambient.amb.vacuum',
+  'amb.city_cold': 'ambient.amb.vacuum',
+  'amb.march_drums_distant': 'ambient.amb.war_march',
+  'amb.typewriter': 'ambient.amb.device_hum',
+  'amb.smoke_alarm': 'ambient.amb.sirens_distant',
+  'amb.footsteps_heavy': 'ambient.amb.running_steps',
+  'amb.distant_battle': 'ambient.amb.war_march',
+  'amb.electronic_hum': 'ambient.amb.device_hum',
+  'amb.notification_swarm': 'ambient.amb.device_hum',
+  'amb.city_day': 'ambient.amb.cafe_murmur',
+  'amb.breath_slow': 'ambient.amb.low_hum',
+  // SFX aliases
   'sfx.ping': 'ambient.sfx.ping',
   'sfx.door_clang': 'ambient.sfx.door_clang',
   'sfx.cannon_fire': 'ambient.sfx.cannon_fire',
   'sfx.cups_clink': 'ambient.sfx.cups_clink',
+  // Missing SFX keys added for scene coverage
+  'sfx.calf_low': 'ambient.sfx.cannon_fire',
+  'sfx.gavel_strike': 'ambient.sfx.door_clang',
+  'sfx.explosion': 'ambient.sfx.cannon_fire',
+  'sfx.gunshot_distant': 'ambient.sfx.cannon_fire',
+  'sfx.electric_shock': 'ambient.sfx.door_clang',
+  // Additional music aliases
+  'music.sad_background': 'audio.TRACK-05',
 };
 
 /**

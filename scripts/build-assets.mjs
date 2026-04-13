@@ -58,6 +58,15 @@ const FILENAME_MAP = {
   'VIDEO 11 — كربلاء (الحق الأعزل).mp4': 'karbala.mp4',
   'VIDEO 12 — الفضاء الرقمي (المواجهة مع المهندس).mp4': 'digital-space.mp4',
   'VIDEO 13 — ضغطة Enter (التضحية النهائية).mp4': 'enter-key.mp4',
+
+  // Osiris falcon hologram videos (osiris-vid-bg subfolder)
+  'Egyptian_falcon_eye_202603301359.mp4': 'falcon-eye.mp4',
+  'Falcon_hologram_data_202603301414.mp4': 'falcon-hologram-data.mp4',
+  'Neural_network_forms_202603301407.mp4': 'neural-network-forms.mp4',
+  'OSIRIS_falcon_hologram_202603301403.mp4': 'falcon-hologram.mp4',
+  'OSIRIS_falcon_logo_202603301401.mp4': 'falcon-logo.mp4',
+  'Medium_wide_shot_of_the_osiris_falcon_logo_re.gif': 'falcon-logo-reveal.gif',
+  'Slow_orbit_osiris_falcon_hologram_floating_i.gif': 'falcon-hologram-orbit.gif',
   
   // Music tracks
   'TRACK 01 — الثيم الرئيسي للرواية.mp3': 'main-theme.mp3',
@@ -124,6 +133,10 @@ function normalizeFilename(originalName) {
     .replace(/^-|-$/g, '');
 }
 
+function baseNameFromFile(filename) {
+  return path.basename(filename, path.extname(filename));
+}
+
 function getAssetKey(category, normalizedName) {
   // Remove extension for the key
   const baseName = path.basename(normalizedName, path.extname(normalizedName));
@@ -157,14 +170,17 @@ async function scanExistingAssets() {
   const categories = [
     { dir: 'characters', category: 'character' },
     { dir: 'video-bg', category: 'videoBg' },
+    { dir: 'osiris-vid-bg', category: 'videoBg', subDir: 'osiris-vid-bg' },
     { dir: 'music-tracks', category: 'audio' },
     { dir: 'voices', category: 'voice' },
     { dir: 'images', category: 'background' },
     { dir: 'ambient', category: 'ambient' },
   ];
-  
-  for (const { dir, category } of categories) {
-    const assetPath = path.join(DEST_DIR, dir);
+
+  for (const { dir, category, subDir } of categories) {
+    const assetPath = subDir
+      ? path.join(DEST_DIR, subDir)
+      : path.join(DEST_DIR, dir);
     
     try {
       const files = await fs.readdir(assetPath);
@@ -174,12 +190,16 @@ async function scanExistingAssets() {
         const stat = await fs.stat(filePath);
         
         if (stat.isFile()) {
-          const key = getAssetKey(category, file);
+          const key = subDir
+            ? `videoBg.osiris.${baseNameFromFile(file)}`
+            : getAssetKey(category, file);
           const size = stat.size;
-          
+
           assets[key] = {
             key,
-            path: `/assets/${dir}/${file}`,
+            path: subDir
+              ? `/assets/${subDir}/${file}`
+              : `/assets/${dir}/${file}`,
             category,
             mime: getMimeType(file),
             originalName: file,
@@ -224,17 +244,20 @@ async function buildAssets() {
     
     if (sourceExists) {
       const categories = [
-        { dir: 'characters', category: 'image' },
-        { dir: 'images', category: 'image' },
-        { dir: 'music-tracks', category: 'audio' },
-        { dir: 'video-bg', category: 'video' },
-        { dir: 'voices', category: 'audio' },
-        { dir: 'ambient', category: 'ambient' },
+        { dir: 'characters', category: 'image', destDir: 'characters' },
+        { dir: 'images', category: 'image', destDir: 'images' },
+        { dir: 'music-tracks', category: 'audio', destDir: 'music-tracks' },
+        { dir: 'video-bg', category: 'video', destDir: 'video-bg', skipSubdirs: true },
+        { dir: 'video-bg', category: 'video', destDir: 'osiris-vid-bg', subdir: 'osiris-vid-bg' },
+        { dir: 'voices', category: 'audio', destDir: 'voices' },
+        { dir: 'ambient', category: 'ambient', destDir: 'ambient' },
       ];
-      
-      for (const { dir, category } of categories) {
-        const sourcePath = path.join(SOURCE_DIR, dir);
-        const destPath = path.join(DEST_DIR, dir);
+
+      for (const { dir, category, destDir, subdir, skipSubdirs } of categories) {
+        const sourcePath = subdir
+          ? path.join(SOURCE_DIR, dir, subdir)
+          : path.join(SOURCE_DIR, dir);
+        const destPath = path.join(DEST_DIR, destDir);
         
         try {
           await ensureDir(destPath);
@@ -243,14 +266,17 @@ async function buildAssets() {
           for (const file of files) {
             const srcFile = path.join(sourcePath, file);
             const normalizedName = FILENAME_MAP[file] || file;
-            const key = path.parse(normalizedName).name;
             const destFileNormalized = path.join(destPath, normalizedName);
-            
+
             await fs.copyFile(srcFile, destFileNormalized);
-            
+
+            const assetPath = `/assets/${destDir}/${normalizedName}`;
+            const key = subdir
+              ? `videoBg.osiris.${baseNameFromFile(normalizedName)}`
+              : path.parse(normalizedName).name;
             assets[key] = {
               key,
-              path: `/assets/${dir}/${normalizedName}`,
+              path: assetPath,
               category,
               mime: getMimeType(file),
               originalName: file,

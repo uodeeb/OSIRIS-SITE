@@ -290,7 +290,7 @@ export default function Home() {
                   loop
                   muted
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   initial={{ opacity: 0, scale: 1.04 }}
                   animate={{ opacity: 0.78, scale: 1.01 }}
                   exit={{ opacity: 0, scale: 1.03 }}

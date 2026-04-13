@@ -77,8 +77,10 @@ self.addEventListener('fetch', (event) => {
 async function cacheFirst(request) {
   const cached = await caches.match(request);
   if (cached) return cached;
-  
+
   const response = await fetch(request);
+  // Only cache valid responses
+  if (!response || response.status !== 200 || response.type !== 'basic') return response;
   const cache = await caches.open(CACHE_NAME);
   cache.put(request, response.clone());
   return response;
@@ -87,8 +89,11 @@ async function cacheFirst(request) {
 async function networkFirst(request) {
   try {
     const networkResponse = await fetch(request);
-    const cache = await caches.open(CACHE_NAME);
-    cache.put(request, networkResponse.clone());
+    // Only cache valid responses
+    if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+      const cache = await caches.open(CACHE_NAME);
+      cache.put(request, networkResponse.clone());
+    }
     return networkResponse;
   } catch (error) {
     const cached = await caches.match(request);

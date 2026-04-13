@@ -9,7 +9,7 @@ export const PART_FOUR: Record<string, Scene> = {
     arabicTitle: 'فراغ الصحراء',
     part: 2,
     backgroundVideo: videoBg('sinai_desert'),
-    backgroundImage: 'sceneBg.four-4-1-desert',
+    backgroundImage: background('pharaoh_temple'),
     ambientKeys: ["amb.desert_wind", "amb.crowd_murmur"],
     dialogue: [
       {
@@ -87,7 +87,7 @@ export const PART_FOUR: Record<string, Scene> = {
     arabicTitle: 'هندسة الحشود',
     part: 2,
     backgroundVideo: videoBg('molten_gold'),
-    backgroundImage: 'sceneBg.four-4-2-crowd-engineering',
+    backgroundImage: background('pharaoh_temple'),
     ambientKeys: ["amb.metal_melt", "amb.drums_hypnosis"],
     enterSfxKeys: ["sfx.calf_low"],
     dialogue: [
@@ -143,7 +143,7 @@ export const PART_FOUR: Record<string, Scene> = {
     part: 2,
     backgroundImage: background('corporate_lab'),
     audioUrl: audio('yahya_monologue'),
-    ambientKeys: ["amb.server_room", "music.sad_background"],
+    ambientKeys: ["amb.server_room"],
     dialogue: [
       {
         character: 'tarek_ghost',

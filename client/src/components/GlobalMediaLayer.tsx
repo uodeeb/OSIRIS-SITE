@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import { OSIRIS_EFFECTS, getOsirisMediaUrl } from "@/lib/osirisEffects";
 import { useBandwidthStrategy } from "@/lib/mediaStrategy";
 import { useMediaState } from "@/contexts/MediaStateContext";
@@ -17,7 +17,7 @@ interface GlobalMediaLayerProps {
   primaryAudioSources: string[];
 }
 
-export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerProps) {
+export const GlobalMediaLayer = memo(function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerProps) {
   const { allowVideo } = useBandwidthStrategy();
   const state = useMediaState();
   const { registerMedia, setPrimaryAudioElement, setPrimaryAudioSources, setPrimaryAudioVolume } = useMediaActions();
@@ -27,7 +27,7 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
   const effect = OSIRIS_EFFECTS["FX-03-HOLOGRAM-DATA"];
   const videoSrc = useMemo(() => getOsirisMediaUrl(effect.base), [effect.base]);
   const posterSrc = useMemo(() => getOsirisMediaUrl(effect.fallback), [effect.fallback]);
-  const audioSrc = primaryAudioSources?.[0] || "";
+
   useEffect(() => {
     if (!videoRef.current) return;
     return registerMedia(videoRef.current);
@@ -45,27 +45,23 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
     a.loop = true;
     a.preload = "metadata";
     if (primaryAudioSources && primaryAudioSources.length > 0) {
+      // Let the effect system manage the source — don't set via JSX src prop
       setPrimaryAudioSources(primaryAudioSources, true);
     }
     setPrimaryAudioVolume(0.22);
   }, [primaryAudioSources, setPrimaryAudioSources, setPrimaryAudioVolume]);
 
   const accent = state.accentColor || "#c9a96e";
-
-  // Compute a dynamic class for accent color
   const accentHex = withAlpha(accent, 0.22);
-  // Create a style element for the dynamic accent variable
-  const accentStyle = document.createElement('style');
-  accentStyle.innerHTML = `:root { --media-accent: ${accentHex}; }`;
-  if (!document.head.querySelector('#media-accent-style')) {
-    accentStyle.id = 'media-accent-style';
-    document.head.appendChild(accentStyle);
-  } else {
-    const existingStyle = document.head.querySelector('#media-accent-style');
-    if (existingStyle) {
-      existingStyle.innerHTML = accentStyle.innerHTML;
-    }
-  }
+
+  // Efficient CSS custom property update (single DOM operation, no element creation)
+  useEffect(() => {
+    document.documentElement.style.setProperty('--media-accent', accentHex);
+    return () => {
+      document.documentElement.style.removeProperty('--media-accent');
+    };
+  }, [accentHex]);
+
   return (
     <div
       className="fixed inset-0 z-0 overflow-hidden bg-black pointer-events-none"
@@ -82,8 +78,8 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
           muted
           loop
           playsInline
-          preload="metadata"
-          className={`absolute inset-0 h-full w-full object-cover`}
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover"
           style={{
             filter: 'brightness(0.55) saturate(1.08) contrast(1.12)'
           }}
@@ -92,16 +88,15 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
         <img
           src={posterSrc}
           alt=""
-          className={`absolute inset-0 h-full w-full object-cover`}
+          className="absolute inset-0 h-full w-full object-cover"
           style={{
             filter: 'brightness(0.55) saturate(1.08) contrast(1.12)'
           }}
         />
       )}
 
-      {primaryAudioSources?.[0] ? (
-        <audio ref={audioRef} src={primaryAudioSources[0]} preload="metadata" />
-      ) : null}
+      {/* Audio element managed entirely by effect system — no JSX src to avoid double-load */}
+      <audio ref={audioRef} preload="metadata" />
 
       <div
         className="absolute inset-0"
@@ -119,4 +114,4 @@ export function GlobalMediaLayer({ primaryAudioSources = [] }: GlobalMediaLayerP
       />
     </div>
   );
-}
+});

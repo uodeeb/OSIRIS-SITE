@@ -85,6 +85,8 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
   const primaryAudioRef = useRef<HTMLAudioElement | null>(null);
   const primaryAudioCandidatesRef = useRef<string[]>([]);
   const primaryAudioTryIndexRef = useRef<number>(0);
+  const lastPersistRef = useRef<number>(0);
+  const PERSIST_THROTTLE_MS = 5000; // Only persist to localStorage every 5 seconds
 
   useEffect(() => {
     stateRef.current = state;
@@ -93,23 +95,29 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
   const emit = useCallback((eventName: MediaControllerEventName, nextState: MediaControllerState) => {
     if (!targetRef.current) targetRef.current = new EventTarget();
     targetRef.current.dispatchEvent(new CustomEvent(eventName, { detail: nextState }));
-    targetRef.current.dispatchEvent(new CustomEvent("state", { detail: nextState }));
   }, []);
 
   const persist = useCallback((nextState: MediaControllerState) => {
     if (typeof window === "undefined") return;
-    window.localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({
-        isPlaying: nextState.isPlaying,
-        elapsedMs: nextState.elapsedMs,
-        durationMs: nextState.durationMs,
-        accentColor: nextState.accentColor,
-        uiLang: nextState.uiLang,
-        isMuted: nextState.isMuted,
-        primaryVolume: nextState.primaryVolume,
-      }),
-    );
+    const now = Date.now();
+    if (now - lastPersistRef.current < PERSIST_THROTTLE_MS) return; // Throttle localStorage writes
+    lastPersistRef.current = now;
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          isPlaying: nextState.isPlaying,
+          elapsedMs: nextState.elapsedMs,
+          durationMs: nextState.durationMs,
+          accentColor: nextState.accentColor,
+          uiLang: nextState.uiLang,
+          isMuted: nextState.isMuted,
+          primaryVolume: nextState.primaryVolume,
+        }),
+      );
+    } catch {
+      // localStorage may fail (quota exceeded, private mode) — ignore silently
+    }
   }, []);
 
   const pauseAll = useCallback(() => {
@@ -347,7 +355,7 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
         persist(next);
         return next;
       });
-    }, 250);
+    }, 1000); // Tick every 1 second (sufficient for elapsed time tracking)
     return () => window.clearInterval(id);
   }, [emit, persist, state.isPlaying]);
 
