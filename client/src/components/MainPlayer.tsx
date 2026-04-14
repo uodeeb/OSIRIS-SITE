@@ -1349,6 +1349,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
 
   // Devil Song scene interactivity lock + 38-second pre-lyrics delay
   const devilSongLineDurations = [7600, 7400, 7600, 7600, 7800, 7400, 7600, 4200]; // Match dialogue line durations
+  const DEVIL_SONG_NEXT_SCENE = 'three-3-2-virus-design';
   useEffect(() => {
     const isDevilSong = currentSceneId === 'three-3-1b-devil-song';
 
@@ -1367,7 +1368,16 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
           lineIndex++;
           if (lineIndex < devilSongLineDurations.length) {
             advanceDialogue();
-            devilSongAutoAdvanceRef.current = setTimeout(advanceNextLine, devilSongLineDurations[lineIndex]);
+            // After last line: wait for it to display, then auto-transition
+            if (lineIndex === devilSongLineDurations.length - 1) {
+              devilSongAutoAdvanceRef.current = setTimeout(() => {
+                if (currentSceneId === 'three-3-1b-devil-song') {
+                  goToScene(DEVIL_SONG_NEXT_SCENE);
+                }
+              }, devilSongLineDurations[lineIndex]);
+            } else {
+              devilSongAutoAdvanceRef.current = setTimeout(advanceNextLine, devilSongLineDurations[lineIndex]);
+            }
           }
         };
         devilSongAutoAdvanceRef.current = setTimeout(advanceNextLine, devilSongLineDurations[0]);
@@ -1396,7 +1406,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
         devilSongAutoAdvanceRef.current = null;
       }
     };
-  }, [currentSceneId, globalMediaState.isPlaying, audioEnabled, advanceDialogue]);
+  }, [currentSceneId, globalMediaState.isPlaying, audioEnabled, advanceDialogue, goToScene]);
 
   const handleAdvance = useCallback(() => {
     if (!audioEnabled) {

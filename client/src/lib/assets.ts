@@ -186,6 +186,7 @@ const KEY_ALIASES: Record<string, string> = {
   'videoBg.falcon_orbit': 'videoBg.osiris.falcon-hologram-orbit',
   
   // Background aliases (map scene backgrounds to descriptive image names)
+  'background.desert': 'background.dessert', // Fix manifest typo: dessert→desert
   'background.berlin_1933': 'background.yehia-room',
   'background.cambodia_1975': 'background.logo-new-flow01',
   'background.corporate_lab': 'background.fire-worship',

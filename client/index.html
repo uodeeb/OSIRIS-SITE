@@ -22,8 +22,8 @@
     <link rel="icon" type="image/png" sizes="250x250" href="/logo/new-logo/favicon-black-0.25.png" />
     <link rel="icon" type="image/png" sizes="1000x1000" href="/logo/new-logo/favicon-black.png" />
     <link rel="apple-touch-icon" sizes="1000x1000" href="/logo/new-logo/favicon-black.png" />
-    <!-- CSP: restrict resource loading -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' blob: data:; media-src 'self' blob:; connect-src 'self' https://forge.butterfly-effect.dev; frame-ancestors 'none'; base-uri 'self';" />
+    <!-- CSP: restrict resource loading (frame-ancestors only via HTTP headers, not meta) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' blob: data:; media-src 'self' blob:; connect-src 'self' https://forge.butterfly-effect.dev; base-uri 'self';" />
     <!-- OSIRIS Design System: Cosmic Dark Theme + Arabic Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
