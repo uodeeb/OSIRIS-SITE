@@ -802,6 +802,8 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
 
   // Scene state
   const [currentSceneId, setCurrentSceneId] = useState(initialSceneId);
+  const currentSceneIdRef = useRef(initialSceneId);
+  useEffect(() => { currentSceneIdRef.current = currentSceneId; }, [currentSceneId]);
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [displayedArabic, setDisplayedArabic] = useState('');
@@ -2022,14 +2024,24 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
     // Scene overlay track - changes per scene
     const sceneCandidates = TRACK_URL_CANDIDATES[sceneTrackKey] ?? TRACK_URL_CANDIDATES.track01;
     const sceneUrl = sceneCandidates[0];
+    // Devil Song should NOT loop — it has a finite narrative arc
+    const shouldLoop = sceneTrackKey !== 'track15';
 
     if (!sceneTrackRef.current) {
       // First time - create and play
       if (sceneTrackKey !== 'track01') { // Only if different from base
         sceneTrackRef.current = new Audio(sceneUrl);
         sceneTrackRef.current.preload = 'metadata';
-        sceneTrackRef.current.loop = true;
+        sceneTrackRef.current.loop = shouldLoop;
         sceneTrackRef.current.volume = isMuted ? 0 : sceneVol;
+        // Devil Song: when song ends, auto-transition to next scene
+        if (sceneTrackKey === 'track15') {
+          sceneTrackRef.current.onended = () => {
+            if (currentSceneIdRef.current === 'three-3-1b-devil-song') {
+              goToScene('three-3-2-virus-design');
+            }
+          };
+        }
         if (shouldPlay) sceneTrackRef.current.play().catch(() => {});
         registerMedia(sceneTrackRef.current);
       }
@@ -2060,8 +2072,16 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
         // Create new track
         sceneTrackRef.current = new Audio(sceneUrl);
         sceneTrackRef.current.preload = 'metadata';
-        sceneTrackRef.current.loop = true;
+        sceneTrackRef.current.loop = shouldLoop;
         sceneTrackRef.current.volume = 0;
+        // Devil Song: when song ends, auto-transition
+        if (sceneTrackKey === 'track15') {
+          sceneTrackRef.current.onended = () => {
+            if (currentSceneIdRef.current === 'three-3-1b-devil-song') {
+              goToScene('three-3-2-virus-design');
+            }
+          };
+        }
         if (shouldPlay) sceneTrackRef.current.play().catch(() => {});
         registerMedia(sceneTrackRef.current);
 

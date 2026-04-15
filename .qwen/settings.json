@@ -8,7 +8,15 @@
       "Bash(ren *)",
       "Bash(node *)",
       "Bash(powershell *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(mkdir *)",
+      "Bash(copy *)",
+      "WebFetch(www.osirisnovel.online)",
+      "Bash(echo *)",
+      "WebFetch(github.com)",
+      "Bash(type *)"
     ]
   },
   "$version": 3

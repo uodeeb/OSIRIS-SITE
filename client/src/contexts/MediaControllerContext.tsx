@@ -362,10 +362,22 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
   useEffect(() => {
     const onVis = () => {
       if (document.visibilityState === "hidden") pause();
+      else if (document.visibilityState === "visible") {
+        // Auto-resume when user returns to tab
+        const ref = stateRef.current;
+        if (ref.isPlaying) {
+          setState((prev) => {
+            const next = { ...prev, isPlaying: true };
+            emit("play", next);
+            persist(next);
+            return next;
+          });
+        }
+      }
     };
     document.addEventListener("visibilitychange", onVis);
     return () => document.removeEventListener("visibilitychange", onVis);
-  }, [pause]);
+  }, [pause, emit, persist]);
 
   const actions = useMemo(
     () => ({
