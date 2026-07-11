@@ -33,14 +33,14 @@ export const OSIRIS_EFFECTS: Record<OsirisEffectId, OsirisEffectComposition> = {
     effectId: "FX-01-SUMMONS-EYE",
     label: "Summons / Falcon Eye",
     base: {
-      relativePath: "assets/video-bg/osiris-vid-bg/falcon-hologram.mp4",
+      relativePath: "assets/osiris-vid-bg/falcon-hologram.mp4",
       width: 1280,
       height: 720,
       fps: 24,
       durationSec: 8,
     },
     fallback: {
-      relativePath: "assets/video-bg/osiris-vid-bg/Egyptian_falcon_eye_202603301359.mp4",
+      relativePath: "assets/osiris-vid-bg/falcon-eye.mp4",
       width: 480,
       height: 270,
       fps: 15.625,

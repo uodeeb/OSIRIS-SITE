@@ -12,6 +12,10 @@ export interface PerformanceMetrics {
   firstInputDelay: number;
 }
 
+const isPerformanceDebugEnabled = () => {
+  const env = (import.meta as unknown as { env?: { DEV?: boolean; VITE_PERFORMANCE_DEBUG?: string } }).env;
+  return Boolean(env?.DEV || env?.VITE_PERFORMANCE_DEBUG === 'true');
+};
 export interface BundleAnalysis {
   totalSize: number;
   chunks: ChunkInfo[];
@@ -95,7 +99,9 @@ export class PerformanceMonitor {
           // Track bundle loading times
           const resourceEntry = entry as PerformanceResourceTiming;
           const loadTime = resourceEntry.responseEnd - resourceEntry.requestStart;
-          console.debug(`Resource loaded: ${entry.name.split('/').pop()} in ${loadTime.toFixed(2)}ms`);
+          if (isPerformanceDebugEnabled()) {
+            console.debug(`Resource loaded: ${entry.name.split('/').pop()} in ${loadTime.toFixed(2)}ms`);
+          }
         }
       });
     });
@@ -124,7 +130,9 @@ export class PerformanceMonitor {
       }
 
       // Log initial metrics
-      console.info('Initial Performance Metrics:', this.getMetrics());
+      if (isPerformanceDebugEnabled()) {
+        console.info('Initial Performance Metrics:', this.getMetrics());
+      }
     });
   }
 
@@ -274,7 +282,7 @@ export class PerformanceMonitor {
     try {
       const observer = new PerformanceObserver((list) => {
         list.getEntries().forEach((entry) => {
-          if (entry.duration > 50) { // Long task threshold
+          if (isPerformanceDebugEnabled() && entry.duration > 50) { // Long task threshold
             console.warn(`Long task detected: ${entry.duration.toFixed(2)}ms`);
           }
         });
@@ -292,11 +300,13 @@ export class PerformanceMonitor {
   private monitorMemoryUsage() {
     if ('memory' in performance) {
       const memory = (performance as any).memory;
-      console.info('Memory Usage:', {
+      if (isPerformanceDebugEnabled()) {
+        console.info('Memory Usage:', {
         used: Math.round(memory.usedJSHeapSize / 1048576) + ' MB',
         total: Math.round(memory.totalJSHeapSize / 1048576) + ' MB',
         limit: Math.round(memory.jsHeapSizeLimit / 1048576) + ' MB',
-      });
+        });
+      }
     }
   }
 

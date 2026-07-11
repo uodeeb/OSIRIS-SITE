@@ -139,7 +139,7 @@ export default function EnhancedHome() {
         subtitle: "The algorithm is written and the first patterns appear",
         arabicSubtitle: "يُكتب الخوارزم وتظهر الأنماط الأولى",
         estMinutes: 16,
-        imageSrc: '/assets/images/corporate_lab.jpg',
+        imageSrc: getAsset('background.corporate_lab'),
         accentColor: "#ef4444",
         sceneId: "one-1-5-1-promise",
       },
