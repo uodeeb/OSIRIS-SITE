@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-11T20:09:03.761Z",
+  "summary": {
+    "canonicalScenes": 35,
+    "runtimeScenes": 36,
+    "canonicalMissingInRuntime": 2,
+    "runtimeMissingInCanonical": 3,
+    "runtimeLinks": 39,
+    "brokenRuntimeLinks": 0,
+    "uniqueAssetRequests": 94,
+    "missingAssetKeys": 0,
+    "missingAssetFiles": 0,
+    "characterTimelineMismatches": 0,
+    "semanticWarnings": 0
+  },
+  "canonicalMissingInRuntime": [
+    "six-digital-intro",
+    "seven-witnesses-intro"
+  ],
+  "runtimeMissingInCanonical": [
+    "transition-real-to-sim",
+    "six-9-1-digital-cage",
+    "three-3-1b-devil-song"
+  ],
+  "brokenRuntimeLinks": [],
+  "missingAssetKeys": [],
+  "missingAssetFiles": [],
+  "characterTimelineMismatches": [],
+  "semanticWarnings": []
+}

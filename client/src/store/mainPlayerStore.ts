@@ -145,6 +145,9 @@ export const useMainPlayerStore = create<MainPlayerState>()(
         ),
       goToScene: (sceneId: string) => {
         const state = get();
+        // Prevent duplicate transitions
+        if (state.sceneTransitioning) return;
+
         if (state.currentSceneId !== sceneId) {
           state.addToHistory(state.currentSceneId);
         }
@@ -169,7 +172,7 @@ export const useMainPlayerStore = create<MainPlayerState>()(
         // Trigger scene transition effect
         setTimeout(() => {
           set({ sceneTransitioning: false });
-        }, 1800);
+        }, 800); // Reduced from 1800ms to 800ms
         setTimeout(() => {
           set({ bgLoaded: true, videoReady: true });
         }, 300);

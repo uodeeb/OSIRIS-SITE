@@ -2,76 +2,172 @@ import { background, character, videoBg, audio } from '../assets';
 import type { Scene } from '../sceneSystem';
 
 export const PART_FOUR: Record<string, Scene> = {
-  // المشهد 4.1: نشوة النجاة وقلق الفراغ
-  'four-4-1-desert': {
-    id: 'four-4-1-desert',
-    title: 'The Void of the Desert',
-    arabicTitle: 'فراغ الصحراء',
+  // Scene 5.1: The Mirror of the Nile (restored Ramses runtime material)
+  'two-mirror-scene': {
+    id: 'two-mirror-scene',
+    title: "The Mirror of the Nile",
+    arabicTitle: "مرآة النيل",
     part: 2,
-    backgroundVideo: videoBg('sinai_desert'),
+    backgroundVideo: videoBg('egypt_nile_temple'),
     backgroundImage: background('pharaoh_temple'),
     ambientKeys: ["amb.desert_wind", "amb.crowd_murmur"],
     dialogue: [
       {
-        character: 'laila',
+        character: "Narrator",
         text: "نقل أوزيريس يحيى وليلى إلى مصر القديمة. لم تكن مصر التي تظهر في الأفلام، بل كانت حضارة حقيقية، تنبض بالحياة والعبقرية الهندسية.",
         arabicText: "نقل أوزيريس يحيى وليلى إلى مصر القديمة. لم تكن مصر التي تظهر في الأفلام، بل كانت حضارة حقيقية، تنبض بالحياة والعبقرية الهندسية.",
-        duration: 8800
+        duration: 2000,
       },
       {
-        character: 'samiri',
+        character: "Narrator",
         text: "وقف رمسيس الثاني، المحارب الذي لا يُهزم، ينظر إلى انعكاس صورته في مياه النيل الصافية. كان يرتدي زياً ملكياً بسيطاً، لكن هيبته كانت تملأ المكان.",
         arabicText: "وقف رمسيس الثاني، المحارب الذي لا يُهزم، ينظر إلى انعكاس صورته في مياه النيل الصافية. كان يرتدي زياً ملكياً بسيطاً، لكن هيبته كانت تملأ المكان.",
-        duration: 10000
+        duration: 2000,
       },
       {
-        character: 'samiri',
+        character: "Narrator",
         text: "\"هذا هو رمسيس،\" قال يحيى وهو يقرأ بيانات أوزيريس. \"عبقري، قائد عسكري فذ، وباني أعظم المعابد. لكن الخوارزمية وجدت فيه ثغرة.\"",
         arabicText: "\"هذا هو رمسيس،\" قال يحيى وهو يقرأ بيانات أوزيريس. \"عبقري، قائد عسكري فذ، وباني أعظم المعابد. لكن الخوارزمية وجدت فيه ثغرة.\"",
-        duration: 8400
+        duration: 1500,
       },
       {
-        character: 'samiri',
+        character: "ramses",
         text: "اقترب رجل يرتدي عباءة كهنوتية داكنة من رمسيس. لم يكن وجهه واضحاً ليحيى، لكنه عرفه على الفور. إنه \"الحكيم\"، نفس الكيان الذي سيظهر لاحقاً في نيقية.",
         arabicText: "اقترب رجل يرتدي عباءة كهنوتية داكنة من رمسيس. لم يكن وجهه واضحاً ليحيى، لكنه عرفه على الفور. إنه \"الحكيم\"، نفس الكيان الذي سيظهر لاحقاً في نيقية.",
-        duration: 10400
+        duration: 2500,
       },
       {
-        character: 'samiri',
+        character: "Narrator",
         text: "سأل رمسيس النيل، وكأنه يكلم نفسه: \"لماذا يجب أن أموت؟ لقد بنيت ما لم يبنه أحد. هزمت الحيثيين. أطعمت شعبي. لماذا أكون مجرد إنسان يفنى؟\"",
         arabicText: "سأل رمسيس النيل، وكأنه يكلم نفسه: \"لماذا يجب أن أموت؟ لقد بنيت ما لم يبنه أحد. هزمت الحيثيين. أطعمت شعبي. لماذا أكون مجرد إنسان يفنى؟\"",
-        duration: 10000
+        duration: 2500,
       },
       {
-        character: 'samiri',
+        character: "ramses",
         text: "همس الكاهن الغامض بصوت ناعم كفحيح الأفعى: \"لأنهم يقولون إن فوقك ربًا يا مولاي. طالما أنك تعترف بوجود من هو أعلى منك، فستظل عبداً للموت.\"",
         arabicText: "همس الكاهن الغامض بصوت ناعم كفحيح الأفعى: \"لأنهم يقولون إن فوقك ربًا يا مولاي. طالما أنك تعترف بوجود من هو أعلى منك، فستظل عبداً للموت.\"",
-        duration: 10000
+        duration: 3000,
+      }
+    ],
+    choices: [
+      {
+        id: 'two-mirror-continue',
+        text: "Witness the Declaration",
+        arabicText: "إعلان الألوهية",
+        nextSceneId: 'two-divine-declaration',
+      },
+    ],
+    transitionType: 'slideUp',
+    transitionDuration: 1500,
+    emotionalTone: 'intense',
+  },
+
+  // Scene 5.2: The Declaration of Divinity (recovered from Arabic master plus English candidate)
+  'two-divine-declaration': {
+    id: 'two-divine-declaration',
+    title: "The Declaration of Divinity",
+    arabicTitle: "إعلان الألوهية",
+    part: 2,
+    backgroundVideo: videoBg('egypt_nile_temple'),
+    backgroundImage: background('pharaoh_temple'),
+    ambientKeys: ["amb.desert_wind", "amb.crowd_murmur"],
+    dialogue: [
+      {
+        character: "Narrator",
+        text: "On the walls of Abu Simbel, it is carved:",
+        arabicText: "وقف رمسيس أمام معبده الجديد. لم يكتب اسم الإله آمون في المركز، بل كتب اسمه هو.",
+        duration: 2500,
       },
       {
-        character: 'samiri',
-        text: "التفت رمسيس إلى الكاهن، وعيناه تشتعلان بالغضب والكبرياء. \"أنا لست عبداً لأحد.\"",
-        arabicText: "التفت رمسيس إلى الكاهن، وعيناه تشتعلان بالغضب والكبرياء. \"أنا لست عبداً لأحد.\"",
-        duration: 4800
+        character: "Narrator",
+        text: "'I am the God'",
+        arabicText: "\"أنا ربكم الأعلى،\" أعلن رمسيس، وصوته يتردد في الوادي.",
+        duration: 2500,
       },
       {
-        character: 'samiri',
-        text: "\"إذن، لا تكن،\" ابتسم الكاهن. \"الآلهة القديمة صامتة. أنت الحي. أنت من يمنح الحياة والموت. أعلنها يا مولاي. اجعلهم يعبدون ما يرون، لا ما يتخيلون.\"",
-        arabicText: "\"إذن، لا تكن،\" ابتسم الكاهن. \"الآلهة القديمة صامتة. أنت الحي. أنت من يمنح الحياة والموت. أعلنها يا مولاي. اجعلهم يعبدون ما يرون، لا ما يتخيلون.\"",
-        duration: 10000
+        character: "Narrator",
+        text: "Pharaoh declares his divinity.",
+        arabicText: "سجدت الحشود. لم يسجدوا خوفاً من السوط فقط، بل سجدوا انبهاراً بالقوة المادية.",
+        duration: 2000,
       },
       {
-        character: 'laila',
-        text: "نظرت ليلى إلى يحيى بخوف. \"الفيروس يعمل. إنه يغذي جرحه النفسي... خوفه من الموت، ويحوله إلى ادعاء بالألوهية.\"",
-        arabicText: "نظرت ليلى إلى يحيى بخوف. \"الفيروس يعمل. إنه يغذي جرحه النفسي... خوفه من الموت، ويحوله إلى ادعاء بالألوهية.\"",
-        duration: 7200
+        character: "Narrator",
+        text: "But on the other side of the Nile, a child is born.",
+        arabicText: "\"انظر إلى هذا،\" قال يحيى بمرارة. \"لقد نجحت الخوارزمية. رمسيس قال (أنا خير منهم)، فصدقوه. لقد تحول من ملك إلى إله، وتحولوا هم من بشر إلى أدوات.\"",
+        duration: 2500,
+      },
+      {
+        character: "Narrator",
+        text: "A child who will prove to history that the true God needs no walls to prove His existence.",
+        arabicText: "في تلك اللحظة، التقط أوزيريس صوتاً خفياً يتردد بين المشاهد. صوت إبليس يعلق على الأحداث:\n\"انظروا... انظروا جيداً. هذا ما خُلق من طين. يدّعي الألوهية. ألم أقل أنه لا يستحق؟\"",
+        duration: 4000,
+      }
+    ],
+    choices: [
+      {
+        id: 'two-divine-continue',
+        text: "Enter the desert void",
+        arabicText: "نشوة النجاة وقلق الفراغ",
+        nextSceneId: 'four-4-1-desert',
+      },
+    ],
+    transitionType: 'fade',
+    transitionDuration: 1500,
+    emotionalTone: 'dark',
+  },
+
+  // Scene 6.1: The Void of the Desert (restored canonical Samiri scene)
+  'four-4-1-desert': {
+    id: 'four-4-1-desert',
+    title: "The Void of the Desert",
+    arabicTitle: "نشوة النجاة وقلق الفراغ",
+    part: 2,
+    backgroundVideo: videoBg('sinai_desert'),
+    backgroundImage: background('desert'),
+    ambientKeys: ["amb.desert_wind", "amb.crowd_murmur"],
+    dialogue: [
+      {
+        character: "Narrator",
+        text: "Sinai Desert. The 13th century BC. OSIRIS simulation. Yahya and Laila stood amid a sea of humanity stretching across the desert. The euphoria of escaping Pharaoh and crossing the sea had faded, replaced by something far harsher: the void.",
+        arabicText: "صحراء سيناء. القرن الثالث عشر قبل الميلاد. محاكاة أوزيريس. وقف يحيى وليلى وسط المحاكاة، يشاهدان بحر البشر الممتد في الصحراء. كانت نشوة النجاة من فرعون وعبور البحر قد تلاشت، وحل محلها شيء أشد قسوة: الفراغ.",
+        duration: 7000,
+      },
+      {
+        character: "laila",
+        text: "Moses has been absent for weeks. They had grown accustomed to slavery in Egypt. Slavery is harsh, but it provides certainty: you know when to wake up, what to do, and what to eat. Absolute freedom in this desert... is terrifying.",
+        arabicText: "موسى غائب منذ أسابيع. لقد اعتادوا على العبودية في مصر. العبودية قاسية، لكنها توفر اليقين: أنت تعرف متى تستيقظ، ماذا تعمل، وماذا تأكل. الحرية المطلقة في هذه الصحراء... مرعبة.",
+        duration: 7000,
+      },
+      {
+        character: "Narrator",
+        text: "Yahya pointed to a man standing on a high rock, watching the crowds with eyes that analyzed the situation with mathematical precision. He did not look like an evil sorcerer, but like an engineer studying a problem that needed a solution.",
+        arabicText: "أشار يحيى إلى رجل يقف على صخرة مرتفعة، يراقب الحشود بعينين تحللان الموقف بدقة رياضية. لم يكن يبدو كساحر شرير، بل كمهندس يدرس مشكلة تحتاج إلى حل.",
+        duration: 6000,
+      },
+      {
+        character: "yahya",
+        text: "The Samaritan.",
+        arabicText: "السامري.",
+        duration: 2000,
+      },
+      {
+        character: "samiri",
+        text: "You are afraid. That is natural. The God who brought you out of Egypt is a great God, but He is... invisible. Abstract. You cannot touch Him or see Him. And you need something to reassure you now, in this void.",
+        arabicText: "أنتم خائفون. هذا طبيعي. الإله الذي أخرجكم من مصر إله عظيم، لكنه... غير مرئي. مجرد. لا يمكنكم لمسه أو رؤيته. وأنتم تحتاجون إلى شيء يطمئنكم الآن، في هذا الفراغ.",
+        duration: 6500,
+      },
+      {
+        character: "Narrator",
+        text: "He did not ask them to disbelieve. He did not ask them to worship a devil. He offered them a \"practical solution\" to their spiritual anxiety.",
+        arabicText: "لم يطلب منهم الكفر. لم يطلب منهم عبادة شيطان. لقد قدم لهم \"حلاً عملياً\" لقلقهم الروحي.",
+        duration: 5000,
       }
     ],
     choices: [
       {
         id: 'four-4-1-continue',
-        text: 'Watch the engineering of the crowds',
-        arabicText: 'شاهد هندسة الحشود',
+        text: "Watch the engineering of the crowds",
+        arabicText: "شاهد هندسة الحشود",
         nextSceneId: 'four-4-2-crowd-engineering',
       },
     ],

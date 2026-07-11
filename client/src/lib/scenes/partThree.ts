@@ -214,7 +214,7 @@ export const PART_THREE: Record<string, Scene> = {
         id: 'three-3-2-continue',
         text: 'Continue to Part Two: The Golden Calf',
         arabicText: 'تابع إلى الجزء الثاني: العجل الذهبي',
-        nextSceneId: 'four-4-1-desert',
+        nextSceneId: 'two-mirror-scene',
       },
     ],
     transitionType: 'fade',

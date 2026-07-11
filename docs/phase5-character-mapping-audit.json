@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-11T20:09:03.738Z",
+  "summary": {
+    "runtimeScenes": 37,
+    "uniqueDialogueCharacters": 19,
+    "missingDialogueInMainPlayer": 0,
+    "missingDialogueInConfig": 0,
+    "missingTimelineInMainPlayer": 0,
+    "missingTimelineInConfig": 0,
+    "timelineMismatches": 0,
+    "timelineTargetsMissingInMainPlayer": 0,
+    "timelineTargetsMissingInConfig": 0
+  },
+  "dialogueByCharacter": {
+    "Narrator": 74,
+    "OSIRIS": 11,
+    "The Sage": 1,
+    "aisha": 1,
+    "arius": 2,
+    "athanasius": 1,
+    "child": 1,
+    "constantine": 3,
+    "first_engineer": 18,
+    "iblis": 7,
+    "laila": 37,
+    "old_woman": 1,
+    "ramses": 2,
+    "samiri": 3,
+    "samiri_calf": 4,
+    "tarek": 33,
+    "tarek_ghost": 8,
+    "yahya": 47,
+    "yahya_breakdown": 4
+  },
+  "missingDialogueInMainPlayer": [],
+  "missingDialogueInConfig": [],
+  "missingTimelineInMainPlayer": [],
+  "missingTimelineInConfig": [],
+  "timelineMismatches": [],
+  "timelineTargetsMissingInMainPlayer": [],
+  "timelineTargetsMissingInConfig": []
+}

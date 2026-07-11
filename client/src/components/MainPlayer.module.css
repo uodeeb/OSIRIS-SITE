@@ -80,7 +80,10 @@
   border: var(--dialogue-border, 1px solid rgba(201, 169, 110, 0.18));
   box-shadow: var(--dialogue-shadow, 0 10px 70px rgba(0, 0, 0, 0.78), 0 0 0 1px rgba(255, 255, 255, 0.02), inset 0 1px 0 rgba(201, 169, 110, 0.1));
   backdrop-filter: var(--dialogue-backdrop, blur(18px));
+  max-height: calc(var(--dialogue-zone-max-height, min(40vh, 32rem)) - 3rem);
+  overflow: auto;
 }
+
 
 .dynamicAutoLine {
   background: var(--auto-line, rgba(201, 169, 110, 0.5));
@@ -89,12 +92,14 @@
 .dynamicDialogueText {
   text-shadow: var(--text-shadow, 0 1px 8px rgba(0, 0, 0, 0.98));
   letter-spacing: var(--letter-spacing, 0.012em);
-  line-height: var(--line-height, 1.75);
+  font-size: clamp(1rem, 1.35vw + 0.5rem, 1.875rem) !important;
+  line-height: var(--line-height, 1.55);
 }
 
 .dynamicArabicText {
   text-shadow: var(--text-shadow, 0 1px 8px rgba(0, 0, 0, 0.98));
-  line-height: var(--line-height, 2.1);
+  font-size: clamp(1.15rem, 1.45vw + 0.55rem, 1.875rem) !important;
+  line-height: var(--line-height, 1.8);
 }
 
 .dynamicProgressDot {
@@ -176,4 +181,109 @@
   background: rgba(255,255,255,0.06);
   color: rgba(255,255,255,0.5);
   border: 1px solid rgba(201,169,110,0.15);
+}
+
+/* Player composition layout: keep portraits and text in separate safe zones. */
+.characterPortraitPosition {
+  position: absolute;
+  bottom: clamp(16rem, 46vh, 70rem);
+  z-index: 14;
+  pointer-events: none;
+}
+
+.characterPortraitLeft {
+  left: clamp(0.5rem, 3.6vw, 5.5rem);
+}
+
+.characterPortraitRight {
+  right: clamp(0.5rem, 3.6vw, 5.5rem);
+}
+
+.dialogueSafeArea {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(0.75rem, 3vh, 3.5rem);
+  z-index: 20;
+  padding: 0 clamp(0.75rem, 3.2vw, 4rem) clamp(0.5rem, 1.5vh, 1.5rem);
+  --dialogue-zone-max-height: min(40vh, 32rem);
+  max-height: var(--dialogue-zone-max-height);
+  overflow: visible;
+}
+
+.dialogueShell {
+  width: min(100%, 56rem);
+  max-height: var(--dialogue-zone-max-height, min(40vh, 32rem));
+  margin: 0 auto;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 169, 110, 0.45) rgba(0, 0, 0, 0.2);
+}
+
+.dialogueShell::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dialogueShell::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dialogueShell::-webkit-scrollbar-thumb {
+  background: rgba(201, 169, 110, 0.45);
+  border-radius: 999px;
+}
+
+@media (min-width: 1280px) {
+  .characterPortraitPosition {
+    bottom: clamp(18rem, 44vh, 70rem);
+  }
+
+  .dialogueSafeArea {
+    --dialogue-zone-max-height: min(36vh, 32rem);
+    max-height: var(--dialogue-zone-max-height);
+  }
+
+  .dialogueShell {
+    --dialogue-zone-max-height: min(36vh, 32rem);
+    max-height: var(--dialogue-zone-max-height);
+  }
+}
+
+@media (max-width: 640px) {
+  .characterPortraitPosition {
+    bottom: clamp(17rem, 50vh, 28rem);
+  }
+
+  .characterPortraitLeft {
+    left: 1rem;
+  }
+
+  .characterPortraitRight {
+    right: 1rem;
+  }
+
+  .dialogueSafeArea {
+    bottom: max(0.5rem, env(safe-area-inset-bottom));
+    padding-inline: 0.5rem;
+    --dialogue-zone-max-height: 38vh;
+    max-height: var(--dialogue-zone-max-height);
+  }
+
+  .dialogueShell {
+    --dialogue-zone-max-height: 38vh;
+    max-height: var(--dialogue-zone-max-height);
+  }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .characterPortraitPosition {
+    bottom: 47vh;
+  }
+
+  .dialogueSafeArea,
+  .dialogueShell {
+    --dialogue-zone-max-height: 34vh;
+    max-height: var(--dialogue-zone-max-height);
+  }
 }

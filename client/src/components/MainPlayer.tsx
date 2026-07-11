@@ -1,6 +1,6 @@
 /**
- * OSIRIS — المفسدون في الأرض
- * Main Player — Cinema-Mode Multimedia Interactive Digital Novel
+ * OSIRIS - The Corrupters on Earth
+ * Main Player - Cinema-Mode Multimedia Interactive Digital Novel
  * Build: Force fresh deploy to clear Vercel cache
  *
  * KEY DESIGN DECISIONS:
@@ -25,7 +25,6 @@ import { checkVisualEffectTriggers, type VisualEffect } from "@/lib/visualEffect
 import { loadCanonicalDialogueMap } from '@/lib/canonicalScript.ts'; // Netlify fix: explicit .ts extension required
 import { CinematicStage } from '@/components/CinematicStage';
 import { OsirisEffectLayer } from "@/components/OsirisEffectLayer";
-import { GlobalMediaLayer } from "@/components/GlobalMediaLayer";
 import { useMediaState } from "@/contexts/MediaStateContext";
 import { useMediaActions } from "@/contexts/MediaActionsContext";
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -63,7 +62,7 @@ function resolveCharacterImage(key?: string): string {
   return getAsset(key);
 }
 
-// ─── Character Configuration ────────────────────────────────────────────────
+// Character Configuration
 
 interface CharacterConfig {
   name: string;
@@ -308,8 +307,25 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     imageAssetKey: 'character.constantine',
   },
   Ramses: {
-    name: 'Narrator',
-    arabicName: 'الراوي الكوني',
+    name: 'Ramses',
+    arabicName: 'رمسيس الثاني',
+    color: '#d4af37',
+    glowColor: 'rgba(212,175,55,0.4)',
+    position: 'center',
+    imageAssetKey: 'character.ramses',
+  },
+  ramses: {
+    name: 'Ramses',
+    arabicName: 'رمسيس الثاني',
+    color: '#d4af37',
+    glowColor: 'rgba(212,175,55,0.4)',
+    position: 'center',
+    imageAssetKey: 'character.ramses',
+  },
+
+  iblis: {
+    name: 'Iblis',
+    arabicName: 'إبليس',
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
@@ -321,6 +337,103 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
+    imageAssetKey: 'character.narrator',
+  },
+
+  OSIRIS: {
+    name: 'OSIRIS',
+    arabicName: 'أوزيريس',
+    color: '#38bdf8',
+    glowColor: 'rgba(56,189,248,0.35)',
+    position: 'center',
+    imageAssetKey: 'character.narrator',
+  },
+  'The Sage': {
+    name: 'The Sage',
+    arabicName: 'الحكيم',
+    color: '#ef4444',
+    glowColor: 'rgba(239,68,68,0.3)',
+    position: 'left',
+    imageAssetKey: 'character.first_engineer',
+  },
+  Priest: {
+    name: 'The Priest',
+    arabicName: 'الكاهن الغامض',
+    color: '#ef4444',
+    glowColor: 'rgba(239,68,68,0.3)',
+    position: 'left',
+    imageAssetKey: 'character.first_engineer',
+  },
+  Samaritan: {
+    name: 'Al-Samiri',
+    arabicName: 'السامري',
+    color: '#f59e0b',
+    glowColor: 'rgba(245,158,11,0.3)',
+    position: 'left',
+    imageAssetKey: 'character.samiri',
+  },
+  aisha: {
+    name: 'Aisha al-Hurra',
+    arabicName: 'عائشة الحرة',
+    color: '#f472b6',
+    glowColor: 'rgba(244,114,182,0.35)',
+    position: 'right',
+    imageAssetKey: 'character.laila_witness',
+  },
+  'Aisha al-Hurra': {
+    name: 'Aisha al-Hurra',
+    arabicName: 'عائشة الحرة',
+    color: '#f472b6',
+    glowColor: 'rgba(244,114,182,0.35)',
+    position: 'right',
+    imageAssetKey: 'character.laila_witness',
+  },
+  old_woman: {
+    name: 'Old Woman',
+    arabicName: 'امرأة مسنة',
+    color: '#c084fc',
+    glowColor: 'rgba(192,132,252,0.3)',
+    position: 'right',
+    imageAssetKey: 'character.laila_witness',
+  },
+  'Old Woman': {
+    name: 'Old Woman',
+    arabicName: 'امرأة مسنة',
+    color: '#c084fc',
+    glowColor: 'rgba(192,132,252,0.3)',
+    position: 'right',
+    imageAssetKey: 'character.laila_witness',
+  },
+  child: {
+    name: 'Child',
+    arabicName: 'طفل',
+    color: '#fde68a',
+    glowColor: 'rgba(253,230,138,0.3)',
+    position: 'right',
+    imageAssetKey: 'character.narrator',
+  },
+  Child: {
+    name: 'Child',
+    arabicName: 'طفل',
+    color: '#fde68a',
+    glowColor: 'rgba(253,230,138,0.3)',
+    position: 'right',
+    imageAssetKey: 'character.narrator',
+  },
+  Abraham: {
+    name: 'Abraham',
+    arabicName: 'إبراهيم',
+    color: '#fbbf24',
+    glowColor: 'rgba(251,191,36,0.3)',
+    position: 'left',
+    imageAssetKey: 'character.narrator',
+  },
+  Bilal: {
+    name: 'Bilal',
+    arabicName: 'بلال بن رباح',
+    color: '#fbbf24',
+    glowColor: 'rgba(251,191,36,0.3)',
+    position: 'left',
     imageAssetKey: 'character.narrator',
   },
   hitler: {
@@ -348,6 +461,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
 };
 
 const SCENE_CHARACTER_TIMELINE: Record<string, string> = {
+  'transition-real-to-sim': 'Narrator',
   'zero-1-1-summons': 'yahya',
   'zero-1-2-prosecution': 'Narrator',
   'one-1-5-1-promise': 'tarek',
@@ -357,8 +471,10 @@ const SCENE_CHARACTER_TIMELINE: Record<string, string> = {
   'two-2-1-escape': 'yahya',
   'two-2-2-osiris-launch': 'first_engineer',
   'three-3-1-creation': 'yahya',
-  'three-3-1b-devil-song': 'iblis',
+  'three-3-1b-devil-song': 'Iblis',
   'three-3-2-virus-design': 'first_engineer',
+  'two-mirror-scene': 'ramses',
+  'two-divine-declaration': 'ramses',
   'four-4-1-desert': 'samiri',
   'four-4-2-crowd-engineering': 'samiri_calf',
   'four-5-1-tarek-message': 'tarek_ghost',
@@ -374,6 +490,7 @@ const SCENE_CHARACTER_TIMELINE: Record<string, string> = {
   'six-8d-1-attack': 'yahya_confront',
   'six-8d-2-final-update': 'first_engineer_exposed',
   'transition-dream': 'tarek_dream',
+  'six-9-1-digital-cage': 'first_engineer',
   'seven-10-1-karbala': 'Narrator',
   'seven-11-1-temptation': 'first_engineer_2',
   'seven-11-2-decision': 'yahya_confront',
@@ -382,7 +499,7 @@ const SCENE_CHARACTER_TIMELINE: Record<string, string> = {
   'seven-13-2-closing': 'Narrator',
 };
 
-// ─── Emotional Tone Styles ───────────────────────────────────────────────────
+// Emotional Tone Styles
 
 const EMOTIONAL_OVERLAY: Record<string, string> = {
   dark: 'rgba(0,0,0,0.72)',
@@ -524,7 +641,7 @@ const VOICE_DEFINITIONS: VoiceDefinition[] = [
 function normalizeArabicForMatch(value: string) {
   return value
     .normalize('NFKC')
-    .replace(/[ًٌٍَُِّْـ]/g, '')
+    .replace(/[ًَّفٌففْـ]/g, '')
     .replace(/[أإآ]/g, 'ا')
     .replace(/ى/g, 'ي')
     .replace(/[ؤئ]/g, 'ي')
@@ -584,8 +701,8 @@ function getDevilVoiceCandidates() {
   return ['/assets/voices/voice-07.mp3'];
 }
 
-// ─── Particles ───────────────────────────────────────────────────────────────
-// ─── Particles ───────────────────────────────────────────────────────────────
+// Particles
+// Particles
 
 interface ParticleConfig {
   id: number;
@@ -598,7 +715,7 @@ interface ParticleConfig {
   delay: number;
 }
 
-/** Generate stable particle positions — no Math.random() in render */
+/** Generate stable particle positions - no Math.random() in render */
 function generateParticles(count: number): ParticleConfig[] {
   return Array.from({ length: count }, (_, i) => ({
     id: i,
@@ -648,7 +765,7 @@ const Particles = memo(function Particles({ tone }: { tone: string }) {
   );
 });
 
-// ─── Audio Control UI ─────────────────────────────────────────────────────────
+// Audio Control UI
 // Clean minimal 4-channel control: BG, Scene, Voice, SFX
 
 interface AudioControlProps {
@@ -657,6 +774,7 @@ interface AudioControlProps {
   voiceVol: number;
   sfxVol: number;
   isMuted: boolean;
+  lang: 'en' | 'ar';
   onBgChange: (v: number) => void;
   onSceneChange: (v: number) => void;
   onVoiceChange: (v: number) => void;
@@ -670,6 +788,7 @@ function AudioControl({
   voiceVol,
   sfxVol,
   isMuted,
+  lang,
   onBgChange,
   onSceneChange,
   onVoiceChange,
@@ -677,12 +796,13 @@ function AudioControl({
   onToggleMute,
 }: AudioControlProps) {
   const [open, setOpen] = useState(false);
+  const isArabicAudio = lang === 'ar';
 
   const channels = [
-    { key: 'bg', label: 'خلفية', value: bgVol, onChange: onBgChange, color: '#c9a96e' },
-    { key: 'scene', label: 'مشهد', value: sceneVol, onChange: onSceneChange, color: '#3b82f6' },
-    { key: 'voice', label: 'صوت', value: voiceVol, onChange: onVoiceChange, color: '#22c55e' },
-    { key: 'sfx', label: 'مؤثرات', value: sfxVol, onChange: onSfxChange, color: '#ef4444' },
+    { key: 'bg', label: isArabicAudio ? 'خلفية' : 'BG', value: bgVol, onChange: onBgChange, color: '#c9a96e' },
+    { key: 'scene', label: isArabicAudio ? 'مشهد' : 'SCENE', value: sceneVol, onChange: onSceneChange, color: '#3b82f6' },
+    { key: 'voice', label: isArabicAudio ? 'صوت' : 'VOICE', value: voiceVol, onChange: onVoiceChange, color: '#22c55e' },
+    { key: 'sfx', label: isArabicAudio ? 'مؤثرات' : 'SFX', value: sfxVol, onChange: onSfxChange, color: '#ef4444' },
   ];
 
   return (
@@ -691,7 +811,7 @@ function AudioControl({
       <button
         onClick={() => setOpen((p) => !p)}
         className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-all duration-200 hover:bg-white/10 ${styles.audioButton}`}
-        title="التحكم بالصوت"
+        title={isArabicAudio ? "التحكم بالصوت" : "Audio controls"}
       >
         {isMuted ? (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -706,7 +826,7 @@ function AudioControl({
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
           </svg>
         )}
-        <span className="text-[9px] font-arabic-ui tracking-wider hidden sm:inline">صوت</span>
+        <span className={`text-[9px] tracking-wider hidden sm:inline ${isArabicAudio ? 'font-arabic-ui' : 'font-mono'}`}>{isArabicAudio ? 'صوت' : 'AUDIO'}</span>
       </button>
 
       <AnimatePresence>
@@ -746,7 +866,7 @@ function AudioControl({
               onClick={onToggleMute}
               className={`w-full py-2 rounded-lg text-[9px] font-arabic-ui tracking-wider transition-all duration-200 ${isMuted ? 'bg-red-500/20 text-red-300 hover:bg-red-500/30' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}
             >
-              {isMuted ? '🔊 تفعيل الصوت' : '🔇 كتم الصوت'}
+              {isMuted ? (isArabicAudio ? 'تفعيل الصوت' : 'UNMUTE') : (isArabicAudio ? 'كتم الصوت' : 'MUTE')}
             </button>
           </motion.div>
         )}
@@ -755,7 +875,7 @@ function AudioControl({
   );
 }
 
-// ─── Main Player ─────────────────────────────────────────────────────────────
+// Main Player
 
 export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-summons' }: MainPlayerProps) {
   const [, setLocation] = useLocation();
@@ -764,16 +884,13 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
     play: globalPlay,
     pause: globalPause,
     setAccentColor,
-    setPrimaryAudioMuted,
-    setPrimaryAudioSources,
-    setPrimaryAudioVolume,
     registerMedia,
     setDurationMs,
   } = useMediaActions();
   const canonicalMode = useMemo(() => {
-    if (typeof window === 'undefined') return false;
+    if (typeof window === 'undefined') return true;
     const params = new URLSearchParams(window.location.search);
-    return params.get('canonical') === '1' || params.get('script') === 'canonical';
+    return params.get('runtime') !== '1' && params.get('script') !== 'runtime';
   }, []);
 
   // Handle scene parameter from shared URLs
@@ -791,7 +908,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
     }
   }, []);
 
-  // Language state — 'en' or 'ar'
+  // Language state: 'en' or 'ar'
   const [lang, setLang] = useState<'en' | 'ar'>('ar');
 
   // Update html lang attribute when language changes
@@ -863,6 +980,33 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
   const fxTimersRef = useRef<Array<ReturnType<typeof setTimeout>>>([]);
   const currentScene: Scene | undefined = ALL_SCENES[currentSceneId];
   useEffect(() => {
+    const setMeta = (selector: string, attribute: "content" | "href", value: string) => {
+      const element = document.head.querySelector(selector);
+      if (element) element.setAttribute(attribute, value);
+    };
+    const sceneTitle = currentScene
+      ? (lang === 'ar' ? (currentScene.arabicTitle || currentScene.title) : currentScene.title)
+      : "OSIRIS";
+    const title = currentScene
+      ? sceneTitle + " \u2014 OSIRIS"
+      : lang === 'ar'
+        ? "OSIRIS \u2014 \u0627\u0644\u0645\u0641\u0633\u062f\u0648\u0646 \u0641\u064a \u0627\u0644\u0623\u0631\u0636"
+        : "Play OSIRIS \u2014 Cinematic Reader";
+    const description = lang === 'ar'
+      ? "OSIRIS \u2014 \u0631\u0648\u0627\u064a\u0629 \u062a\u0641\u0627\u0639\u0644\u064a\u0629 \u0633\u064a\u0646\u0645\u0627\u0626\u064a\u0629 \u0639\u0646 \u0627\u0644\u0648\u0639\u064a \u0648\u0627\u0644\u0641\u0633\u0627\u062f \u0648\u0627\u0644\u062e\u0648\u0627\u0631\u0632\u0645\u064a\u0627\u062a \u0639\u0628\u0631 \u062e\u0637 \u0632\u0645\u0646\u064a \u062a\u0627\u0631\u064a\u062e\u064a."
+      : "Read and watch OSIRIS as a large-screen cinematic bilingual experience.";
+    const canonicalUrl = "https://osirisnovel.online/play?scene=" + encodeURIComponent(currentSceneId);
+
+    document.title = title;
+    setMeta('meta[name="description"]', "content", description);
+    setMeta('meta[property="og:title"]', "content", title);
+    setMeta('meta[property="og:description"]', "content", description);
+    setMeta('meta[property="og:url"]', "content", canonicalUrl);
+    setMeta('meta[name="twitter:title"]', "content", title);
+    setMeta('meta[name="twitter:description"]', "content", description);
+    setMeta('link[rel="canonical"]', "href", canonicalUrl);
+  }, [currentScene, currentSceneId, lang]);
+  useEffect(() => {
     if (!currentScene) return;
     const part = currentScene.part;
     const color =
@@ -930,6 +1074,13 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
     ? CHARACTER_MAP[preferredCharacterKey]
     : CHARACTER_MAP['Narrator'];
 
+
+  useEffect(() => {
+    setShowCharacter(false);
+    const characterTimer = setTimeout(() => setShowCharacter(true), 300);
+    return () => clearTimeout(characterTimer);
+  }, [currentSceneId, dialogueIndex, preferredCharacterKey]);
+
   const tone = currentScene?.emotionalTone || 'dark';
 
   const accentColor = TONE_ACCENT[tone] || '#c9a96e';
@@ -965,7 +1116,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
     if (directUrl && directUrl.startsWith('/assets/')) {
       return directUrl;
     }
-    
+
     // Map character keys to direct asset keys for database lookup
     const charAssetKeyMap: Record<string, string> = {
       'narrator': 'character.narrator',
@@ -994,12 +1145,12 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
       'abu_abdullah': 'character.abu_abdullah',
       'dictator': 'character.dictator',
     };
-    
+
     // Get the character key from the current config
     const charKey = preferredCharacterKey || 'narrator';
     const normalizedCharKey = charKey.toLowerCase().replace(/[^a-z0-9_]/g, '');
     const assetKey = charAssetKeyMap[normalizedCharKey];
-    
+
     if (!assetKey) {
       console.warn('[Character] No asset key mapping for character:', charKey);
       return undefined;
@@ -1112,6 +1263,11 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
 
   // Solid Play/Pause Control - affects all media (audio + video) and pauses at current point
   const handlePlayPause = useCallback(() => {
+    if (!isPlaying && !audioEnabled) {
+      enableAudio();
+      return;
+    }
+
     const newPlaying = !isPlaying;
     setIsPlaying(newPlaying);
 
@@ -1174,7 +1330,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
         voiceRef.current.pause();
       }
     }
-  }, [isPlaying, globalPlay, globalPause]);
+  }, [isPlaying, audioEnabled, enableAudio, globalPlay, globalPause]);
 
   const handleToggleMute = useCallback(() => {
     const newMuted = !isMuted;
@@ -1311,7 +1467,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
       clearTimeout(typewriterRef.current);
       typewriterRef.current = null;
     }
-    
+
     // Reset typing states immediately
     setIsTyping(false);
     setIsDialogueComplete(true);
@@ -1459,19 +1615,19 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
   const handleShareNative = useCallback(() => {
     const url = getShareUrl();
     if (!url) return;
-    
+
     // Get current scene info for better sharing
     const sceneTitle = currentScene?.arabicTitle || currentScene?.title || 'OSIRIS';
     const scenePart = currentScene?.part !== undefined ? `Part ${currentScene.part}` : '';
-    
-    const title = lang === 'ar' 
-      ? `OSIRIS — ${sceneTitle}` 
-      : `OSIRIS — ${currentScene?.title || 'Interactive Novel'}`;
-    
-    const text = lang === 'ar' 
+
+    const title = lang === 'ar'
+      ? `OSIRIS - ${sceneTitle}`
+      : `OSIRIS - ${currentScene?.title || 'Interactive Novel'}`;
+
+    const text = lang === 'ar'
       ? `أنا أقرأ "المفسدون في الأرض" - ${sceneTitle} ${scenePart}. انضم إليّ في هذه التجربة السينمائية.`
       : `I'm reading "OSIRIS - The Corruptors on Earth" - ${currentScene?.title || 'Interactive Novel'} ${scenePart}. Join me in this cinematic experience.`;
-    
+
     const nav: any = navigator as any;
     if (nav?.share) {
       nav.share({ title, text, url }).catch(() => {});
@@ -1481,21 +1637,21 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
   const handleShareTo = useCallback((target: 'whatsapp' | 'telegram' | 'facebook' | 'x' | 'email') => {
     const url = getShareUrl();
     if (!url) return;
-    
+
     // Get current scene info for better sharing
     const sceneTitle = currentScene?.arabicTitle || currentScene?.title || 'OSIRIS';
     const scenePart = currentScene?.part !== undefined ? `Part ${currentScene.part}` : '';
-    
-    const title = lang === 'ar' 
-      ? `OSIRIS — ${sceneTitle}` 
-      : `OSIRIS — ${currentScene?.title || 'Interactive Novel'}`;
-    
-    const text = lang === 'ar' 
+
+    const title = lang === 'ar'
+      ? `OSIRIS - ${sceneTitle}`
+      : `OSIRIS - ${currentScene?.title || 'Interactive Novel'}`;
+
+    const text = lang === 'ar'
       ? `أنا أقرأ "المفسدون في الأرض" - ${sceneTitle} ${scenePart}. انضم إليّ في هذه التجربة السينمائية.`
       : `I'm reading "OSIRIS - The Corruptors on Earth" - ${currentScene?.title || 'Interactive Novel'} ${scenePart}. Join me in this cinematic experience.`;
-    
+
     const shareUrl = encodeURIComponent(url);
-    const shareText = encodeURIComponent(`${text} — ${title}`);
+    const shareText = encodeURIComponent(`${text} - ${title}`);
     const open = (href: string) => window.open(href, '_blank', 'noopener,noreferrer');
 
     if (target === 'whatsapp') return open(`https://wa.me/?text=${shareText}%20${shareUrl}`);
@@ -1728,98 +1884,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
   }, [currentSceneId, dialogueIndex]);
 
 
-  // --- Music candidate normalization logic moved to render scope ---
-  const normalizedSceneCandidates = useMemo(() => {
-    const normalize = (url: string) => {
-      try {
-        return new URL(url, window.location.href).href;
-      } catch {
-        return url;
-      }
-    };
-
-    const sceneFallbackMusicUrl = resolveAsset(currentScene?.musicKey);
-    const sceneTrackCandidates = TRACK_URL_CANDIDATES[sceneTrackKey] ?? TRACK_URL_CANDIDATES.track01;
-    const desiredSceneCandidates = [...sceneTrackCandidates];
-    if (sceneFallbackMusicUrl && !desiredSceneCandidates.includes(sceneFallbackMusicUrl)) {
-      desiredSceneCandidates.push(sceneFallbackMusicUrl);
-    }
-    if (!desiredSceneCandidates.includes(getAsset('audio.main_theme'))) {
-      desiredSceneCandidates.push(getAsset('audio.main_theme'));
-    }
-    return desiredSceneCandidates.map((u) => normalize(u));
-  }, [currentScene?.musicKey, sceneTrackKey, resolveAsset]);
-
-  useEffect(() => {
-    if (!audioEnabled) return;
-    const shouldPlay = globalMediaState.isPlaying;
-    const desiredAmbientUrl = (currentScene?.ambientKeys ?? [])
-      .map(k => resolveAsset(k))
-      .find((u): u is string => typeof u === "string" && u.length > 0);
-
-    const fade = (
-      audio: HTMLAudioElement,
-      target: number,
-      ref: { current: number | null }
-    ) => {
-      const targetVolume = Math.min(1, Math.max(0, target));
-      const startVolume = audio.volume;
-      const durationMs = 1500;
-      const startAt = performance.now();
-      if (ref.current) cancelAnimationFrame(ref.current);
-
-      const tick = (now: number) => {
-        const t = Math.max(0, Math.min(1, (now - startAt) / durationMs));
-        const next = startVolume + (targetVolume - startVolume) * t;
-        audio.volume = Math.min(1, Math.max(0, next));
-        if (t < 1) {
-          ref.current = requestAnimationFrame(tick);
-        } else {
-          ref.current = null;
-        }
-      };
-
-      ref.current = requestAnimationFrame(tick);
-      if (shouldPlay && audio.paused) audio.play().catch(() => {});
-    };
-
-    setPrimaryAudioMuted(isMuted);
-    setPrimaryAudioSources(normalizedSceneCandidates || [], true);
-
-    if (desiredAmbientUrl) {
-      if (!ambientRef.current) {
-        ambientRef.current = new Audio(normalize(desiredAmbientUrl));
-        ambientRef.current.preload = 'metadata';
-        ambientRef.current.loop = true;
-        ambientRef.current.volume = isMuted ? 0 : 0;
-        if (shouldPlay) ambientRef.current.play().catch(() => {});
-        registerMedia(ambientRef.current);
-      } else {
-        const nextSrc = normalize(desiredAmbientUrl);
-        if (ambientRef.current.src !== nextSrc) {
-          ambientRef.current.pause();
-          ambientRef.current.src = nextSrc;
-          ambientRef.current.loop = true;
-          ambientRef.current.volume = 0;
-          if (shouldPlay) ambientRef.current.play().catch(() => {});
-        }
-      }
-    } else if (ambientRef.current) {
-      ambientRef.current.pause();
-      ambientRef.current.src = '';
-      ambientRef.current = null;
-    }
-
-    const baseMusic = isMuted ? 0 : bgVol;
-    const voiceMixFactor = voiceSyncLock ? 0.46 : 1;
-    setPrimaryAudioVolume(baseMusic * voiceMixFactor);
-
-    return () => {
-      if (ambientFadeRef.current) cancelAnimationFrame(ambientFadeRef.current);
-    };
-  }, [audioEnabled, globalMediaState.isPlaying, currentSceneId, currentScene?.musicKey, currentScene?.ambientKeys, isMuted, bgVol, resolveAsset, sceneTrackKey, voiceSyncLock, registerMedia, setPrimaryAudioMuted, setPrimaryAudioSources, setPrimaryAudioVolume, normalizedSceneCandidates]);
-
-  useEffect(() => {
+useEffect(() => {
     if (!audioEnabled || !globalMediaState.isPlaying || showChoices || !currentDialogue || !currentVoiceCue) {
       setVoiceSyncLock(false);
       setActiveVoiceNumber(null);
@@ -2002,7 +2067,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
 
   }, [audioEnabled, globalMediaState.isPlaying, showChoices, currentSceneId, dialogueIndex, currentDialogue, currentVoiceCue, isMuted, voiceVol, lang, registerMedia]);
 
-  // ── Multi-Track Audio System: Base (main theme) + Scene Overlay ─────────────────
+  // Multi-track audio system: base theme plus scene overlay
   useEffect(() => {
     if (!audioEnabled) return;
     const shouldPlay = isPlaying;
@@ -2024,7 +2089,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
     // Scene overlay track - changes per scene
     const sceneCandidates = TRACK_URL_CANDIDATES[sceneTrackKey] ?? TRACK_URL_CANDIDATES.track01;
     const sceneUrl = sceneCandidates[0];
-    // Devil Song should NOT loop — it has a finite narrative arc
+    // Devil Song should NOT loop - it has a finite narrative arc
     const shouldLoop = sceneTrackKey !== 'track15';
 
     if (!sceneTrackRef.current) {
@@ -2131,7 +2196,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
     };
   }, [audioEnabled, isPlaying, currentSceneId, sceneTrackKey, isMuted, bgVol, sceneVol, sfxVol, resolveAsset, registerMedia]);
 
-  // ── Background video ─────────────────────────────────────────────────────────
+  // Background video
   useEffect(() => {
     const bgVideoSrc = resolveAsset(currentScene?.backgroundVideo);
     if (!allowVideo) {
@@ -2159,7 +2224,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
     return registerMedia(v);
   }, [currentSceneId, registerMedia, videoReady]);
 
-  // ── Cleanup on unmount ───────────────────────────────────────────────────────
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (voiceSyncRafRef.current) cancelAnimationFrame(voiceSyncRafRef.current);
@@ -2178,7 +2243,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
 
   }, []);
 
-  // ─── Scene not found ──────────────────────────────────────────────────────────
+  // Scene not found
   if (!currentScene) {
     return (
       <div className="w-screen h-dvh bg-black flex items-center justify-center">
@@ -2188,7 +2253,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
             onClick={() => goToScene('zero-1-1-summons')}
             className="px-6 py-3 bg-amber-600 rounded-lg hover:bg-amber-500 transition-colors font-mono"
           >
-            ← Return to Beginning
+            ↝? Return to Beginning
           </button>
         </div>
       </div>
@@ -2256,7 +2321,6 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
         fx={{ flash: fxFlash, shake: fxShake, uiPulse }}
       />
       <OsirisEffectLayer effectId={osirisEffectId} allowVideo={allowVideo} />
-        <GlobalMediaLayer primaryAudioSources={normalizedSceneCandidates} />
       {activeVoiceNumber && (
         <motion.div
           className="absolute top-6 right-6 z-30 px-3 py-2 rounded-lg border"
@@ -2284,7 +2348,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
       )}
 
 
-      {/* ── AMBIENT PARTICLES ── */}
+      {/* Ambient particles */}
       {activeImageCue && (
         <AnimatePresence mode="wait">
           <motion.img
@@ -2306,7 +2370,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
         </AnimatePresence>
       )}
 
-      {/* ── DIALOGUE-TRIGGERED VISUAL EFFECT OVERLAY ── */}
+      {/* Dialogue-triggered visual effect overlay */}
       {activeVisualEffect && (
         <AnimatePresence mode="wait">
           <motion.video
@@ -2336,7 +2400,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
               zIndex: 15,
               objectPosition: activeVisualEffect.position === 'corner' ? 'bottom right' : 'center',
               filter: activeVisualEffect.id.includes('osiris') || activeVisualEffect.id.includes('hologram') || activeVisualEffect.id.includes('falcon')
-                ? 'blur(8px) brightness(1.2) saturate(1.3)' 
+                ? 'blur(8px) brightness(1.2) saturate(1.3)'
                 : 'none',
               transform: activeVisualEffect.id.includes('osiris') || activeVisualEffect.id.includes('hologram') || activeVisualEffect.id.includes('falcon')
                 ? 'scale(1.15)'
@@ -2395,7 +2459,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
 
       <Particles tone={tone} />
 
-      {/* ── SCENE TRANSITION OVERLAY ── */}
+      {/* Scene transition overlay */}
       <AnimatePresence>
         {sceneTransitioning && (
           <motion.div
@@ -2487,7 +2551,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
       )}
 
 
-      {/* ── PART LABEL (bottom of top bar) ── */}
+      {/* Part label below the top bar */}
       <motion.div
         key={currentSceneId + '-part'}
         initial={{ opacity: 0 }}
@@ -2511,12 +2575,12 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
         )}
       </motion.div>
 
-      {/* ── CHARACTER PORTRAIT ── */}
+      {/* Character portrait */}
       <AnimatePresence mode="wait">
         {showCharacter && resolvedCharImageUrl && preferredCharacterKey !== 'Narrator' && (
           <motion.div
             key={dialogueCharacterKey + '-portrait-' + dialogueIndex}
-            className={`absolute bottom-[48%] sm:bottom-[25%] md:bottom-[22%] ${currentCharConfig.position === 'left' ? 'left-1 sm:left-4 md:left-6 lg:left-12' : 'right-1 sm:right-4 md:right-6 lg:right-12'} z-10 pointer-events-none`}
+            className={`${styles.characterPortraitPosition} ${currentCharConfig.position === 'left' ? styles.characterPortraitLeft : styles.characterPortraitRight}`}
             initial={{ opacity: 0, y: 40, scale: 0.88 }}
             animate={{ opacity: 0.85, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 25, scale: 0.92 }}
@@ -2536,9 +2600,9 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
                   '--portrait-border': `1px solid ${currentCharConfig.color}20`,
                   '--portrait-filter': 'brightness(0.9) contrast(1.02)'
                 } as React.CSSProperties}
-                onError={(e) => { 
+                onError={(e) => {
                   console.warn('[Character] Failed to load image:', resolvedCharImageUrl);
-                  (e.target as HTMLImageElement).style.display = 'none'; 
+                  (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
               <div
@@ -2553,15 +2617,15 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
                   color: currentCharConfig.color,
                 }}
               >
-                {currentCharConfig.arabicName}
+                {lang === 'ar' ? currentCharConfig.arabicName : currentCharConfig.name}
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ── MAIN DIALOGUE AREA ── */}
-      <div className="absolute bottom-4 sm:bottom-8 md:bottom-12 left-0 right-0 z-20 px-2 sm:px-4 md:px-6 lg:px-10 pb-2 sm:pb-4 max-h-[45%] overflow-hidden">
+      {/* Main dialogue area */}
+      <div className={styles.dialogueSafeArea}>
         <AnimatePresence mode="wait">
           {!showChoices && currentDialogue && (
             <motion.div
@@ -2570,7 +2634,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.8 }}
-              className="max-w-4xl mx-auto"
+              className={styles.dialogueShell}
             >
               {/* Character Name Badge */}
               {currentDialogue.character && (
@@ -2788,7 +2852,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
                             '--dynamic-bg': autoMode === 'off' ? 'rgba(201,169,110,0.25)' : 'transparent',
                             '--dynamic-color': autoMode === 'off' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
                           } as React.CSSProperties}
-                        >{isArabic ? 'تلقائي إيقاف' : 'إيقاف تلقائي'}</button>
+                        >{isArabic ? 'تلقائي إيقاف' : 'AUTO OFF'}</button>
                         <button
                           onClick={() => setAutoMode('very-slow')}
                           className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
@@ -2796,7 +2860,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
                             '--dynamic-bg': autoMode === 'very-slow' ? 'rgba(201,169,110,0.25)' : 'transparent',
                             '--dynamic-color': autoMode === 'very-slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
                           } as React.CSSProperties}
-                        >{isArabic ? 'بطيء جدًا' : 'بطيء جدا'}</button>
+                        >{isArabic ? 'بطيء جدًا' : 'VERY SLOW'}</button>
                         <button
                           onClick={() => setAutoMode('slow')}
                           className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
@@ -2804,7 +2868,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
                             '--dynamic-bg': autoMode === 'slow' ? 'rgba(201,169,110,0.25)' : 'transparent',
                             '--dynamic-color': autoMode === 'slow' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
                           } as React.CSSProperties}
-                        >{isArabic ? 'بطيء' : 'بطيء'}</button>
+                        >{isArabic ? 'بطيء' : 'SLOW'}</button>
                         <button
                           onClick={() => setAutoMode('normal')}
                           className={`px-2 py-1 text-[8px] tracking-wider transition-all duration-200 ${isArabic ? 'font-arabic-ui' : 'font-mono'} ${styles.dynamicBg} ${styles.dynamicColor}`}
@@ -2812,18 +2876,18 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
                             '--dynamic-bg': autoMode === 'normal' ? 'rgba(201,169,110,0.25)' : 'transparent',
                             '--dynamic-color': autoMode === 'normal' ? '#c9a96e' : 'rgba(255,255,255,0.4)'
                           } as React.CSSProperties}
-                        >{isArabic ? 'عادي' : 'عادي'}</button>
+                        >{isArabic ? 'عادي' : 'NORMAL'}</button>
                       </div>
 
                       {/* Main Play/Pause Button - Always visible */}
                       <button
                         onClick={handlePlayPause}
                         className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all duration-200 ${isPlaying ? 'bg-amber-500/20 text-amber-300 hover:bg-amber-500/30' : 'bg-green-500/20 text-green-300 hover:bg-green-500/30'}`}
-                        title={isPlaying ? 'إيقاف' : 'تشغيل'}
+                        title={isPlaying ? (isArabic ? 'إيقاف' : 'Pause') : (isArabic ? 'تشغيل' : 'Play')}
                       >
                         <span className="text-sm">{isPlaying ? '⏸' : '▶'}</span>
-                        <span className="text-[10px] font-arabic-ui tracking-wider">
-                          {isPlaying ? 'إيقاف' : 'تشغيل'}
+                        <span className={`text-[10px] tracking-wider ${isArabic ? 'font-arabic-ui' : 'font-mono'}`}>
+                          {isPlaying ? (isArabic ? 'إيقاف' : 'PAUSE') : (isArabic ? 'تشغيل' : 'PLAY')}
                         </span>
                       </button>
 
@@ -2838,6 +2902,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
                         onVoiceChange={handleVoiceVol}
                         onSfxChange={handleSfxVol}
                         onToggleMute={handleToggleMute}
+                        lang={lang}
                       />
                     </div>
                   </div>
@@ -2847,7 +2912,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
           )}
         </AnimatePresence>
 
-        {/* ── CHOICES ── */}
+        {/* Choices */}
         <AnimatePresence>
           {showChoices && currentScene.choices && currentScene.choices.length > 0 && (
             <motion.div
@@ -2944,7 +3009,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
                         className={`text-base mx-1 flex-shrink-0 opacity-0 group-hover:opacity-70 transition-all duration-300 ${styles.dynamicCountdown} ${isArabic ? 'order-first' : ''}`}
                         style={{ '--countdown-color': accentColor } as React.CSSProperties}
                       >
-                        {isArabic ? '←' : '→'}
+                        {isArabic ? '↝?' : '→'}
                       </span>
                     </div>
                   </motion.button>
@@ -2964,7 +3029,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
           )}
         </AnimatePresence>
 
-        {/* ── END OF SCENE (no choices) — click to continue ── */}
+        {/* End of scene: click to continue */}
         <AnimatePresence>
           {isEndOfScene && (
             <motion.div
@@ -3130,7 +3195,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
         </AnimatePresence>
       </div>
 
-      {/* ── AUDIO STATUS INDICATOR ── */}
+      {/* Audio status indicator */}
       {/* (Narration indicator removed; only music status remains) */}
       {audioEnabled && globalMediaState.isPlaying && !isMuted && (
         <motion.div
@@ -3159,7 +3224,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
         </motion.div>
       )}
 
-      {/* ── KEYBOARD HINT ── */}
+      {/* Keyboard hint */}
       {audioEnabled && !showAudioPrompt && (
         <motion.div
           initial={{ opacity: 0 }}

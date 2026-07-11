@@ -277,6 +277,7 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
     const a = primaryAudioRef.current;
     if (a) a.muted = muted;
     setState((prev) => {
+      if (prev.isMuted === muted) return prev;
       const next = { ...prev, isMuted: muted };
       persist(next);
       return next;
@@ -288,6 +289,7 @@ export function MediaControllerProvider({ children }: { children: React.ReactNod
     const a = primaryAudioRef.current;
     if (a) a.volume = v;
     setState((prev) => {
+      if (prev.primaryVolume === v) return prev;
       const next = { ...prev, primaryVolume: v };
       persist(next);
       return next;

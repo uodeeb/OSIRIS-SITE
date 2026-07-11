@@ -1,11 +1,12 @@
 /**
  * Character Asset Verification Script
- * 
+ *
  * This script verifies that the character asset fix worked correctly
  * and tests the loading system.
  */
 
 import { getAssetUrl, getAssetsByKind, getAllAssets } from './assetUrls';
+import { debugLogger } from './debugLogger';
 
 interface VerificationResult {
   characterKey: string;
@@ -19,7 +20,7 @@ export class CharacterAssetVerification {
   private static readonly CHARACTER_KEYS = [
     'character.narrator',
     'character.yahya',
-    'character.yahya_breakdown', 
+    'character.yahya_breakdown',
     'character.yahya_confront',
     'character.laila',
     'character.laila_faith',
@@ -45,8 +46,8 @@ export class CharacterAssetVerification {
    * Verify all character assets load correctly after database fix
    */
   static async verifyAllCharacters(): Promise<VerificationResult[]> {
-    console.log('[CharacterVerification] 🔍 Verifying character assets after database fix...');
-    
+    debugLogger.log('[CharacterVerification] 🔍 Verifying character assets after database fix...');
+
     const results: VerificationResult[] = [];
     
     for (const characterKey of this.CHARACTER_KEYS) {
@@ -69,10 +70,10 @@ export class CharacterAssetVerification {
           fileAccessible
         });
         
-        console.log(`[CharacterVerification] ✅ ${characterKey}`);
-        console.log(`    URL: ${url}`);
-        console.log(`    Accessible: ${fileAccessible ? 'Yes' : 'No'}`);
-        
+        debugLogger.log(`[CharacterVerification] ✅ ${characterKey}`);
+        debugLogger.log(`    URL: ${url}`);
+        debugLogger.log(`    Accessible: ${fileAccessible ? 'Yes' : 'No'}`);
+
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         results.push({
@@ -81,8 +82,8 @@ export class CharacterAssetVerification {
           error: errorMessage,
           fileAccessible: false
         });
-        
-        console.log(`[CharacterVerification] ❌ ${characterKey}: ${errorMessage}`);
+
+        debugLogger.error(`[CharacterVerification] ❌ ${characterKey}: ${errorMessage}`);
       }
     }
     

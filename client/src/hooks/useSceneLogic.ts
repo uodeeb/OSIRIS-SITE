@@ -145,6 +145,8 @@ export function useSceneLogic(options: SceneLogicOptions = {}): UseSceneLogicRet
   const goToScene = useCallback(
     (sceneId: string, opts?: { recordHistory?: boolean }) => {
       if (!ALL_SCENES[sceneId]) return;
+      // Prevent duplicate transitions
+      if (store.sceneTransitioning) return;
 
       // Record history if enabled and scene is changing
       if (opts?.recordHistory !== false && sceneId !== store.currentSceneId) {
@@ -178,9 +180,9 @@ export function useSceneLogic(options: SceneLogicOptions = {}): UseSceneLogicRet
 
         // Show character after delay
         setTimeout(() => store.setShowCharacter(true), 600);
-      }, 1800);
+      }, 800); // Reduced from 1800ms to 800ms
     },
-    [store.currentSceneId]
+    [store.currentSceneId, store.sceneTransitioning]
   );
 
   const handleBackScene = useCallback(() => {
@@ -334,8 +336,8 @@ export function useSceneLogic(options: SceneLogicOptions = {}): UseSceneLogicRet
 
   // Auto-mode effect
   useEffect(() => {
-    // Exit if auto-mode off or scene transitioning or voice locked
-    if (store.autoMode === 'off' || store.sceneTransitioning || store.voiceSyncLock) {
+    // Exit if auto-mode off or voice locked (allow sceneTransitioning to not block completely)
+    if (store.autoMode === 'off' || store.voiceSyncLock) {
       // Only cleanup if not already cleaned up
       if (!autoCleanupRef.current) {
         if (autoSceneTimerRef.current) {

@@ -1,0 +1,722 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-11T01:49:51.901Z",
+  "authorities": {
+    "arabicAuthority": "script/OSIRIS_Final_Interactive_Script.md",
+    "englishAuthority": "git:a232e22^:client/src/lib/sceneSystem.ts",
+    "policy": "Never copy Arabic into English fields. Reconcile by stable scene identity and retain field-level provenance."
+  },
+  "summary": {
+    "arabicMasterScenes": 35,
+    "historicalRecoveredScenes": 31,
+    "matchedByTitle": 18,
+    "matchedByPartialTitle": 6,
+    "matchedByManualAlias": 7,
+    "missingHistoricalEnglish": 4,
+    "unmatchedHistoricalScenes": 0
+  },
+  "missingArabicScenes": [
+    {
+      "status": "missing-historical-english",
+      "arabicScene": {
+        "number": "5.1",
+        "titleAr": "مرآة النيل",
+        "normalizedTitleAr": "مراه النيل"
+      },
+      "historicalScene": null
+    },
+    {
+      "status": "missing-historical-english",
+      "arabicScene": {
+        "number": "5.2",
+        "titleAr": "إعلان الألوهية",
+        "normalizedTitleAr": "اعلان الالوهيه"
+      },
+      "historicalScene": null
+    },
+    {
+      "status": "missing-historical-english",
+      "arabicScene": {
+        "number": "17.1",
+        "titleAr": "وثائق فيسبوك المسرّبة",
+        "normalizedTitleAr": "وثائق فيسبوك المسربه"
+      },
+      "historicalScene": null
+    },
+    {
+      "status": "missing-historical-english",
+      "arabicScene": {
+        "number": "21.1",
+        "titleAr": "استعراض سريع لشهود الدفاع",
+        "normalizedTitleAr": "استعراض سريع لشهود الدفاع"
+      },
+      "historicalScene": null
+    }
+  ],
+  "unmatchedHistoricalScenes": [],
+  "mappings": [
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "1.1",
+        "titleAr": "الاستدعاء",
+        "normalizedTitleAr": "الاستدعاء"
+      },
+      "historicalScene": {
+        "id": "zero-1-1-summons",
+        "commentScene": "1.1",
+        "titleEn": "The Summons",
+        "titleAr": "الاستدعاء",
+        "part": 0,
+        "dialogueLines": 11,
+        "arabicDialogueLines": 11,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "الاستدعاء"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "1.2",
+        "titleAr": "المرافعة الافتتاحية",
+        "normalizedTitleAr": "المرافعه الافتتاحيه"
+      },
+      "historicalScene": {
+        "id": "zero-1-2-prosecution",
+        "commentScene": "1.2",
+        "titleEn": "The Opening Argument",
+        "titleAr": "المرافعة الافتتاحية",
+        "part": 0,
+        "dialogueLines": 16,
+        "arabicDialogueLines": 16,
+        "choices": 2,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "المرافعه الافتتاحيه"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "2.1",
+        "titleAr": "الوعد الكاذب",
+        "normalizedTitleAr": "الوعد الكاذب"
+      },
+      "historicalScene": {
+        "id": "one-1-5-1-promise",
+        "commentScene": "1.5.1",
+        "titleEn": "The False Promise",
+        "titleAr": "الوعد الكاذب",
+        "part": 1,
+        "dialogueLines": 7,
+        "arabicDialogueLines": 7,
+        "choices": 1,
+        "defaultNextScene": "one-1-5-2-bitter-truth",
+        "normalizedTitleAr": "الوعد الكاذب"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "2.2",
+        "titleAr": "الحقيقة المرة",
+        "normalizedTitleAr": "الحقيقه المره"
+      },
+      "historicalScene": {
+        "id": "one-1-5-2-bitter-truth",
+        "commentScene": "1.5.2",
+        "titleEn": "The Bitter Truth",
+        "titleAr": "الحقيقة المرة",
+        "part": 1,
+        "dialogueLines": 7,
+        "arabicDialogueLines": 7,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "الحقيقه المره"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "2.3",
+        "titleAr": "لا مفر",
+        "normalizedTitleAr": "لا مفر"
+      },
+      "historicalScene": {
+        "id": "one-1-5-3-no-escape",
+        "commentScene": "1.5.3",
+        "titleEn": "No Escape",
+        "titleAr": "لا مفر",
+        "part": 1,
+        "dialogueLines": 5,
+        "arabicDialogueLines": 5,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "لا مفر"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "2.4",
+        "titleAr": "التضحية الأخيرة",
+        "normalizedTitleAr": "التضحيه الاخيره"
+      },
+      "historicalScene": {
+        "id": "one-1-5-4-sacrifice",
+        "commentScene": "1.5.4",
+        "titleEn": "The Final Sacrifice",
+        "titleAr": "التضحية الأخيرة",
+        "part": 1,
+        "dialogueLines": 7,
+        "arabicDialogueLines": 7,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "التضحيه الاخيره"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "3.1",
+        "titleAr": "الهروب واللقاء",
+        "normalizedTitleAr": "الهروب واللقاء"
+      },
+      "historicalScene": {
+        "id": "two-2-1-escape",
+        "commentScene": "2.1",
+        "titleEn": "Escape and Meeting",
+        "titleAr": "الهروب واللقاء",
+        "part": 1,
+        "dialogueLines": 10,
+        "arabicDialogueLines": 10,
+        "choices": 2,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "الهروب واللقاء"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "3.2",
+        "titleAr": "تشغيل أوزيريس",
+        "normalizedTitleAr": "تشغيل اوزيريس"
+      },
+      "historicalScene": {
+        "id": "two-2-2-osiris-launch",
+        "commentScene": "2.2",
+        "titleEn": "Launching OSIRIS",
+        "titleAr": "تشغيل أوزيريس",
+        "part": 1,
+        "dialogueLines": 7,
+        "arabicDialogueLines": 7,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "تشغيل اوزيريس"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "4.1",
+        "titleAr": "لحظة الخلق والرفض",
+        "normalizedTitleAr": "لحظه الخلق والرفض"
+      },
+      "historicalScene": {
+        "id": "three-3-1-creation",
+        "commentScene": "3.1",
+        "titleEn": "The Moment of Creation and Refusal",
+        "titleAr": "لحظة الخلق والرفض",
+        "part": 1,
+        "dialogueLines": 10,
+        "arabicDialogueLines": 10,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "لحظه الخلق والرفض"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "4.2",
+        "titleAr": "تصميم الفيروس",
+        "normalizedTitleAr": "تصميم الفيروس"
+      },
+      "historicalScene": {
+        "id": "three-3-2-virus-design",
+        "commentScene": "3.2",
+        "titleEn": "Designing the Virus",
+        "titleAr": "تصميم الفيروس",
+        "part": 1,
+        "dialogueLines": 11,
+        "arabicDialogueLines": 11,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "تصميم الفيروس"
+      }
+    },
+    {
+      "status": "missing-historical-english",
+      "arabicScene": {
+        "number": "5.1",
+        "titleAr": "مرآة النيل",
+        "normalizedTitleAr": "مراه النيل"
+      },
+      "historicalScene": null
+    },
+    {
+      "status": "missing-historical-english",
+      "arabicScene": {
+        "number": "5.2",
+        "titleAr": "إعلان الألوهية",
+        "normalizedTitleAr": "اعلان الالوهيه"
+      },
+      "historicalScene": null
+    },
+    {
+      "status": "matched-manual-title-alias",
+      "aliasReason": "Renamed from desert void to Samiri crowd psychology scene.",
+      "arabicScene": {
+        "number": "6.1",
+        "titleAr": "نشوة النجاة وقلق الفراغ",
+        "normalizedTitleAr": "نشوه النجاه وقلق الفراغ"
+      },
+      "historicalScene": {
+        "id": "four-4-1-desert",
+        "commentScene": "4.1",
+        "titleEn": "The Void of the Desert",
+        "titleAr": "فراغ الصحراء",
+        "part": 2,
+        "dialogueLines": 7,
+        "arabicDialogueLines": 7,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "فراغ الصحراء"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "6.2",
+        "titleAr": "هندسة الحشود",
+        "normalizedTitleAr": "هندسه الحشود"
+      },
+      "historicalScene": {
+        "id": "four-4-2-crowd-engineering",
+        "commentScene": "4.2",
+        "titleEn": "Engineering the Crowds",
+        "titleAr": "هندسة الحشود",
+        "part": 2,
+        "dialogueLines": 6,
+        "arabicDialogueLines": 6,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "هندسه الحشود"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "7.1",
+        "titleAr": "رسالة من الماضي",
+        "normalizedTitleAr": "رساله من الماضي"
+      },
+      "historicalScene": {
+        "id": "four-5-1-tarek-message",
+        "commentScene": "5.1",
+        "titleEn": "A Message from the Past",
+        "titleAr": "رسالة من الماضي",
+        "part": 2,
+        "dialogueLines": 6,
+        "arabicDialogueLines": 6,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "رساله من الماضي"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "7.2",
+        "titleAr": "دموع المحلل",
+        "normalizedTitleAr": "دموع المحلل"
+      },
+      "historicalScene": {
+        "id": "four-5-2-analyst-tears",
+        "commentScene": "5.2",
+        "titleEn": "The Tears of the Analyst",
+        "titleAr": "دموع المحلل",
+        "part": 2,
+        "dialogueLines": 8,
+        "arabicDialogueLines": 8,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "دموع المحلل"
+      }
+    },
+    {
+      "status": "matched-partial-title",
+      "arabicScene": {
+        "number": "8.1",
+        "titleAr": "لاهوت معقد، لا نوايا سيئة",
+        "normalizedTitleAr": "لاهوت معقد، لا نوايا سيئه"
+      },
+      "historicalScene": {
+        "id": "five-6a-1-nicaea-debate",
+        "commentScene": "6أ.1",
+        "titleEn": "Before the Council: Complex Theology, No Evil Intent",
+        "titleAr": "قبل المجمع: لاهوت معقد، لا نوايا سيئة",
+        "part": 3,
+        "dialogueLines": 8,
+        "arabicDialogueLines": 8,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "قبل المجمع: لاهوت معقد، لا نوايا سيئه"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "9.1",
+        "titleAr": "الإمبراطور والحكيم",
+        "normalizedTitleAr": "الامبراطور والحكيم"
+      },
+      "historicalScene": {
+        "id": "five-6b-1-constantine",
+        "commentScene": "6ب.1",
+        "titleEn": "The Emperor and the Sage",
+        "titleAr": "الإمبراطور والحكيم",
+        "part": 3,
+        "dialogueLines": 9,
+        "arabicDialogueLines": 9,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "الامبراطور والحكيم"
+      }
+    },
+    {
+      "status": "matched-partial-title",
+      "arabicScene": {
+        "number": "10.1",
+        "titleAr": "ألم ليلى",
+        "normalizedTitleAr": "الم ليلي"
+      },
+      "historicalScene": {
+        "id": "five-6c-1-laila-pain",
+        "commentScene": "6ج.1",
+        "titleEn": "The Price — Laila's Pain",
+        "titleAr": "الثمن — ألم ليلى",
+        "part": 3,
+        "dialogueLines": 7,
+        "arabicDialogueLines": 7,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "الثمن — الم ليلي"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "10.2",
+        "titleAr": "رسالة طارق الثانية",
+        "normalizedTitleAr": "رساله طارق الثانيه"
+      },
+      "historicalScene": {
+        "id": "five-6c-2-tarek-second",
+        "commentScene": "6ج.2",
+        "titleEn": "Tarek's Second Message",
+        "titleAr": "رسالة طارق الثانية",
+        "part": 3,
+        "dialogueLines": 6,
+        "arabicDialogueLines": 6,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "رساله طارق الثانيه"
+      }
+    },
+    {
+      "status": "matched-manual-title-alias",
+      "aliasReason": "Renamed from Andalusia betrayal title to kings of taifas title.",
+      "arabicScene": {
+        "number": "11.1",
+        "titleAr": "ملوك الطوائف (أنا خير من أخي)",
+        "normalizedTitleAr": "ملوك الطوائف (انا خير من اخي)"
+      },
+      "historicalScene": {
+        "id": "six-8-1-andalusia",
+        "commentScene": "8.1",
+        "titleEn": "The Lost Andalusia — Betrayal of Brothers",
+        "titleAr": "الأندلس الضائعة — خيانة الإخوة",
+        "part": 4,
+        "dialogueLines": 6,
+        "arabicDialogueLines": 6,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "الاندلس الضائعه — خيانه الاخوه"
+      }
+    },
+    {
+      "status": "matched-manual-title-alias",
+      "aliasReason": "Renamed from last tears to last sigh of the last Arab.",
+      "arabicScene": {
+        "number": "12.1",
+        "titleAr": "زفرة العربي الأخيرة",
+        "normalizedTitleAr": "زفره العربي الاخيره"
+      },
+      "historicalScene": {
+        "id": "six-8-2-last-tears",
+        "commentScene": "8.2",
+        "titleEn": "Tears That Do Not Help",
+        "titleAr": "دموع لا تنفع",
+        "part": 4,
+        "dialogueLines": 6,
+        "arabicDialogueLines": 6,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "دموع لا تنفع"
+      }
+    },
+    {
+      "status": "matched-manual-title-alias",
+      "aliasReason": "Renamed from supreme race illusion to Hitler mirror scene.",
+      "arabicScene": {
+        "number": "13.1",
+        "titleAr": "هتلر أمام المرآة",
+        "normalizedTitleAr": "هتلر امام المراه"
+      },
+      "historicalScene": {
+        "id": "six-8b-1-berlin",
+        "commentScene": "8ب.1",
+        "titleEn": "The Illusion of the Supreme Race",
+        "titleAr": "وهم العرق الأسمى",
+        "part": 4,
+        "dialogueLines": 6,
+        "arabicDialogueLines": 6,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "وهم العرق الاسمي"
+      }
+    },
+    {
+      "status": "matched-manual-title-alias",
+      "aliasReason": "Renamed from signing death orders to bureaucracy of killing.",
+      "arabicScene": {
+        "number": "14.1",
+        "titleAr": "بيروقراطية القتل",
+        "normalizedTitleAr": "بيروقراطيه القتل"
+      },
+      "historicalScene": {
+        "id": "six-8c-1-death-signatures",
+        "commentScene": "8ج.1",
+        "titleEn": "Signing Death Orders",
+        "titleAr": "التوقيع على الموت",
+        "part": 4,
+        "dialogueLines": 7,
+        "arabicDialogueLines": 7,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "التوقيع علي الموت"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "15.1",
+        "titleAr": "اختراق المخبأ",
+        "normalizedTitleAr": "اختراق المخبا"
+      },
+      "historicalScene": {
+        "id": "six-8d-1-attack",
+        "commentScene": "8د.1",
+        "titleEn": "Breaching the Hideout",
+        "titleAr": "اختراق المخبأ",
+        "part": 4,
+        "dialogueLines": 8,
+        "arabicDialogueLines": 8,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "اختراق المخبا"
+      }
+    },
+    {
+      "status": "matched-partial-title",
+      "arabicScene": {
+        "number": "15.2",
+        "titleAr": "التحديث النهائي (إصابة يحيى والهروب)",
+        "normalizedTitleAr": "التحديث النهائي (اصابه يحيي والهروب)"
+      },
+      "historicalScene": {
+        "id": "six-8d-2-final-update",
+        "commentScene": "8د.2",
+        "titleEn": "The Final Update",
+        "titleAr": "التحديث النهائي",
+        "part": 4,
+        "dialogueLines": 8,
+        "arabicDialogueLines": 8,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "التحديث النهائي"
+      }
+    },
+    {
+      "status": "matched-manual-title-alias",
+      "aliasReason": "Transition dream scene title differs from master scene title.",
+      "arabicScene": {
+        "number": "16.1",
+        "titleAr": "لقاء خارج الزمن",
+        "normalizedTitleAr": "لقاء خارج الزمن"
+      },
+      "historicalScene": {
+        "id": "transition-dream",
+        "commentScene": "الانتقالي",
+        "titleEn": "The Dream Before the Battle",
+        "titleAr": "الحلم قبل المعركة",
+        "part": 4,
+        "dialogueLines": 14,
+        "arabicDialogueLines": 14,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "الحلم قبل المعركه"
+      }
+    },
+    {
+      "status": "missing-historical-english",
+      "arabicScene": {
+        "number": "17.1",
+        "titleAr": "وثائق فيسبوك المسرّبة",
+        "normalizedTitleAr": "وثائق فيسبوك المسربه"
+      },
+      "historicalScene": null
+    },
+    {
+      "status": "matched-manual-title-alias",
+      "aliasReason": "Renamed from unarmed truth to Karbala antivirus scene.",
+      "arabicScene": {
+        "number": "18.1",
+        "titleAr": "كربلاء (مضاد الفيروسات)",
+        "normalizedTitleAr": "كربلاء (مضاد الفيروسات)"
+      },
+      "historicalScene": {
+        "id": "seven-10-1-karbala",
+        "commentScene": "10.1",
+        "titleEn": "The Unarmed Truth",
+        "titleAr": "الحق الأعزل",
+        "part": 5,
+        "dialogueLines": 8,
+        "arabicDialogueLines": 8,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "الحق الاعزل"
+      }
+    },
+    {
+      "status": "matched-partial-title",
+      "arabicScene": {
+        "number": "19.1",
+        "titleAr": "إغراء المهندس الأول",
+        "normalizedTitleAr": "اغراء المهندس الاول"
+      },
+      "historicalScene": {
+        "id": "seven-11-1-temptation",
+        "commentScene": "11.1",
+        "titleEn": "The Temptation of the Engineer",
+        "titleAr": "إغراء المهندس",
+        "part": 5,
+        "dialogueLines": 10,
+        "arabicDialogueLines": 10,
+        "choices": 2,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "اغراء المهندس"
+      }
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "19.2",
+        "titleAr": "قرار يحيى",
+        "normalizedTitleAr": "قرار يحيي"
+      },
+      "historicalScene": {
+        "id": "seven-11-2-decision",
+        "commentScene": "11.2",
+        "titleEn": "Yahya's Decision",
+        "titleAr": "قرار يحيى",
+        "part": 5,
+        "dialogueLines": 10,
+        "arabicDialogueLines": 10,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "قرار يحيي"
+      }
+    },
+    {
+      "status": "matched-partial-title",
+      "arabicScene": {
+        "number": "20.1",
+        "titleAr": "تسريب الحقيقة",
+        "normalizedTitleAr": "تسريب الحقيقه"
+      },
+      "historicalScene": {
+        "id": "seven-12-1-truth-leak",
+        "commentScene": "12.1",
+        "titleEn": "The Rosetta Stone of the Digital Age",
+        "titleAr": "حجر رشيد الرقمي — تسريب الحقيقة",
+        "part": 6,
+        "dialogueLines": 10,
+        "arabicDialogueLines": 10,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "حجر رشيد الرقمي — تسريب الحقيقه"
+      }
+    },
+    {
+      "status": "missing-historical-english",
+      "arabicScene": {
+        "number": "21.1",
+        "titleAr": "استعراض سريع لشهود الدفاع",
+        "normalizedTitleAr": "استعراض سريع لشهود الدفاع"
+      },
+      "historicalScene": null
+    },
+    {
+      "status": "matched-title",
+      "arabicScene": {
+        "number": "22.1",
+        "titleAr": "الاستيقاظ",
+        "normalizedTitleAr": "الاستيقاظ"
+      },
+      "historicalScene": {
+        "id": "seven-13-1-awakening",
+        "commentScene": "13.1",
+        "titleEn": "The Awakening",
+        "titleAr": "الاستيقاظ",
+        "part": 6,
+        "dialogueLines": 9,
+        "arabicDialogueLines": 9,
+        "choices": 1,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "الاستيقاظ"
+      }
+    },
+    {
+      "status": "matched-partial-title",
+      "arabicScene": {
+        "number": "22.2",
+        "titleAr": "إغلاق الملف مؤقتاً",
+        "normalizedTitleAr": "اغلاق الملف مؤقتا"
+      },
+      "historicalScene": {
+        "id": "seven-13-2-closing",
+        "commentScene": "13.2",
+        "titleEn": "Closing the File",
+        "titleAr": "إغلاق الملف",
+        "part": 6,
+        "dialogueLines": 12,
+        "arabicDialogueLines": 12,
+        "choices": 2,
+        "defaultNextScene": null,
+        "normalizedTitleAr": "اغلاق الملف"
+      }
+    }
+  ]
+}

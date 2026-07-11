@@ -486,14 +486,6 @@ export const PART_SEVEN: Record<string, Scene> = {
         duration: 5000
       }
     ],
-    choices: [
-      {
-        id: 'seven-13-2-credits',
-        text: 'Credits',
-        arabicText: 'خاتمة',
-        nextSceneId: 'credits',
-      },
-    ],
     transitionType: 'fade',
     transitionDuration: 5000,
     emotionalTone: 'hopeful',

@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { loadAssetManifest } from "@/lib/assets";
@@ -13,6 +13,76 @@ import { GlobalMediaLayer } from "@/components/GlobalMediaLayer";
 import { PlayerSkeleton, ModelSkeleton, PageSkeleton } from "@/components/LoadingSkeletons";
 import { useSmartPreloader } from "@/utils/preloading";
 import { usePerformanceMonitor } from "@/utils/performance";
+
+const EMPTY_PRIMARY_AUDIO_SOURCES: string[] = [];
+const SITE_URL = "https://osirisnovel.online";
+const AR_SITE_TITLE = "OSIRIS \u2014 \u0627\u0644\u0645\u0641\u0633\u062f\u0648\u0646 \u0641\u064a \u0627\u0644\u0623\u0631\u0636";
+const AR_SITE_DESCRIPTION = "OSIRIS \u2014 \u0631\u0648\u0627\u064a\u0629 \u062a\u0641\u0627\u0639\u0644\u064a\u0629 \u0633\u064a\u0646\u0645\u0627\u0626\u064a\u0629 \u0639\u0646 \u0627\u0644\u0648\u0639\u064a \u0648\u0627\u0644\u0641\u0633\u0627\u062f \u0648\u0627\u0644\u062e\u0648\u0627\u0631\u0632\u0645\u064a\u0627\u062a \u0639\u0628\u0631 \u062e\u0637 \u0632\u0645\u0646\u064a \u062a\u0627\u0631\u064a\u062e\u064a.";
+
+type SeoText = { title: string; description: string };
+
+const ROUTE_SEO: Record<string, { en: SeoText; ar: SeoText }> = {
+  "/": {
+    en: {
+      title: "OSIRIS \u2014 Interactive Cinematic Novel",
+      description: "A bilingual cinematic web novel about consciousness, corruption, history, and algorithms.",
+    },
+    ar: { title: AR_SITE_TITLE, description: AR_SITE_DESCRIPTION },
+  },
+  "/play": {
+    en: {
+      title: "Play OSIRIS \u2014 Cinematic Reader",
+      description: "Read and watch OSIRIS as a large-screen cinematic bilingual experience.",
+    },
+    ar: { title: AR_SITE_TITLE, description: AR_SITE_DESCRIPTION },
+  },
+  "/script": {
+    en: {
+      title: "OSIRIS Full Script",
+      description: "Browse the recovered bilingual OSIRIS script and launch the canonical cinematic player.",
+    },
+    ar: { title: AR_SITE_TITLE, description: AR_SITE_DESCRIPTION },
+  },
+  "/model": {
+    en: {
+      title: "OSIRIS AI Model",
+      description: "Explore the OSIRIS multimodal narrative model and cinematic generation system.",
+    },
+    ar: { title: AR_SITE_TITLE, description: AR_SITE_DESCRIPTION },
+  },
+  "/404": {
+    en: {
+      title: "Page not found \u2014 OSIRIS",
+      description: "The requested OSIRIS page could not be found.",
+    },
+    ar: { title: AR_SITE_TITLE, description: AR_SITE_DESCRIPTION },
+  },
+};
+
+function setMeta(selector: string, attribute: "content" | "href", value: string) {
+  const element = document.head.querySelector(selector);
+  if (element) element.setAttribute(attribute, value);
+}
+
+function useRouteSeo(location: string, lang: "en" | "ar") {
+  useEffect(() => {
+    const path = window.location.pathname;
+    const routeKey = ROUTE_SEO[path] ? path : path.startsWith("/part-") ? "/script" : "/404";
+    const seo = ROUTE_SEO[routeKey][lang];
+    const scene = new URLSearchParams(window.location.search).get("scene");
+    const canonicalPath = path === "/play" && scene ? "/play?scene=" + encodeURIComponent(scene) : path;
+    const canonicalUrl = SITE_URL + (canonicalPath === "/" ? "/" : canonicalPath);
+
+    document.title = seo.title;
+    setMeta('meta[name="description"]', "content", seo.description);
+    setMeta('meta[property="og:title"]', "content", seo.title);
+    setMeta('meta[property="og:description"]', "content", seo.description);
+    setMeta('meta[property="og:url"]', "content", canonicalUrl);
+    setMeta('meta[name="twitter:title"]', "content", seo.title);
+    setMeta('meta[name="twitter:description"]', "content", seo.description);
+    setMeta('link[rel="canonical"]', "href", canonicalUrl);
+  }, [location, lang]);
+}
 
 // Lazy load heavy components for code splitting
 const MainPlayer = lazy(() => import("@/components/MainPlayer"));
@@ -118,6 +188,10 @@ function AppContent() {
   const preloader = useSmartPreloader();
   const performanceMonitor = usePerformanceMonitor();
   const isArabic = mediaState.uiLang === "ar";
+  const [location] = useLocation();
+  const showGlobalBackdrop = location !== "/play";
+
+  useRouteSeo(location, isArabic ? "ar" : "en");
 
   useEffect(() => {
     // Start performance monitoring
@@ -146,7 +220,7 @@ function AppContent() {
         <ThemeProvider defaultTheme="dark" switchable={false}>
           <TooltipProvider>
             <Toaster />
-            <GlobalMediaLayer primaryAudioSources={[]} />
+            <GlobalMediaLayer primaryAudioSources={EMPTY_PRIMARY_AUDIO_SOURCES} showBackdrop={showGlobalBackdrop} />
             <main id="main-content" tabIndex={-1} className="focus:outline-none">
               <Router />
             </main>

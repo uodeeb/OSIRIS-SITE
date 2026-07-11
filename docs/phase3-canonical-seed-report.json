@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-11T01:54:32.332Z",
+  "summary": {
+    "scenes": 35,
+    "pairedDialogueScenes": 31,
+    "needsLineAlignmentScenes": 4,
+    "dialogueLines": 249,
+    "validationIssues": 0
+  },
+  "needsLineAlignment": [
+    {
+      "id": "two-mirror-scene",
+      "sceneNumber": "5.1",
+      "title": {
+        "ar": "مرآة النيل",
+        "en": "The Mirror of the Nile",
+        "provenance": {
+          "ar": "script/OSIRIS_Final_Interactive_Script.md#scene-5.1.title",
+          "en": "client/src/data/narrativeData.json#two-mirror-scene.title"
+        }
+      },
+      "englishCandidateBlocks": 1
+    },
+    {
+      "id": "two-divine-declaration",
+      "sceneNumber": "5.2",
+      "title": {
+        "ar": "إعلان الألوهية",
+        "en": "The Declaration of Divinity",
+        "provenance": {
+          "ar": "script/OSIRIS_Final_Interactive_Script.md#scene-5.2.title",
+          "en": "client/src/data/narrativeData.json#two-divine-declaration.title"
+        }
+      },
+      "englishCandidateBlocks": 1
+    },
+    {
+      "id": "six-digital-intro",
+      "sceneNumber": "17.1",
+      "title": {
+        "ar": "وثائق فيسبوك المسرّبة",
+        "en": "The New Priesthood",
+        "provenance": {
+          "ar": "script/OSIRIS_Final_Interactive_Script.md#scene-17.1.title",
+          "en": "client/src/data/narrativeDataFull.json#six-digital-intro.title"
+        }
+      },
+      "englishCandidateBlocks": 2
+    },
+    {
+      "id": "seven-witnesses-intro",
+      "sceneNumber": "21.1",
+      "title": {
+        "ar": "استعراض سريع لشهود الدفاع",
+        "en": "The Witnesses Rise",
+        "provenance": {
+          "ar": "script/OSIRIS_Final_Interactive_Script.md#scene-21.1.title",
+          "en": "client/src/data/narrativeDataFull.json#seven-witnesses-intro.title"
+        }
+      },
+      "englishCandidateBlocks": 2
+    }
+  ],
+  "issues": []
+}

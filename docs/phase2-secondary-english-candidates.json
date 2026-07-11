@@ -1,0 +1,309 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-11T01:51:28.288Z",
+  "policy": "Secondary English candidates may recover English only. Arabic remains sourced from script/OSIRIS_Final_Interactive_Script.md.",
+  "summary": {
+    "missingScenes": 4,
+    "candidateRecords": 6,
+    "scenesWithCandidates": 4,
+    "scenesStillNeedingTranslation": 0
+  },
+  "grouped": [
+    {
+      "sceneNumber": "5.1",
+      "titleAr": "مرآة النيل",
+      "candidates": [
+        {
+          "sceneNumber": "5.1",
+          "sourceKey": "client/src/data/narrativeData.json#two-mirror-scene",
+          "confidence": "high",
+          "note": "Exact English title match for The Mirror of the Nile; Arabic in this source is mojibake, use Arabic master for Arabic.",
+          "arabicMasterScene": {
+            "number": "5.1",
+            "titleAr": "مرآة النيل",
+            "normalizedTitleAr": "مراه النيل"
+          },
+          "sourceScene": {
+            "sourcePath": "client/src/data/narrativeData.json",
+            "id": "two-mirror-scene",
+            "title": "The Mirror of the Nile",
+            "dialogueLineCount": 6,
+            "choiceCount": 1,
+            "dialogue": [
+              {
+                "character": "Narrator",
+                "text": "Ramses looks at his reflection.",
+                "duration": 2000
+              },
+              {
+                "character": "Narrator",
+                "text": "He sees a great king.",
+                "duration": 2000
+              },
+              {
+                "character": "Narrator",
+                "text": "But he asks his priest:",
+                "duration": 1500
+              },
+              {
+                "character": "Ramses",
+                "text": "'Why must I die?'",
+                "duration": 2500
+              },
+              {
+                "character": "Narrator",
+                "text": "The mysterious priest emerges from the shadows.",
+                "duration": 2500
+              },
+              {
+                "character": "Priest",
+                "text": "'Because they say there is a God above you'",
+                "duration": 3000
+              }
+            ],
+            "choices": [
+              {
+                "id": "two-divine",
+                "text": "Witness the Declaration",
+                "nextSceneId": "two-divine-declaration"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "sceneNumber": "5.2",
+      "titleAr": "إعلان الألوهية",
+      "candidates": [
+        {
+          "sceneNumber": "5.2",
+          "sourceKey": "client/src/data/narrativeData.json#two-divine-declaration",
+          "confidence": "high",
+          "note": "Exact English title match for The Declaration of Divinity; Arabic in this source is mojibake, use Arabic master for Arabic.",
+          "arabicMasterScene": {
+            "number": "5.2",
+            "titleAr": "إعلان الألوهية",
+            "normalizedTitleAr": "اعلان الالوهيه"
+          },
+          "sourceScene": {
+            "sourcePath": "client/src/data/narrativeData.json",
+            "id": "two-divine-declaration",
+            "title": "The Declaration of Divinity",
+            "dialogueLineCount": 5,
+            "choiceCount": 1,
+            "dialogue": [
+              {
+                "character": "Narrator",
+                "text": "On the walls of Abu Simbel, it is carved:",
+                "duration": 2500
+              },
+              {
+                "character": "Narrator",
+                "text": "'I am the God'",
+                "duration": 2500
+              },
+              {
+                "character": "Narrator",
+                "text": "Pharaoh declares his divinity.",
+                "duration": 2000
+              },
+              {
+                "character": "Narrator",
+                "text": "But on the other side of the Nile, a child is born.",
+                "duration": 2500
+              },
+              {
+                "character": "Narrator",
+                "text": "A child who will prove to history that the true God needs no walls to prove His existence.",
+                "duration": 4000
+              }
+            ],
+            "choices": [
+              {
+                "id": "two-moses",
+                "text": "The Confrontation Begins",
+                "nextSceneId": "two-moses-confrontation"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "sceneNumber": "17.1",
+      "titleAr": "وثائق فيسبوك المسرّبة",
+      "candidates": [
+        {
+          "sceneNumber": "17.1",
+          "sourceKey": "client/src/data/narrativeDataFull.json#six-digital-intro",
+          "confidence": "medium",
+          "note": "Contains Facebook/algorithm outrage summary, but scene title differs from Arabic master.",
+          "arabicMasterScene": {
+            "number": "17.1",
+            "titleAr": "وثائق فيسبوك المسرّبة",
+            "normalizedTitleAr": "وثائق فيسبوك المسربه"
+          },
+          "sourceScene": {
+            "sourcePath": "client/src/data/narrativeDataFull.json",
+            "id": "six-digital-intro",
+            "title": "The New Priesthood",
+            "dialogueLineCount": 1,
+            "choiceCount": 1,
+            "dialogue": [
+              {
+                "character": "Narrator",
+                "text": "Today, Iblis does not need temples. He needs algorithms. Engineers discovered that outrage spreads six times faster than truth. And they chose to feed it anyway. Because engagement means profit.",
+                "duration": 5000
+              }
+            ],
+            "choices": [
+              {
+                "id": "six-digital-continue",
+                "text": "Move to Part Seven: Defense Witnesses",
+                "nextSceneId": "seven-witnesses-intro"
+              }
+            ]
+          }
+        },
+        {
+          "sceneNumber": "17.1",
+          "sourceKey": "client/src/data/narrativeDataFull.json#six-algorithm-revealed",
+          "confidence": "medium",
+          "note": "Contains supporting algorithm/profit lines for the Facebook leak scene.",
+          "arabicMasterScene": {
+            "number": "17.1",
+            "titleAr": "وثائق فيسبوك المسرّبة",
+            "normalizedTitleAr": "وثائق فيسبوك المسربه"
+          },
+          "sourceScene": {
+            "sourcePath": "client/src/data/narrativeDataFull.json",
+            "id": "six-algorithm-revealed",
+            "title": "The Algorithm Revealed",
+            "dialogueLineCount": 2,
+            "choiceCount": 1,
+            "dialogue": [
+              {
+                "character": "Narrator",
+                "text": "The engineers knew. They discovered that anger spreads six times faster than truth. Outrage keeps people online. Outrage generates profit.",
+                "duration": 5000
+              },
+              {
+                "character": "Narrator",
+                "text": "They had a choice. They chose profit over humanity.",
+                "duration": 3000
+              }
+            ],
+            "choices": [
+              {
+                "id": "six-algorithm-end",
+                "text": "Move to the Witnesses",
+                "nextSceneId": "seven-witnesses-intro"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "sceneNumber": "21.1",
+      "titleAr": "استعراض سريع لشهود الدفاع",
+      "candidates": [
+        {
+          "sceneNumber": "21.1",
+          "sourceKey": "client/src/data/narrativeDataFull.json#seven-witnesses-intro",
+          "confidence": "medium",
+          "note": "Covers Abraham, Bilal, and Saladin defense witnesses; Arabic master also includes additional witnesses, so this is partial.",
+          "arabicMasterScene": {
+            "number": "21.1",
+            "titleAr": "استعراض سريع لشهود الدفاع",
+            "normalizedTitleAr": "استعراض سريع لشهود الدفاع"
+          },
+          "sourceScene": {
+            "sourcePath": "client/src/data/narrativeDataFull.json",
+            "id": "seven-witnesses-intro",
+            "title": "The Witnesses Rise",
+            "dialogueLineCount": 6,
+            "choiceCount": 1,
+            "dialogue": [
+              {
+                "character": "Narrator",
+                "text": "But Iblis was wrong about one thing. Humanity did not fall completely. Some stood. Some refused. And their names are written in eternity.",
+                "duration": 4000
+              },
+              {
+                "character": "Abraham",
+                "text": "I have turned my face to the One who created the heavens and the earth.",
+                "duration": 3000
+              },
+              {
+                "character": "Narrator",
+                "text": "Abraham stood alone. No army. No power. No influence. And that was enough.",
+                "duration": 3500
+              },
+              {
+                "character": "Bilal",
+                "text": "One... One...",
+                "duration": 2000
+              },
+              {
+                "character": "Narrator",
+                "text": "Bilal was enslaved. Tortured. Broken. Under the sun, with a stone on his chest. Pride could crush his body. But it could never crush his soul.",
+                "duration": 5000
+              },
+              {
+                "character": "Narrator",
+                "text": "Saladin conquered Jerusalem. He could have slaughtered them all. But he chose mercy. And history remembers him as the noble one.",
+                "duration": 4000
+              }
+            ],
+            "choices": [
+              {
+                "id": "seven-witnesses-verdict",
+                "text": "The Verdict",
+                "nextSceneId": "seven-verdict"
+              }
+            ]
+          }
+        },
+        {
+          "sceneNumber": "21.1",
+          "sourceKey": "client/src/data/narrativeDataFull.json#seven-scholars-of-baghdad",
+          "confidence": "medium",
+          "note": "Covers House of Wisdom scholars, matching part of the Arabic master defense witness review.",
+          "arabicMasterScene": {
+            "number": "21.1",
+            "titleAr": "استعراض سريع لشهود الدفاع",
+            "normalizedTitleAr": "استعراض سريع لشهود الدفاع"
+          },
+          "sourceScene": {
+            "sourcePath": "client/src/data/narrativeDataFull.json",
+            "id": "seven-scholars-of-baghdad",
+            "title": "The Scholars of Baghdad",
+            "dialogueLineCount": 2,
+            "choiceCount": 1,
+            "dialogue": [
+              {
+                "character": "Narrator",
+                "text": "In the House of Wisdom, scholars translated Greek knowledge. They added to it. They preserved it for humanity.",
+                "duration": 4000
+              },
+              {
+                "character": "Narrator",
+                "text": "They did not claim to be gods. They did not claim to be superior. They simply served knowledge. And knowledge served humanity.",
+                "duration": 4500
+              }
+            ],
+            "choices": [
+              {
+                "id": "seven-scholars-end",
+                "text": "The Final Verdict",
+                "nextSceneId": "seven-verdict"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

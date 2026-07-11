@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-11T01:47:20.403Z",
+  "decision": {
+    "arabicAuthority": "script/OSIRIS_Final_Interactive_Script.md",
+    "englishAuthority": "git:a232e22^:client/src/lib/sceneSystem.ts",
+    "policy": "Never copy Arabic into English fields. Reconcile by stable scene identity and retain field-level provenance."
+  },
+  "arabicMaster": {
+    "bytes": 93912,
+    "arabicCharacters": 38888,
+    "replacementCharacters": 0,
+    "mojibakePairs": 0,
+    "chapters": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
+    ],
+    "transitionChapters": 1,
+    "totalChapters": 22,
+    "sceneCount": 35,
+    "scenes": [
+      {
+        "number": "1.1",
+        "titleAr": "الاستدعاء"
+      },
+      {
+        "number": "1.2",
+        "titleAr": "المرافعة الافتتاحية"
+      },
+      {
+        "number": "2.1",
+        "titleAr": "الوعد الكاذب"
+      },
+      {
+        "number": "2.2",
+        "titleAr": "الحقيقة المرة"
+      },
+      {
+        "number": "2.3",
+        "titleAr": "لا مفر"
+      },
+      {
+        "number": "2.4",
+        "titleAr": "التضحية الأخيرة"
+      },
+      {
+        "number": "3.1",
+        "titleAr": "الهروب واللقاء"
+      },
+      {
+        "number": "3.2",
+        "titleAr": "تشغيل أوزيريس"
+      },
+      {
+        "number": "4.1",
+        "titleAr": "لحظة الخلق والرفض"
+      },
+      {
+        "number": "4.2",
+        "titleAr": "تصميم الفيروس"
+      },
+      {
+        "number": "5.1",
+        "titleAr": "مرآة النيل"
+      },
+      {
+        "number": "5.2",
+        "titleAr": "إعلان الألوهية"
+      },
+      {
+        "number": "6.1",
+        "titleAr": "نشوة النجاة وقلق الفراغ"
+      },
+      {
+        "number": "6.2",
+        "titleAr": "هندسة الحشود"
+      },
+      {
+        "number": "7.1",
+        "titleAr": "رسالة من الماضي"
+      },
+      {
+        "number": "7.2",
+        "titleAr": "دموع المحلل"
+      },
+      {
+        "number": "8.1",
+        "titleAr": "لاهوت معقد، لا نوايا سيئة"
+      },
+      {
+        "number": "9.1",
+        "titleAr": "الإمبراطور والحكيم"
+      },
+      {
+        "number": "10.1",
+        "titleAr": "ألم ليلى"
+      },
+      {
+        "number": "10.2",
+        "titleAr": "رسالة طارق الثانية"
+      },
+      {
+        "number": "11.1",
+        "titleAr": "ملوك الطوائف (أنا خير من أخي)"
+      },
+      {
+        "number": "12.1",
+        "titleAr": "زفرة العربي الأخيرة"
+      },
+      {
+        "number": "13.1",
+        "titleAr": "هتلر أمام المرآة"
+      },
+      {
+        "number": "14.1",
+        "titleAr": "بيروقراطية القتل"
+      },
+      {
+        "number": "15.1",
+        "titleAr": "اختراق المخبأ"
+      },
+      {
+        "number": "15.2",
+        "titleAr": "التحديث النهائي (إصابة يحيى والهروب)"
+      },
+      {
+        "number": "16.1",
+        "titleAr": "لقاء خارج الزمن"
+      },
+      {
+        "number": "17.1",
+        "titleAr": "وثائق فيسبوك المسرّبة"
+      },
+      {
+        "number": "18.1",
+        "titleAr": "كربلاء (مضاد الفيروسات)"
+      },
+      {
+        "number": "19.1",
+        "titleAr": "إغراء المهندس الأول"
+      },
+      {
+        "number": "19.2",
+        "titleAr": "قرار يحيى"
+      },
+      {
+        "number": "20.1",
+        "titleAr": "تسريب الحقيقة"
+      },
+      {
+        "number": "21.1",
+        "titleAr": "استعراض سريع لشهود الدفاع"
+      },
+      {
+        "number": "22.1",
+        "titleAr": "الاستيقاظ"
+      },
+      {
+        "number": "22.2",
+        "titleAr": "إغلاق الملف مؤقتاً"
+      }
+    ]
+  },
+  "historicalBilingualSource": {
+    "ref": "a232e22^",
+    "recoveryFailures": [
+      {
+        "ref": "95f75a14285a07d114fc5100159d5b78c65cef45",
+        "message": "Rejected: scenes=0, englishTextFields=0, arabicTextFields=0"
+      }
+    ],
+    "bytes": 123506,
+    "sceneEntries": 31,
+    "uniqueSceneIds": 31,
+    "duplicateSceneIds": [],
+    "englishTextFields": 262,
+    "arabicTextFields": 262,
+    "replacementCharacters": 0,
+    "mojibakePairs": 0
+  },
+  "reconciliation": {
+    "arabicSceneCount": 35,
+    "historicalSceneEntries": 31,
+    "sceneCountDelta": 4,
+    "englishDialogueLineCandidates": 262,
+    "arabicDialogueLineCandidates": 262,
+    "nextStep": "Map historical scene IDs to Arabic master scene numbers and fill the four-scene source gap before runtime generation."
+  }
+}

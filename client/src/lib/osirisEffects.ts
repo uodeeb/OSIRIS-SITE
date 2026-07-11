@@ -33,14 +33,14 @@ export const OSIRIS_EFFECTS: Record<OsirisEffectId, OsirisEffectComposition> = {
     effectId: "FX-01-SUMMONS-EYE",
     label: "Summons / Falcon Eye",
     base: {
-      relativePath: "assets/video-bg/digital-space.mp4",
+      relativePath: "assets/video-bg/osiris-vid-bg/falcon-hologram.mp4",
       width: 1280,
       height: 720,
       fps: 24,
       durationSec: 8,
     },
     fallback: {
-      relativePath: "assets/video-bg/cosmic-opening.mp4",
+      relativePath: "assets/video-bg/osiris-vid-bg/Egyptian_falcon_eye_202603301359.mp4",
       width: 480,
       height: 270,
       fps: 15.625,
@@ -259,7 +259,7 @@ export function detectOsirisEffectId(args: {
   if (joined.includes("افتح") && (joined.includes("أوزيريس") || joined.includes("اوزيريس") || joined.includes("osiris"))) return "FX-01-SUMMONS-EYE";
   if (joined.includes("تحذير") || joined.includes("اختراق") || joined.includes("breach") || joined.includes("alarm")) return "FX-06-ALERT-RED";
   if (joined.includes("التطابق") || joined.includes("100") || joined.includes("تفريغ") || joined.includes("تسريب") || joined.includes("broadcast")) return "FX-07-TRUTH-LEAK";
-  if (joined.includes("محاكاة") || joined.includes("الفضاء الرقمي") || joined.includes("simulation")) return "FX-05-HOLOGRAM-ORBIT";
+  if (joined.includes("محاكاة") || joined.includes("الفضاء الرقمي") || joined.includes("simulation") || joined.includes("أوزيريس") || joined.includes("اوزيريس")) return "FX-01-SUMMONS-EYE"; // Changed to use Falcon Eye
   if (joined.includes("تحليل") || joined.includes("بيانات") || joined.includes("قراءات") || joined.includes("تفكيك") || joined.includes("pattern")) return "FX-04-NEURAL-ANALYSIS";
   if (args.visualEffect === "scanlines" || args.visualEffect === "cctv") return "FX-02-INTERFACE-SCANLINES";
   return "FX-03-HOLOGRAM-DATA";
