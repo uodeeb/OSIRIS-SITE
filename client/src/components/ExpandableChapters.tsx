@@ -82,14 +82,14 @@ export default function ExpandableChapters({
   return (
     <div className={`relative h-full w-full ${className}`} dir={isArabic ? "rtl" : "ltr"}>
       {/* Bookshelf Container - Vertical on mobile, horizontal on sm+ */}
-      <div className="relative flex flex-col sm:flex-row items-stretch sm:items-end justify-start sm:justify-center gap-2 sm:gap-1.5 md:gap-2 h-full overflow-y-auto sm:overflow-visible px-2 sm:px-4 pb-2 sm:pb-4 scrollbar-thin scrollbar-thumb-amber-500/30 scrollbar-track-transparent">
+      <div className="relative flex flex-col sm:flex-row items-stretch sm:items-end justify-start sm:justify-center gap-2 sm:gap-1.5 md:gap-2 h-full overflow-hidden px-2 sm:px-4 pb-2 sm:pb-4">
         {/* Shelf Background Shadow - only on larger screens */}
         <div className="hidden sm:block absolute bottom-0 left-0 right-0 h-4 sm:h-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
         
         {chapters.map((chapter, index) => {
           const isActive = index === activeIndex;
           const flexValue = getFlexValue(index);
-          const chapterHeight = isActive ? "h-[140px]" : "h-[60px]";
+          const chapterHeight = isActive ? "h-[clamp(96px,18vh,140px)]" : "h-[clamp(38px,7vh,60px)]";
 
           return (
             <motion.div

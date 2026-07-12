@@ -80,8 +80,8 @@
   border: var(--dialogue-border, 1px solid rgba(201, 169, 110, 0.18));
   box-shadow: var(--dialogue-shadow, 0 10px 70px rgba(0, 0, 0, 0.78), 0 0 0 1px rgba(255, 255, 255, 0.02), inset 0 1px 0 rgba(201, 169, 110, 0.1));
   backdrop-filter: var(--dialogue-backdrop, blur(18px));
-  max-height: calc(var(--dialogue-zone-max-height, min(40vh, 32rem)) - 3rem);
-  overflow: auto;
+  max-height: none;
+  overflow: visible;
 }
 
 
@@ -183,6 +183,26 @@
   border: 1px solid rgba(201,169,110,0.15);
 }
 
+.audioControlRoot {
+  position: relative;
+  isolation: isolate;
+}
+
+.audioPanel {
+  width: min(88vw, 22rem);
+  max-width: calc(100vw - 1rem);
+  overflow: visible;
+}
+
+.audioPanel input[type="range"] {
+  min-width: 8rem;
+}
+
+@media (max-width: 640px) {
+  .audioPanel {
+    width: min(92vw, 20rem);
+  }
+}
 /* Player composition layout: keep portraits and text in separate safe zones. */
 .characterPortraitPosition {
   position: absolute;
@@ -215,14 +235,13 @@
   width: min(100%, 56rem);
   max-height: var(--dialogue-zone-max-height, min(40vh, 32rem));
   margin: 0 auto;
-  overflow: auto;
+  overflow: visible;
   overscroll-behavior: contain;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(201, 169, 110, 0.45) rgba(0, 0, 0, 0.2);
+  scrollbar-width: none;
 }
 
 .dialogueShell::-webkit-scrollbar {
-  width: 6px;
+  display: none;
 }
 
 .dialogueShell::-webkit-scrollbar-track {
@@ -285,5 +304,20 @@
   .dialogueShell {
     --dialogue-zone-max-height: 34vh;
     max-height: var(--dialogue-zone-max-height);
+  }
+}
+@media (max-height: 560px) and (orientation: landscape) {
+  .dynamicDialogueText {
+    font-size: clamp(0.92rem, 1.6vw, 1.28rem) !important;
+    line-height: 1.45;
+  }
+
+  .dynamicArabicText {
+    font-size: clamp(1rem, 1.8vw, 1.4rem) !important;
+    line-height: 1.65;
+  }
+
+  .dynamicDialogueBox {
+    padding-block: 0.65rem !important;
   }
 }

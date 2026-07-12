@@ -364,7 +364,7 @@ export default function EnhancedHome() {
           >
             {/* Main Info Card */}
             <div
-              className="flex-1 flex flex-col rounded-2xl border p-4 sm:p-5 overflow-y-auto relative max-h-[50vh] lg:max-h-none scrollbar-thin scrollbar-thumb-amber-500/30 scrollbar-track-transparent"
+              className="flex-1 flex flex-col rounded-2xl border p-4 sm:p-5 overflow-hidden relative"
               style={{
                 borderColor: "rgba(201,169,110,0.15)",
                 background: "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(10,10,15,0.8) 100%)",

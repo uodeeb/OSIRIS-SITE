@@ -88,7 +88,7 @@ export function ChapterLaunchModal(props: {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 26, scale: 0.98 }}
                 transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.55, ease: "easeOut" }}
-                className="fixed left-1/2 top-1/2 z-50 w-[min(960px,calc(100vw-16px))] max-h-[90vh] -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-black/90 shadow-2xl focus:outline-none overflow-hidden"
+                className="fixed left-1/2 top-1/2 z-50 w-[min(960px,calc(100vw-16px))] max-h-[calc(100dvh-16px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-black/90 shadow-2xl focus:outline-none overflow-hidden"
                 style={{ borderColor: withAlpha(accent, 0.25) }}
                 dir={isArabic ? "rtl" : "ltr"}
               >
@@ -100,8 +100,8 @@ export function ChapterLaunchModal(props: {
                   {isArabic ? chapter?.arabicSubtitle : chapter?.subtitle}
                 </Dialog.Description>
 
-                <div className="grid grid-cols-1 md:grid-cols-5 overflow-y-auto md:overflow-hidden rounded-2xl max-h-[90vh]">
-                  <div className="md:col-span-2 relative min-h-[200px] md:min-h-[420px]">
+                <div className="grid grid-cols-1 md:grid-cols-5 overflow-hidden rounded-2xl max-h-[calc(100dvh-16px)]">
+                  <div className="md:col-span-2 relative min-h-[clamp(120px,28dvh,200px)] md:min-h-[clamp(260px,54dvh,420px)]">
                     {chapter?.imageSrc ? (
                       <img src={chapter.imageSrc} alt={isArabic ? chapter?.arabicTitle : chapter?.title} className="absolute inset-0 h-full w-full object-cover" width={1920} height={1080} />
                     ) : (
@@ -124,10 +124,10 @@ export function ChapterLaunchModal(props: {
                     </div>
                   </div>
 
-                  <div className="md:col-span-3 p-4 sm:p-5 md:p-7 overflow-y-auto md:overflow-visible max-h-[60vh] md:max-h-none">
+                  <div className="md:col-span-3 p-3 sm:p-4 md:p-6 overflow-visible max-h-none">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-2xl md:text-3xl font-semibold text-white leading-normal">
+                        <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-white leading-normal">
                           {isArabic ? chapter?.arabicTitle : chapter?.title}
                         </h3>
                         <p className="mt-2 text-white/70 text-sm md:text-base leading-relaxed">
@@ -149,28 +149,28 @@ export function ChapterLaunchModal(props: {
                       </Dialog.Close>
                     </div>
 
-                    <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      <div className="rounded-xl border p-4" style={{ borderColor: "rgba(255,255,255,0.20)", background: "rgba(255,255,255,0.04)" }}>
+                    <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                      <div className="rounded-xl border p-3 sm:p-4" style={{ borderColor: "rgba(255,255,255,0.20)", background: "rgba(255,255,255,0.04)" }}>
                         <div className="text-[11px] font-mono tracking-wider text-white/70">{isArabic ? "الوقت" : "TIME"}</div>
                         <div className="mt-2 text-white font-semibold">
                           {chapter ? `${chapter.estMinutes} ${isArabic ? "دقيقة" : "min"}` : "--"}
                         </div>
                       </div>
-                      <div className="rounded-xl border p-4" style={{ borderColor: "rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)" }}>
+                      <div className="rounded-xl border p-3 sm:p-4" style={{ borderColor: "rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)" }}>
                         <div className="text-[11px] font-mono tracking-wider text-white/55">{isArabic ? "النمط" : "MODE"}</div>
                         <div className="mt-2 text-white font-semibold">{isArabic ? "سينمائي" : "Cinematic"}</div>
                       </div>
-                      <div className="rounded-xl border p-4" style={{ borderColor: "rgba(255,255,255,0.20)", background: "rgba(255,255,255,0.04)" }}>
+                      <div className="rounded-xl border p-3 sm:p-4" style={{ borderColor: "rgba(255,255,255,0.20)", background: "rgba(255,255,255,0.04)" }}>
                         <div className="text-[11px] font-mono tracking-wider text-white/70">{isArabic ? "الصوت" : "AUDIO"}</div>
                         <div className="mt-2 text-white font-semibold">{isArabic ? "موصى به" : "Recommended"}</div>
                       </div>
                     </div>
 
-                    <div className="mt-5 rounded-2xl border p-4 md:p-5" style={{ borderColor: withAlpha(accent, 0.22), background: withAlpha(accent, 0.06) }}>
+                    <div className="mt-4 rounded-2xl border p-3 md:p-4" style={{ borderColor: withAlpha(accent, 0.22), background: withAlpha(accent, 0.06) }}>
                       <div className="text-[11px] font-mono tracking-[0.22em] text-white/80">
                         {isArabic ? "لوحة ما قبل التشغيل" : "PRE-FLIGHT"}
                       </div>
-                      <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-3">
                         {tips.map((t) => (
                           <div key={t.k} className="rounded-xl border p-3" style={{ borderColor: "rgba(255,255,255,0.20)", background: "rgba(0,0,0,0.35)" }}>
                             <div className="text-white font-semibold text-sm">{t.title}</div>

@@ -806,7 +806,7 @@ function AudioControl({
   ];
 
   return (
-    <div className="relative" onClick={(e) => e.stopPropagation()}>
+    <div className={`relative ${styles.audioControlRoot}`} onClick={(e) => e.stopPropagation()}>
       {/* Main Toggle Button */}
       <button
         onClick={() => setOpen((p) => !p)}
@@ -836,7 +836,7 @@ function AudioControl({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className={`absolute bottom-full right-0 mb-2 p-4 rounded-xl z-50 min-w-[240px] ${styles.audioPanel}`}
+            className={`absolute bottom-full right-0 mb-2 p-3 sm:p-4 rounded-xl z-50 ${styles.audioPanel}`}
           >
             {/* 4 Channel Sliders */}
             <div className="space-y-3 mb-4">
@@ -1047,14 +1047,8 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
   const rawDialogueCharacterKey = currentDialogue?.character || '';
   const dialogueTextForCharacter = `${currentDialogue?.text || ''} ${currentDialogue?.arabicText || ''}`;
   const resolveCharacterKey = useCallback((rawKey: string, text: string, sceneId: string) => {
-    if (CHARACTER_REGEX_PATTERNS.yahya.test(text)) return sceneId === 'four-5-2-analyst-tears' ? 'yahya_breakdown' : 'yahya';
-    if (CHARACTER_REGEX_PATTERNS.laila.test(text)) return sceneId === 'seven-12-1-truth-leak' ? 'laila_witness' : 'laila';
-    if (CHARACTER_REGEX_PATTERNS.tarek.test(text)) return sceneId === 'four-5-1-tarek-message' ? 'tarek_ghost' : 'tarek';
-    if (CHARACTER_REGEX_PATTERNS.engineer.test(text)) return sceneId === 'six-8d-2-final-update' ? 'first_engineer_exposed' : 'first_engineer';
-    if (CHARACTER_REGEX_PATTERNS.arius.test(text)) return 'arius';
-    if (CHARACTER_REGEX_PATTERNS.athanasius.test(text)) return 'athanasius';
-    if (CHARACTER_REGEX_PATTERNS.constantine.test(text)) return 'constantine';
-    if (CHARACTER_REGEX_PATTERNS.samiri.test(text)) return CHARACTER_REGEX_PATTERNS.calf.test(text) ? 'samiri_calf' : 'samiri';
+    // Explicit dialogue speaker is authoritative. Text can mention another character,
+    // so regex inference must only run when the script did not provide a speaker.
     if (rawKey && rawKey in CHARACTER_MAP && rawKey !== 'Narrator') return rawKey;
     if (CHARACTER_REGEX_PATTERNS.yahya.test(text)) return sceneId === 'four-5-2-analyst-tears' ? 'yahya_breakdown' : 'yahya';
     if (CHARACTER_REGEX_PATTERNS.laila.test(text)) return sceneId === 'seven-12-1-truth-leak' ? 'laila_witness' : 'laila';
