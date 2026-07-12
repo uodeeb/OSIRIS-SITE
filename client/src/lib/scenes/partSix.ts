@@ -357,6 +357,60 @@ export const PART_SIX: Record<string, Scene> = {
     emotionalTone: 'dark',
   },
 
+  // Scene 17.1: Facebook leaked documents / The New Priesthood
+  'six-digital-intro': {
+    id: 'six-digital-intro',
+    title: 'The New Priesthood',
+    arabicTitle: 'وثائق فيسبوك المسرّبة',
+    part: 5,
+    backgroundVideo: videoBg('digital_space'),
+    backgroundImage: background('osiris_interface'),
+    visualEffect: "scanlines",
+    ambientKeys: ["amb.notification_swarm", "amb.server_room"],
+    dialogue: [
+      {
+        character: 'Narrator',
+        text: 'Before Yahya woke in the real world, OSIRIS pulled him into one final simulation: the contemporary world.',
+        arabicText: 'قبل أن يستيقظ يحيى في العالم الحقيقي، سحبه أوزيريس إلى محاكاة أخيرة. العالم المعاصر.',
+        duration: 5000,
+      },
+      {
+        character: 'Narrator',
+        text: 'Today, Iblis does not need temples. He needs algorithms. Engineers discovered that outrage spreads six times faster than truth. And they chose to feed it anyway. Because engagement means profit.',
+        arabicText: 'اكتشف مهندسو الشركة أن الخوارزمية تضاعف انتشار المحتوى المثير للغضب بمعدل 6 أضعاف المحتوى الهادئ. وحين عُرض الأمر للإدارة، قرروا الإبقاء على الخوارزمية لأنها تزيد وقت الاستخدام والأرباح.',
+        duration: 9000,
+      },
+      {
+        character: 'first_engineer',
+        text: 'Do you see, Yahya? We did not invent anger. We only optimized it. Iblis today does not need priests and temples; he needs an algorithm that feeds every person what strengthens his pride.',
+        arabicText: 'هل ترى يا يحيى؟ نحن لم نخترع الغضب. نحن فقط قمنا بتحسينه. إبليس اليوم لا يحتاج إلى كهنة ومعابد. يحتاج إلى خوارزمية تغذي كل إنسان بما يعزز كبره، ويقنعه أن رأيه وحده هو الصواب.',
+        duration: 10000,
+      },
+      {
+        character: 'yahya',
+        text: 'They turned sin into a business model.',
+        arabicText: 'لقد حولوا الخطيئة إلى نموذج عمل تجاري.',
+        duration: 4000,
+      },
+      {
+        character: 'Narrator',
+        text: 'They had a choice. They chose profit over humanity.',
+        arabicText: 'كان لديهم خيار. اختاروا الربح على حساب الإنسان.',
+        duration: 4000,
+      },
+    ],
+    choices: [
+      {
+        id: 'six-digital-to-karbala',
+        text: 'Move to the unarmed truth',
+        arabicText: 'انتقل إلى الحق الأعزل',
+        nextSceneId: 'seven-10-1-karbala',
+      },
+    ],
+    transitionType: 'glitch',
+    transitionDuration: 1800,
+    emotionalTone: 'dark',
+  },
   // المشهد 9.1: السجن الرقمي (المواجهة النهائية مع المهندس)
   'six-9-1-digital-cage': {
     id: 'six-9-1-digital-cage',

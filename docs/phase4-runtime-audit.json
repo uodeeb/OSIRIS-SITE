@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-11T20:09:03.761Z",
+  "generatedAt": "2026-07-12T01:30:04.835Z",
   "summary": {
     "canonicalScenes": 35,
-    "runtimeScenes": 36,
-    "canonicalMissingInRuntime": 2,
+    "runtimeScenes": 38,
+    "canonicalMissingInRuntime": 0,
     "runtimeMissingInCanonical": 3,
-    "runtimeLinks": 39,
+    "runtimeLinks": 41,
     "brokenRuntimeLinks": 0,
     "uniqueAssetRequests": 94,
     "missingAssetKeys": 0,
@@ -14,10 +14,7 @@
     "characterTimelineMismatches": 0,
     "semanticWarnings": 0
   },
-  "canonicalMissingInRuntime": [
-    "six-digital-intro",
-    "seven-witnesses-intro"
-  ],
+  "canonicalMissingInRuntime": [],
   "runtimeMissingInCanonical": [
     "transition-real-to-sim",
     "six-9-1-digital-cage",

@@ -3,8 +3,8 @@
 ## Summary
 
 - Canonical scenes: 35
-- Runtime scenes: 36
-- Canonical scene IDs missing in runtime: 2
+- Runtime scenes: 38
+- Canonical scene IDs missing in runtime: 0
 - Runtime scene IDs missing in canonical seed: 3
 - Broken runtime links: 0
 - Missing asset keys: 0
@@ -14,8 +14,7 @@
 
 ## Canonical IDs missing in runtime
 
-- six-digital-intro
-- seven-witnesses-intro
+None
 
 ## Runtime IDs missing in canonical seed
 

@@ -83,7 +83,6 @@ export const viteChunkConfig = {
     // Vendor chunks
     'react-vendor': ['react', 'react-dom'],
     'animation-vendor': ['framer-motion'],
-    'audio-vendor': ['howler'],
     'router-vendor': ['wouter'],
     
     // Feature chunks

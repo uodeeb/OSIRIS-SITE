@@ -333,10 +333,10 @@ export const PART_SEVEN: Record<string, Scene> = {
     ],
     choices: [
       {
-        id: 'seven-12-1-to-awakening',
-        text: 'Witness the awakening',
-        arabicText: 'شاهد الاستيقاظ',
-        nextSceneId: 'seven-13-1-awakening',
+        id: 'seven-12-1-to-witnesses',
+        text: 'Review the defense witnesses',
+        arabicText: 'استعرض شهود الدفاع',
+        nextSceneId: 'seven-witnesses-intro',
       },
     ],
     transitionType: 'fade',
@@ -344,6 +344,66 @@ export const PART_SEVEN: Record<string, Scene> = {
     emotionalTone: 'tragic',
   },
 
+  // Scene 21.1: Defense witness montage / The Witnesses Rise
+  'seven-witnesses-intro': {
+    id: 'seven-witnesses-intro',
+    title: 'The Witnesses Rise',
+    arabicTitle: 'استعراض سريع لشهود الدفاع',
+    part: 6,
+    backgroundVideo: videoBg('cosmic_opening'),
+    backgroundImage: background('osiris_cosmic'),
+    visualEffect: "montage",
+    ambientKeys: ["amb.vacuum", "amb.low_hum"],
+    dialogue: [
+      {
+        character: 'Narrator',
+        text: 'While Laila uploaded the data, OSIRIS showed her rapid scenes across the screens, as if they were a farewell message from Yahya and Tarek.',
+        arabicText: 'بينما كانت ليلى تقوم برفع البيانات، عرض أوزيريس على شاشتها مشاهد سريعة، كأنها رسالة وداع من يحيى وطارق.',
+        duration: 6000,
+      },
+      {
+        character: 'Narrator',
+        text: 'But Iblis was wrong about one thing. Humanity did not fall completely. Some stood. Some refused. And their names are written in eternity.',
+        arabicText: 'هؤلاء هم شهود الدفاع. هؤلاء من يثبتون أن الإنسان، رغم ضعفه، قادر على الارتقاء فوق طينه.',
+        duration: 6000,
+      },
+      {
+        character: 'Narrator',
+        text: 'Abraham stood alone before Nimrod\'s fire. No army, no power, only absolute certainty: I have turned my face to the One who created the heavens and the earth.',
+        arabicText: 'إبراهيم عليه السلام يقف وحيداً أمام نار النمرود، لا يملك جيشاً، فقط يقين مطلق: إنني وجهت وجهي للذي فطر السماوات والأرض.',
+        duration: 8000,
+      },
+      {
+        character: 'Narrator',
+        text: 'Bilal was enslaved and tortured under the burning sun, with a stone on his chest. Pride could crush his body, but it could never crush his soul: One... One...',
+        arabicText: 'بلال بن رباح تحت شمس مكة الحارقة، الصخرة على صدره، والكبر المادي يسحقه، لكن روحه ترفرف حرة: أحد... أحد.',
+        duration: 8000,
+      },
+      {
+        character: 'Narrator',
+        text: 'Saladin entered Jerusalem in 1187. He refused revenge, killed no civilian, and broke the circle of blood that the Crusaders had begun.',
+        arabicText: 'صلاح الدين الأيوبي يدخل القدس عام 1187م، يرفض الانتقام، لا يقتل مدنياً واحداً، يعفو عن أعدائه، كاسراً دائرة الدم التي بدأها الصليبيون.',
+        duration: 8000,
+      },
+      {
+        character: 'Narrator',
+        text: 'In the House of Wisdom, scholars translated Greek and Indian knowledge. They added to it and preserved the light of knowledge for humanity.',
+        arabicText: 'علماء بيت الحكمة في بغداد يترجمون علوم الإغريق والهنود، يضيفون إليها، ويحفظون نور المعرفة للبشرية.',
+        duration: 7000,
+      },
+    ],
+    choices: [
+      {
+        id: 'seven-witnesses-to-awakening',
+        text: 'Witness the awakening',
+        arabicText: 'شاهد الاستيقاظ',
+        nextSceneId: 'seven-13-1-awakening',
+      },
+    ],
+    transitionType: 'dissolve',
+    transitionDuration: 2500,
+    emotionalTone: 'hopeful',
+  },
   // المشهد 13.1: الاستيقاظ
   'seven-13-1-awakening': {
     id: 'seven-13-1-awakening',

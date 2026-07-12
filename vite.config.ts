@@ -175,7 +175,6 @@ export default defineConfig({
           'react-vendor': ['react', 'react-dom'],
           'animation-vendor': ['framer-motion'],
           'router-vendor': ['wouter'],
-          'audio-vendor': ['howler'],
           'query-vendor': ['@tanstack/react-query'],
         },
       },

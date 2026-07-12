@@ -134,10 +134,10 @@ export const TRANSITION: Record<string, Scene> = {
     ],
     choices: [
       {
-        id: 'transition-to-karbala',
-        text: 'Enter the final simulation',
-        arabicText: 'ادخل إلى المحاكاة النهائية',
-        nextSceneId: 'seven-10-1-karbala',
+        id: 'transition-to-digital-intro',
+        text: 'Enter the final digital simulation',
+        arabicText: 'ادخل إلى المحاكاة الرقمية الأخيرة',
+        nextSceneId: 'six-digital-intro',
       },
     ],
     transitionType: 'fade',
