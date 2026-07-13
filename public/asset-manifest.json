@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-07-11T22:57:25.508Z",
+  "generatedAt": "2026-07-13T03:55:13.935Z",
   "totalAssets": 109,
   "assets": {
     "character.arius": {
@@ -381,10 +381,10 @@
     },
     "audio.TRACK-01": {
       "key": "audio.TRACK-01",
-      "path": "/assets/music-tracks/TRACK-01.mp3",
+      "path": "/assets/music-tracks/track-01.mp3",
       "category": "audio",
       "mime": "audio/mpeg",
-      "originalName": "TRACK-01.mp3",
+      "originalName": "track-01.mp3",
       "size": 11750751
     },
     "audio.TRACK-02": {
@@ -397,10 +397,10 @@
     },
     "audio.TRACK-03": {
       "key": "audio.TRACK-03",
-      "path": "/assets/music-tracks/TRACK-03.mp3",
+      "path": "/assets/music-tracks/track-03.mp3",
       "category": "audio",
       "mime": "audio/mpeg",
-      "originalName": "TRACK-03.mp3",
+      "originalName": "track-03.mp3",
       "size": 961553
     },
     "audio.TRACK-04": {

@@ -13,6 +13,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const childProcess = require('child_process');
 
 const ROOT = process.cwd();
 const MANIFEST_PATH = path.join(ROOT, 'public', 'asset-manifest.json');
@@ -21,7 +22,7 @@ const DIST_PUBLIC_DIR = path.join(ROOT, 'dist', 'public');
 
 const requiredPublicPaths = [
   '/asset-manifest.json',
-  '/assets/music-tracks/TRACK-01.mp3',
+  '/assets/music-tracks/track-01.mp3',
   '/assets/osiris-vid-bg/falcon-hologram.mp4',
   '/assets/images/fire-worship.jpg',
   '/logo/new-logo/favicon-black.png',
@@ -36,6 +37,18 @@ function exists(baseDir, webPath) {
   return fs.existsSync(relToFs(baseDir, webPath));
 }
 
+function gitTracked(webPath) {
+  const rel = path.join('public', webPath.replace(/^\/+/, '')).replace(/[\\]+/g, '/');
+  try {
+    childProcess.execFileSync('git', ['ls-files', '--error-unmatch', rel], {
+      cwd: ROOT,
+      stdio: 'ignore',
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
@@ -80,6 +93,8 @@ function main() {
       }
       if (!exists(PUBLIC_DIR, asset.path)) {
         errors.push(`Missing public file for ${asset.key}: ${asset.path}`);
+      } else if (!gitTracked(asset.path)) {
+        errors.push(`Manifest asset exists locally but is not tracked for Vercel Git deploy: ${asset.key} ${asset.path}`);
       }
     }
   }
@@ -88,6 +103,8 @@ function main() {
   for (const webPath of requiredPublicPaths) {
     if (!exists(PUBLIC_DIR, webPath)) {
       errors.push(`Missing deploy-critical public file: ${webPath}`);
+    } else if (!gitTracked(webPath)) {
+      errors.push(`Deploy-critical public file exists locally but is not tracked for Vercel Git deploy: ${webPath}`);
     }
   }
 

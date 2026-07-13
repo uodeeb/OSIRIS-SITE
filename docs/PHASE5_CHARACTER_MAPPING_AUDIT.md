@@ -2,8 +2,8 @@
 
 ## Summary
 
-- Runtime scenes: 37
-- Unique dialogue characters: 19
+- Runtime scenes: 39
+- Unique dialogue characters: 20
 - Dialogue characters missing in MainPlayer map: 0
 - Dialogue characters missing in mainPlayerConfig map: 0
 - Scenes missing MainPlayer timeline focus: 0

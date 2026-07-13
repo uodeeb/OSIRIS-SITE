@@ -62,7 +62,7 @@ const OSIRIS_MUSIC_TRACKS: Record<string, MusicTrack> = {
   // Main Theme Tracks
   'main-theme': {
     id: 'main-theme',
-    filename: 'TRACK-01.mp3',
+    filename: 'track-01.mp3',
     arabicTitle: 'الثيم الرئيسي للرواية',
     englishTitle: 'Main Theme of the Novel',
     emotionalContext: ['epic', 'cosmic', 'mysterious', 'contemplative', 'spiritual'],

@@ -9,6 +9,8 @@
  *   const url = character('yahya'); // Returns "/assets/characters/yahya-portrait.jpeg"
  */
 
+import staticAssetManifest from '../../../public/asset-manifest.json';
+
 // ============================================================================
 // Type Definitions (inline to avoid circular dependencies during migration)
 // ============================================================================
@@ -37,6 +39,8 @@ export type AssetKey = `${AssetCategory}.${string}`;
 // Manifest Loading
 // ============================================================================
 
+const bundledManifest = staticAssetManifest as AssetManifest;
+
 let manifestCache: AssetManifest | null = null;
 let manifestPromise: Promise<AssetManifest> | null = null;
 
@@ -61,13 +65,8 @@ export async function loadAssetManifest(): Promise<AssetManifest> {
     })
     .catch(error => {
       console.error('[assets] Failed to load manifest:', error);
-      // Return empty manifest as fallback
-      return {
-        version: '0.0.0',
-        generatedAt: new Date().toISOString(),
-        totalAssets: 0,
-        assets: {},
-      } as AssetManifest;
+      // Keep serving bundled static paths if the network manifest request fails.
+      return bundledManifest;
     });
   
   return manifestPromise;
@@ -76,8 +75,8 @@ export async function loadAssetManifest(): Promise<AssetManifest> {
 /**
  * Synchronous manifest access (only after loadAssetManifest() has resolved)
  */
-export function getManifest(): AssetManifest | null {
-  return manifestCache;
+export function getManifest(): AssetManifest {
+  return manifestCache ?? bundledManifest;
 }
 
 /**
@@ -267,15 +266,13 @@ const KEY_ALIASES: Record<string, string> = {
  *   getAsset('videoBg.intro')   // "/assets/video-bg/intro.mp4"
  */
 export function getAsset(key: AssetKey | string): string {
-  if (!manifestCache) {
-    console.warn(`[assets] Manifest not loaded. Call loadAssetManifest() first.`);
-    return '';
-  }
-  
-  // Try key alias first, then original key
+  // Try key alias first, then original key. Use the bundled manifest while
+  // the runtime manifest request is still loading so scene modules can safely
+  // resolve media URLs during import.
   const mappedKey = KEY_ALIASES[key] || key;
+  const activeManifest = manifestCache ?? bundledManifest;
   
-  const asset = manifestCache.assets[mappedKey];
+  const asset = activeManifest.assets[mappedKey];
   if (!asset) {
     console.warn(`[assets] Asset not found: ${key} (mapped: ${mappedKey})`);
     return '';
@@ -288,18 +285,18 @@ export function getAsset(key: AssetKey | string): string {
  * Get asset entry with full metadata
  */
 export function getAssetEntry(key: AssetKey | string): AssetEntry | null {
-  if (!manifestCache) return null;
   const mappedKey = KEY_ALIASES[key] || key;
-  return manifestCache.assets[mappedKey] || null;
+  const activeManifest = manifestCache ?? bundledManifest;
+  return activeManifest.assets[mappedKey] || null;
 }
 
 /**
  * Get all assets in a category
  */
 export function getAssetsByCategory(category: string): AssetEntry[] {
-  if (!manifestCache) return [];
+  const activeManifest = manifestCache ?? bundledManifest;
   
-  return Object.values(manifestCache.assets).filter(
+  return Object.values(activeManifest.assets).filter(
     asset => asset.category === category
   );
 }
@@ -308,8 +305,8 @@ export function getAssetsByCategory(category: string): AssetEntry[] {
  * Get all assets from manifest
  */
 export function getAllAssets(): AssetEntry[] {
-  if (!manifestCache) return [];
-  return Object.values(manifestCache.assets);
+  const activeManifest = manifestCache ?? bundledManifest;
+  return Object.values(activeManifest.assets);
 }
 
 /**

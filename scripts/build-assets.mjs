@@ -137,9 +137,15 @@ function baseNameFromFile(filename) {
   return path.basename(filename, path.extname(filename));
 }
 
-function getAssetKey(category, normalizedName) {
-  // Remove extension for the key
+function getAssetKey(category, normalizedName, dir = '') {
+  // Music tracks use stable uppercase manifest keys, while paths preserve
+  // the deployable filename casing in public/assets. This matters on Vercel's
+  // case-sensitive filesystem: track-01.mp3 is tracked; TRACK-01.mp3 is not.
   const baseName = path.basename(normalizedName, path.extname(normalizedName));
+  if (dir === 'music-tracks') {
+    const match = baseName.match(/^track-(\d{2})$/i);
+    if (match) return `${category}.TRACK-${match[1]}`;
+  }
   return `${category}.${baseName}`;
 }
 
@@ -192,14 +198,26 @@ async function scanExistingAssets() {
         if (stat.isFile()) {
           const key = subDir
             ? `videoBg.osiris.${baseNameFromFile(file)}`
-            : getAssetKey(category, file);
+            : getAssetKey(category, file, dir);
           const size = stat.size;
+          const existingAsset = assets[key];
+          let deployFile = file;
+          if (dir === 'music-tracks' && /^TRACK-(01|03)\.mp3$/i.test(file)) {
+            deployFile = file.toLowerCase();
+          }
+          const currentPath = subDir
+            ? `/assets/${subDir}/${deployFile}`
+            : `/assets/${dir}/${deployFile}`;
+          if (existingAsset && dir === 'music-tracks') {
+            const existingBase = path.basename(existingAsset.path);
+            const existingIsLower = existingBase === existingBase.toLowerCase();
+            const currentIsLower = file === file.toLowerCase();
+            if (existingIsLower && !currentIsLower) continue;
+          }
 
           assets[key] = {
             key,
-            path: subDir
-              ? `/assets/${subDir}/${file}`
-              : `/assets/${dir}/${file}`,
+            path: currentPath,
             category,
             mime: getMimeType(file),
             originalName: file,

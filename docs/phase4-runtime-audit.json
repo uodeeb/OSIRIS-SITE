@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-12T01:30:04.835Z",
+  "generatedAt": "2026-07-13T03:13:09.585Z",
   "summary": {
     "canonicalScenes": 35,
     "runtimeScenes": 38,
     "canonicalMissingInRuntime": 0,
     "runtimeMissingInCanonical": 3,
-    "runtimeLinks": 41,
+    "runtimeLinks": 42,
     "brokenRuntimeLinks": 0,
     "uniqueAssetRequests": 94,
     "missingAssetKeys": 0,

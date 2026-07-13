@@ -1,0 +1,1535 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-13T03:54:54.249Z",
+  "summary": {
+    "runtimeScenes": 38,
+    "dialogueLines": 265,
+    "missingEnglishDialogue": 0,
+    "missingArabicDialogue": 0,
+    "scenesWithMusicTracks": 38,
+    "scenesWithoutMusicTracks": 0,
+    "mediaReferences": 185,
+    "unresolvedMediaReferences": 0,
+    "voiceDefinitions": 18,
+    "voiceCueScenes": 15,
+    "issues": 0,
+    "errors": 0
+  },
+  "sceneTrackCoverageMissing": [],
+  "voiceDefinitions": [
+    {
+      "voice": 1,
+      "sceneId": "zero-1-2-prosecution",
+      "cueAt": 1,
+      "candidates": [
+        "/assets/voices/voice-01.mp3",
+        "/assets/voices/voice-01.wav"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-01.mp3"
+      ]
+    },
+    {
+      "voice": 2,
+      "sceneId": "three-3-2-virus-design",
+      "cueAt": 2,
+      "candidates": [
+        "/assets/voices/voice-02.mp3",
+        "/assets/voices/voice-02.wav"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-02.mp3"
+      ]
+    },
+    {
+      "voice": 3,
+      "sceneId": "four-5-1-tarek-message",
+      "cueAt": 2,
+      "candidates": [
+        "/assets/voices/voice-03.wav",
+        "/assets/voices/voice-03.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-03.wav"
+      ]
+    },
+    {
+      "voice": 4,
+      "sceneId": "one-1-5-4-sacrifice",
+      "cueAt": 2,
+      "candidates": [
+        "/assets/voices/voice-04.wav",
+        "/assets/voices/voice-04.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-04.wav"
+      ]
+    },
+    {
+      "voice": 5,
+      "sceneId": "three-3-2-virus-design",
+      "cueAt": 9,
+      "candidates": [
+        "/assets/voices/voice-05.wav",
+        "/assets/voices/voice-05.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-05.wav"
+      ]
+    },
+    {
+      "voice": 6,
+      "sceneId": "six-8-2-last-tears",
+      "cueAt": 2,
+      "candidates": [
+        "/assets/voices/voice-06.wav",
+        "/assets/voices/voice-06.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-06.wav"
+      ]
+    },
+    {
+      "voice": 7,
+      "sceneId": "six-8-1-andalusia",
+      "cueAt": 4,
+      "candidates": [
+        "/assets/voices/voice-07.mp3",
+        "/assets/voices/voice-07.wav"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-07.mp3"
+      ]
+    },
+    {
+      "voice": 8,
+      "sceneId": "seven-10-1-karbala",
+      "cueAt": 6,
+      "candidates": [
+        "/assets/voices/voice-08.wav",
+        "/assets/voices/voice-08.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-08.wav"
+      ]
+    },
+    {
+      "voice": 9,
+      "sceneId": "transition-dream",
+      "cueAt": 6,
+      "candidates": [
+        "/assets/voices/voice-09.wav",
+        "/assets/voices/voice-09.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-09.wav"
+      ]
+    },
+    {
+      "voice": 10,
+      "sceneId": "seven-11-2-decision",
+      "cueAt": 5,
+      "candidates": [
+        "/assets/voices/voice-10.wav",
+        "/assets/voices/voice-10.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-10.wav"
+      ]
+    },
+    {
+      "voice": 11,
+      "sceneId": "seven-13-2-closing",
+      "cueAt": 1,
+      "candidates": [
+        "/assets/voices/voice-11.wav",
+        "/assets/voices/voice-11.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-11.wav"
+      ]
+    },
+    {
+      "voice": 12,
+      "sceneId": "seven-12-1-truth-leak",
+      "cueAt": 4,
+      "candidates": [
+        "/assets/voices/voice-12.wav",
+        "/assets/voices/voice-12.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-12.wav"
+      ]
+    },
+    {
+      "voice": 13,
+      "sceneId": "seven-10-1-karbala",
+      "cueAt": 4,
+      "candidates": [
+        "/assets/voices/voice-13.wav",
+        "/assets/voices/voice-13.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-13.wav"
+      ]
+    },
+    {
+      "voice": 14,
+      "sceneId": "seven-11-1-temptation",
+      "cueAt": 4,
+      "candidates": [
+        "/assets/voices/voice-14.wav",
+        "/assets/voices/voice-14.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-14.wav"
+      ]
+    },
+    {
+      "voice": 15,
+      "sceneId": "five-6c-1-laila-pain",
+      "cueAt": 3,
+      "candidates": [
+        "/assets/voices/voice-15.wav",
+        "/assets/voices/voice-15.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-15.wav"
+      ]
+    },
+    {
+      "voice": 16,
+      "sceneId": "five-6c-2-tarek-second",
+      "cueAt": 0,
+      "candidates": [
+        "/assets/voices/voice-16.wav",
+        "/assets/voices/voice-16.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-16.wav"
+      ]
+    },
+    {
+      "voice": 17,
+      "sceneId": "four-4-2-crowd-engineering",
+      "cueAt": 1,
+      "candidates": [
+        "/assets/voices/voice-17.wav",
+        "/assets/voices/voice-17.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-17.wav"
+      ]
+    },
+    {
+      "voice": 18,
+      "sceneId": "seven-13-2-closing",
+      "cueAt": 9,
+      "candidates": [
+        "/assets/voices/voice-18.wav",
+        "/assets/voices/voice-18.mp3"
+      ],
+      "existingCandidates": [
+        "/assets/voices/voice-18.wav"
+      ]
+    }
+  ],
+  "issues": [],
+  "mediaRows": [
+    {
+      "sceneId": "zero-1-1-summons",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/yahya-room.mp4",
+      "resolved": "/assets/video-bg/yahya-room.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-1-summons",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/logo-new-flow02.png",
+      "resolved": "/assets/images/logo-new-flow02.png",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-1-summons",
+      "kind": "musicKey",
+      "requested": "audio.main_theme",
+      "resolved": "/assets/music-tracks/track-01.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-1-summons",
+      "kind": "ambient",
+      "requested": "amb.rain",
+      "resolved": "/assets/ambient/amb.rain.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-1-summons",
+      "kind": "ambient",
+      "requested": "amb.device_hum",
+      "resolved": "/assets/ambient/amb.device_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-1-summons",
+      "kind": "enterSfx",
+      "requested": "sfx.ping",
+      "resolved": "/assets/ambient/sfx.ping.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-1-summons",
+      "kind": "sceneTrack",
+      "requested": "track02",
+      "resolved": "/assets/music-tracks/TRACK-02.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-2-prosecution",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/cosmic-opening.mp4",
+      "resolved": "/assets/video-bg/cosmic-opening.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-2-prosecution",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/sun-and-desert.jpg",
+      "resolved": "/assets/images/sun-and-desert.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-2-prosecution",
+      "kind": "audioUrl",
+      "requested": "/assets/music-tracks/TRACK-02.mp3",
+      "resolved": "/assets/music-tracks/TRACK-02.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-2-prosecution",
+      "kind": "ambient",
+      "requested": "amb.vacuum",
+      "resolved": "/assets/ambient/amb.vacuum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-2-prosecution",
+      "kind": "ambient",
+      "requested": "amb.bass_drone_low",
+      "resolved": "/assets/ambient/amb.bass_drone_low.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-2-prosecution",
+      "kind": "sceneTrack",
+      "requested": "track02",
+      "resolved": "/assets/music-tracks/TRACK-02.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-1-promise",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/fire-worship.jpg",
+      "resolved": "/assets/images/fire-worship.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-1-promise",
+      "kind": "musicKey",
+      "requested": "ambient.music.cafe_jazz",
+      "resolved": "/assets/ambient/music.cafe_jazz.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-1-promise",
+      "kind": "ambient",
+      "requested": "amb.cafe_murmur",
+      "resolved": "/assets/ambient/amb.cafe_murmur.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-1-promise",
+      "kind": "ambient",
+      "requested": "sfx.cups_clink",
+      "resolved": "/assets/ambient/sfx.cups_clink.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-1-promise",
+      "kind": "sceneTrack",
+      "requested": "track04",
+      "resolved": "/assets/music-tracks/TRACK-04.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-2-bitter-truth",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/fire-worship.jpg",
+      "resolved": "/assets/images/fire-worship.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-2-bitter-truth",
+      "kind": "ambient",
+      "requested": "amb.server_hum",
+      "resolved": "/assets/ambient/amb.server_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-2-bitter-truth",
+      "kind": "ambient",
+      "requested": "amb.heartbeat_fast",
+      "resolved": "/assets/ambient/amb.heartbeat_fast.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-2-bitter-truth",
+      "kind": "sceneTrack",
+      "requested": "track04",
+      "resolved": "/assets/music-tracks/TRACK-04.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-3-no-escape",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/logo-new-flow02.png",
+      "resolved": "/assets/images/logo-new-flow02.png",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-3-no-escape",
+      "kind": "ambient",
+      "requested": "amb.phone_ring",
+      "resolved": "/assets/ambient/amb.server_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-3-no-escape",
+      "kind": "ambient",
+      "requested": "amb.footsteps_outside",
+      "resolved": "/assets/ambient/amb.running_steps.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-3-no-escape",
+      "kind": "sceneTrack",
+      "requested": "track04",
+      "resolved": "/assets/music-tracks/TRACK-04.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-4-sacrifice",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/tarek-rooftop.mp4",
+      "resolved": "/assets/video-bg/tarek-rooftop.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-4-sacrifice",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/cosmic-bg.jpg",
+      "resolved": "/assets/images/cosmic-bg.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-4-sacrifice",
+      "kind": "musicKey",
+      "requested": "music.rooftop_cello_piano",
+      "resolved": "/assets/music-tracks/track-01.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-4-sacrifice",
+      "kind": "ambient",
+      "requested": "amb.wind_strong",
+      "resolved": "/assets/ambient/amb.vacuum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-4-sacrifice",
+      "kind": "sceneTrack",
+      "requested": "track04",
+      "resolved": "/assets/music-tracks/TRACK-04.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-2-1-escape",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/logo-new-flow02.png",
+      "resolved": "/assets/images/logo-new-flow02.png",
+      "exists": true
+    },
+    {
+      "sceneId": "two-2-1-escape",
+      "kind": "ambient",
+      "requested": "amb.sirens_distant",
+      "resolved": "/assets/ambient/amb.sirens_distant.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-2-1-escape",
+      "kind": "ambient",
+      "requested": "amb.running_steps",
+      "resolved": "/assets/ambient/amb.running_steps.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-2-1-escape",
+      "kind": "enterSfx",
+      "requested": "sfx.door_clang",
+      "resolved": "/assets/ambient/sfx.door_clang.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-2-1-escape",
+      "kind": "sceneTrack",
+      "requested": "track12",
+      "resolved": "/assets/music-tracks/TRACK-12.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-2-2-osiris-launch",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/sun-and-desert.jpg",
+      "resolved": "/assets/images/sun-and-desert.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "two-2-2-osiris-launch",
+      "kind": "ambient",
+      "requested": "amb.server_room",
+      "resolved": "/assets/ambient/amb.server_room.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-2-2-osiris-launch",
+      "kind": "sceneTrack",
+      "requested": "track01",
+      "resolved": "/assets/music-tracks/track-01.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-1-creation",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/cosmic-bg.jpg",
+      "resolved": "/assets/images/cosmic-bg.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-1-creation",
+      "kind": "ambient",
+      "requested": "amb.bass_drone_low",
+      "resolved": "/assets/ambient/amb.bass_drone_low.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-1-creation",
+      "kind": "sceneTrack",
+      "requested": "track03",
+      "resolved": "/assets/music-tracks/track-03.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-1b-devil-song",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/cosmic-bg.jpg",
+      "resolved": "/assets/images/cosmic-bg.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-1b-devil-song",
+      "kind": "ambient",
+      "requested": "amb.low_hum",
+      "resolved": "/assets/ambient/amb.low_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-1b-devil-song",
+      "kind": "ambient",
+      "requested": "amb.bass_drone_low",
+      "resolved": "/assets/ambient/amb.bass_drone_low.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-1b-devil-song",
+      "kind": "sceneTrack",
+      "requested": "track15",
+      "resolved": "/assets/songs/ya-rab.m4a",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-2-virus-design",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/cosmic-bg.jpg",
+      "resolved": "/assets/images/cosmic-bg.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-2-virus-design",
+      "kind": "ambient",
+      "requested": "amb.bass_drone_low",
+      "resolved": "/assets/ambient/amb.bass_drone_low.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-2-virus-design",
+      "kind": "sceneTrack",
+      "requested": "track03",
+      "resolved": "/assets/music-tracks/track-03.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-mirror-scene",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/egypt-nile-temple.mp4",
+      "resolved": "/assets/video-bg/egypt-nile-temple.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "two-mirror-scene",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/egypt-nile-temple02.jpg",
+      "resolved": "/assets/images/egypt-nile-temple02.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "two-mirror-scene",
+      "kind": "ambient",
+      "requested": "amb.desert_wind",
+      "resolved": "/assets/ambient/amb.vacuum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-mirror-scene",
+      "kind": "ambient",
+      "requested": "amb.crowd_murmur",
+      "resolved": "/assets/ambient/amb.cafe_murmur.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-mirror-scene",
+      "kind": "sceneTrack",
+      "requested": "track05",
+      "resolved": "/assets/music-tracks/TRACK-05.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-divine-declaration",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/egypt-nile-temple.mp4",
+      "resolved": "/assets/video-bg/egypt-nile-temple.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "two-divine-declaration",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/egypt-nile-temple02.jpg",
+      "resolved": "/assets/images/egypt-nile-temple02.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "two-divine-declaration",
+      "kind": "ambient",
+      "requested": "amb.desert_wind",
+      "resolved": "/assets/ambient/amb.vacuum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-divine-declaration",
+      "kind": "ambient",
+      "requested": "amb.crowd_murmur",
+      "resolved": "/assets/ambient/amb.cafe_murmur.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "two-divine-declaration",
+      "kind": "sceneTrack",
+      "requested": "track05",
+      "resolved": "/assets/music-tracks/TRACK-05.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-1-desert",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/sinai-desert.mp4",
+      "resolved": "/assets/video-bg/sinai-desert.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-1-desert",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/dessert.jpg",
+      "resolved": "/assets/images/dessert.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-1-desert",
+      "kind": "ambient",
+      "requested": "amb.desert_wind",
+      "resolved": "/assets/ambient/amb.vacuum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-1-desert",
+      "kind": "ambient",
+      "requested": "amb.crowd_murmur",
+      "resolved": "/assets/ambient/amb.cafe_murmur.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-1-desert",
+      "kind": "sceneTrack",
+      "requested": "track05",
+      "resolved": "/assets/music-tracks/TRACK-05.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-2-crowd-engineering",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/molten-gold.mp4",
+      "resolved": "/assets/video-bg/molten-gold.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-2-crowd-engineering",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/egypt-nile-temple02.jpg",
+      "resolved": "/assets/images/egypt-nile-temple02.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-2-crowd-engineering",
+      "kind": "ambient",
+      "requested": "amb.metal_melt",
+      "resolved": "/assets/ambient/amb.drums_hypnosis.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-2-crowd-engineering",
+      "kind": "ambient",
+      "requested": "amb.drums_hypnosis",
+      "resolved": "/assets/ambient/amb.drums_hypnosis.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-2-crowd-engineering",
+      "kind": "enterSfx",
+      "requested": "sfx.calf_low",
+      "resolved": "/assets/ambient/sfx.cannon_fire.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-2-crowd-engineering",
+      "kind": "sceneTrack",
+      "requested": "track05",
+      "resolved": "/assets/music-tracks/TRACK-05.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-5-1-tarek-message",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/fire-worship.jpg",
+      "resolved": "/assets/images/fire-worship.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "four-5-1-tarek-message",
+      "kind": "audioUrl",
+      "requested": "/assets/music-tracks/track-01.mp3",
+      "resolved": "/assets/music-tracks/track-01.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-5-1-tarek-message",
+      "kind": "ambient",
+      "requested": "amb.server_room",
+      "resolved": "/assets/ambient/amb.server_room.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-5-1-tarek-message",
+      "kind": "sceneTrack",
+      "requested": "track01",
+      "resolved": "/assets/music-tracks/track-01.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-5-2-analyst-tears",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/logo-new-flow01.png",
+      "resolved": "/assets/images/logo-new-flow01.png",
+      "exists": true
+    },
+    {
+      "sceneId": "four-5-2-analyst-tears",
+      "kind": "ambient",
+      "requested": "amb.server_room",
+      "resolved": "/assets/ambient/amb.server_room.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-5-2-analyst-tears",
+      "kind": "sceneTrack",
+      "requested": "track01",
+      "resolved": "/assets/music-tracks/track-01.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6a-1-nicaea-debate",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/nicaea.mp4",
+      "resolved": "/assets/video-bg/nicaea.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6a-1-nicaea-debate",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/egypt-nile-temple02.jpg",
+      "resolved": "/assets/images/egypt-nile-temple02.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6a-1-nicaea-debate",
+      "kind": "ambient",
+      "requested": "amb.church_reverb",
+      "resolved": "/assets/ambient/amb.low_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6a-1-nicaea-debate",
+      "kind": "ambient",
+      "requested": "amb.crowd_whisper",
+      "resolved": "/assets/ambient/amb.cafe_murmur.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6a-1-nicaea-debate",
+      "kind": "enterSfx",
+      "requested": "sfx.gavel_strike",
+      "resolved": "/assets/ambient/sfx.door_clang.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6a-1-nicaea-debate",
+      "kind": "sceneTrack",
+      "requested": "track06",
+      "resolved": "/assets/music-tracks/TRACK-06.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6b-1-constantine",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/nicaea.mp4",
+      "resolved": "/assets/video-bg/nicaea.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6b-1-constantine",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/egypt-nile-temple02.jpg",
+      "resolved": "/assets/images/egypt-nile-temple02.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6b-1-constantine",
+      "kind": "ambient",
+      "requested": "amb.church_reverb",
+      "resolved": "/assets/ambient/amb.low_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6b-1-constantine",
+      "kind": "ambient",
+      "requested": "amb.crowd_whisper",
+      "resolved": "/assets/ambient/amb.cafe_murmur.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6b-1-constantine",
+      "kind": "sceneTrack",
+      "requested": "track06",
+      "resolved": "/assets/music-tracks/TRACK-06.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6c-1-laila-pain",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/logo-new-flow01.png",
+      "resolved": "/assets/images/logo-new-flow01.png",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6c-1-laila-pain",
+      "kind": "ambient",
+      "requested": "amb.low_hum",
+      "resolved": "/assets/ambient/amb.low_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6c-1-laila-pain",
+      "kind": "sceneTrack",
+      "requested": "track06",
+      "resolved": "/assets/music-tracks/TRACK-06.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6c-2-tarek-second",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/fire-worship.jpg",
+      "resolved": "/assets/images/fire-worship.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6c-2-tarek-second",
+      "kind": "audioUrl",
+      "requested": "/assets/music-tracks/track-01.mp3",
+      "resolved": "/assets/music-tracks/track-01.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6c-2-tarek-second",
+      "kind": "ambient",
+      "requested": "amb.server_room",
+      "resolved": "/assets/ambient/amb.server_room.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6c-2-tarek-second",
+      "kind": "sceneTrack",
+      "requested": "track06",
+      "resolved": "/assets/music-tracks/TRACK-06.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-1-andalusia",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/andalus.mp4",
+      "resolved": "/assets/video-bg/andalus.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-1-andalusia",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/logo-new-flow01.png",
+      "resolved": "/assets/images/logo-new-flow01.png",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-1-andalusia",
+      "kind": "ambient",
+      "requested": "amb.city_night",
+      "resolved": "/assets/ambient/amb.low_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-1-andalusia",
+      "kind": "ambient",
+      "requested": "amb.distant_whispers",
+      "resolved": "/assets/ambient/amb.low_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-1-andalusia",
+      "kind": "sceneTrack",
+      "requested": "track07",
+      "resolved": "/assets/music-tracks/TRACK-07.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-2-last-tears",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/granada-fall.mp4",
+      "resolved": "/assets/video-bg/granada-fall.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-2-last-tears",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/logo-new-flow01.png",
+      "resolved": "/assets/images/logo-new-flow01.png",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-2-last-tears",
+      "kind": "ambient",
+      "requested": "amb.wind_soft",
+      "resolved": "/assets/ambient/amb.vacuum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-2-last-tears",
+      "kind": "sceneTrack",
+      "requested": "track07",
+      "resolved": "/assets/music-tracks/TRACK-07.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8b-1-berlin",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/berlin-1933.mp4",
+      "resolved": "/assets/video-bg/berlin-1933.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8b-1-berlin",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/yehia-room.jpg",
+      "resolved": "/assets/images/yehia-room.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8b-1-berlin",
+      "kind": "ambient",
+      "requested": "amb.city_cold",
+      "resolved": "/assets/ambient/amb.vacuum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8b-1-berlin",
+      "kind": "ambient",
+      "requested": "amb.march_drums_distant",
+      "resolved": "/assets/ambient/amb.war_march.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8b-1-berlin",
+      "kind": "sceneTrack",
+      "requested": "track08",
+      "resolved": "/assets/music-tracks/TRACK-08.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8c-1-death-signatures",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/sun-and-desert.jpg",
+      "resolved": "/assets/images/sun-and-desert.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8c-1-death-signatures",
+      "kind": "ambient",
+      "requested": "amb.typewriter",
+      "resolved": "/assets/ambient/amb.device_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8c-1-death-signatures",
+      "kind": "ambient",
+      "requested": "amb.march_drums_distant",
+      "resolved": "/assets/ambient/amb.war_march.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8c-1-death-signatures",
+      "kind": "sceneTrack",
+      "requested": "track08",
+      "resolved": "/assets/music-tracks/TRACK-08.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8d-1-attack",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/yehia-room.jpg",
+      "resolved": "/assets/images/yehia-room.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8d-1-attack",
+      "kind": "ambient",
+      "requested": "amb.smoke_alarm",
+      "resolved": "/assets/ambient/amb.sirens_distant.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8d-1-attack",
+      "kind": "ambient",
+      "requested": "amb.footsteps_heavy",
+      "resolved": "/assets/ambient/amb.running_steps.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8d-1-attack",
+      "kind": "enterSfx",
+      "requested": "sfx.explosion",
+      "resolved": "/assets/ambient/sfx.cannon_fire.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8d-1-attack",
+      "kind": "enterSfx",
+      "requested": "sfx.gunshot_distant",
+      "resolved": "/assets/ambient/sfx.cannon_fire.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8d-1-attack",
+      "kind": "sceneTrack",
+      "requested": "track12",
+      "resolved": "/assets/music-tracks/TRACK-12.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8d-2-final-update",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/logo-new-flow01.png",
+      "resolved": "/assets/images/logo-new-flow01.png",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8d-2-final-update",
+      "kind": "ambient",
+      "requested": "amb.heartbeat_slow",
+      "resolved": "/assets/ambient/amb.heartbeat_fast.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8d-2-final-update",
+      "kind": "sceneTrack",
+      "requested": "track12",
+      "resolved": "/assets/music-tracks/TRACK-12.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-digital-intro",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/digital-space.mp4",
+      "resolved": "/assets/video-bg/digital-space.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "six-digital-intro",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/sun-and-desert.jpg",
+      "resolved": "/assets/images/sun-and-desert.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "six-digital-intro",
+      "kind": "ambient",
+      "requested": "amb.notification_swarm",
+      "resolved": "/assets/ambient/amb.device_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-digital-intro",
+      "kind": "ambient",
+      "requested": "amb.server_room",
+      "resolved": "/assets/ambient/amb.server_room.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-digital-intro",
+      "kind": "sceneTrack",
+      "requested": "track11",
+      "resolved": "/assets/music-tracks/TRACK-11.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-9-1-digital-cage",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/digital-space.mp4",
+      "resolved": "/assets/video-bg/digital-space.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "six-9-1-digital-cage",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/sun-and-desert.jpg",
+      "resolved": "/assets/images/sun-and-desert.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "six-9-1-digital-cage",
+      "kind": "ambient",
+      "requested": "amb.server_room",
+      "resolved": "/assets/ambient/amb.server_room.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-9-1-digital-cage",
+      "kind": "sceneTrack",
+      "requested": "track11",
+      "resolved": "/assets/music-tracks/TRACK-11.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "transition-real-to-sim",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/cosmic-opening.mp4",
+      "resolved": "/assets/video-bg/cosmic-opening.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "transition-real-to-sim",
+      "kind": "ambient",
+      "requested": "amb.server_room",
+      "resolved": "/assets/ambient/amb.server_room.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "transition-real-to-sim",
+      "kind": "ambient",
+      "requested": "amb.low_hum",
+      "resolved": "/assets/ambient/amb.low_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "transition-real-to-sim",
+      "kind": "sceneTrack",
+      "requested": "track01",
+      "resolved": "/assets/music-tracks/track-01.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "transition-dream",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/logo-new-flow01.png",
+      "resolved": "/assets/images/logo-new-flow01.png",
+      "exists": true
+    },
+    {
+      "sceneId": "transition-dream",
+      "kind": "ambient",
+      "requested": "amb.breath_slow",
+      "resolved": "/assets/ambient/amb.low_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "transition-dream",
+      "kind": "sceneTrack",
+      "requested": "track13",
+      "resolved": "/assets/music-tracks/TRACK-13.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-10-1-karbala",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/karbala.mp4",
+      "resolved": "/assets/video-bg/karbala.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-10-1-karbala",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/dessert.jpg",
+      "resolved": "/assets/images/dessert.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-10-1-karbala",
+      "kind": "ambient",
+      "requested": "amb.desert_wind",
+      "resolved": "/assets/ambient/amb.vacuum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-10-1-karbala",
+      "kind": "ambient",
+      "requested": "amb.distant_battle",
+      "resolved": "/assets/ambient/amb.war_march.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-10-1-karbala",
+      "kind": "sceneTrack",
+      "requested": "track09",
+      "resolved": "/assets/music-tracks/TRACK-09.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-11-1-temptation",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/digital-space.mp4",
+      "resolved": "/assets/video-bg/digital-space.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-11-1-temptation",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/sun-and-desert.jpg",
+      "resolved": "/assets/images/sun-and-desert.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-11-1-temptation",
+      "kind": "ambient",
+      "requested": "amb.electronic_hum",
+      "resolved": "/assets/ambient/amb.device_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-11-1-temptation",
+      "kind": "sceneTrack",
+      "requested": "track10",
+      "resolved": "/assets/music-tracks/TRACK-10.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-11-2-decision",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/digital-space.mp4",
+      "resolved": "/assets/video-bg/digital-space.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-11-2-decision",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/sun-and-desert.jpg",
+      "resolved": "/assets/images/sun-and-desert.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-11-2-decision",
+      "kind": "ambient",
+      "requested": "amb.electronic_hum",
+      "resolved": "/assets/ambient/amb.device_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-11-2-decision",
+      "kind": "sceneTrack",
+      "requested": "track10",
+      "resolved": "/assets/music-tracks/TRACK-10.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-12-1-truth-leak",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/digital-space.mp4",
+      "resolved": "/assets/video-bg/digital-space.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-12-1-truth-leak",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/sun-and-desert.jpg",
+      "resolved": "/assets/images/sun-and-desert.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-12-1-truth-leak",
+      "kind": "ambient",
+      "requested": "amb.notification_swarm",
+      "resolved": "/assets/ambient/amb.device_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-12-1-truth-leak",
+      "kind": "enterSfx",
+      "requested": "sfx.electric_shock",
+      "resolved": "/assets/ambient/sfx.door_clang.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-12-1-truth-leak",
+      "kind": "sceneTrack",
+      "requested": "track11",
+      "resolved": "/assets/music-tracks/TRACK-11.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-witnesses-intro",
+      "kind": "backgroundVideo",
+      "requested": "/assets/video-bg/cosmic-opening.mp4",
+      "resolved": "/assets/video-bg/cosmic-opening.mp4",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-witnesses-intro",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/cosmic-bg.jpg",
+      "resolved": "/assets/images/cosmic-bg.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-witnesses-intro",
+      "kind": "ambient",
+      "requested": "amb.vacuum",
+      "resolved": "/assets/ambient/amb.vacuum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-witnesses-intro",
+      "kind": "ambient",
+      "requested": "amb.low_hum",
+      "resolved": "/assets/ambient/amb.low_hum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-witnesses-intro",
+      "kind": "sceneTrack",
+      "requested": "track14",
+      "resolved": "/assets/music-tracks/TRACK-14.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-13-1-awakening",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/logo-new-flow02.png",
+      "resolved": "/assets/images/logo-new-flow02.png",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-13-1-awakening",
+      "kind": "ambient",
+      "requested": "amb.city_day",
+      "resolved": "/assets/ambient/amb.cafe_murmur.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-13-1-awakening",
+      "kind": "sceneTrack",
+      "requested": "track11",
+      "resolved": "/assets/music-tracks/TRACK-11.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-13-2-closing",
+      "kind": "backgroundImage",
+      "requested": "/assets/images/cosmic-bg.jpg",
+      "resolved": "/assets/images/cosmic-bg.jpg",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-13-2-closing",
+      "kind": "ambient",
+      "requested": "amb.vacuum",
+      "resolved": "/assets/ambient/amb.vacuum.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-13-2-closing",
+      "kind": "sceneTrack",
+      "requested": "track14",
+      "resolved": "/assets/music-tracks/TRACK-14.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "zero-1-2-prosecution",
+      "kind": "voice",
+      "requested": "voice-01",
+      "resolved": "/assets/voices/voice-01.mp3, /assets/voices/voice-01.wav",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-2-virus-design",
+      "kind": "voice",
+      "requested": "voice-02",
+      "resolved": "/assets/voices/voice-02.mp3, /assets/voices/voice-02.wav",
+      "exists": true
+    },
+    {
+      "sceneId": "four-5-1-tarek-message",
+      "kind": "voice",
+      "requested": "voice-03",
+      "resolved": "/assets/voices/voice-03.wav, /assets/voices/voice-03.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "one-1-5-4-sacrifice",
+      "kind": "voice",
+      "requested": "voice-04",
+      "resolved": "/assets/voices/voice-04.wav, /assets/voices/voice-04.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "three-3-2-virus-design",
+      "kind": "voice",
+      "requested": "voice-05",
+      "resolved": "/assets/voices/voice-05.wav, /assets/voices/voice-05.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-2-last-tears",
+      "kind": "voice",
+      "requested": "voice-06",
+      "resolved": "/assets/voices/voice-06.wav, /assets/voices/voice-06.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "six-8-1-andalusia",
+      "kind": "voice",
+      "requested": "voice-07",
+      "resolved": "/assets/voices/voice-07.mp3, /assets/voices/voice-07.wav",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-10-1-karbala",
+      "kind": "voice",
+      "requested": "voice-08",
+      "resolved": "/assets/voices/voice-08.wav, /assets/voices/voice-08.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "transition-dream",
+      "kind": "voice",
+      "requested": "voice-09",
+      "resolved": "/assets/voices/voice-09.wav, /assets/voices/voice-09.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-11-2-decision",
+      "kind": "voice",
+      "requested": "voice-10",
+      "resolved": "/assets/voices/voice-10.wav, /assets/voices/voice-10.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-13-2-closing",
+      "kind": "voice",
+      "requested": "voice-11",
+      "resolved": "/assets/voices/voice-11.wav, /assets/voices/voice-11.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-12-1-truth-leak",
+      "kind": "voice",
+      "requested": "voice-12",
+      "resolved": "/assets/voices/voice-12.wav, /assets/voices/voice-12.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-10-1-karbala",
+      "kind": "voice",
+      "requested": "voice-13",
+      "resolved": "/assets/voices/voice-13.wav, /assets/voices/voice-13.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-11-1-temptation",
+      "kind": "voice",
+      "requested": "voice-14",
+      "resolved": "/assets/voices/voice-14.wav, /assets/voices/voice-14.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6c-1-laila-pain",
+      "kind": "voice",
+      "requested": "voice-15",
+      "resolved": "/assets/voices/voice-15.wav, /assets/voices/voice-15.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "five-6c-2-tarek-second",
+      "kind": "voice",
+      "requested": "voice-16",
+      "resolved": "/assets/voices/voice-16.wav, /assets/voices/voice-16.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "four-4-2-crowd-engineering",
+      "kind": "voice",
+      "requested": "voice-17",
+      "resolved": "/assets/voices/voice-17.wav, /assets/voices/voice-17.mp3",
+      "exists": true
+    },
+    {
+      "sceneId": "seven-13-2-closing",
+      "kind": "voice",
+      "requested": "voice-18",
+      "resolved": "/assets/voices/voice-18.wav, /assets/voices/voice-18.mp3",
+      "exists": true
+    }
+  ]
+}

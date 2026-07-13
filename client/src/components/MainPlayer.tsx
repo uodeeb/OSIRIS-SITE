@@ -266,6 +266,14 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
     position: 'left',
     imageAssetKey: 'character.tarek',
   },
+  'First Engineer': {
+    name: 'First Engineer',
+    arabicName: "المهندس الأول",
+    color: '#ef4444',
+    glowColor: 'rgba(239,68,68,0.3)',
+    position: 'left',
+    imageAssetKey: 'character.first_engineer',
+  },
   FirstEngineer: {
     name: 'First Engineer',
     arabicName: 'المهندس الأول',
@@ -325,7 +333,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
 
   iblis: {
     name: 'Iblis',
-    arabicName: 'إبليس',
+    arabicName: "إبليس",
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
@@ -520,9 +528,9 @@ const TONE_ACCENT: Record<string, string> = {
 };
 
 const TRACK_URL_CANDIDATES: Record<string, string[]> = {
-  track01: ['/assets/music-tracks/TRACK-01.mp3'],
+  track01: ['/assets/music-tracks/track-01.mp3'],
   track02: ['/assets/music-tracks/TRACK-02.mp3'],
-  track03: ['/assets/music-tracks/TRACK-03.mp3'],
+  track03: ['/assets/music-tracks/track-03.mp3'],
   track04: ['/assets/music-tracks/TRACK-04.mp3'],
   track05: ['/assets/music-tracks/TRACK-05.mp3'],
   track06: ['/assets/music-tracks/TRACK-06.mp3'],
@@ -538,6 +546,7 @@ const TRACK_URL_CANDIDATES: Record<string, string[]> = {
 };
 
 const SCENE_TRACK_SEQUENCE: Record<string, keyof typeof TRACK_URL_CANDIDATES> = {
+  'transition-real-to-sim': 'track01',
   'zero-1-1-summons': 'track02',
   'zero-1-2-prosecution': 'track02',
   'one-1-5-1-promise': 'track04',
@@ -546,6 +555,8 @@ const SCENE_TRACK_SEQUENCE: Record<string, keyof typeof TRACK_URL_CANDIDATES> = 
   'one-1-5-4-sacrifice': 'track04',
   'two-2-1-escape': 'track12',
   'two-2-2-osiris-launch': 'track01',
+  'two-mirror-scene': 'track05',
+  'two-divine-declaration': 'track05',
   'three-3-1-creation': 'track03',
   'three-3-1b-devil-song': 'track15',
   'three-3-2-virus-design': 'track03',
@@ -565,6 +576,7 @@ const SCENE_TRACK_SEQUENCE: Record<string, keyof typeof TRACK_URL_CANDIDATES> = 
   'six-8d-2-final-update': 'track12',
   'transition-dream': 'track13',
   'six-digital-intro': 'track11',
+  'six-9-1-digital-cage': 'track11',
   'seven-10-1-karbala': 'track09',
   'seven-11-1-temptation': 'track10',
   'seven-11-2-decision': 'track10',
@@ -620,26 +632,27 @@ function parseTrackFromDialogue(line?: string) {
 
 type VoiceCue = { at: number; voice: number };
 
-type VoiceDefinition = { voice: number; sceneId: string; anchor: string; fallbackAt?: number };
+type VoiceDefinition = { voice: number; sceneId: string; anchor: string; fallbackAt?: number; cueAt?: number };
 
 const VOICE_DEFINITIONS: VoiceDefinition[] = [
-  { voice: 1, sceneId: 'zero-1-2-prosecution', anchor: 'الملف رقم واحد', fallbackAt: 2 },
-  { voice: 3, sceneId: 'four-5-1-tarek-message', anchor: 'اذا كنت تستمع لهذا', fallbackAt: 0 },
-  { voice: 4, sceneId: 'one-1-5-4-sacrifice', anchor: 'اخي اذا وصلت اليك هذه الرسالة', fallbackAt: 2 },
-  { voice: 5, sceneId: 'three-3-2-virus-design', anchor: 'طارق كان محقا', fallbackAt: 9 },
-  { voice: 6, sceneId: 'six-8-2-last-tears', anchor: 'ابك كالنساء', fallbackAt: 2 },
-  { voice: 7, sceneId: 'six-8-1-andalusia', anchor: 'انهم يفسدون فيها', fallbackAt: 1 },
-  { voice: 8, sceneId: 'seven-10-1-karbala', anchor: 'هذا هو مضاد الفيروسات', fallbackAt: 6 },
-  { voice: 9, sceneId: 'transition-dream', anchor: 'الخوارزمية لا تستطيع حساب التضحية غير المشروطة', fallbackAt: 6 },
-  { voice: 10, sceneId: 'seven-11-2-decision', anchor: 'انا ارفض جنتك المزيفة', fallbackAt: 5 },
-  { voice: 11, sceneId: 'seven-13-2-closing', anchor: 'الدفاع قدم شهوده', fallbackAt: 1 },
-  { voice: 12, sceneId: 'seven-12-1-truth-leak', anchor: 'لا تفصليه دعي الكود يصل', fallbackAt: 4 },
-  { voice: 13, sceneId: 'seven-10-1-karbala', anchor: 'لان الاستسلام ليزيد يعني اعطاء الشرعية', fallbackAt: 4 },
-  { voice: 14, sceneId: 'seven-11-1-temptation', anchor: 'البشر غير مؤهلين للحرية يا يحيى', fallbackAt: 4 },
-  { voice: 15, sceneId: 'five-6c-1-laila-pain', anchor: 'امي كانت ضحية للمؤسسة ايضا', fallbackAt: 3 },
-  { voice: 16, sceneId: 'five-6c-2-tarek-second', anchor: 'اذا رايت نيقية فستفهم كيف تسرق الاديان', fallbackAt: 2 },
-  { voice: 17, sceneId: 'seven-13-2-closing', anchor: 'الملف رقم واحد يغلق مؤقتا', fallbackAt: 7 },
-  { voice: 18, sceneId: 'seven-13-2-closing', anchor: 'القضية مستمرة والخيار الان لك', fallbackAt: 9 },
+  { voice: 1, sceneId: 'zero-1-2-prosecution', anchor: '', fallbackAt: 1, cueAt: 1 },
+  { voice: 2, sceneId: 'three-3-2-virus-design', anchor: '', fallbackAt: 2, cueAt: 2 },
+  { voice: 3, sceneId: 'four-5-1-tarek-message', anchor: '', fallbackAt: 2, cueAt: 2 },
+  { voice: 4, sceneId: 'one-1-5-4-sacrifice', anchor: '', fallbackAt: 2, cueAt: 2 },
+  { voice: 5, sceneId: 'three-3-2-virus-design', anchor: '', fallbackAt: 9, cueAt: 9 },
+  { voice: 6, sceneId: 'six-8-2-last-tears', anchor: '', fallbackAt: 2, cueAt: 2 },
+  { voice: 7, sceneId: 'six-8-1-andalusia', anchor: '', fallbackAt: 4, cueAt: 4 },
+  { voice: 8, sceneId: 'seven-10-1-karbala', anchor: '', fallbackAt: 6, cueAt: 6 },
+  { voice: 9, sceneId: 'transition-dream', anchor: '', fallbackAt: 6, cueAt: 6 },
+  { voice: 10, sceneId: 'seven-11-2-decision', anchor: '', fallbackAt: 5, cueAt: 5 },
+  { voice: 11, sceneId: 'seven-13-2-closing', anchor: '', fallbackAt: 1, cueAt: 1 },
+  { voice: 12, sceneId: 'seven-12-1-truth-leak', anchor: '', fallbackAt: 4, cueAt: 4 },
+  { voice: 13, sceneId: 'seven-10-1-karbala', anchor: '', fallbackAt: 4, cueAt: 4 },
+  { voice: 14, sceneId: 'seven-11-1-temptation', anchor: '', fallbackAt: 4, cueAt: 4 },
+  { voice: 15, sceneId: 'five-6c-1-laila-pain', anchor: '', fallbackAt: 3, cueAt: 3 },
+  { voice: 16, sceneId: 'five-6c-2-tarek-second', anchor: '', fallbackAt: 0, cueAt: 0 },
+  { voice: 17, sceneId: 'four-4-2-crowd-engineering', anchor: '', fallbackAt: 1, cueAt: 1 },
+  { voice: 18, sceneId: 'seven-13-2-closing', anchor: '', fallbackAt: 9, cueAt: 9 },
 ];
 
 function normalizeArabicForMatch(value: string) {
@@ -658,6 +671,13 @@ function normalizeArabicForMatch(value: string) {
 const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFINITIONS.reduce((acc, def) => {
   const scene = ALL_SCENES[def.sceneId];
   if (!scene?.dialogue?.length) return acc;
+
+  if (typeof def.cueAt === 'number') {
+    const safeIndex = Math.max(0, Math.min(scene.dialogue.length - 1, def.cueAt));
+    if (!acc[def.sceneId]) acc[def.sceneId] = [];
+    acc[def.sceneId]!.push({ at: safeIndex, voice: def.voice });
+    return acc;
+  }
 
   const target = normalizeArabicForMatch(def.anchor);
   const targetTokens = target.split(' ').filter(Boolean);
@@ -695,9 +715,13 @@ const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFINITIONS.
 
 function getVoiceCandidates(voiceNumber: number) {
   const padded = String(Math.max(1, Math.min(18, voiceNumber))).padStart(2, '0');
-  // Voice 01-02 are mp3, 03-18 are wav
-  const ext = voiceNumber <= 2 ? 'mp3' : 'wav';
-  return [`/assets/voices/voice-${padded}.${ext}`];
+  const manifestUrl = getAsset(`voice.voice-${padded}` as any);
+  const candidates = [
+    manifestUrl,
+    `/assets/voices/voice-${padded}.mp3`,
+    `/assets/voices/voice-${padded}.wav`,
+  ].filter(Boolean);
+  return Array.from(new Set(candidates));
 }
 
 // Special voice for devil scenes - fallback to voice-07 (iblis)
@@ -913,7 +937,11 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
   }, []);
 
   // Language state: 'en' or 'ar'
-  const [lang, setLang] = useState<'en' | 'ar'>('ar');
+  const [lang, setLang] = useState<'en' | 'ar'>(() => {
+    if (typeof window === 'undefined') return 'ar';
+    const paramLang = new URLSearchParams(window.location.search).get('lang');
+    return paramLang === 'en' ? 'en' : 'ar';
+  });
 
   // Update html lang attribute when language changes
   useEffect(() => {
@@ -974,6 +1002,8 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
   const disabledVoiceTokensRef = useRef<Set<string>>(new Set());
   const playedVoiceNumbersRef = useRef<Set<number>>(new Set());
   const ambientRef = useRef<HTMLAudioElement | null>(null);
+  const enterSfxRefs = useRef<HTMLAudioElement[]>([]);
+  const lastEnterSfxSceneRef = useRef<string>('');
   const ambientFadeRef = useRef<number | null>(null);
   const bgVideoRef = useRef<HTMLVideoElement | null>(null);
   const typewriterRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -1041,7 +1071,7 @@ export const MainPlayer = memo(function MainPlayer({ initialSceneId = 'zero-1-1-
   const currentDialogue = dialogueLines[dialogueIndex];
   const sceneTrackKey = scriptTrackOverride ?? (SCENE_TRACK_SEQUENCE[currentSceneId] ?? 'track01');
   const isSceneUsingBedOnly = sceneTrackKey === 'track01';
-  const rawVoiceCue = canonicalMode ? undefined : SCENE_VOICE_CUES[currentSceneId]?.find((item) => item.at === dialogueIndex);
+  const rawVoiceCue = SCENE_VOICE_CUES[currentSceneId]?.find((item) => item.at === dialogueIndex);
   const rawVoiceToken = rawVoiceCue ? `${currentSceneId}:${dialogueIndex}:${rawVoiceCue.voice}` : null;
   const currentVoiceCue = rawVoiceCue && rawVoiceToken && !disabledVoiceTokensRef.current.has(rawVoiceToken) ? rawVoiceCue : undefined;
   const isVoicedDialogue = !!currentVoiceCue;
@@ -2194,6 +2224,41 @@ useEffect(() => {
     };
   }, [audioEnabled, isPlaying, currentSceneId, sceneTrackKey, isMuted, bgVol, sceneVol, sfxVol, resolveAsset, registerMedia]);
 
+  // Scene-entry SFX: play one-shot effects whenever a new scene starts.
+  useEffect(() => {
+    enterSfxRefs.current.forEach((audio) => {
+      audio.pause();
+      audio.src = '';
+    });
+    enterSfxRefs.current = [];
+
+    if (!audioEnabled || !isPlaying || !currentScene) return;
+    if (lastEnterSfxSceneRef.current === currentSceneId) return;
+    lastEnterSfxSceneRef.current = currentSceneId;
+
+    const sfxUrls = (currentScene.enterSfxKeys ?? [])
+      .map((key) => resolveAsset(key))
+      .filter((url): url is string => typeof url === 'string' && url.length > 0);
+
+    sfxUrls.forEach((url) => {
+      const audio = new Audio(url);
+      audio.preload = 'auto';
+      audio.loop = false;
+      audio.volume = isMuted ? 0 : sfxVol;
+      enterSfxRefs.current.push(audio);
+      registerMedia(audio);
+      audio.play().catch(() => {});
+    });
+
+    return () => {
+      enterSfxRefs.current.forEach((audio) => {
+        audio.pause();
+        audio.src = '';
+      });
+      enterSfxRefs.current = [];
+    };
+  }, [audioEnabled, isPlaying, currentSceneId, currentScene, isMuted, sfxVol, resolveAsset, registerMedia]);
+
   // Background video
   useEffect(() => {
     const bgVideoSrc = resolveAsset(currentScene?.backgroundVideo);
@@ -2231,6 +2296,8 @@ useEffect(() => {
       if (baseTrackRef.current) { baseTrackRef.current.pause(); baseTrackRef.current.src = ''; }
       if (sceneTrackRef.current) { sceneTrackRef.current.pause(); sceneTrackRef.current.src = ''; }
       if (ambientRef.current) { ambientRef.current.pause(); ambientRef.current.src = ''; }
+      enterSfxRefs.current.forEach((audio) => { audio.pause(); audio.src = ''; });
+      enterSfxRefs.current = [];
       if (voiceRef.current) { voiceRef.current.pause(); voiceRef.current.src = ''; }
       if (typewriterRef.current) clearTimeout(typewriterRef.current);
       if (choiceIntervalRef.current) clearInterval(choiceIntervalRef.current);
@@ -2592,7 +2659,7 @@ useEffect(() => {
               <img
                 src={resolvedCharImageUrl}
                 alt={currentCharConfig.name}
-                className={`relative w-20 h-28 sm:w-32 sm:h-44 md:w-44 md:h-60 lg:w-48 lg:h-72 object-cover rounded-xl sm:rounded-2xl md:rounded-3xl ${styles.dynamicPortrait}`}
+                className={`relative w-20 h-28 sm:w-32 sm:h-44 md:w-44 md:h-60 lg:w-48 lg:h-72 xl:w-56 xl:h-80 2xl:w-64 2xl:h-96 object-cover rounded-xl sm:rounded-2xl md:rounded-3xl ${styles.dynamicPortrait}`}
                 style={{
                   '--portrait-shadow': `0 0 50px ${currentCharConfig.glowColor}, 0 12px 40px rgba(0,0,0,0.7)`,
                   '--portrait-border': `1px solid ${currentCharConfig.color}20`,
@@ -2800,7 +2867,7 @@ useEffect(() => {
                 )}
 
                 {!isVoiceModeActive && (
-                  <div className={`mt-4 flex flex-wrap items-center justify-between gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                  <div className={`mt-4 flex flex-wrap items-center justify-between gap-3 ${styles.playerControlBar} ${isArabic ? 'flex-row-reverse' : ''}`}>
                     <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
                       <button
                         data-testid="back-button"
@@ -2835,9 +2902,9 @@ useEffect(() => {
                       </button>
                     </div>
 
-                    <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex items-center gap-2 ${styles.playerControlGroup} ${isArabic ? 'flex-row-reverse' : ''}`}>
                       <div
-                        className={`flex items-center rounded-lg overflow-hidden ${isArabic ? 'flex-row-reverse' : ''} ${styles.dynamicBorder} ${styles.dynamicBg}`}
+                        className={`flex items-center rounded-lg overflow-hidden ${styles.autoModeGroup} ${isArabic ? 'flex-row-reverse' : ''} ${styles.dynamicBorder} ${styles.dynamicBg}`}
                         style={{
                           '--dynamic-border': 'rgba(201,169,110,0.22)',
                           '--dynamic-bg': 'rgba(0,0,0,0.35)'

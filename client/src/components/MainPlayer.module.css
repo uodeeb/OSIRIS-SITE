@@ -321,3 +321,93 @@
     padding-block: 0.65rem !important;
   }
 }
+/* Responsive hardening for Android portrait, TV browsers, and browser zoom. */
+.playerControlBar {
+  max-width: 100%;
+}
+
+.playerControlGroup {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.autoModeGroup {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .audioPanel {
+    position: fixed !important;
+    right: max(0.5rem, env(safe-area-inset-right));
+    left: max(0.5rem, env(safe-area-inset-left));
+    bottom: calc(max(0.75rem, env(safe-area-inset-bottom)) + 5rem);
+    width: auto;
+    max-width: none;
+    z-index: 80;
+    overflow: visible;
+  }
+
+  .audioPanel input[type="range"] {
+    min-width: 0;
+  }
+
+  .playerControlBar {
+    justify-content: center;
+  }
+
+  .playerControlGroup {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .autoModeGroup {
+    flex: 1 1 100%;
+    justify-content: center;
+    overflow-x: clip;
+  }
+
+  .dynamicDialogueText {
+    font-size: clamp(0.95rem, 3.2vw, 1.18rem) !important;
+    line-height: 1.55 !important;
+  }
+
+  .dynamicArabicText {
+    font-size: clamp(1.05rem, 3.6vw, 1.35rem) !important;
+    line-height: 1.8 !important;
+  }
+}
+
+@media (min-width: 1920px) {
+  .dialogueShell {
+    width: min(76vw, 78rem);
+  }
+
+  .dialogueSafeArea {
+    padding-inline: clamp(3rem, 8vw, 12rem);
+    --dialogue-zone-max-height: min(34vh, 36rem);
+  }
+
+  .characterPortraitPosition {
+    bottom: clamp(22rem, 43vh, 58rem);
+  }
+}
+
+@media (min-width: 2560px) {
+  .dialogueShell {
+    width: min(72vw, 94rem);
+  }
+
+  .characterPortraitPosition {
+    bottom: clamp(28rem, 42vh, 70rem);
+  }
+
+  .dynamicDialogueText {
+    font-size: clamp(1.6rem, 1.05vw + 0.9rem, 2.55rem) !important;
+  }
+
+  .dynamicArabicText {
+    font-size: clamp(1.8rem, 1.1vw + 1rem, 2.8rem) !important;
+  }
+}

@@ -35,8 +35,8 @@ Scene | Arabic title | Status | Historical ID | English title
 3.2 | تشغيل أوزيريس | matched-title | two-2-2-osiris-launch | Launching OSIRIS
 4.1 | لحظة الخلق والرفض | matched-title | three-3-1-creation | The Moment of Creation and Refusal
 4.2 | تصميم الفيروس | matched-title | three-3-2-virus-design | Designing the Virus
-5.1 | مرآة النيل | missing-historical-english |  |
-5.2 | إعلان الألوهية | missing-historical-english |  |
+5.1 | مرآة النيل | missing-historical-english |  | 
+5.2 | إعلان الألوهية | missing-historical-english |  | 
 6.1 | نشوة النجاة وقلق الفراغ | matched-manual-title-alias | four-4-1-desert | The Void of the Desert
 6.2 | هندسة الحشود | matched-title | four-4-2-crowd-engineering | Engineering the Crowds
 7.1 | رسالة من الماضي | matched-title | four-5-1-tarek-message | A Message from the Past
@@ -52,11 +52,11 @@ Scene | Arabic title | Status | Historical ID | English title
 15.1 | اختراق المخبأ | matched-title | six-8d-1-attack | Breaching the Hideout
 15.2 | التحديث النهائي (إصابة يحيى والهروب) | matched-partial-title | six-8d-2-final-update | The Final Update
 16.1 | لقاء خارج الزمن | matched-manual-title-alias | transition-dream | The Dream Before the Battle
-17.1 | وثائق فيسبوك المسرّبة | missing-historical-english |  |
+17.1 | وثائق فيسبوك المسرّبة | missing-historical-english |  | 
 18.1 | كربلاء (مضاد الفيروسات) | matched-manual-title-alias | seven-10-1-karbala | The Unarmed Truth
 19.1 | إغراء المهندس الأول | matched-partial-title | seven-11-1-temptation | The Temptation of the Engineer
 19.2 | قرار يحيى | matched-title | seven-11-2-decision | Yahya's Decision
 20.1 | تسريب الحقيقة | matched-partial-title | seven-12-1-truth-leak | The Rosetta Stone of the Digital Age
-21.1 | استعراض سريع لشهود الدفاع | missing-historical-english |  |
+21.1 | استعراض سريع لشهود الدفاع | missing-historical-english |  | 
 22.1 | الاستيقاظ | matched-title | seven-13-1-awakening | The Awakening
 22.2 | إغلاق الملف مؤقتاً | matched-partial-title | seven-13-2-closing | Closing the File

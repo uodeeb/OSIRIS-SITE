@@ -258,7 +258,7 @@ export default function EnhancedHome() {
   const handleStart = (c: ChapterMeta) => {
     setDurationMs(Math.max(10_000, c.estMinutes * 60 * 1000));
     setLaunchOpen(false);
-    setLocation(`/play?scene=${encodeURIComponent(c.sceneId)}`);
+    setLocation(`/play?scene=${encodeURIComponent(c.sceneId)}&lang=${uiLang}`);
   };
 
   const handleAudioConsent = useCallback(
@@ -354,13 +354,13 @@ export default function EnhancedHome() {
         </motion.div>
 
         {/* Main Content Grid */}
-        <div className="mt-4 grid flex-1 min-h-0 grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="mt-3 sm:mt-4 grid flex-1 min-h-0 grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4">
           {/* Left Panel - Novel Info Card */}
           <motion.div
             initial={{ opacity: 0, x: isArabic ? 20 : -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-3 flex flex-col gap-4"
+            className="hidden lg:col-span-3 lg:flex flex-col gap-4"
           >
             {/* Main Info Card */}
             <div
@@ -488,7 +488,7 @@ export default function EnhancedHome() {
 
             {/* Bottom Hint */}
             <div 
-              className={`mt-3 flex items-center gap-3 px-4 py-3 rounded-xl border ${isArabic ? "flex-row-reverse" : ""}`}
+              className={`mt-3 hidden sm:flex items-center gap-3 px-4 py-3 rounded-xl border ${isArabic ? "flex-row-reverse" : ""}`}
               style={{ 
                 borderColor: "rgba(201,169,110,0.1)",
                 background: "rgba(0,0,0,0.3)",

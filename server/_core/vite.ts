@@ -60,7 +60,14 @@ export async function setupVite(app: Express, server: Server) {
 
 export function serveStatic(app: Express) {
   const coreDir = path.dirname(fileURLToPath(import.meta.url));
-  const distPath = path.resolve(coreDir, "../..", "dist", "public");
+  const candidateDistPaths = [
+    // Bundled production server: dist/index.js -> dist/public
+    path.resolve(coreDir, "public"),
+    // Source execution from server/_core during local production checks
+    path.resolve(coreDir, "../..", "dist", "public"),
+  ];
+  const distPath = candidateDistPaths.find(candidate => fs.existsSync(candidate))
+    || candidateDistPaths[0];
   
   if (!fs.existsSync(distPath)) {
     console.error(

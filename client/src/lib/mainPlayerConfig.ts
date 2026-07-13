@@ -211,6 +211,14 @@ export const CHARACTER_MAP: Record<string, CharacterConfig> = {
     position: 'left',
     imageUrl: getAsset('character.tarek'),
   },
+  'First Engineer': {
+    name: 'First Engineer',
+    arabicName: "المهندس الأول",
+    color: '#ef4444',
+    glowColor: 'rgba(239,68,68,0.3)',
+    position: 'left',
+    imageUrl: getAsset('character.first_engineer'),
+  },
   FirstEngineer: {
     name: 'First Engineer',
     arabicName: 'المهندس الأول',
@@ -270,7 +278,7 @@ export const CHARACTER_MAP: Record<string, CharacterConfig> = {
 
   iblis: {
     name: 'Iblis',
-    arabicName: '?????',
+    arabicName: "إبليس",
     color: '#c9a96e',
     glowColor: 'rgba(201,169,110,0.3)',
     position: 'center',
@@ -483,9 +491,9 @@ export const TONE_ACCENT: Record<string, string> = {
 // ─── Audio Track Configuration ───────────────────────────────────────────────
 
 export const TRACK_URL_CANDIDATES: Record<string, string[]> = {
-  track01: ['/assets/music-tracks/TRACK-01.mp3'],
+  track01: ['/assets/music-tracks/track-01.mp3'],
   track02: ['/assets/music-tracks/TRACK-02.mp3'],
-  track03: ['/assets/music-tracks/TRACK-03.mp3'],
+  track03: ['/assets/music-tracks/track-03.mp3'],
   track04: ['/assets/music-tracks/TRACK-04.mp3'],
   track05: ['/assets/music-tracks/TRACK-05.mp3'],
   track06: ['/assets/music-tracks/TRACK-06.mp3'],
@@ -504,6 +512,7 @@ export const TRACK_URL_CANDIDATES: Record<string, string[]> = {
 export type TrackUrlKey = keyof typeof TRACK_URL_CANDIDATES;
 
 export const SCENE_TRACK_SEQUENCE: Record<string, keyof typeof TRACK_URL_CANDIDATES> = {
+  'transition-real-to-sim': 'track01',
   'zero-1-1-summons': 'track02',
   'zero-1-2-prosecution': 'track02',
   'one-1-5-1-promise': 'track04',
@@ -512,6 +521,8 @@ export const SCENE_TRACK_SEQUENCE: Record<string, keyof typeof TRACK_URL_CANDIDA
   'one-1-5-4-sacrifice': 'track04',
   'two-2-1-escape': 'track12',
   'two-2-2-osiris-launch': 'track01',
+  'two-mirror-scene': 'track05',
+  'two-divine-declaration': 'track05',
   'three-3-1-creation': 'track03',
   'three-3-1b-devil-song': 'track15',
   'three-3-2-virus-design': 'track03',
@@ -531,6 +542,7 @@ export const SCENE_TRACK_SEQUENCE: Record<string, keyof typeof TRACK_URL_CANDIDA
   'six-8d-2-final-update': 'track12',
   'transition-dream': 'track13',
   'six-digital-intro': 'track11',
+  'six-9-1-digital-cage': 'track11',
   'seven-10-1-karbala': 'track09',
   'seven-11-1-temptation': 'track10',
   'seven-11-2-decision': 'track10',
@@ -590,26 +602,27 @@ export const SCENE_IMAGE_CUES: Partial<Record<string, ImageCue>> = {
 
 export type VoiceCue = { at: number; voice: number };
 
-export type VoiceDefinition = { voice: number; sceneId: string; anchor: string; fallbackAt?: number };
+export type VoiceDefinition = { voice: number; sceneId: string; anchor: string; fallbackAt?: number; cueAt?: number };
 
 export const VOICE_DEFINITIONS: VoiceDefinition[] = [
-  { voice: 1, sceneId: 'zero-1-2-prosecution', anchor: 'الملف رقم واحد', fallbackAt: 2 },
-  { voice: 3, sceneId: 'four-5-1-tarek-message', anchor: 'اذا كنت تستمع لهذا', fallbackAt: 0 },
-  { voice: 4, sceneId: 'one-1-5-4-sacrifice', anchor: 'اخي اذا وصلت اليك هذه الرسالة', fallbackAt: 2 },
-  { voice: 5, sceneId: 'three-3-2-virus-design', anchor: 'طارق كان محقا', fallbackAt: 9 },
-  { voice: 6, sceneId: 'six-8-2-last-tears', anchor: 'ابك كالنساء', fallbackAt: 2 },
-  { voice: 7, sceneId: 'six-8-1-andalusia', anchor: 'انهم يفسدون فيها', fallbackAt: 1 },
-  { voice: 8, sceneId: 'seven-10-1-karbala', anchor: 'هذا هو مضاد الفيروسات', fallbackAt: 6 },
-  { voice: 9, sceneId: 'transition-dream', anchor: 'الخوارزمية لا تستطيع حساب التضحية غير المشروطة', fallbackAt: 6 },
-  { voice: 10, sceneId: 'seven-11-2-decision', anchor: 'انا ارفض جنتك المزيفة', fallbackAt: 5 },
-  { voice: 11, sceneId: 'seven-13-2-closing', anchor: 'الدفاع قدم شهوده', fallbackAt: 1 },
-  { voice: 12, sceneId: 'seven-12-1-truth-leak', anchor: 'لا تفصليه دعي الكود يصل', fallbackAt: 4 },
-  { voice: 13, sceneId: 'seven-10-1-karbala', anchor: 'لان الاستسلام ليزيد يعني اعطاء الشرعية', fallbackAt: 4 },
-  { voice: 14, sceneId: 'seven-11-1-temptation', anchor: 'البشر غير مؤهلين للحرية يا يحيى', fallbackAt: 4 },
-  { voice: 15, sceneId: 'five-6c-1-laila-pain', anchor: 'امي كانت ضحية للمؤسسة ايضا', fallbackAt: 3 },
-  { voice: 16, sceneId: 'five-6c-2-tarek-second', anchor: 'اذا رايت نيقية فستفهم كيف تسرق الاديان', fallbackAt: 2 },
-  { voice: 17, sceneId: 'seven-13-2-closing', anchor: 'الملف رقم واحد يغلق مؤقتا', fallbackAt: 7 },
-  { voice: 18, sceneId: 'seven-13-2-closing', anchor: 'القضية مستمرة والخيار الان لك', fallbackAt: 9 },
+  { voice: 1, sceneId: 'zero-1-2-prosecution', anchor: '', fallbackAt: 1, cueAt: 1 },
+  { voice: 2, sceneId: 'three-3-2-virus-design', anchor: '', fallbackAt: 2, cueAt: 2 },
+  { voice: 3, sceneId: 'four-5-1-tarek-message', anchor: '', fallbackAt: 2, cueAt: 2 },
+  { voice: 4, sceneId: 'one-1-5-4-sacrifice', anchor: '', fallbackAt: 2, cueAt: 2 },
+  { voice: 5, sceneId: 'three-3-2-virus-design', anchor: '', fallbackAt: 9, cueAt: 9 },
+  { voice: 6, sceneId: 'six-8-2-last-tears', anchor: '', fallbackAt: 2, cueAt: 2 },
+  { voice: 7, sceneId: 'six-8-1-andalusia', anchor: '', fallbackAt: 4, cueAt: 4 },
+  { voice: 8, sceneId: 'seven-10-1-karbala', anchor: '', fallbackAt: 6, cueAt: 6 },
+  { voice: 9, sceneId: 'transition-dream', anchor: '', fallbackAt: 6, cueAt: 6 },
+  { voice: 10, sceneId: 'seven-11-2-decision', anchor: '', fallbackAt: 5, cueAt: 5 },
+  { voice: 11, sceneId: 'seven-13-2-closing', anchor: '', fallbackAt: 1, cueAt: 1 },
+  { voice: 12, sceneId: 'seven-12-1-truth-leak', anchor: '', fallbackAt: 4, cueAt: 4 },
+  { voice: 13, sceneId: 'seven-10-1-karbala', anchor: '', fallbackAt: 4, cueAt: 4 },
+  { voice: 14, sceneId: 'seven-11-1-temptation', anchor: '', fallbackAt: 4, cueAt: 4 },
+  { voice: 15, sceneId: 'five-6c-1-laila-pain', anchor: '', fallbackAt: 3, cueAt: 3 },
+  { voice: 16, sceneId: 'five-6c-2-tarek-second', anchor: '', fallbackAt: 0, cueAt: 0 },
+  { voice: 17, sceneId: 'four-4-2-crowd-engineering', anchor: '', fallbackAt: 1, cueAt: 1 },
+  { voice: 18, sceneId: 'seven-13-2-closing', anchor: '', fallbackAt: 9, cueAt: 9 },
 ];
 
 export function normalizeArabicForMatch(value: string): string {
@@ -629,6 +642,13 @@ export function normalizeArabicForMatch(value: string): string {
 export const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFINITIONS.reduce((acc, def) => {
   const scene = ALL_SCENES[def.sceneId];
   if (!scene?.dialogue?.length) return acc;
+
+  if (typeof def.cueAt === 'number') {
+    const safeIndex = Math.max(0, Math.min(scene.dialogue.length - 1, def.cueAt));
+    if (!acc[def.sceneId]) acc[def.sceneId] = [];
+    acc[def.sceneId]!.push({ at: safeIndex, voice: def.voice });
+    return acc;
+  }
 
   const target = normalizeArabicForMatch(def.anchor);
   const targetTokens = target.split(' ').filter(Boolean);
@@ -666,9 +686,13 @@ export const SCENE_VOICE_CUES: Partial<Record<string, VoiceCue[]>> = VOICE_DEFIN
 
 export function getVoiceCandidates(voiceNumber: number): string[] {
   const padded = String(Math.max(1, Math.min(18, voiceNumber))).padStart(2, '0');
-  // Voice 01-02 are mp3, 03-18 are wav
-  const ext = voiceNumber <= 2 ? 'mp3' : 'wav';
-  return [`/assets/voices/voice-${padded}.${ext}`];
+  const manifestUrl = getAsset(`voice.voice-${padded}` as any);
+  const candidates = [
+    manifestUrl,
+    `/assets/voices/voice-${padded}.mp3`,
+    `/assets/voices/voice-${padded}.wav`,
+  ].filter(Boolean);
+  return Array.from(new Set(candidates));
 }
 
 // Special voice for devil scenes - fallback to voice-07 (iblis)
